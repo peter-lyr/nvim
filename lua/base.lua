@@ -86,4 +86,26 @@ end
 
 ---------
 
+function M.is(val)
+  if not val or val == 0 or val == '' or val == false or val == {} then
+    return nil
+  end
+  return 1
+end
+
+function M.notify_info(message)
+  local messages = type(message) == 'table' and message or { message, }
+  local title = ''
+  if #messages > 1 then
+    title = table.remove(messages, 1)
+  end
+  message = vim.fn.join(messages, '\n')
+  vim.notify(message, 'info', {
+    title = title,
+    animate = false,
+    on_open = M.notify_on_open,
+    timeout = 1000 * 8,
+  })
+end
+
 return M
