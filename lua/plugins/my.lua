@@ -22,4 +22,14 @@ return {
     end,
   },
 
+  -- my.bufreadpost
+  {
+    name = 'my.bufreadpost',
+    dir = '',
+    event = 'BufReadPost',
+    config = function()
+      require 'config.my.bufreadpost'
+    end,
+  },
+
 }
