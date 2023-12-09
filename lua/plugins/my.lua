@@ -26,6 +26,16 @@ return {
     end,
   },
 
+  -- my.maps
+  {
+    name = 'my.maps',
+    dir = '',
+    event = 'VeryLazy',
+    config = function()
+      require 'config.my.maps'
+    end,
+  },
+
   -- my.bufreadpost
   {
     name = 'my.bufreadpost',
