@@ -19,9 +19,8 @@ local root = data .. 'lazy\\plugins'
 local lockfile = data .. 'lazy-lock.json'
 
 require 'lazy'.setup {
-  spec = {
-    { import = 'plugins', },
-  },
+  defaults = { lazy = true, },
+  spec = { { import = 'plugins', }, },
   root = root,
   readme = { enabled = false, },
   lockfile = lockfile,
