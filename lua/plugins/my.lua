@@ -12,4 +12,14 @@ return {
     },
   },
 
+  -- my.options
+  {
+    name = 'my.options',
+    dir = '',
+    event = 'VeryLazy',
+    config = function()
+      require 'config.my.options'
+    end,
+  },
+
 }
