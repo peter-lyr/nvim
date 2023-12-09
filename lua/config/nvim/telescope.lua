@@ -59,7 +59,7 @@ telescope.setup {
         ['<C-m>'] = actions.select_default,
         ['<CR>'] = actions.select_default,
         ['<C-x>'] = actions.select_horizontal,
-        ['<C-s>'] = actions.select_vertical,
+        ['<C-v>'] = actions.select_vertical,
         ['<C-t>'] = actions.select_tab,
 
         ['<C-u>'] = actions.preview_scrolling_up,
@@ -77,7 +77,7 @@ telescope.setup {
 
         ['<F5>'] = actions_layout.toggle_preview,
 
-        ['<C-v>'] = {
+        ['<C-+>'] = {
           [[<c-r>=trim(getreg("+"))<cr>]],
           type = 'command',
           opts = { nowait = true, silent = true, desc = '"+p', },
@@ -214,8 +214,11 @@ end
 
 -- builtins
 function M.buffers_all() vim.cmd 'Telescope buffers' end
+
 function M.buffers_cur() vim.cmd 'Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true' end
+
 function M.find_files() vim.cmd 'Telescope find_files' end
+
 function M.live_grep() vim.cmd 'Telescope live_grep' end
 
 return M

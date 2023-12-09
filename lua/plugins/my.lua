@@ -5,10 +5,14 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<a-h>', function() require 'config.my.window'.width_less() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less', },
-      { '<a-l>', function() require 'config.my.window'.width_more() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more', },
-      { '<a-k>', function() require 'config.my.window'.height_less() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less', },
-      { '<a-j>', function() require 'config.my.window'.height_more() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more', },
+      { '<a-h>',   function() require 'config.my.window'.width_less_1() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_1', },
+      { '<a-l>',   function() require 'config.my.window'.width_more_1() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_1', },
+      { '<a-k>',   function() require 'config.my.window'.height_less_1() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_1', },
+      { '<a-j>',   function() require 'config.my.window'.height_more_1() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_1', },
+      { '<a-s-h>', function() require 'config.my.window'.width_less_10() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_10', },
+      { '<a-s-l>', function() require 'config.my.window'.width_more_10() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_10', },
+      { '<a-s-k>', function() require 'config.my.window'.height_less_10() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_10', },
+      { '<a-s-j>', function() require 'config.my.window'.height_more_10() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_10', },
     },
   },
 
