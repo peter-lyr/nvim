@@ -32,4 +32,14 @@ return {
     end,
   },
 
+  -- my.textyankpost
+  {
+    name = 'my.textyankpost',
+    dir = '',
+    event = 'TextYankPost',
+    config = function()
+      require 'config.my.textyankpost'
+    end,
+  },
+
 }
