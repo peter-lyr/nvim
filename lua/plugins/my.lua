@@ -67,20 +67,13 @@ return {
       'DiffviewOpen', 'DiffviewFileHistory',
     },
     keys = {
-      -- <leader>g
-      { '<leader>g',   desc = ' + my.git', },
-
-      -- <leader>gg
-      { '<leader>gg',  desc = ' + my.git.push', },
-      { '<leader>ga',  function() require 'config.my.git'.addcommitpush() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gitpush: addcommitpush', },
-
-      -- <leader>gm
-      { '<leader>gm',  desc = ' + my.gitsigns', },
-      { '<leader>gmt', desc = ' + my.gitsigns toggle', },
-
-      -- gitsigns
-      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',                       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
-      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',                       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
+      { '<leader>g',   function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git---', },
+      { '<leader>gg',  function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git.push---', },
+      { '<leader>gm',  function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
+      { '<leader>gmt', function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
+      { '<leader>ga',  function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = 'my.gitpush: addcommitpush', },
+      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
+      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
       { '<leader>j',   desc = 'Gitsigns next_hunk', },
       { '<leader>k',   desc = 'Gitsigns prev_hunk', },
     },
