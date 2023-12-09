@@ -1,5 +1,5 @@
 -- cmdline
-vim.keymap.set({ 'n', 'v', }, '<leader>;', ':', { silent = false, desc = ':', })
+vim.keymap.set({ 'n', 'v', }, '<leader>;', ':', { silent = false, desc = 'cmdline', })
 
 -- record
 vim.keymap.set({ 'n', 'v', }, 'q', '<nop>', { silent = true, desc = '<nop>', })
