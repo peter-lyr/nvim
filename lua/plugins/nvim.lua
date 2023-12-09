@@ -40,10 +40,10 @@ return {
     },
     keys = {
       -- <leader>s
-      { '<leader>s',         desc = 'nvim.telescope', },
+      { '<leader>s',         desc = ' + nvim.telescope', },
 
       -- <leader>sb
-      { '<leader>sb',        desc = 'nvim.telescope: buffers', },
+      { '<leader>sb',        desc = ' + nvim.telescope.buffers', },
       { '<leader>sbb',       function() require 'config.nvim.telescope'.buffers_all() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
       { '<leader>sbc',       function() require 'config.nvim.telescope'.buffers_cur() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers cur', },
 

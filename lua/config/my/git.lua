@@ -1,7 +1,6 @@
 local M = {}
 
 local B = require 'base'
-M.lua = B.getlua(debug.getinfo(1)['source'])
 
 -- notify
 require 'notify'.setup {
@@ -247,8 +246,13 @@ end
 
 -- mapping
 function M.gitpush_opt(desc)
-  return { silent = true, desc = M.lua .. '.push: ' .. desc, }
+  return { silent = true, desc = 'my.git.push: ' .. desc, }
 end
+
+require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
+require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
+require 'which-key'.register { ['<leader>gm'] = { name = 'my.git.signs', }, }
+require 'which-key'.register { ['<leader>gmt'] = { name = 'my.git.signs.toggle', }, }
 
 vim.keymap.set({ 'n', 'v', }, '<leader>ga', M.addcommitpush, M.gitpush_opt 'addcommitpush')
 vim.keymap.set({ 'n', 'v', }, '<leader>gc', M.commit_push, M.gitpush_opt 'commit_push')
@@ -332,7 +336,7 @@ local word_diff_en = 1
 local word_diff = 1
 local moving = nil
 
-B.aucmd({ 'InsertEnter', 'CursorMoved', }, M.lua .. '_InsertEnter', {
+B.aucmd({ 'InsertEnter', 'CursorMoved', }, 'my.git.InsertEnter', {
   callback = function()
     moving = 1
     if word_diff then
@@ -341,7 +345,7 @@ B.aucmd({ 'InsertEnter', 'CursorMoved', }, M.lua .. '_InsertEnter', {
   end,
 })
 
-B.aucmd('CursorHold', M.lua .. '_CursorHold', {
+B.aucmd('CursorHold', 'my.git.CursorHold', {
   callback = function()
     moving = nil
     vim.fn.timer_start(500, function()
@@ -457,7 +461,7 @@ end
 
 -- mapping
 function M.gitsigns_opt(desc)
-  return { silent = true, desc = M.lua .. '.signs: ' .. desc, }
+  return { silent = true, desc = 'my.git.signs: ' .. desc, }
 end
 
 vim.keymap.set({ 'n', }, '<leader>gd', M.diffthis, M.gitsigns_opt 'diffthis')

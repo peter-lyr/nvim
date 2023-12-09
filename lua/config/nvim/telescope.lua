@@ -211,6 +211,11 @@ function M.projects()
   end)
 end
 
+-- mappings
+
+require 'which-key'.register { ['<leader>s'] = { name = 'nvim.telescope', }, }
+require 'which-key'.register { ['<leader>sb'] = { name = 'nvim.telescope.buffers', }, }
+
 -- builtins
 function M.buffers_all() vim.cmd 'Telescope buffers' end
 

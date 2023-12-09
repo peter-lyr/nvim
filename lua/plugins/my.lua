@@ -68,15 +68,15 @@ return {
     },
     keys = {
       -- <leader>g
-      { '<leader>g',   desc = 'my.git', },
+      { '<leader>g',   desc = ' + my.git', },
 
       -- <leader>gg
-      { '<leader>gg',  desc = 'my.gitpush', },
+      { '<leader>gg',  desc = ' + my.git.push', },
       { '<leader>ga',  function() require 'config.my.git'.addcommitpush() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gitpush: addcommitpush', },
 
       -- <leader>gm
-      { '<leader>gm',  desc = 'my.gitsigns', },
-      { '<leader>gmt', desc = 'my.gitsigns toggle', },
+      { '<leader>gm',  desc = ' + my.gitsigns', },
+      { '<leader>gmt', desc = ' + my.gitsigns toggle', },
 
       -- gitsigns
       { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',                       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
