@@ -56,4 +56,43 @@ return {
     end,
   },
 
+  -- my.git
+  {
+    name = 'my.git',
+    dir = '',
+    event = { 'BufReadPre', 'BufNewFile', },
+    cmd = {
+      'Git',
+      'Gitsings',
+      'DiffviewOpen', 'DiffviewFileHistory',
+    },
+    keys = {
+      -- <leader>g
+      { '<leader>g',   desc = 'my.git', },
+
+      -- <leader>gg
+      { '<leader>gg',  desc = 'my.gitpush', },
+      { '<leader>ga',  function() require 'config.my.git'.addcommitpush() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gitpush: addcommitpush', },
+
+      -- <leader>gm
+      { '<leader>gm',  desc = 'my.gitsigns', },
+      { '<leader>gmt', desc = 'my.gitsigns toggle', },
+
+      -- gitsigns
+      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',                       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
+      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',                       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
+      { '<leader>j',   desc = 'Gitsigns next_hunk', },
+      { '<leader>k',   desc = 'Gitsigns prev_hunk', },
+    },
+    dependencies = {
+      'rcarriga/nvim-notify',
+      'skywind3000/asyncrun.vim',
+      'tpope/vim-fugitive',
+      -- 'lewis6991/gitsigns.nvim',
+      'peter-lyr/gitsigns.nvim',
+      -- 'sindrets/diffview.nvim',
+      'peter-lyr/diffview.nvim',
+    },
+  },
+
 }
