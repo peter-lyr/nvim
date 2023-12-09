@@ -1,4 +1,6 @@
 return {
+
+  -- my.window
   {
     name = 'my.window',
     dir = '',
@@ -9,4 +11,5 @@ return {
       { '<a-j>', function() require 'config.my.window'.height_more() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more', },
     },
   },
+
 }
