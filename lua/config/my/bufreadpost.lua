@@ -1,3 +1,5 @@
+local M = {}
+
 local B = require 'base'
 
 -- go to last loc when opening a buffer
@@ -34,3 +36,4 @@ B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
   end,
 })
 
+return M
