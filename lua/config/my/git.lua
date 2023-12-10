@@ -40,6 +40,56 @@ function M.addcommitpush(info)
   end
 end
 
+function M.addcommitpush_curline()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.curline)
+end
+
+function M.addcommitpush_single_quote()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.single_quote)
+end
+
+function M.addcommitpush_double_quote()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.double_quote)
+end
+
+function M.addcommitpush_parentheses()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.parentheses)
+end
+
+function M.addcommitpush_bracket()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.bracket)
+end
+
+function M.addcommitpush_brace()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.brace)
+end
+
+function M.addcommitpush_back_quote()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.back_quote)
+end
+
+function M.addcommitpush_angle_bracket()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.g.angle_bracket)
+end
+
+function M.addcommitpush_cword()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.fn.expand '<cword>')
+end
+
+function M.addcommitpush_cWORD()
+  require 'config.my.insertenter'.setreg()
+  M.addcommitpush(vim.fn.expand '<cWORD>')
+end
+
 function M.commit_push(info)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'diff', '--staged', '--stat', }
@@ -246,16 +296,26 @@ require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
 require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
 
 B.lazy_map {
-  { '<leader>ggc',     M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
-  { '<leader>ggs',     M.push,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: push', },
-  { '<leader>ggg',     M.graph_asyncrun,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_asyncrun', },
-  { '<leader>gg<c-g>', M.graph_start,                     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_start', },
-  { '<leader>ggv',     M.init,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: init', },
-  { '<leader>gga',     M.addall,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addall', },
-  { '<leader>ggr',     M.reset_hard,                      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard', },
-  { '<leader>ggd',     M.reset_hard_clean,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard_clean', },
-  { '<leader>ggD',     M.clean_ignored_files_and_folders, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clean_ignored_files_and_folders', },
-  { '<leader>ggC',     M.clone,                           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clone', },
+  { '<leader>ggc',       M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
+  { '<leader>ggs',       M.push,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: push', },
+  { '<leader>ggg',       M.graph_asyncrun,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_asyncrun', },
+  { '<leader>gg<c-g>',   M.graph_start,                     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_start', },
+  { '<leader>ggv',       M.init,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: init', },
+  { '<leader>gga',       M.addall,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addall', },
+  { '<leader>ggr',       M.reset_hard,                      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard', },
+  { '<leader>ggd',       M.reset_hard_clean,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard_clean', },
+  { '<leader>ggD',       M.clean_ignored_files_and_folders, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clean_ignored_files_and_folders', },
+  { '<leader>ggC',       M.clone,                           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clone', },
+  { '<leader>g<c-l>',    M.addcommitpush_curline,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush curline', },
+  { '<leader>g<c-\'>',   M.addcommitpush_single_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush single_quote', },
+  { '<leader>g<c-s-\'>', M.addcommitpush_double_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush double_quote', },
+  { '<leader>g<c-0>',    M.addcommitpush_parentheses,       mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush parentheses', },
+  { '<leader>g<c-]>',    M.addcommitpush_bracket,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush bracket', },
+  { '<leader>g<c-s-]>',  M.addcommitpush_brace,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush brace', },
+  { '<leader>g<c-`>',    M.addcommitpush_back_quote,        mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush back_quote', },
+  { '<leader>g<c-s-.>',  M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
+  { '<leader>g<c-e>',    M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
+  { '<leader>g<c-3>',    M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
 }
 
 -- gitsigns
@@ -393,20 +453,21 @@ require 'which-key'.register { ['<leader>gm'] = { name = 'my.git.signs', }, }
 require 'which-key'.register { ['<leader>gmt'] = { name = 'my.git.signs.toggle', }, }
 
 B.lazy_map {
-  { '<leader>k',    M.leader_k,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git: prev_hunk',                       expr = true, },
-  { '<leader>j',    M.leader_j,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git: prev_hunk',                       expr = true, },
-  { '<leader>gmd',  M.diffthis_l,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: diffthis_l', },
-  { '<leader>gmr',  M.reset_buffer,              mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: reset_buffer', },
-  { '<leader>gms',  M.stage_buffer,              mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: stage_buffer', },
-  { '<leader>gmb',  M.blame_line,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: blame_line', },
-  { '<leader>gmp',  M.preview_hunk,              mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: preview_hunk', },
-  { '<leader>gmtb', M.toggle_current_line_blame, mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_current_line_blame', },
-  { '<leader>gmtd', M.toggle_deleted,            mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_deleted', },
-  { '<leader>gmtl', M.toggle_linehl,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_linehl', },
-  { '<leader>gmtn', M.toggle_numhl,              mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_numhl', },
-  { '<leader>gmts', M.toggle_signs,              mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_signs', },
-  { '<leader>gmtw', M.toggle_word_diff,          mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_word_diff', },
+  { '<leader>k',    M.leader_k,                  mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk',                 expr = true, },
+  { '<leader>j',    M.leader_j,                  mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk',                 expr = true, },
+  { '<leader>gmd',  M.diffthis_l,                mode = { 'n', 'v', }, desc = 'my.git.signs: diffthis_l', },
+  { '<leader>gmr',  M.reset_buffer,              mode = { 'n', 'v', }, desc = 'my.git.signs: reset_buffer', },
+  { '<leader>gms',  M.stage_buffer,              mode = { 'n', 'v', }, desc = 'my.git.signs: stage_buffer', },
+  { '<leader>gmb',  M.blame_line,                mode = { 'n', 'v', }, desc = 'my.git.signs: blame_line', },
+  { '<leader>gmp',  M.preview_hunk,              mode = { 'n', 'v', }, desc = 'my.git.signs: preview_hunk', },
+  { '<leader>gmtb', M.toggle_current_line_blame, mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_current_line_blame', },
+  { '<leader>gmtd', M.toggle_deleted,            mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_deleted', },
+  { '<leader>gmtl', M.toggle_linehl,             mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_linehl', },
+  { '<leader>gmtn', M.toggle_numhl,              mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_numhl', },
+  { '<leader>gmts', M.toggle_signs,              mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_signs', },
+  { '<leader>gmtw', M.toggle_word_diff,          mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_word_diff', },
 }
+
 
 -- lazygit
 function M.lazygit() B.system_run('start', 'lazygit') end

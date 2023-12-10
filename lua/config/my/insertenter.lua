@@ -122,3 +122,5 @@ B.lazy_map {
   -- esc
   { '<esc>',   '<c-\\><c-n>',                          mode = { 't', },           desc = 'my.insertenter: esc', },
 }
+
+return M
