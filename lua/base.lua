@@ -430,14 +430,33 @@ M.my_dirs = {
 
 function M.lazy_map(tbls)
   for _, tbl in ipairs(tbls) do
-    local silent = tbl['silent'] and tbl['silent'] or true
-    local desc = tbl['desc'] and tbl['desc'] or 'no_desc'
-    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], { silent = silent, desc = desc, })
+    local opt = {}
+    for k, v in pairs(tbl) do
+      if type(k) == 'string' and k ~= 'mode' then
+        opt[k] = v
+      end
+    end
+    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], opt)
   end
 end
 
 function M.del_map(mode, lhs)
   pcall(vim.keymap.del, mode, lhs)
+end
+
+-----------
+
+function M.is_buf_fts(fts, buf)
+  if not buf then
+    buf = vim.fn.bufnr()
+  end
+  if type(fts) == 'string' then
+    fts = { fts, }
+  end
+  if M.is(vim.tbl_contains(fts, vim.api.nvim_buf_get_option(buf, 'filetype'))) then
+    return 1
+  end
+  return nil
 end
 
 return M

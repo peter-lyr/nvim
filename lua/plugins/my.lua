@@ -56,6 +56,16 @@ return {
     end,
   },
 
+  -- my.insertenter
+  {
+    name = 'my.insertenter',
+    dir = '',
+    event = { 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
+    config = function()
+      require 'config.my.insertenter'
+    end,
+  },
+
   -- my.git
   {
     name = 'my.git',
