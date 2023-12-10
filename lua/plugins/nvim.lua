@@ -79,4 +79,31 @@ return {
     end,
   },
 
+  -- cmp
+  {
+    'hrsh7th/nvim-cmp',
+    lazy = true,
+    version = false, -- last release is way too old
+    ft = {
+      'c', 'cpp',
+      'lua',
+      'markdown',
+      'python',
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'L3MON4D3/LuaSnip',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'rafamadriz/friendly-snippets',
+      'saadparwaiz1/cmp_luasnip',
+      'LazyVim/LazyVim',
+    },
+    config = function()
+      require 'config.nvim.cmp'
+    end,
+  }
+
 }

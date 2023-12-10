@@ -11,10 +11,8 @@ function M.aucmd(event, desc, opts)
   return vim.api.nvim_create_autocmd(event, opts)
 end
 
-function M.getlua(luafile)
-  local lua = string.match(luafile, '.+lua/(.+)%.lua')
-  lua = string.gsub(lua, '/', '.')
-  return lua
+function M.getsource(luafile)
+  return M.rep_backslash(vim.fn.trim(luafile, '@'))
 end
 
 --------------------

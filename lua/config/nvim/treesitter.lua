@@ -1,7 +1,6 @@
 local M = {}
 
 local B = require 'base'
-local lua = B.getlua(debug.getinfo(1)['source'])
 
 M.treesitter_parser = B.getcreate_stddata_dirpath 'treesitter_parser'.filename
 
@@ -73,7 +72,7 @@ require 'treesitter-context'.setup {
 
 require 'match-up'.setup {}
 
-B.aucmd({ 'TabClosed', 'TabEnter', }, lua .. 'TabClosed', {
+B.aucmd({ 'TabClosed', 'TabEnter', }, 'nvim.treesitter.TabClosed', {
   callback = function()
     B.set_timeout(50, function()
       if string.match(vim.bo.ft, 'Diffview') or vim.opt.diff:get() == true then
