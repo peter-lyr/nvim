@@ -257,21 +257,16 @@ require 'project_nvim'.setup {
   patterns = { '.git', },
 }
 
-function M.projects()
+function M.projects_do()
   M.setreg()
   vim.cmd 'Telescope projects'
+end
+
+function M.projects()
+  M.projects_do()
   vim.cmd [[call feedkeys("\<esc>\<esc>")]]
   B.lazy_map {
-    {
-      '<leader>sk',
-      function()
-        M.setreg()
-        vim.cmd 'Telescope projects'
-      end,
-      mode = { 'n', 'v', },
-      silent = true,
-      desc = 'nvim.telescope: projects',
-    },
+    { '<leader>sk', M.projects_do, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
   }
   vim.fn.timer_start(20, function()
     vim.cmd [[call feedkeys(":Telescope projects\<cr>")]]
