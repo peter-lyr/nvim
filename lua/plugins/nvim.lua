@@ -104,6 +104,31 @@ return {
     config = function()
       require 'config.nvim.cmp'
     end,
-  }
+  },
+
+  -- lsp
+  {
+    'neovim/nvim-lspconfig',
+    lazy = true,
+    ft = {
+      'c', 'cpp',
+      'lua',
+      'python',
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
+      'jay-babu/mason-null-ls.nvim',
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {}, },
+      'folke/neodev.nvim',
+      'smjonas/inc-rename.nvim',
+      'LazyVim/LazyVim',
+    },
+    config = function()
+      require 'config.nvim.lsp'
+    end,
+  },
 
 }
