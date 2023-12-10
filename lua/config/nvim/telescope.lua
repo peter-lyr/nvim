@@ -21,7 +21,7 @@ local function five_down()
       end
     end,
     type = 'action',
-    opts = { nowait = true, silent = true, desc = '5j', },
+    opts = { nowait = true, silent = true, desc = 'nvim.telescope: 5j', },
   }
 end
 
@@ -33,7 +33,7 @@ local function five_up()
       end
     end,
     type = 'action',
-    opts = { nowait = true, silent = true, desc = '5k', },
+    opts = { nowait = true, silent = true, desc = 'nvim.telescope: 5k', },
   }
 end
 
@@ -80,7 +80,7 @@ telescope.setup {
         ['<C-+>'] = {
           [[<c-r>=trim(getreg("+"))<cr>]],
           type = 'command',
-          opts = { nowait = true, silent = true, desc = '"+p', },
+          opts = { nowait = true, silent = true, desc = 'nvim.telescope: "+p', },
         },
 
         ['<C-n>'] = actions.move_selection_next,
@@ -205,7 +205,7 @@ function M.projects()
   vim.cmd [[call feedkeys("\<esc>\<esc>")]]
   vim.keymap.set({ 'n', 'v', }, '<leader>sk', function()
     vim.cmd 'Telescope projects'
-  end, { silent = true, desc = 'Telescope projects', })
+  end, { silent = true, desc = 'nvim.telescope: projects', })
   vim.fn.timer_start(20, function()
     vim.cmd [[call feedkeys(":Telescope projects\<cr>")]]
   end)

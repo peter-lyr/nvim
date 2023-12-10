@@ -368,8 +368,6 @@ function M.toggle_word_diff()
   end
 end
 
-function M.lazygit() B.system_run('start', 'lazygit') end
-
 -- mapping
 vim.keymap.set('n', '<leader>j', function()
   if vim.wo.diff then return ']c' end
@@ -392,18 +390,20 @@ require 'which-key'.register { ['<leader>gm'] = { name = 'my.git.signs', }, }
 require 'which-key'.register { ['<leader>gmt'] = { name = 'my.git.signs.toggle', }, }
 
 B.lazy_map {
-  { '<leader>gmd',  function() require 'config.my.git'.diffthis_l() end,                mode = { 'n', }, silent = true, desc = 'diffthis_l', },
-  { '<leader>gmr',  function() require 'config.my.git'.reset_buffer() end,              mode = { 'n', }, silent = true, desc = 'reset_buffer', },
-  { '<leader>gms',  function() require 'config.my.git'.stage_buffer() end,              mode = { 'n', }, silent = true, desc = 'stage_buffer', },
-  { '<leader>gmb',  function() require 'config.my.git'.blame_line() end,                mode = { 'n', }, silent = true, desc = 'blame_line', },
-  { '<leader>gmp',  function() require 'config.my.git'.preview_hunk() end,              mode = { 'n', }, silent = true, desc = 'preview_hunk', },
-  { '<leader>gmtb', function() require 'config.my.git'.toggle_current_line_blame() end, mode = { 'n', }, silent = true, desc = 'toggle_current_line_blame', },
-  { '<leader>gmtd', function() require 'config.my.git'.toggle_deleted() end,            mode = { 'n', }, silent = true, desc = 'toggle_deleted', },
-  { '<leader>gmtl', function() require 'config.my.git'.toggle_linehl() end,             mode = { 'n', }, silent = true, desc = 'toggle_linehl', },
-  { '<leader>gmtn', function() require 'config.my.git'.toggle_numhl() end,              mode = { 'n', }, silent = true, desc = 'toggle_numhl', },
-  { '<leader>gmts', function() require 'config.my.git'.toggle_signs() end,              mode = { 'n', }, silent = true, desc = 'toggle_signs', },
-  { '<leader>gmtw', function() require 'config.my.git'.toggle_word_diff() end,          mode = { 'n', }, silent = true, desc = 'toggle_word_diff', },
+  { '<leader>gmd',  function() require 'config.my.git'.diffthis_l() end,                mode = { 'n', }, silent = true, desc = 'my.git.signs: diffthis_l', },
+  { '<leader>gmr',  function() require 'config.my.git'.reset_buffer() end,              mode = { 'n', }, silent = true, desc = 'my.git.signs: reset_buffer', },
+  { '<leader>gms',  function() require 'config.my.git'.stage_buffer() end,              mode = { 'n', }, silent = true, desc = 'my.git.signs: stage_buffer', },
+  { '<leader>gmb',  function() require 'config.my.git'.blame_line() end,                mode = { 'n', }, silent = true, desc = 'my.git.signs: blame_line', },
+  { '<leader>gmp',  function() require 'config.my.git'.preview_hunk() end,              mode = { 'n', }, silent = true, desc = 'my.git.signs: preview_hunk', },
+  { '<leader>gmtb', function() require 'config.my.git'.toggle_current_line_blame() end, mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_current_line_blame', },
+  { '<leader>gmtd', function() require 'config.my.git'.toggle_deleted() end,            mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_deleted', },
+  { '<leader>gmtl', function() require 'config.my.git'.toggle_linehl() end,             mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_linehl', },
+  { '<leader>gmtn', function() require 'config.my.git'.toggle_numhl() end,              mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_numhl', },
+  { '<leader>gmts', function() require 'config.my.git'.toggle_signs() end,              mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_signs', },
+  { '<leader>gmtw', function() require 'config.my.git'.toggle_word_diff() end,          mode = { 'n', }, silent = true, desc = 'my.git.signs: toggle_word_diff', },
 }
 
+-- lazygit
+function M.lazygit() B.system_run('start', 'lazygit') end
 
 return M
