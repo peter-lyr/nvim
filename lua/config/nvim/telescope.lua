@@ -14,6 +14,9 @@ require 'notify'.setup {
   end,
 }
 vim.notify = require 'notify'
+B.lazy_map {
+  { '<esc>', function() require 'notify'.dismiss() end, mode = { 'n', }, silent = true, desc = 'notify dismiss notification', },
+}
 
 -- telescope
 local telescope = require 'telescope'
