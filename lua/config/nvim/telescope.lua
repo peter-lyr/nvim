@@ -1,5 +1,19 @@
 local M = {}
 
+-- notify
+require 'notify'.setup {
+  top_down = false,
+  timeout = 3000,
+  max_height = function()
+    return math.floor(vim.o.lines * 0.75)
+  end,
+  max_width = function()
+    return math.floor(vim.o.columns * 0.75)
+  end,
+}
+vim.notify = require 'notify'
+
+-- telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local actions_layout = require 'telescope.actions.layout'
@@ -13,7 +27,7 @@ vim.api.nvim_create_autocmd({ 'User', }, {
   end,
 })
 
-local function five_down()
+function M.five_down()
   return {
     function(prompt_bufnr)
       for _ = 1, 5 do
@@ -25,7 +39,7 @@ local function five_down()
   }
 end
 
-local function five_up()
+function M.five_up()
   return {
     function(prompt_bufnr)
       for _ = 1, 5 do
@@ -92,12 +106,12 @@ telescope.setup {
         ['<ScrollWheelDown>'] = actions.move_selection_next,
         ['<ScrollWheelUp>'] = actions.move_selection_previous,
 
-        ['<A-s-j>'] = five_down(),
-        ['<A-s-k>'] = five_up(),
-        ['<C-j>'] = five_down(),
-        ['<C-k>'] = five_up(),
-        ['<PageDown>'] = five_down(),
-        ['<PageUp>'] = five_up(),
+        ['<A-s-j>'] = M.five_down(),
+        ['<A-s-k>'] = M.five_up(),
+        ['<C-j>'] = M.five_down(),
+        ['<C-k>'] = M.five_up(),
+        ['<PageDown>'] = M.five_down(),
+        ['<PageUp>'] = M.five_up(),
 
         ['<LeftMouse>'] = actions.select_default,
         ['<RightMouse>'] = actions_layout.toggle_preview,
@@ -106,9 +120,7 @@ telescope.setup {
           type = 'action',
           opts = { nowait = true, silent = true, },
         },
-
       },
-
       n = {
         ['q'] = actions.close,
         ['<esc>'] = actions.close,
@@ -143,17 +155,16 @@ telescope.setup {
 
         ['<F5>'] = actions_layout.toggle_preview,
 
-        ['<c-j>'] = five_down(),
-        ['<c-k>'] = five_up(),
-        ['<PageDown>'] = five_down,
-        ['<PageUp>'] = five_up,
+        ['<c-j>'] = M.five_down(),
+        ['<c-k>'] = M.five_up(),
+        ['<PageDown>'] = M.five_down,
+        ['<PageUp>'] = M.five_up,
 
         ['<ScrollWheelDown>'] = actions.move_selection_next,
         ['<ScrollWheelUp>'] = actions.move_selection_previous,
         ['<LeftMouse>'] = actions.select_default,
         ['<RightMouse>'] = actions_layout.toggle_preview,
         ['<MiddleMouse>'] = actions.close,
-
       },
     },
     file_ignore_patterns = {}, -- { '%.svn', 'obj', },
@@ -171,19 +182,6 @@ telescope.setup {
     wrap_results = true,
   },
 }
-
--- notify
-require 'notify'.setup {
-  top_down = false,
-  timeout = 3000,
-  max_height = function()
-    return math.floor(vim.o.lines * 0.75)
-  end,
-  max_width = function()
-    return math.floor(vim.o.columns * 0.75)
-  end,
-}
-vim.notify = require 'notify'
 
 -- git_diffs
 telescope.load_extension 'git_diffs'
@@ -211,11 +209,6 @@ function M.projects()
   end)
 end
 
--- mappings
-
-require 'which-key'.register { ['<leader>s'] = { name = 'nvim.telescope', }, }
-require 'which-key'.register { ['<leader>sb'] = { name = 'nvim.telescope.buffers', }, }
-
 -- builtins
 function M.buffers_all() vim.cmd 'Telescope buffers' end
 
@@ -224,5 +217,12 @@ function M.buffers_cur() vim.cmd 'Telescope buffers cwd_only=true sort_mru=true 
 function M.find_files() vim.cmd 'Telescope find_files' end
 
 function M.live_grep() vim.cmd 'Telescope live_grep' end
+
+-- mappings
+vim.keymap.del({ 'n', 'v', }, '<leader>s')
+vim.keymap.del({ 'n', 'v', }, '<leader>sb')
+
+require 'which-key'.register { ['<leader>s'] = { name = 'nvim.telescope', }, }
+require 'which-key'.register { ['<leader>sb'] = { name = 'nvim.telescope.buffers', }, }
 
 return M

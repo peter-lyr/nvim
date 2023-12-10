@@ -39,12 +39,15 @@ return {
       'rcarriga/nvim-notify',
     },
     keys = {
+      -- builtins
       { '<leader>s',         function() require 'config.nvim.telescope' end,               mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope---', },
       { '<leader>sb',        function() require 'config.nvim.telescope' end,               mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope.buffers---', },
       { '<leader>sbb',       function() require 'config.nvim.telescope'.buffers_all() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
       { '<leader>sbc',       function() require 'config.nvim.telescope'.buffers_cur() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers cur', },
       { '<leader>s<leader>', function() require 'config.nvim.telescope'.find_files() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files', },
       { '<leader>sl',        function() require 'config.nvim.telescope'.live_grep() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep', },
+
+      -- projects
       { '<leader>sk',        function() require 'config.nvim.telescope'.projects() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
     },
     config = function()
