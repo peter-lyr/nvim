@@ -236,8 +236,8 @@ end
 -- mapping
 function M.gitpush_opt(desc) return { silent = true, desc = 'my.git.push: ' .. desc, } end
 
-vim.keymap.del({ 'n', 'v', }, '<leader>g')
-vim.keymap.del({ 'n', 'v', }, '<leader>gg')
+B.del_map({ 'n', 'v', }, '<leader>g')
+B.del_map({ 'n', 'v', }, '<leader>gg')
 
 require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
 require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
@@ -383,8 +383,8 @@ end, { expr = true, desc = 'my.git.signs prev_hunk', })
 
 function M.gitsigns_opt(desc) return { silent = true, desc = 'my.git.signs: ' .. desc, } end
 
-vim.keymap.del({ 'n', 'v', }, '<leader>gm')
-vim.keymap.del({ 'n', 'v', }, '<leader>gmt')
+B.del_map({ 'n', 'v', }, '<leader>gm')
+B.del_map({ 'n', 'v', }, '<leader>gmt')
 
 require 'which-key'.register { ['<leader>gm'] = { name = 'my.git.signs', }, }
 require 'which-key'.register { ['<leader>gmt'] = { name = 'my.git.signs.toggle', }, }

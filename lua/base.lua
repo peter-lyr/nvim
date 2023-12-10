@@ -436,4 +436,8 @@ function M.lazy_map(tbls)
   end
 end
 
+function M.del_map(mode, lhs)
+  pcall(vim.keymap.del, mode, lhs)
+end
+
 return M
