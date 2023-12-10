@@ -38,6 +38,11 @@ lazy_map {
   { '<c-c>',               '"+y',             mode = { 'v', },      silent = true,  desc = 'my.maps: "+y', },
 }
 
+lazy_map {
+  { 'q.', function() vim.cmd 'silent !explorer %:h' end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer %:h', },
+  { 'qw', function() vim.cmd('silent !explorer ' .. vim.loop.cwd()) end, mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer cwd', },
+}
+
 vim.cmd [[
 cab xpx sort
 cab xqc g/^\(.*\)$\n\1$/d
