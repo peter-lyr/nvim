@@ -13,6 +13,7 @@ if not vim.loop.fs_stat(lazypath) then
     '--branch=stable', -- latest stable release
     lazypath,
   }
+  vim.opt.rtp:prepend(lazypath)
 end
 
 local root = data .. 'lazy\\plugins'
