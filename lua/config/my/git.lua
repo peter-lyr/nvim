@@ -155,7 +155,7 @@ function M.init_do(git_root_dir)
     return
   end
   remote_name = '.git-' .. remote_name
-  local remote_dir_path = B.get_dir_path { git_root_dir, remote_name, }
+  local remote_dir_path = B.getcreate_dirpath { git_root_dir, remote_name, }
   if remote_dir_path:exists() then
     B.notify_info('remote path already existed: ' .. remote_dir_path.filename)
     return

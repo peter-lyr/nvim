@@ -110,6 +110,7 @@ return {
       'peter-lyr/gitsigns.nvim',
       -- 'sindrets/diffview.nvim',
       'peter-lyr/diffview.nvim',
+      'dbakker/vim-projectroot',
     },
     config = function()
       require 'config.my.git'
