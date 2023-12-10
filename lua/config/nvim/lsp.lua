@@ -140,4 +140,118 @@ vim.diagnostic.config {
   severity_sort = true,
 }
 
+-- functions
+function M.stop_all() vim.lsp.stop_client(vim.lsp.get_active_clients(), true) end
+
+function M.rename() vim.fn.feedkeys(':IncRename ' .. vim.fn.expand '<cword>') end
+
+function M.diagnostic_open_float() vim.diagnostic.open_float() end
+
+function M.diagnostic_setloclist() vim.diagnostic.setloclist() end
+
+function M.diagnostic_goto_prev() vim.diagnostic.goto_prev() end
+
+function M.diagnostic_goto_next() vim.diagnostic.goto_next() end
+
+function M.diagnostic_enable() vim.diagnostic.enable() end
+
+function M.diagnostic_disable() vim.diagnostic.disable() end
+
+function M.definition() vim.lsp.buf.definition() end
+
+function M.declaration() vim.lsp.buf.declaration() end
+
+function M.hover() vim.lsp.buf.hover() end
+
+function M.implementation() vim.lsp.buf.implementation() end
+
+function M.signature_help() vim.lsp.buf.signature_help() end
+
+function M.references() vim.lsp.buf.references() end
+
+function M.type_definition() vim.lsp.buf.type_definition() end
+
+function M.code_action() vim.lsp.buf.code_action() end
+
+function M.LspStart() vim.cmd 'LspStart' end
+
+function M.LspRestart() vim.cmd 'LspRestart' end
+
+function M.LspInfo() vim.cmd 'LspInfo' end
+
+function M.feedkeys_LspStop() vim.fn.feedkeys ':LspStop ' end
+
+function M.ClangdSwitchSourceHeader() vim.cmd 'ClangdSwitchSourceHeader' end
+
+function M.retab_erase_bad_white_space()
+  vim.cmd 'retab'
+  pcall(vim.cmd, [[%s/\s\+$//]])
+end
+
+function M.format()
+  vim.lsp.buf.format {
+    async = true,
+    filter = function(client)
+      return client.name ~= 'clangd' -- clang-format nedd to check pyvenv.cfg
+    end,
+  }
+end
+
+function M.format_paragraph()
+  local save_cursor = vim.fn.getpos '.'
+  vim.cmd 'norm =ap'
+  pcall(vim.fn.setpos, '.', save_cursor)
+end
+
+function M.format_input()
+  local dirs = B.get_file_dirs_till_git()
+  for _, dir in ipairs(dirs) do
+    local _clang_format_path = require 'plenary.path':new(B.rep_slash_lower(dir)):joinpath '.clang-format'
+    if _clang_format_path:exists() then
+      B.cmd('e %s', _clang_format_path.filename)
+      break
+    end
+  end
+end
+
+-- mappins
+B.del_map({ 'n', 'v', }, '<leader>f')
+B.del_map({ 'n', 'v', }, '<leader>fv')
+
+require 'which-key'.register { ['<leader>f'] = { name = 'nvim.lsp', }, }
+require 'which-key'.register { ['<leader>fv'] = { name = 'nvim.lsp.more', }, }
+
+B.lazy_map {
+  { '<leader>fC',     function() require 'config.nvim.lsp'.format_input() end,                mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_input', },
+  { '<leader>fD',     function() require 'config.nvim.lsp'.feedkeys_LspStop() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: feedkeys_LspStop', },
+  { '<leader>f<c-f>', function() require 'config.nvim.lsp'.LspInfo() end,                     mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspInfo', },
+  { '<leader>f<c-r>', function() require 'config.nvim.lsp'.LspRestart() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspRestart', },
+  { '<leader>f<c-s>', function() require 'config.nvim.lsp'.LspStart() end,                    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspStart', },
+  { '<leader>f<c-w>', function() require 'config.nvim.lsp'.stop_all() end,                    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: stop_all', },
+  { '<leader>fc',     function() require 'config.nvim.lsp'.code_action() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: code_action', },
+  { '<leader>fi',     function() require 'config.nvim.lsp'.implementation() end,              mode = { 'n', 'v', }, desc = 'config.nvim.lsp: implementation', },
+  { '<leader>fp',     function() require 'config.nvim.lsp'.format_paragraph() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_paragraph', },
+  { '<leader>fs',     function() require 'config.nvim.lsp'.signature_help() end,              mode = { 'n', 'v', }, desc = 'config.nvim.lsp: signature_help', },
+  { '<leader>fq',     function() require 'config.nvim.lsp'.diagnostic_enable() end,           mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_enable', },
+  { '<leader>fvq',    function() require 'config.nvim.lsp'.diagnostic_disable() end,          mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_disable', },
+  { '<leader>fve',    function() require 'config.nvim.lsp'.retab_erase_bad_white_space() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: retab_erase_bad_white_space', },
+  { '<leader>fvd',    function() require 'config.nvim.lsp'.type_definition() end,             mode = { 'n', 'v', }, desc = 'config.nvim.lsp: type_definition', },
+  --
+  { '[d',             function() require 'config.nvim.lsp'.diagnostic_goto_prev() end,        mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_goto_prev', },
+  { '[f',             function() require 'config.nvim.lsp'.diagnostic_open_float() end,       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_open_float', },
+  { ']d',             function() require 'config.nvim.lsp'.diagnostic_goto_next() end,        mode = { 'n', 'v', }, desc = 'config.nvim.lsp: iagnostic_goto_next', },
+  { ']f',             function() require 'config.nvim.lsp'.diagnostic_setloclist() end,       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_setloclist', },
+  --
+  { '<leader>fo',     function() require 'config.nvim.lsp'.declaration() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: declaration', },
+  { '<C-F12>',        function() require 'config.nvim.lsp'.declaration() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: declaration', },
+  { '<leader>fw',     function() require 'config.nvim.lsp'.ClangdSwitchSourceHeader() end,    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: ClangdSwitchSourceHeader', },
+  { '<F11>',          function() require 'config.nvim.lsp'.ClangdSwitchSourceHeader() end,    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: ClangdSwitchSourceHeader', },
+  { '<leader>fd',     function() require 'config.nvim.lsp'.definition() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: definition', },
+  { '<F12>',          function() require 'config.nvim.lsp'.definition() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: definition', },
+  { '<leader>fe',     function() require 'config.nvim.lsp'.references() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: references', },
+  { '<S-F12>',        function() require 'config.nvim.lsp'.references() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: references', },
+  { '<leader>fh',     function() require 'config.nvim.lsp'.hover() end,                       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: hover', },
+  { '<A-F12>',        function() require 'config.nvim.lsp'.hover() end,                       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: hover', },
+}
+
 return M

@@ -126,6 +126,12 @@ return {
       'smjonas/inc-rename.nvim',
       'LazyVim/LazyVim',
     },
+    keys = {
+      { '<leader>f',  function() require 'config.nvim.lsp' end,          mode = { 'n', 'v', }, desc = '---nvim.lsp---', },
+      { '<leader>fv', function() require 'config.nvim.lsp' end,          mode = { 'n', 'v', }, desc = '---nvim.lsp.more---', },
+      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format', },
+      { '<leader>fn', function() require 'config.nvim.lsp'.rename() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: rename', },
+    },
     config = function()
       require 'config.nvim.lsp'
     end,
