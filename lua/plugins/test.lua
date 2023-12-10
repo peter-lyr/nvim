@@ -41,6 +41,20 @@ return {
     config = function()
       require 'config.test.statuscol'.setup()
     end,
-  }
+  },
+
+  -- indentblank
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    lazy = true,
+    main = 'ibl',
+    event = { 'CursorMoved', 'CursorMovedI', },
+    dependencies = {
+      'echasnovski/mini.indentscope',
+    },
+    config = function()
+      require 'config.test.indentblank'
+    end,
+  },
 
 }
