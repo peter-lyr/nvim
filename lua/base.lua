@@ -426,4 +426,14 @@ M.my_dirs = {
   M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
 }
 
+-----------
+
+function M.lazy_map(tbls)
+  for _, tbl in ipairs(tbls) do
+    local silent = tbl['silent'] and tbl['silent'] or true
+    local desc = tbl['desc'] and tbl['desc'] or 'no_desc'
+    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], { silent = silent, desc = desc, })
+  end
+end
+
 return M
