@@ -1,8 +1,7 @@
 local B = require 'base'
-local lua = B.getlua(debug.getinfo(1)['source'])
 
 -- go to last loc when opening a buffer
-B.aucmd('BufReadPost', lua .. 'BufReadPost', {
+B.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -11,3 +10,27 @@ B.aucmd('BufReadPost', lua .. 'BufReadPost', {
     end
   end,
 })
+
+M.tab_4_fts = {
+  'c', 'cpp',
+  -- 'python',
+  'ld',
+}
+
+B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
+  callback = function(ev)
+    if vim.fn.filereadable(ev.file) == 1 and vim.o.modifiable == true then
+      vim.opt.cursorcolumn = true
+    end
+    if vim.tbl_contains(M.tab_4_fts, vim.opt.filetype:get()) == true then
+      vim.opt.tabstop = 4
+      vim.opt.softtabstop = 4
+      vim.opt.shiftwidth = 4
+    else
+      vim.opt.tabstop = 2
+      vim.opt.softtabstop = 2
+      vim.opt.shiftwidth = 2
+    end
+  end,
+})
+

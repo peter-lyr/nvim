@@ -33,4 +33,14 @@ return {
     end,
   },
 
+  -- statuscol
+  {
+    'luukvbaal/statuscol.nvim',
+    lazy = true,
+    event = { 'BufReadPost', 'BufNewFile', },
+    config = function()
+      require 'config.test.statuscol'.setup()
+    end,
+  }
+
 }
