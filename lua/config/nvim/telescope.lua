@@ -250,9 +250,9 @@ require 'project_nvim'.setup {
 function M.projects()
   vim.cmd 'Telescope projects'
   vim.cmd [[call feedkeys("\<esc>\<esc>")]]
-  vim.keymap.set({ 'n', 'v', }, '<leader>sk', function()
-    vim.cmd 'Telescope projects'
-  end, { silent = true, desc = 'nvim.telescope: projects', })
+  B.lazy_map {
+    { '<leader>sk', function() vim.cmd 'Telescope projects' end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
+  }
   vim.fn.timer_start(20, function()
     vim.cmd [[call feedkeys(":Telescope projects\<cr>")]]
   end)
