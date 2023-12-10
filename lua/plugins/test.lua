@@ -90,4 +90,14 @@ return {
     end,
   },
 
+  -- autopairs
+  {
+    'windwp/nvim-autopairs',
+    event = { 'InsertEnter', 'CursorMoved', },
+    opts = {},
+    dependencies = {
+      'tpope/vim-surround',
+    },
+  },
+
 }
