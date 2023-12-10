@@ -57,4 +57,17 @@ return {
     end,
   },
 
+  -- comment
+  {
+    'numToStr/Comment.nvim',
+    lazy = true,
+    event = { 'BufReadPre', 'BufNewFile', },
+    dependencies = {
+      'preservim/nerdcommenter',
+    },
+    config = function()
+      require 'config.test.comment'
+    end,
+  },
+
 }
