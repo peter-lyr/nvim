@@ -67,4 +67,14 @@ return {
     end,
   },
 
+  -- autosave
+  {
+    'Pocco81/auto-save.nvim',
+    lazy = true,
+    event = { 'InsertEnter', 'TextChanged', },
+    config = function()
+      require 'config.test.autosave'
+    end,
+  },
+
 }
