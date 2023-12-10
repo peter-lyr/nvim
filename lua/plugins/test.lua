@@ -113,4 +113,19 @@ return {
     end,
   },
 
+  -- todo
+  {
+    -- 'folke/todo-comments.nvim',
+    'peter-lyr/todo-comments.nvim',
+    keys = {
+      { '<leader>t',  function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo', },
+      { '<leader>tl', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.locallist', },
+      { '<leader>tt', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.telescope', },
+      { '<leader>tq', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.quickfix', },
+    },
+    config = function()
+      require 'config.test.todo'
+    end,
+  },
+
 }
