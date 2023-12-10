@@ -4,11 +4,8 @@ local B = require 'base'
 
 M.source = B.getsource(debug.getinfo(1)['source'])
 
-local snippets_path = require 'plenary.path':new(M.source .. '.snippets')
-if not snippets_path:is_dir() then vim.fn.mkdir(snippets_path.filename) end
-
 require 'luasnip.loaders.from_vscode'.lazy_load()
-require 'luasnip.loaders.from_snipmate'.lazy_load { paths = { snippets_path.filename, }, }
+require 'luasnip.loaders.from_snipmate'.lazy_load { paths = { B.getcreate_dir(M.source .. '.snippets'), }, }
 
 require 'luasnip'.config.setup {
   history = true,
