@@ -412,4 +412,18 @@ function M.merge_tables(...)
   return result
 end
 
+M.depei = vim.fn.expand [[$HOME]] .. '\\DEPEI'
+
+if vim.fn.isdirectory(M.depei) == 0 then vim.fn.mkdir(M.depei) end
+
+M.my_dirs = {
+  M.rep_backslash_lower(M.depei),
+  M.rep_backslash_lower(vim.fn.expand [[$HOME]]),
+  M.rep_backslash_lower(vim.fn.expand [[$TEMP]]),
+  M.rep_backslash_lower(vim.fn.expand [[$LOCALAPPDATA]]),
+  M.rep_backslash_lower(vim.fn.stdpath 'config'),
+  M.rep_backslash_lower(vim.fn.stdpath 'data'),
+  M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
+}
+
 return M

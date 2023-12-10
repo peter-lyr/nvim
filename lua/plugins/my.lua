@@ -72,10 +72,10 @@ return {
       { '<leader>gm',  function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
       { '<leader>gmt', function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
       { '<leader>ga',  function() require 'config.my.git' end, mode = { 'n', 'v', }, silent = true, desc = 'my.gitpush: addcommitpush', },
-      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
-      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'Gitsigns select_hunk', },
-      { '<leader>j',   desc = 'Gitsigns next_hunk', },
-      { '<leader>k',   desc = 'Gitsigns prev_hunk', },
+      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs select_hunk', },
+      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',       mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs select_hunk', },
+      { '<leader>j',   desc = 'my.git.signs next_hunk', },
+      { '<leader>k',   desc = 'my.git.signs prev_hunk', },
     },
     dependencies = {
       'rcarriga/nvim-notify',
@@ -86,6 +86,9 @@ return {
       -- 'sindrets/diffview.nvim',
       'peter-lyr/diffview.nvim',
     },
+    config = function()
+      require 'config.my.git'
+    end,
   },
 
 }

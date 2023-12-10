@@ -2,6 +2,8 @@ local M = {}
 
 local B = require 'base'
 
+require 'telescope'.load_extension 'ui-select'
+
 -- notify
 require 'notify'.setup {
   top_down = false,
@@ -215,28 +217,15 @@ EOF
 ]]
 end
 
-M.depei = vim.fn.expand [[$HOME]] .. '\\DEPEI'
-
-if vim.fn.isdirectory(M.depei) == 0 then
-  vim.fn.mkdir(M.depei)
-end
-
-M.my_dirs = {
-  B.rep_backslash_lower(M.depei),
-  B.rep_backslash_lower(vim.fn.expand [[$HOME]]),
-  B.rep_backslash_lower(vim.fn.expand [[$TEMP]]),
-  B.rep_backslash_lower(vim.fn.expand [[$LOCALAPPDATA]]),
-  B.rep_backslash_lower(vim.fn.stdpath 'config'),
-  B.rep_backslash_lower(vim.fn.stdpath 'data'),
-  B.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
-}
-
 function M.clone()
   local dirs = B.merge_tables(
-    M.my_dirs,
+    B.my_dirs,
     B.get_file_dirs(B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
   )
   B.ui_sel(dirs, 'git clone sel a dir', function(proj)
+    if not proj then
+      return
+    end
     local author, repo = string.match(vim.fn.input('author/repo to clone: ', 'peter-lyr/2023'), '(.+)/(.+)')
     if B.is(author) and B.is(repo) then
       B.system_run('start', [[cd %s & git clone git@github.com:%s/%s.git]], proj, author, repo)
@@ -245,9 +234,7 @@ function M.clone()
 end
 
 -- mapping
-function M.gitpush_opt(desc)
-  return { silent = true, desc = 'my.git.push: ' .. desc, }
-end
+function M.gitpush_opt(desc) return { silent = true, desc = 'my.git.push: ' .. desc, } end
 
 require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
 require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
@@ -380,69 +367,37 @@ function M.prev_hunk()
   return '<Ignore>'
 end
 
-function M.stage_hunk()
-  require 'gitsigns'.stage_hunk()
-end
+function M.stage_hunk() require 'gitsigns'.stage_hunk() end
 
-function M.stage_hunk_v()
-  require 'gitsigns'.stage_hunk { vim.fn.line '.', vim.fn.line 'v', }
-end
+function M.stage_hunk_v() require 'gitsigns'.stage_hunk { vim.fn.line '.', vim.fn.line 'v', } end
 
-function M.stage_buffer()
-  require 'gitsigns'.stage_buffer()
-end
+function M.stage_buffer() require 'gitsigns'.stage_buffer() end
 
-function M.undo_stage_hunk()
-  require 'gitsigns'.undo_stage_hunk()
-end
+function M.undo_stage_hunk() require 'gitsigns'.undo_stage_hunk() end
 
-function M.reset_hunk()
-  require 'gitsigns'.reset_hunk()
-end
+function M.reset_hunk() require 'gitsigns'.reset_hunk() end
 
-function M.reset_hunk_v()
-  require 'gitsigns'.reset_hunk { vim.fn.line '.', vim.fn.line 'v', }
-end
+function M.reset_hunk_v() require 'gitsigns'.reset_hunk { vim.fn.line '.', vim.fn.line 'v', } end
 
-function M.reset_buffer()
-  require 'gitsigns'.reset_buffer()
-end
+function M.reset_buffer() require 'gitsigns'.reset_buffer() end
 
-function M.preview_hunk()
-  require 'gitsigns'.preview_hunk()
-end
+function M.preview_hunk() require 'gitsigns'.preview_hunk() end
 
-function M.blame_line()
-  require 'gitsigns'.blame_line { full = true, }
-end
+function M.blame_line() require 'gitsigns'.blame_line { full = true, } end
 
-function M.diffthis()
-  require 'gitsigns'.diffthis()
-end
+function M.diffthis() require 'gitsigns'.diffthis() end
 
-function M.diffthis_l()
-  require 'gitsigns'.diffthis '~'
-end
+function M.diffthis_l() require 'gitsigns'.diffthis '~' end
 
-function M.toggle_current_line_blame()
-  require 'gitsigns'.toggle_current_line_blame()
-end
+function M.toggle_current_line_blame() require 'gitsigns'.toggle_current_line_blame() end
 
-function M.toggle_deleted()
-  require 'gitsigns'.toggle_deleted()
-end
+function M.toggle_deleted() require 'gitsigns'.toggle_deleted() end
 
-function M.toggle_numhl()
-  require 'gitsigns'.toggle_numhl()
-end
+function M.toggle_numhl() require 'gitsigns'.toggle_numhl() end
 
-function M.toggle_linehl()
-  require 'gitsigns'.toggle_linehl()
-end
+function M.toggle_linehl() require 'gitsigns'.toggle_linehl() end
 
-function M.toggle_signs()
-  require 'gitsigns'.toggle_signs()
-end
+function M.toggle_signs() require 'gitsigns'.toggle_signs() end
 
 function M.toggle_word_diff()
   local temp = require 'gitsigns'.toggle_word_diff()
@@ -455,14 +410,10 @@ end
 
 ------
 
-function M.lazygit()
-  B.system_run('start', 'lazygit')
-end
+function M.lazygit() B.system_run('start', 'lazygit') end
 
 -- mapping
-function M.gitsigns_opt(desc)
-  return { silent = true, desc = 'my.git.signs: ' .. desc, }
-end
+function M.gitsigns_opt(desc) return { silent = true, desc = 'my.git.signs: ' .. desc, } end
 
 vim.keymap.set({ 'n', }, '<leader>gd', M.diffthis, M.gitsigns_opt 'diffthis')
 
