@@ -36,7 +36,6 @@ return {
   -- statuscol
   {
     'luukvbaal/statuscol.nvim',
-    lazy = true,
     event = { 'BufReadPost', 'BufNewFile', },
     config = function()
       require 'config.test.statuscol'.setup()
@@ -46,7 +45,6 @@ return {
   -- indentblank
   {
     'lukas-reineke/indent-blankline.nvim',
-    lazy = true,
     main = 'ibl',
     event = { 'CursorMoved', 'CursorMovedI', },
     dependencies = {
@@ -60,7 +58,6 @@ return {
   -- comment
   {
     'numToStr/Comment.nvim',
-    lazy = true,
     event = { 'BufReadPre', 'BufNewFile', },
     dependencies = {
       'preservim/nerdcommenter',
