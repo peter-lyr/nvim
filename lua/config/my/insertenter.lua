@@ -79,14 +79,13 @@ B.lazy_map {
   { '<c-d>',   '<c-r>=getcwd()<cr>',                   mode = { 'c', 'i', },      desc = 'my.insertenter: paste cwd',               silent = true, },
 
   { '<c-l>',   '<c-r>=g:curline<cr>',                  mode = { 'c', 'i', },      desc = 'my.insertenter: paste cur line',          silent = true, },
-
-  { "<c-'>",   '<c-r>=g:single_quote<cr>',             mode = { 'c', 't', },      desc = "my.insertenter: <c-'>",                   silent = true, },
-  { "<c-s-'>", '<c-r>=g:double_quote<cr>',             mode = { 'c', 't', },      desc = 'my.insertenter: <c-">',                   silent = true, },
-  { '<c-0>',   '<c-r>=g:parentheses<cr>',              mode = { 'c', 't', },      desc = 'my.insertenter: <c-)>',                   silent = true, },
-  { '<c-]>',   '<c-r>=g:bracket<cr>',                  mode = { 'c', 't', },      desc = 'my.insertenter: <c-]>',                   silent = true, },
-  { '<c-s-]>', '<c-r>=g:brace<cr>',                    mode = { 'c', 't', },      desc = 'my.insertenter: <c->',                    silent = true, },
-  { '<c-`>',   '<c-r>=g:back_quote<cr>',               mode = { 'c', 't', },      desc = 'my.insertenter: <c-`>',                   silent = true, },
-  { '<c-s-.>', '<c-r>=g:angle_bracket<cr>',            mode = { 'c', 't', },      desc = 'my.insertenter: <c->>',                   silent = true, },
+  { "<c-'>",   '<c-r>=g:single_quote<cr>',             mode = { 'c', 't', },      desc = "my.insertenter: paste in ''",             silent = true, },
+  { "<c-s-'>", '<c-r>=g:double_quote<cr>',             mode = { 'c', 't', },      desc = 'my.insertenter: paste in ""',             silent = true, },
+  { '<c-0>',   '<c-r>=g:parentheses<cr>',              mode = { 'c', 't', },      desc = 'my.insertenter: paste in ()',             silent = true, },
+  { '<c-]>',   '<c-r>=g:bracket<cr>',                  mode = { 'c', 't', },      desc = 'my.insertenter: paste in []',             silent = true, },
+  { '<c-s-]>', '<c-r>=g:brace<cr>',                    mode = { 'c', 't', },      desc = 'my.insertenter: paste in {}',             silent = true, },
+  { '<c-`>',   '<c-r>=g:back_quote<cr>',               mode = { 'c', 't', },      desc = 'my.insertenter: paste in ``',             silent = true, },
+  { '<c-s-.>', '<c-r>=g:angle_bracket<cr>',            mode = { 'c', 't', },      desc = 'my.insertenter: paste in <>',             silent = true, },
 
   { '<c-s>',   '<c-r>"',                               mode = { 'c', 'i', },      desc = 'my.insertenter: paste "',                 silent = true, },
   { '<c-s>',   '<c-\\><c-n>pi',                        mode = { 't', },           desc = 'my.insertenter: paste "',                 silent = true, },

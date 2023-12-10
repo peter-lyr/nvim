@@ -100,6 +100,10 @@ function M.setreg()
   end)
 end
 
+function M.paste(command, desc)
+  return { command, type = 'command', opts = { nowait = true, silent = true, desc = desc, }, }
+end
+
 telescope.setup {
   defaults = {
     winblend = 10,
@@ -140,11 +144,21 @@ telescope.setup {
 
         ['<F5>'] = actions_layout.toggle_preview,
 
-        ['<C-+>'] = {
-          [[<c-r>=trim(getreg("+"))<cr>]],
-          type = 'command',
-          opts = { nowait = true, silent = true, desc = 'nvim.telescope: "+p', },
-        },
+        ['<C-s>'] = M.paste('<c-r>"', 'nvim.telescope.paste: "'),
+        ['<C-=>'] = M.paste([[<c-r>=trim(getreg("+"))<cr>]], 'nvim.telescope.paste: +'),
+
+        ['<C-b>'] = M.paste('<c-r>=bufname()<cr>', 'nvim.telescope.paste: bufname'),
+        ['<C-f>'] = M.paste('<c-r>=nvim_buf_get_name(0)()<cr>', 'nvim.telescope.paste: nvim_buf_get_name'),
+
+        ['<C-l>'] = M.paste('<c-r>=g:curline<cr>', 'nvim.telescope.paste: cur line'),
+
+        ['<C-\'>'] = M.paste('<c-r>=g:single_quote<cr>', "nvim.telescope.paste: in ''"),
+        ['<C-">'] = M.paste('<c-r>=g:double_quote<cr>', 'nvim.telescope.paste: in ""'),
+        ['<C-0>'] = M.paste('<c-r>=g:parentheses<cr>', 'nvim.telescope.paste: in ()'),
+        ['<C-]>'] = M.paste('<c-r>=g:bracket<cr>', 'nvim.telescope.paste: in []'),
+        ['<C-S-]>'] = M.paste('<c-r>=g:brace<cr>', 'nvim.telescope.paste: in {}'),
+        ['<C-`>'] = M.paste('<c-r>=g:back_quote<cr>', 'nvim.telescope.paste: in ``'),
+        ['<C-S-.>'] = M.paste('<c-r>=g:angle_bracket<cr>', 'nvim.telescope.paste: in <>'),
 
         ['<C-n>'] = actions.move_selection_next,
         ['<C-p>'] = actions.move_selection_previous,
@@ -164,11 +178,7 @@ telescope.setup {
 
         ['<LeftMouse>'] = actions.select_default,
         ['<RightMouse>'] = actions_layout.toggle_preview,
-        ['<MiddleMouse>'] = {
-          actions.close,
-          type = 'action',
-          opts = { nowait = true, silent = true, },
-        },
+        ['<MiddleMouse>'] = actions.close,
       },
       n = {
         ['q'] = actions.close,
@@ -248,10 +258,20 @@ require 'project_nvim'.setup {
 }
 
 function M.projects()
+  M.setreg()
   vim.cmd 'Telescope projects'
   vim.cmd [[call feedkeys("\<esc>\<esc>")]]
   B.lazy_map {
-    { '<leader>sk', function() vim.cmd 'Telescope projects' end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
+    {
+      '<leader>sk',
+      function()
+        M.setreg()
+        vim.cmd 'Telescope projects'
+      end,
+      mode = { 'n', 'v', },
+      silent = true,
+      desc = 'nvim.telescope: projects',
+    },
   }
   vim.fn.timer_start(20, function()
     vim.cmd [[call feedkeys(":Telescope projects\<cr>")]]
@@ -259,57 +279,135 @@ function M.projects()
 end
 
 -- builtins
-function M.buffers_all() vim.cmd 'Telescope buffers' end
+function M.buffers_all()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+end
 
-function M.buffers_cur() vim.cmd 'Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true' end
+function M.buffers_cur()
+  M.setreg()
+  vim.cmd 'Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true'
+end
 
-function M.find_files() vim.cmd 'Telescope find_files' end
+function M.find_files()
+  M.setreg()
+  vim.cmd 'Telescope find_files'
+end
 
-function M.live_grep() vim.cmd 'Telescope live_grep' end
+function M.live_grep()
+  M.setreg()
+  vim.cmd 'Telescope live_grep'
+end
 
-function M.search_history() vim.cmd 'Telescope search_history' end
+function M.search_history()
+  M.setreg()
+  vim.cmd 'Telescope search_history'
+end
 
-function M.command_history() vim.cmd 'Telescope command_history' end
+function M.command_history()
+  M.setreg()
+  vim.cmd 'Telescope command_history'
+end
 
-function M.commands() vim.cmd 'Telescope commands' end
+function M.commands()
+  M.setreg()
+  vim.cmd 'Telescope commands'
+end
 
-function M.jumplist() vim.cmd 'Telescope jumplist show_line=false' end
+function M.jumplist()
+  M.setreg()
+  vim.cmd 'Telescope jumplist show_line=false'
+end
 
-function M.diagnostics() vim.cmd 'Telescope diagnostics' end
+function M.diagnostics()
+  M.setreg()
+  vim.cmd 'Telescope diagnostics'
+end
 
-function M.filetypes() vim.cmd 'Telescope filetypes' end
+function M.filetypes()
+  M.setreg()
+  vim.cmd 'Telescope filetypes'
+end
 
-function M.quickfix() vim.cmd 'Telescope quickfix' end
+function M.quickfix()
+  M.setreg()
+  vim.cmd 'Telescope quickfix'
+end
 
-function M.quickfixhistory() vim.cmd 'Telescope quickfixhistory' end
+function M.quickfixhistory()
+  M.setreg()
+  vim.cmd 'Telescope quickfixhistory'
+end
 
-function M.builtin() vim.cmd 'Telescope builtin' end
+function M.builtin()
+  M.setreg()
+  vim.cmd 'Telescope builtin'
+end
 
-function M.autocommands() vim.cmd 'Telescope autocommands' end
+function M.autocommands()
+  M.setreg()
+  vim.cmd 'Telescope autocommands'
+end
 
-function M.colorscheme() vim.cmd 'Telescope colorscheme' end
+function M.colorscheme()
+  M.setreg()
+  vim.cmd 'Telescope colorscheme'
+end
 
-function M.git_branches() vim.cmd 'Telescope git_branches' end
+function M.git_branches()
+  M.setreg()
+  vim.cmd 'Telescope git_branches'
+end
 
-function M.git_commits() vim.cmd 'Telescope git_commits' end
+function M.git_commits()
+  M.setreg()
+  vim.cmd 'Telescope git_commits'
+end
 
-function M.git_bcommits() vim.cmd 'Telescope git_bcommits' end
+function M.git_bcommits()
+  M.setreg()
+  vim.cmd 'Telescope git_bcommits'
+end
 
-function M.lsp_document_symbols() vim.cmd 'Telescope lsp_document_symbols' end
+function M.lsp_document_symbols()
+  M.setreg()
+  vim.cmd 'Telescope lsp_document_symbols'
+end
 
-function M.lsp_references() vim.cmd 'Telescope lsp_references' end
+function M.lsp_references()
+  M.setreg()
+  vim.cmd 'Telescope lsp_references'
+end
 
-function M.help_tags() vim.cmd 'Telescope help_tags' end
+function M.help_tags()
+  M.setreg()
+  vim.cmd 'Telescope help_tags'
+end
 
-function M.vim_options() vim.cmd 'Telescope vim_options' end
+function M.vim_options()
+  M.setreg()
+  vim.cmd 'Telescope vim_options'
+end
 
-function M.grep_string() vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true' end
+function M.grep_string()
+  M.setreg()
+  vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true'
+end
 
-function M.keymaps() vim.cmd 'Telescope keymaps' end
+function M.keymaps()
+  M.setreg()
+  vim.cmd 'Telescope keymaps'
+end
 
-function M.git_status() vim.cmd 'Telescope git_status' end
+function M.git_status()
+  M.setreg()
+  vim.cmd 'Telescope git_status'
+end
 
-function M.buffers() vim.cmd 'Telescope buffers' end
+function M.buffers()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+end
 
 function M.nop() end
 
@@ -332,7 +430,6 @@ require 'which-key'.register { ['<leader>svv'] = { name = 'nvim.telescope.more',
 
 B.lazy_map {
   -- builtins
-  { '<leader>sb',     function() M.buffers() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers', },
   { '<leader>sc',     function() M.command_history() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: command_history', },
   { '<leader>svc',    function() M.commands() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: commands', },
   { '<leader>sd',     function() M.diagnostics() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: diagnostics', },
