@@ -214,7 +214,7 @@ function M.format_input()
   end
 end
 
--- mappins
+-- mappings
 B.del_map({ 'n', 'v', }, '<leader>f')
 B.del_map({ 'n', 'v', }, '<leader>fv')
 
