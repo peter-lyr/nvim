@@ -107,6 +107,12 @@ function M.paste(command, desc)
   return { command, type = 'command', opts = { nowait = true, silent = true, desc = desc, }, }
 end
 
+B.aucmd({ 'BufLeave', }, 'nvim.telescope.BufLeave', {
+  callback = function(ev)
+    vim.g.last_buf = ev.buf
+  end,
+})
+
 telescope.setup {
   defaults = {
     winblend = 10,
@@ -150,8 +156,8 @@ telescope.setup {
         ['<C-s>'] = M.paste('<c-r>"', 'nvim.telescope.paste: "'),
         ['<C-=>'] = M.paste([[<c-r>=trim(getreg("+"))<cr>]], 'nvim.telescope.paste: +'),
 
-        ['<C-b>'] = M.paste('<c-r>=bufname()<cr>', 'nvim.telescope.paste: bufname'),
-        ['<C-f>'] = M.paste('<c-r>=nvim_buf_get_name(0)()<cr>', 'nvim.telescope.paste: nvim_buf_get_name'),
+        ['<C-b>'] = M.paste('<c-r>=bufname(g:last_buf)<cr>', 'nvim.telescope.paste: bufname'),
+        ['<C-n>'] = M.paste('<c-r>=fnamemodify(bufname(g:last_buf), ":h")<cr>', 'nvim.telescope.paste: bufname'),
 
         ['<C-l>'] = M.paste('<c-r>=g:curline<cr>', 'nvim.telescope.paste: cur line'),
 
@@ -163,8 +169,6 @@ telescope.setup {
         ['<C-`>'] = M.paste('<c-r>=g:back_quote<cr>', 'nvim.telescope.paste: in ``'),
         ['<C-S-.>'] = M.paste('<c-r>=g:angle_bracket<cr>', 'nvim.telescope.paste: in <>'),
 
-        ['<C-n>'] = actions.move_selection_next,
-        ['<C-p>'] = actions.move_selection_previous,
         ['<Down>'] = actions.move_selection_next,
         ['<Up>'] = actions.move_selection_previous,
         ['<A-j>'] = actions.move_selection_next,
