@@ -123,4 +123,9 @@ B.lazy_map {
   { '<esc>',   '<c-\\><c-n>',                          mode = { 't', },           desc = 'my.insertenter: esc', },
 }
 
+B.lazy_map {
+  { '<ScrollWheelUp>',   '<UP>',   mode = { 't', }, desc = 'my.insertenter: up', },
+  { '<ScrollWheelDown>', '<DOWN>', mode = { 't', }, desc = 'my.insertenter: down', },
+}
+
 return M
