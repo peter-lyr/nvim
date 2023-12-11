@@ -415,7 +415,6 @@ function M.nop() end
 
 -- mappings
 B.del_map({ 'n', 'v', }, '<leader>s')
-B.del_map({ 'n', 'v', }, '<leader>sb')
 B.del_map({ 'n', 'v', }, '<leader>f')
 B.del_map({ 'n', 'v', }, '<leader>g')
 B.del_map({ 'n', 'v', }, '<leader>gt')
@@ -423,7 +422,6 @@ B.del_map({ 'n', 'v', }, '<leader>sv')
 B.del_map({ 'n', 'v', }, '<leader>svv')
 
 require 'which-key'.register { ['<leader>s'] = { name = 'nvim.telescope', }, }
-require 'which-key'.register { ['<leader>sb'] = { name = 'nvim.telescope.buffers', }, }
 require 'which-key'.register { ['<leader>f'] = { name = 'nvim.telescope.lsp', }, }
 require 'which-key'.register { ['<leader>g'] = { name = 'nvim.telescope.git', }, }
 require 'which-key'.register { ['<leader>gt'] = { name = 'nvim.telescope.git.more', }, }
@@ -432,7 +430,6 @@ require 'which-key'.register { ['<leader>svv'] = { name = 'nvim.telescope.more',
 
 B.lazy_map {
   -- builtins
-  { '<leader>sc',     function() M.command_history() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: command_history', },
   { '<leader>svc',    function() M.commands() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: commands', },
   { '<leader>sd',     function() M.diagnostics() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: diagnostics', },
   { '<leader>s<c-f>', function() M.filetypes() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: filetypes', },
