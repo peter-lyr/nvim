@@ -141,6 +141,7 @@ return {
   {
     name = 'my.make',
     dir = '',
+    ft = { 'c', 'cpp', },
     config = function()
       require 'config.my.make'
     end,
@@ -150,6 +151,7 @@ return {
   {
     name = 'my.cmake',
     dir = '',
+    ft = { 'c', 'cpp', },
     config = function()
       require 'config.my.cmake'
     end,
