@@ -36,6 +36,26 @@ return {
     end,
   },
 
+  -- my.uienter
+  {
+    name = 'my.uienter',
+    dir = '',
+    event = 'UIEnter',
+    config = function()
+      vim.fn['GuiWindowFrameless'](1)
+    end,
+  },
+
+  -- my.vimleavepre
+  {
+    name = 'my.vimleavepre',
+    dir = '',
+    event = 'VimLeavePre',
+    config = function()
+      vim.fn['GuiWindowFrameless'](0)
+    end,
+  },
+
   -- my.bufreadpost
   {
     name = 'my.bufreadpost',
