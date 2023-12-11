@@ -430,7 +430,6 @@ require 'which-key'.register { ['<leader>svv'] = { name = 'nvim.telescope.more',
 
 B.lazy_map {
   -- builtins
-  { '<leader>svc',    function() M.commands() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: commands', },
   { '<leader>sd',     function() M.diagnostics() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: diagnostics', },
   { '<leader>s<c-f>', function() M.filetypes() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: filetypes', },
   { '<leader>sh',     function() M.search_history() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: search_history', },
