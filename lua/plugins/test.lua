@@ -13,8 +13,9 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
+    event = { 'BufReadPre', 'BufNewFile', },
+    -- lazy = false,
+    -- priority = 1000,
     config = function()
       vim.cmd.colorscheme 'catppuccin'
     end,
@@ -71,7 +72,7 @@ return {
   {
     'Pocco81/auto-save.nvim',
     lazy = true,
-    event = { 'InsertEnter', 'TextChanged', },
+    event = { 'BufReadPre', 'BufNewFile', },
     config = function()
       require 'config.test.autosave'
     end,
@@ -113,19 +114,19 @@ return {
     end,
   },
 
-  -- todo
-  {
-    -- 'folke/todo-comments.nvim',
-    'peter-lyr/todo-comments.nvim',
-    keys = {
-      { '<leader>t',  function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo', },
-      { '<leader>tl', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.locallist', },
-      { '<leader>tt', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.telescope', },
-      { '<leader>tq', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.quickfix', },
-    },
-    config = function()
-      require 'config.test.todo'
-    end,
-  },
+  -- -- todo
+  -- {
+  --   -- 'folke/todo-comments.nvim',
+  --   'peter-lyr/todo-comments.nvim',
+  --   keys = {
+  --     { '<leader>t',  function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo', },
+  --     { '<leader>tl', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.locallist', },
+  --     { '<leader>tt', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.telescope', },
+  --     { '<leader>tq', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.quickfix', },
+  --   },
+  --   config = function()
+  --     require 'config.test.todo'
+  --   end,
+  -- },
 
 }
