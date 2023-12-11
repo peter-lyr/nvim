@@ -137,22 +137,13 @@ return {
     end,
   },
 
-  -- my.make
+  -- my.make & my.cmake
   {
     name = 'my.make',
     dir = '',
     ft = { 'c', 'cpp', },
     config = function()
       require 'config.my.make'
-    end,
-  },
-
-  -- my.cmake
-  {
-    name = 'my.cmake',
-    dir = '',
-    ft = { 'c', 'cpp', },
-    config = function()
       require 'config.my.cmake'
     end,
   },
