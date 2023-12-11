@@ -11,8 +11,49 @@ function M.aucmd(event, desc, opts)
   return vim.api.nvim_create_autocmd(event, opts)
 end
 
+function M.getlua(luafile)
+  local loaded = string.match(luafile, '.+lua/(.+)%.lua')
+  if not loaded then
+    return ''
+  end
+  loaded = string.gsub(loaded, '/', '.')
+  return loaded
+end
+
 function M.getsource(luafile)
   return M.rep_backslash(vim.fn.trim(luafile, '@'))
+end
+
+function M.create_user_command_string_args(tbl, lua, name)
+  vim.api.nvim_create_user_command(name, function(params)
+    local farg1 = table.remove(params.fargs, 1)
+    M.cmd("lua require('%s').%s([[%s]])", lua, farg1, vim.fn.join(params.fargs, ']], [['))
+  end, {
+    nargs = '*',
+    complete = function()
+      return tbl
+    end,
+  })
+end
+
+function M.get_functions_of_M(m)
+  local functions = {}
+  for k, v in pairs(m) do
+    if type(v) == 'function' then
+      functions[#functions+1] = k
+    end
+  end
+  return functions
+end
+
+function M.get_functions_of_M_exclude_(m)
+  local functions = {}
+  for k, v in pairs(m) do
+    if type(v) == 'function' and string.sub(k, 1, 1) ~= '_' then
+      functions[#functions+1] = k
+    end
+  end
+  return functions
 end
 
 --------------------
@@ -331,6 +372,19 @@ function M.get_fname_tail(file)
   return ''
 end
 
+function M.get_only_name(file)
+  file = M.rep_slash(file)
+  local only_name = vim.fn.trim(file, '\\')
+  if string.match(only_name, '\\') then
+    only_name = string.match(only_name, '.+%\\(.+)$')
+  end
+  return only_name
+end
+
+function M.del_dir(dir)
+  M.system_run('start silent', [[del /s /q %s & rd /s /q %s]], dir, dir)
+end
+
 function M.scan_files(dir, pattern)
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = false, })
   local files = {}
@@ -472,6 +526,26 @@ function M.is_buf_fts(fts, buf)
     return 1
   end
   return nil
+end
+
+-----------------
+
+function M.get_dirs_equal(dname, root_dir)
+  if not root_dir then
+    root_dir = vim.fn['ProjectRootGet']()
+  end
+  local entries = require 'plenary.scandir'.scan_dir(root_dir, { hidden = false, depth = 32, add_dirs = true, })
+  local dirs = {}
+  for _, entry in ipairs(entries) do
+    entry = M.rep_slash(entry)
+    if require 'plenary.path':new(entry):is_dir() then
+      local name = M.get_only_name(entry)
+      if name == dname then
+        dirs[#dirs + 1] = entry
+      end
+    end
+  end
+  return dirs
 end
 
 return M

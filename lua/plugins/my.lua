@@ -137,4 +137,22 @@ return {
     end,
   },
 
+  -- my.make
+  {
+    name = 'my.make',
+    dir = '',
+    config = function()
+      require 'config.my.make'
+    end,
+  },
+
+  -- my.cmake
+  {
+    name = 'my.cmake',
+    dir = '',
+    config = function()
+      require 'config.my.cmake'
+    end,
+  },
+
 }
