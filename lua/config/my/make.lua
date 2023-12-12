@@ -85,20 +85,36 @@ function M.make(runway)
   end
 end
 
-function M.remake(runway)
+function M.asyncrun_remake()
   M.remake_en = 1
-  M.make(runway)
+  M.make 'asyncrun'
 end
 
-function M.make_run(runway)
-  M.runnow_en = 1
-  M.make(runway)
+function M.start_remake()
+  M.remake_en = 1
+  M.make 'start'
 end
 
-function M.remake_run(runway)
+function M.asyncrun_make_run()
+  M.runnow_en = 1
+  M.make 'asyncrun'
+end
+
+function M.start_make_run()
+  M.runnow_en = 1
+  M.make 'start'
+end
+
+function M.asyncrun_remake_run()
   M.remake_en = 1
   M.runnow_en = 1
-  M.make(runway)
+  M.make 'asyncrun'
+end
+
+function M.start_remake_run()
+  M.remake_en = 1
+  M.runnow_en = 1
+  M.make 'start'
 end
 
 ------------------------
@@ -174,22 +190,31 @@ function M._run_do(build_dir, runway)
   end
 end
 
-function M.run(runway)
-  if not runway then
-    runway = 'asyncrun'
-  end
+function M._run(runway)
   local build_dirs = B.get_dirs_equal 'build'
   if #build_dirs == 1 then
-    B.notify_info 'run...'
+    B.notify_info 'make running...'
     M._run_do(build_dirs[1], runway)
   elseif #build_dirs > 1 then
-    B.ui_sel(build_dirs, 'make in build dir', function(build_dir)
-      B.notify_info 'run...'
-      M._run_do(build_dir, runway)
+    B.ui_sel(build_dirs, 'make in which build dir', function(build_dir)
+      if build_dir then
+        B.notify_info 'make running...'
+        M._run_do(build_dir, runway)
+      else
+        B.notify_info 'not build dirs, not running...'
+      end
     end)
   else
-    B.notify_info 'no build dirs, run stopping...'
+    B.notify_info 'not build dirs, not running...'
   end
+end
+
+function M.asyncrun_run()
+  M._run 'asyncrun'
+end
+
+function M.start_run()
+  M._run 'start'
 end
 
 function M.gcc()

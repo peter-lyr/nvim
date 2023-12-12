@@ -31,6 +31,7 @@ function M._get_functions_of_M(m)
       functions[#functions + 1] = k
     end
   end
+  table.sort(functions)
   return functions
 end
 
@@ -43,6 +44,7 @@ function M.create_user_command_with_M(m, name)
     end
   end, {
     nargs = '?',
+    desc = name,
     complete = function()
       return M._get_functions_of_M(m)
     end,
