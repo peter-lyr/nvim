@@ -26,10 +26,9 @@ function M._get_cbps(file)
 end
 
 function M._to_cmake_do(proj)
-  local fname = B.rep_backslash_lower(vim.api.nvim_buf_get_name(0))
   proj = B.rep_backslash_lower(proj)
   if #proj == 0 then
-    B.notify_info('not in a project: ' .. fname)
+    B.notify_info('not in a project: ' .. B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
     return
   end
   local cbps = M._get_cbps(proj)
@@ -42,18 +41,16 @@ function M._to_cmake_do(proj)
   end
 end
 
-function M.cmake(cwd)
+function M.main()
   if #vim.call 'ProjectRootGet' == 0 then
-    B.notify_info 'not in a git repo'
+    B.notify_info 'cmake: not in a git repo'
     return
   end
-  if cwd then
-    M._to_cmake_do(B.rep_slash_lower(vim.call 'ProjectRootGet'))
-  else
-    B.ui_sel(B.get_file_dirs_till_git(), 'which dir to cmake', function(proj)
+  B.ui_sel(B.get_file_dirs_till_git(), 'which dir to cmake', function(proj)
+    if proj then
       M._to_cmake_do(proj)
-    end)
-  end
+    end
+  end)
 end
 
 B.create_user_command_with_M(M, 'CMake')
