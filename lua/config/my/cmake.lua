@@ -56,6 +56,6 @@ function M.cmake(cwd)
   end
 end
 
-B.create_user_command_string_args(B.get_functions_of_M_exclude_(M), M.lua, 'CMake')
+B.create_user_command_with_M(M, 'CMake')
 
 return M

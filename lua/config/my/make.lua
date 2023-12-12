@@ -205,6 +205,6 @@ end
 -- please add to PATH:
 -- INCLUDE: mingw64\x86_64-w64-mingw32\include
 
-B.create_user_command_string_args(B.get_functions_of_M_exclude_(M), M.lua, 'Make')
+B.create_user_command_with_M(M, 'Make')
 
 return M

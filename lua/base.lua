@@ -24,36 +24,29 @@ function M.getsource(luafile)
   return M.rep_backslash(vim.fn.trim(luafile, '@'))
 end
 
-function M.create_user_command_string_args(tbl, lua, name)
-  vim.api.nvim_create_user_command(name, function(params)
-    local farg1 = table.remove(params.fargs, 1)
-    M.cmd("lua require('%s').%s([[%s]])", lua, farg1, vim.fn.join(params.fargs, ']], [['))
-  end, {
-    nargs = '*',
-    complete = function()
-      return tbl
-    end,
-  })
-end
-
-function M.get_functions_of_M(m)
-  local functions = {}
-  for k, v in pairs(m) do
-    if type(v) == 'function' then
-      functions[#functions+1] = k
-    end
-  end
-  return functions
-end
-
-function M.get_functions_of_M_exclude_(m)
+function M._get_functions_of_M(m)
   local functions = {}
   for k, v in pairs(m) do
     if type(v) == 'function' and string.sub(k, 1, 1) ~= '_' then
-      functions[#functions+1] = k
+      functions[#functions + 1] = k
     end
   end
   return functions
+end
+
+function M.create_user_command_with_M(m, name)
+  vim.api.nvim_create_user_command(name, function(params)
+    if #params.fargs == 1 then
+      pcall(M.cmd, "lua require('%s').%s()", m.lua, params.fargs[1])
+    else
+      pcall(M.cmd, "lua require('%s').main()", m.lua)
+    end
+  end, {
+    nargs = '?',
+    complete = function()
+      return M._get_functions_of_M(m)
+    end,
+  })
 end
 
 --------------------
