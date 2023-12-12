@@ -16,8 +16,9 @@ lazy_map {
   -- record
   { 'q',                   '<nop>',           mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: <nop>', },
   { 'Q',                   'q',               mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: q', },
-  -- c.
+  -- cd
   { 'c.',                  '<cmd>cd %:h<cr>', mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: cd %:h', },
+  { 'cu',                  '<cmd>cd ..<cr>',  mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: cd ..', },
   -- undo
   { 'U',                   '<c-r>',           mode = { 'n', },      silent = true,  desc = 'my.maps: redo', },
   -- scroll horizontally
