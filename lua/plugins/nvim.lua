@@ -46,7 +46,7 @@ return {
       { '<leader>n',        function() require 'config.nvim.telescope'.commands() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: commands', },
       { '<leader>b',        function() require 'config.nvim.telescope'.buffers_cur() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers cur', },
       { '<leader><c-b>',    function() require 'config.nvim.telescope'.buffers_all() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
-      { '<leader>so',       function() require 'config.nvim.telescope'.buffers_all() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
+      { '<leader>so',       function() require 'config.nvim.telescope'.oldfiles() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
       -- lsp
       { '<leader>f',        function() require 'config.nvim.telescope' end,                        mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope.lsp---', },
       { '<leader>fl',       function() require 'config.nvim.telescope'.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: document_symbols', },
