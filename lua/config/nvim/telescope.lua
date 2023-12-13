@@ -2,22 +2,6 @@ local M = {}
 
 local B = require 'base'
 
--- notify
-require 'notify'.setup {
-  top_down = false,
-  timeout = 3000,
-  max_height = function()
-    return math.floor(vim.o.lines * 0.75)
-  end,
-  max_width = function()
-    return math.floor(vim.o.columns * 0.75)
-  end,
-}
-vim.notify = require 'notify'
-B.lazy_map {
-  { '<esc>', function() require 'notify'.dismiss() end, mode = { 'n', }, silent = true, desc = 'notify dismiss notification', },
-}
-
 -- telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
