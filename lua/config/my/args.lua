@@ -58,14 +58,24 @@ function M._close_buffer(buffers)
   end
 end
 
+function M._get_buffer_files(buffers)
+  -- local files1 = vim.fn.getbufline(buffers[1], 1, '$')
+  -- local files2 = vim.fn.getbufline(buffers[2], 1, '$')
+end
+
 function M._wait_close_buffer(buffers)
+  M.auids = {}
   for _, buffer in ipairs(buffers) do
-    vim.api.nvim_create_autocmd({ 'BufHidden', 'BufUnload', 'BufDelete', }, {
+    table.insert(M.auids, vim.api.nvim_create_autocmd({ 'BufHidden', 'BufUnload', 'BufDelete', }, {
       buffer = buffer,
       callback = function()
+        for _, auid in ipairs(M.auids) do
+          pcall(vim.api.nvim_del_autocmd, auid)
+        end
+        M._get_buffer_files(buffers)
         M._close_buffer(buffers)
       end,
-    })
+    }))
   end
 end
 
