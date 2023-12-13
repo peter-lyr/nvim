@@ -182,14 +182,19 @@ return {
   {
     -- 'folke/todo-comments.nvim',
     'peter-lyr/todo-comments.nvim',
-    keys = {
-      { '<leader>t',  function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo', },
-      { '<leader>tl', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.locallist', },
-      { '<leader>tt', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.telescope', },
-      { '<leader>tq', function() require 'config.test.todo' end, mode = { 'n', 'v', }, silent = true, desc = 'test.todo.quickfix', },
-    },
+    cmd = { 'TodoLocList', 'TodoTelescope', 'TodoQuickFix', },
     config = function()
-      require 'config.test.todo'
+      require 'todo-comments'.setup {
+        keywords = {
+          FIX = { icon = ' ', color = 'error', alt = { 'FIX', 'FIXME', 'BUG', 'FIXIT', 'ISSUE', }, },
+          TODO = { icon = ' ', color = 'info', alt = { 'TODO', }, },
+          HACK = { icon = ' ', color = 'warning', alt = { 'HACK', }, },
+          WARN = { icon = ' ', color = 'warning', alt = { 'WARN', 'WARNING', 'XXX', }, },
+          PERF = { icon = ' ', alt = { 'PERF', 'OPTIM', 'PERFORMANCE', 'OPTIMIZE', }, },
+          NOTE = { icon = ' ', color = 'hint', alt = { 'NOTE', 'INFO', }, },
+          TEST = { icon = '⏲ ', color = 'test', alt = { 'TEST', 'TESTING', 'PASSED', 'FAILED', }, },
+        },
+      }
     end,
   },
 
