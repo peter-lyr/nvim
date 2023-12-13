@@ -196,7 +196,6 @@ return {
 
     },
     dependencies = {
-      'rcarriga/nvim-notify',
       'skywind3000/asyncrun.vim',
       'tpope/vim-fugitive',
       -- 'lewis6991/gitsigns.nvim',

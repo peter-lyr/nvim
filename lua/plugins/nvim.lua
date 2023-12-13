@@ -36,7 +36,6 @@ return {
       'nvim-telescope/telescope-ui-select.nvim',
       'ahmedkhalf/project.nvim',
       'nvim-tree/nvim-web-devicons',
-      'rcarriga/nvim-notify',
     },
     keys = {
       -- builtins
