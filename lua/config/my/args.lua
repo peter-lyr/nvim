@@ -50,6 +50,25 @@ function M._stack_files_from_qflist()
   end
 end
 
+function M._close_buffer(buffers)
+  for _, buffer in ipairs(buffers) do
+    vim.fn.timer_start(100, function()
+      pcall(vim.cmd, tostring(buffer) .. 'bw!')
+    end)
+  end
+end
+
+function M._wait_close_buffer(buffers)
+  for _, buffer in ipairs(buffers) do
+    vim.api.nvim_create_autocmd({ 'BufHidden', 'BufUnload', 'BufDelete', }, {
+      buffer = buffer,
+      callback = function()
+        M._close_buffer(buffers)
+      end,
+    })
+  end
+end
+
 function M._ro_buffer(lines)
   vim.cmd 'new'
   vim.cmd 'set noro'
@@ -59,6 +78,7 @@ function M._ro_buffer(lines)
   vim.cmd 'diffthis'
   vim.cmd 'set ro'
   vim.cmd 'set noma'
+  return vim.fn.bufnr()
 end
 
 function M._ma_buffer(lines)
@@ -68,13 +88,17 @@ function M._ma_buffer(lines)
   vim.fn.setline(1, lines)
   vim.cmd 'set ft=c'
   vim.cmd 'diffthis'
-  vim.keymap.set('n', 'dd', '0D')
+  vim.keymap.set('n', 'dd', '0D', { buffer = vim.fn.bufnr(), })
   vim.cmd 'call feedkeys("zR$")'
+  return vim.fn.bufnr()
 end
 
 function M._prepare_buffer()
-  M._ro_buffer(M.files)
-  M._ma_buffer(M.files)
+  local buffers = {
+    M._ro_buffer(M.files),
+    M._ma_buffer(M.files),
+  }
+  M._wait_close_buffer(buffers)
 end
 
 function M.rename_files()
