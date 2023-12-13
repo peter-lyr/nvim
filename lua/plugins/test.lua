@@ -17,8 +17,12 @@ return {
     -- lazy = false,
     -- priority = 1000,
     config = function()
-      vim.fn.timer_start(1000, function()
+      vim.fn.timer_start(50, function()
         vim.cmd.colorscheme 'catppuccin'
+        vim.cmd [[call feedkeys("\<c-l>")]]
+        vim.fn.timer_start(50, function()
+          vim.cmd [[call feedkeys("\<c-l>")]]
+        end)
       end)
     end,
   },
