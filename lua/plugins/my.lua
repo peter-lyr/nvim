@@ -5,14 +5,14 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<a-h>',   function() require 'config.my.window'.width_less_1() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_1', },
-      { '<a-l>',   function() require 'config.my.window'.width_more_1() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_1', },
-      { '<a-j>',   function() require 'config.my.window'.height_less_1() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_1', },
-      { '<a-k>',   function() require 'config.my.window'.height_more_1() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_1', },
-      { '<a-s-h>', function() require 'config.my.window'.width_less_10() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_10', },
-      { '<a-s-l>', function() require 'config.my.window'.width_more_10() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_10', },
-      { '<a-s-j>', function() require 'config.my.window'.height_less_10() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_10', },
-      { '<a-s-k>', function() require 'config.my.window'.height_more_10() end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_10', },
+      { '<a-h>',   function() vim.cmd 'wincmd <'  end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_1', },
+      { '<a-l>',   function() vim.cmd 'wincmd >'  end,  mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_1', },
+      { '<a-j>',   function() vim.cmd 'wincmd -'   end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_1', },
+      { '<a-k>',   function() vim.cmd 'wincmd +'   end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_1', },
+      { '<a-s-h>', function() vim.cmd '10wincmd <' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_less_10', },
+      { '<a-s-l>', function() vim.cmd '10wincmd >' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: width_more_10', },
+      { '<a-s-j>', function() vim.cmd '10wincmd -' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_10', },
+      { '<a-s-k>', function() vim.cmd '10wincmd +' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_10', },
     },
   },
 
@@ -62,11 +62,7 @@ return {
     dir = '',
     event = 'BufReadPost',
     config = function()
-      require 'base'.aucmd('TextYankPost', 'my.textyankpost.TextYankPost', {
-        callback = function()
-          vim.highlight.on_yank()
-        end,
-      })
+      require 'config.my.bufreadpost'
     end,
   },
 
@@ -76,7 +72,11 @@ return {
     dir = '',
     event = 'TextYankPost',
     config = function()
-      require 'config.my.textyankpost'
+      require 'base'.aucmd('TextYankPost', 'my.textyankpost.TextYankPost', {
+        callback = function()
+          vim.highlight.on_yank()
+        end,
+      })
     end,
   },
 
