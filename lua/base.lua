@@ -38,9 +38,9 @@ end
 function M.create_user_command_with_M(m, name)
   vim.api.nvim_create_user_command(name, function(params)
     if #params.fargs == 0 then
-      M.cmd("lua require('%s').main()", m.lua)
+      pcall(M.cmd, "lua require('%s').main()", m.lua)
     else
-      M.cmd("lua require('%s').%s()", m.lua, params.fargs[1])
+      pcall(M.cmd, "lua require('%s').%s()", m.lua, params.fargs[1])
     end
   end, {
     nargs = '?',
