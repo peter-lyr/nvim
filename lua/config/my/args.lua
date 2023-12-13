@@ -68,7 +68,9 @@ function M._get_buffer_files(buffers)
   for i = 1, #files1 do
     local file1 = files1[i]
     local file2 = files2[i]
-    B.print('%s -> %s', file1, file2)
+    if file1 ~= file2 then
+      B.print('%s -> %s', file1, file2)
+    end
   end
 end
 
