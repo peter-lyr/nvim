@@ -220,4 +220,15 @@ return {
     end,
   },
 
+  -- my.args
+  {
+    name = 'my.args',
+    dir = '',
+    cmd = { 'Args', },
+    event = { 'BufReadPre', 'BufNewFile', },
+    config = function()
+      require 'config.my.args'
+    end,
+  },
+
 }
