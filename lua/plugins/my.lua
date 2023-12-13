@@ -64,13 +64,13 @@ return {
     end,
   },
 
-  -- my.maps
+  -- my.nmaps
   {
-    name = 'my.maps',
+    name = 'my.nmaps',
     dir = '',
     event = 'VeryLazy',
     config = function()
-      require 'config.my.maps'
+      require 'config.my.nmaps'
     end,
   },
 
@@ -147,13 +147,13 @@ return {
     end,
   },
 
-  -- my.insertenter
+  -- my.imaps
   {
-    name = 'my.insertenter',
+    name = 'my.imaps',
     dir = '',
     event = { 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     config = function()
-      require 'config.my.insertenter'
+      require 'config.my.imaps'
     end,
   },
 
