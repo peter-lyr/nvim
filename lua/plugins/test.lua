@@ -80,7 +80,39 @@ return {
       'echasnovski/mini.indentscope',
     },
     config = function()
-      require 'config.test.indentblank'
+      -- indentscope
+      require 'mini.indentscope'.setup {
+        symbol = '│',
+        options = { try_as_border = true, },
+      }
+      -- indentblank
+      require 'ibl'.setup {
+        indent = {
+          char = '│',
+        },
+        exclude = {
+          filetypes = {
+            --- my
+            'qf',
+            'mason',
+            'notify',
+            'startuptime',
+            'NvimTree',
+            'fugitive',
+            'lazy',
+            ---
+            'lspinfo',
+            'packer',
+            'checkhealth',
+            'help',
+            'man',
+            'gitcommit',
+            'TelescopePrompt',
+            'TelescopeResults',
+            '',
+          },
+        },
+      }
     end,
   },
 
