@@ -22,7 +22,45 @@ return {
     dir = '',
     event = 'VeryLazy',
     config = function()
-      require 'config.my.options'
+      vim.opt.number         = true
+      vim.opt.numberwidth    = 1
+      vim.opt.relativenumber = true
+      vim.opt.title          = true
+      vim.opt.winminheight   = 1
+      vim.opt.winminwidth    = 1
+      vim.opt.expandtab      = true
+      vim.opt.cindent        = true
+      vim.opt.smartindent    = true
+      vim.opt.wrap           = false
+      vim.opt.smartcase      = true
+      vim.opt.smartindent    = true -- Insert indents automatically
+      vim.opt.cursorline     = true
+      vim.opt.cursorcolumn   = true
+      vim.opt.termguicolors  = true
+      vim.opt.splitright     = true
+      vim.opt.splitbelow     = true
+      vim.opt.mousemodel     = 'popup'
+      vim.opt.mousescroll    = 'ver:5,hor:0'
+      vim.opt.swapfile       = false
+      vim.opt.fileformats    = 'dos'
+      vim.opt.foldmethod     = 'indent'
+      vim.opt.foldlevel      = 99
+      vim.opt.titlestring    = 'Neovim-094'
+      vim.opt.fileencodings  = 'utf-8,gbk,default,ucs-bom,latin'
+      vim.opt.shortmess:append { W = true, I = true, c = true, }
+      vim.opt.showmode      = true -- Dont show mode since we have a statusline
+      vim.opt.undofile      = true
+      vim.opt.undolevels    = 10000
+      vim.opt.sidescrolloff = 0      -- Columns of context
+      vim.opt.scrolloff     = 0      -- Lines of context
+      vim.opt.scrollback    = 100000 -- Lines of context
+      vim.opt.completeopt   = 'menu,menuone,noselect'
+      vim.opt.conceallevel  = 0      -- Hide * markup for bold and italic
+      vim.opt.list          = true
+      vim.opt.shada         = [[!,'1000,<500,s10000,h]]
+      vim.opt.laststatus    = 3
+      vim.opt.statusline    = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
+      vim.opt.equalalways   = false
     end,
   },
 
@@ -62,7 +100,36 @@ return {
     dir = '',
     event = 'BufReadPost',
     config = function()
-      require 'config.my.bufreadpost'
+      require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
+        callback = function()
+          local mark = vim.api.nvim_buf_get_mark(0, '"')
+          local lcount = vim.api.nvim_buf_line_count(0)
+          if mark[1] > 0 and mark[1] <= lcount then
+            pcall(vim.api.nvim_win_set_cursor, 0, mark)
+          end
+        end,
+      })
+      local tab_4_fts = {
+        'c', 'cpp',
+        -- 'python',
+        'ld',
+      }
+      require 'base'.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
+        callback = function(ev)
+          if vim.fn.filereadable(ev.file) == 1 and vim.o.modifiable == true then
+            vim.opt.cursorcolumn = true
+          end
+          if vim.tbl_contains(tab_4_fts, vim.opt.filetype:get()) == true then
+            vim.opt.tabstop = 4
+            vim.opt.softtabstop = 4
+            vim.opt.shiftwidth = 4
+          else
+            vim.opt.tabstop = 2
+            vim.opt.softtabstop = 2
+            vim.opt.shiftwidth = 2
+          end
+        end,
+      })
     end,
   },
 
