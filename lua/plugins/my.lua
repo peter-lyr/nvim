@@ -141,6 +141,7 @@ return {
   {
     name = 'my.make',
     dir = '',
+    cmd = { 'Make', 'CMake', },
     ft = { 'c', 'cpp', },
     config = function()
       require 'config.my.make'
