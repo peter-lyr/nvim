@@ -81,6 +81,8 @@ return {
     event = 'UIEnter',
     config = function()
       vim.fn['GuiWindowFrameless'](1)
+      vim.cmd 'GuiAdaptiveFont 1'
+      vim.cmd 'GuiAdaptiveStyle Fusion'
     end,
   },
 

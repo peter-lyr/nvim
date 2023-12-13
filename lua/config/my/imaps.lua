@@ -75,7 +75,7 @@ B.lazy_map {
 
   { '<c-t>',   '<c-r>=expand("%:t")<cr>',              mode = { 'c', 'i', },      desc = 'my.insertenter: paste %:t', },
   { '<c-b>',   '<c-r>=bufname()<cr>',                  mode = { 'c', 'i', },      desc = 'my.insertenter: paste bufname()', },
-  { '<c-f>',   '<c-r>=nvim_buf_get_name(0)<cr>',       mode = { 'c', 'i', },      desc = 'my.insertenter: paste nvim_buf_get_name', },
+  { '<c-g>',   '<c-r>=nvim_buf_get_name(0)<cr>',       mode = { 'c', 'i', },      desc = 'my.insertenter: paste nvim_buf_get_name', },
   { '<c-d>',   '<c-r>=getcwd()<cr>',                   mode = { 'c', 'i', },      desc = 'my.insertenter: paste cwd', },
 
   { '<c-l>',   '<c-r>=g:curline<cr>',                  mode = { 'c', 'i', },      desc = 'my.insertenter: paste cur line', },
