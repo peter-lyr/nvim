@@ -62,7 +62,11 @@ return {
     dir = '',
     event = 'BufReadPost',
     config = function()
-      require 'config.my.bufreadpost'
+      require 'base'.aucmd('TextYankPost', 'my.textyankpost.TextYankPost', {
+        callback = function()
+          vim.highlight.on_yank()
+        end,
+      })
     end,
   },
 
