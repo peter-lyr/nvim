@@ -76,7 +76,9 @@ return {
     lazy = true,
     event = { 'BufReadPre', 'BufNewFile', },
     config = function()
-      require 'config.test.autosave'
+      require 'auto-save'.setup {
+        execution_message = { message = function() return '' end, },
+      }
     end,
   },
 
