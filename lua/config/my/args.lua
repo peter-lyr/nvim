@@ -59,8 +59,17 @@ function M._close_buffer(buffers)
 end
 
 function M._get_buffer_files(buffers)
-  -- local files1 = vim.fn.getbufline(buffers[1], 1, '$')
-  -- local files2 = vim.fn.getbufline(buffers[2], 1, '$')
+  local files1 = vim.fn.getbufline(buffers[1], 1, '$')
+  local files2 = vim.fn.getbufline(buffers[2], 1, '$')
+  if #files1 ~= #files2 then
+    B.notify_error(string.format('files number is not equal: %d ~= %d', #files1, #files2))
+    return
+  end
+  for i = 1, #files1 do
+    local file1 = files1[i]
+    local file2 = files2[i]
+    B.print('%s -> %s', file1, file2)
+  end
 end
 
 function M._wait_close_buffer(buffers)
