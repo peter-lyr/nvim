@@ -208,15 +208,14 @@ return {
     end,
   },
 
-  -- my.make & my.cmake
+  -- my.c
   {
-    name = 'my.make',
+    name = 'my.c',
     dir = '',
     cmd = { 'Make', 'CMake', },
     ft = { 'c', 'cpp', },
     config = function()
-      require 'config.my.make'
-      require 'config.my.cmake'
+      require 'config.my.c'
     end,
   },
 
