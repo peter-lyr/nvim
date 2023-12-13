@@ -270,6 +270,11 @@ function M.buffers_all()
   vim.cmd 'Telescope buffers'
 end
 
+function M.oldfiles()
+  M.setreg()
+  vim.cmd 'Telescope oldfiles'
+end
+
 function M.buffers_cur()
   M.setreg()
   vim.cmd 'Telescope buffers cwd_only=true sort_mru=true ignore_current_buffer=true'
