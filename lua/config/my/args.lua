@@ -78,7 +78,10 @@ function M._get_buffer_files(buffers)
       B.notify_error('same target detected: ' .. file2)
       return
     else
-      temp[#temp + 1] = file2
+      local last_char = string.sub(file2, #file2, #file2)
+      if vim.tbl_contains({'/', '\\'}, last_char) == false then
+        temp[#temp + 1] = file2
+      end
     end
   end
   local temp_args_dir = B.getcreate_temp_dirpath 'args'.filename
