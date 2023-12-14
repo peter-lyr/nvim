@@ -116,7 +116,9 @@ telescope.setup {
       i = {
         ['<C-c>'] = actions.close,
 
-        ['<C-m>'] = actions.select_default,
+        ['<C-a>'] = actions.select_default,
+        ['<C-;>'] = actions.select_default,
+        ['<C-,>'] = actions.select_default,
         ['<CR>'] = actions.select_default,
         ['<C-x>'] = actions.select_horizontal,
         ['<C-v>'] = actions.select_vertical,
