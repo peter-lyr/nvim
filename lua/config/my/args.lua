@@ -65,6 +65,15 @@ function M._get_buffer_files(buffers)
     B.notify_error(string.format('files number is not equal: %d ~= %d', #files1, #files2))
     return
   end
+  local temp = {}
+  for _, file2 in ipairs(files2) do
+    if vim.tbl_contains(temp, file2) == true then
+      B.notify_error('same target detected: ' .. file2)
+      return
+    else
+      temp[#temp + 1] = file2
+    end
+  end
   for i = 1, #files1 do
     local file1 = files1[i]
     local file2 = files2[i]
@@ -122,7 +131,7 @@ function M._prepare_buffer()
   M._wait_close_buffer(buffers)
 end
 
-function M.rename_files()
+function M.operate_files()
   M._stack_files_from_qflist()
   if #M.files == 0 then
     B.notify_info 'no files in qflist'
