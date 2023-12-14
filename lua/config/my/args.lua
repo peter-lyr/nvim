@@ -66,7 +66,7 @@ function M._get_buffer_files(buffers)
     return
   end
   if not B.deep_compare(M.files, files1) then
-    B.notify_error('source files changed!')
+    B.notify_error 'source files changed!'
     return
   end
   local temp = {}
@@ -78,11 +78,14 @@ function M._get_buffer_files(buffers)
       temp[#temp + 1] = file2
     end
   end
+  local temp_args_dir = B.getcreate_temp_dirpath 'args'.filename
+  local temp_path = B.getcreate_filepath(temp_args_dir, 'a.txt')
+  temp_path:write('', 'w')
   for i = 1, #files1 do
     local file1 = files1[i]
     local file2 = files2[i]
     if file1 ~= file2 then
-      B.print('%s -> %s', file1, file2)
+      temp_path:write(string.format('%s->%s\r\n', file1, file2), 'a')
     end
   end
 end
