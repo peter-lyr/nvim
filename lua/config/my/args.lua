@@ -3,6 +3,9 @@ local M = {}
 local B = require 'base'
 
 M.lua = B.getlua(debug.getinfo(1)['source'])
+M.source = B.getsource(debug.getinfo(1)['source'])
+
+M.operate_files_py = B.getcreate_filepath(M.source .. '.py', 'operate_files.py')
 
 ----------------------
 -- two files
@@ -81,13 +84,16 @@ function M._get_buffer_files(buffers)
   local temp_args_dir = B.getcreate_temp_dirpath 'args'.filename
   local temp_path = B.getcreate_filepath(temp_args_dir, 'a.txt')
   temp_path:write('', 'w')
+  local ok = nil
   for i = 1, #files1 do
     local file1 = files1[i]
     local file2 = files2[i]
     if file1 ~= file2 then
       temp_path:write(string.format('%s->%s\r\n', file1, file2), 'a')
+      ok = 1
     end
   end
+  if ok then B.system_run('start', 'chcp 65001 && python "%s" "%s"', M.operate_files_py, temp_path.filename) end
 end
 
 function M._wait_close_buffer(buffers)
