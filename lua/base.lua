@@ -544,17 +544,17 @@ function M.get_dirs_equal(dname, root_dir)
   return dirs
 end
 
-function M.deepCompare(t1, t2)
+function M.deep_compare(t1, t2)
   if type(t1) ~= 'table' or type(t2) ~= 'table' then
     return M.is(t1 == t2)
   end
   for k, v in pairs(t1) do
-    if not M.deepCompare(t2[k], v) then
+    if not M.deep_compare(t2[k], v) then
       return nil
     end
   end
   for k, v in pairs(t2) do
-    if not M.deepCompare(t1[k], v) then
+    if not M.deep_compare(t1[k], v) then
       return nil
     end
   end

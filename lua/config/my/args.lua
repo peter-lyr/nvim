@@ -65,7 +65,7 @@ function M._get_buffer_files(buffers)
     B.notify_error(string.format('files number is not equal: %d ~= %d', #files1, #files2))
     return
   end
-  if not B.deepCompare(M.files, files1) then
+  if not B.deep_compare(M.files, files1) then
     B.notify_error('source files changed!')
     return
   end
