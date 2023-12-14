@@ -265,7 +265,6 @@ return {
     end,
   },
 
-
   -- oil
   {
     'stevearc/oil.nvim',
