@@ -266,4 +266,17 @@ return {
   },
 
 
+  -- oil
+  {
+    'stevearc/oil.nvim',
+    cmd = { 'Oil', },
+    opts = {
+      keymaps = {
+        ['?'] = 'actions.show_help',
+        ['a'] = 'actions.select',
+        ['<Tab>'] = 'actions.preview',
+      },
+    },
+  },
+
 }
