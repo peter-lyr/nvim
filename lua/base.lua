@@ -85,11 +85,14 @@ function M.getcreate_dirpath(dirs)
   local dir1 = table.remove(dirs, 1)
   dir1 = M.rep_slash(dir1)
   local dir_path = require 'plenary.path':new(dir1)
+  if not dir_path:exists() then
+    vim.fn.mkdir(dir_path.filename)
+  end
   for _, dir in ipairs(dirs) do
+    dir_path = dir_path:joinpath(dir)
     if not dir_path:exists() then
       vim.fn.mkdir(dir_path.filename)
     end
-    dir_path = dir_path:joinpath(dir)
   end
   return dir_path
 end
@@ -100,21 +103,14 @@ function M.getcreate_stddata_dirpath(dirs)
   return M.getcreate_dirpath(dirs)
 end
 
-function M.getcreate_dir(dirs)
+function M.getcreate_temp_dirpath(dirs)
   dirs = M.totable(dirs)
-  local dir1 = table.remove(dirs, 1)
-  dir1 = M.rep_slash(dir1)
-  local dirpath = require 'plenary.path':new(dir1)
-  if not dirpath:exists() then
-    vim.fn.mkdir(dirpath.filename)
-  end
-  for _, dir in ipairs(dirs) do
-    if not dirpath:exists() then
-      vim.fn.mkdir(dirpath.filename)
-    end
-    dirpath = dirpath:joinpath(dir)
-  end
-  return dirpath.filename
+  table.insert(dirs, 1, [[C:\Windows\Temp]])
+  return M.getcreate_dirpath(dirs)
+end
+
+function M.getcreate_dir(dirs)
+  return M.getcreate_dirpath(dirs).filename
 end
 
 function M.get_filepath(dirs, file)
