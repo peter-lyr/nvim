@@ -515,6 +515,24 @@ function M.merge_tables(...)
   return result
 end
 
+function M.merge_dict(...)
+  local result = {}
+  for _, d in ipairs { ..., } do
+    for k, v in pairs(d) do
+      result[k] = v
+    end
+  end
+  return result
+end
+
+function M.get_dict_count(tbl)
+  local count = 0
+  for _, _ in pairs(tbl) do
+    count = count + 1
+  end
+  return count
+end
+
 M.depei = vim.fn.expand [[$HOME]] .. '\\DEPEI'
 
 if vim.fn.isdirectory(M.depei) == 0 then vim.fn.mkdir(M.depei) end
@@ -597,6 +615,15 @@ function M.deep_compare(t1, t2)
     end
   end
   return 1
+end
+
+function M.get_full_name(file)
+  return vim.fn.fnamemodify(file, ':p')
+end
+
+function M.is_file_in_extensions(extensions, file)
+  extensions = M.totable(extensions)
+  return M.is(vim.tbl_contains(extensions, string.match(file, '%.([^.]+)$'))) and 1 or nil
 end
 
 return M

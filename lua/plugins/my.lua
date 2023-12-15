@@ -231,4 +231,17 @@ return {
     end,
   },
 
+  -- my.drag
+  {
+    name = 'my.drag',
+    dir = '',
+    ft = { 'markdown', },
+    cmd = { 'Drag', },
+    event = { 'FocusLost', },
+    dependencies = { 'peter-lyr/vim-bbye', },
+    config = function()
+      require 'config.my.drag'
+    end,
+  },
+
 }

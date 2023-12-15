@@ -15,6 +15,9 @@ vim.g.angle_bracket = '' -- <>
 vim.g.curline = ''
 
 function M.setreg()
+  if vim.fn.mode() == 'c' then
+    return
+  end
   local bak = vim.fn.getreg '"'
   local save_cursor = vim.fn.getpos '.'
   local line = vim.fn.trim(vim.fn.getline '.')
