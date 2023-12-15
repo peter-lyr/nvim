@@ -80,6 +80,20 @@ function M.totable(var)
   return var
 end
 
+function M.get_dirpath(dirs)
+  dirs = M.totable(dirs)
+  local dir1 = table.remove(dirs, 1)
+  dir1 = M.rep_slash(dir1)
+  local dir_path = require 'plenary.path':new(dir1)
+  for _, dir in ipairs(dirs) do
+    if not dir_path:exists() then
+      vim.fn.mkdir(dir_path.filename)
+    end
+    dir_path = dir_path:joinpath(dir)
+  end
+  return dir_path
+end
+
 function M.getcreate_dirpath(dirs)
   dirs = M.totable(dirs)
   local dir1 = table.remove(dirs, 1)
@@ -409,7 +423,7 @@ function M.cmd_sel_cwd_dirs(cmd)
 end
 
 function M.cmd_sel_parent_dirs(cmd)
-  M.ui_sel(M.get_file_dirs(vim.api.nvim_buf_get_name(0)), cmd, function(dir)
+  M.ui_sel(M.get_file_dirs(vim.loop.cwd()), cmd, function(dir)
     if dir then
       M.cmd('%s %s', cmd, dir)
     end
