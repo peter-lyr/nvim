@@ -2,8 +2,8 @@ local M = {}
 
 local B = require 'base'
 
-M.lua = B.getlua(debug.getinfo(1)['source'])
-M.source = B.getsource(M.lua)
+M.source = B.getsource(debug.getinfo(1)['source'])
+M.lua = B.getlua(M.source)
 
 M.DOC_EXTS = {
   'doc', 'docx',
