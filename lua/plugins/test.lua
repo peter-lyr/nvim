@@ -273,7 +273,11 @@ return {
       { '<leader>\'',     function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,    mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<leader><c-\'>', function() require 'base'.cmd_sel_parent_dirs 'Oil' end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
     },
-    opts = {},
+    opts = {
+      keymaps = {
+        ['<c-;>'] = 'actions.select',
+      },
+    },
   },
 
 }
