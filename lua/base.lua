@@ -401,8 +401,16 @@ function M.scan_dirs(dir, pattern)
   return dirs
 end
 
-function M.sel_dirs(cmd)
+function M.cmd_sel_cwd_dirs(cmd)
   M.ui_sel(M.scan_dirs(vim.loop.cwd()), cmd, function(dir)
+    if dir then
+      M.cmd('%s %s', cmd, dir)
+    end
+  end)
+end
+
+function M.cmd_sel_parent_dirs(cmd)
+  M.ui_sel(M.get_file_dirs(vim.api.nvim_buf_get_name(0)), cmd, function(dir)
     if dir then
       M.cmd('%s %s', cmd, dir)
     end
