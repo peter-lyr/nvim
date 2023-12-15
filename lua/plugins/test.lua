@@ -269,6 +269,7 @@ return {
   {
     'stevearc/oil.nvim',
     cmd = { 'Oil', },
+    event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
       { '<leader>\'',     function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,    mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<leader><c-\'>', function() require 'base'.cmd_sel_parent_dirs 'Oil' end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
