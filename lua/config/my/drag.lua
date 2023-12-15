@@ -29,7 +29,7 @@ function M._delete_buffer()
   vim.cmd 'Bdelete!'
 end
 
-function M._system_open(cur_file)
+function M.system_open(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
   B.system_run('start silent', '"%s"', cur_file)
 end
@@ -62,7 +62,7 @@ function M._check_bin(cur_file)
         M._delete_buffer()
       end,
       ['system open and delete buffer'] = function()
-        M._system_open(cur_file)
+        M.system_open(cur_file)
         M._delete_buffer()
       end,
     }
@@ -74,13 +74,13 @@ function M._check_doc(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
   if B.is_file_in_extensions(M.DOC_EXTS, cur_file) then
     local tbl = {
-      ['system open'] = function() M._system_open(cur_file) end,
+      ['system open'] = function() M.system_open(cur_file) end,
       ['bin xxd and delete buffer'] = function()
         M.bin_xxd(cur_file)
         M._delete_buffer()
       end,
       ['system open and delete buffer'] = function()
-        M._system_open(cur_file)
+        M.system_open(cur_file)
         M._delete_buffer()
       end,
     }
