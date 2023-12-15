@@ -58,7 +58,7 @@ function M.setreg()
 end
 
 B.aucmd({ 'BufLeave', 'CmdlineEnter', }, 'my.insertenter: CmdlineEnter', {
-  callback = function(ev)
+  callback = function()
     local word = vim.fn.expand '<cword>'
     if #word > 0 then vim.fn.setreg('e', word) end
     local Word = vim.fn.expand '<cWORD>'
