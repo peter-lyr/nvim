@@ -307,11 +307,10 @@ function M.get_file_dirs(file)
   end
   file = M.rep_slash(file)
   local file_path = require 'plenary.path':new(file)
-  if not file_path:is_file() then
-    M.notify_info('not file: ' .. file)
-    return nil
-  end
   local dirs = {}
+  if not file_path:is_file() then
+    dirs[#dirs + 1] = M.rep_backslash(file_path.filename)
+  end
   for _ = 1, 24 do
     file_path = file_path:parent()
     local name = M.rep_backslash(file_path.filename)
