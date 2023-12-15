@@ -389,6 +389,26 @@ function M.scan_files(dir, pattern)
   return files
 end
 
+function M.scan_dirs(dir, pattern)
+  vim.cmd 'mes clear'
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = false, depth = 64, add_dirs = true, })
+  local dirs = {}
+  for _, entry in ipairs(entries) do
+    if M.is(require 'plenary.path':new(entry):is_dir()) and (not pattern or string.match(entry, pattern)) then
+      dirs[#dirs + 1] = entry
+    end
+  end
+  return dirs
+end
+
+function M.sel_dirs(cmd)
+  M.ui_sel(M.scan_dirs(vim.loop.cwd()), cmd, function(dir)
+    if dir then
+      M.cmd('%s %s', cmd, dir)
+    end
+  end)
+end
+
 function M.time_diff(timestamp)
   local diff = os.time() - timestamp
   local years, months, weeks, days, hours, minutes, seconds = 0, 0, 0, 0, 0, 0, 0
@@ -437,6 +457,7 @@ end
 ----------
 
 function M.ui_sel(items, prompt, callback)
+  vim.cmd 'Lazy load telescope.nvim'
   if items and #items > 0 then
     vim.ui.select(items, { prompt = prompt, }, callback)
   end

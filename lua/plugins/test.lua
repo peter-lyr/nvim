@@ -269,6 +269,9 @@ return {
   {
     'stevearc/oil.nvim',
     cmd = { 'Oil', },
+    keys = {
+      { '<leader>\'', function() require 'base'.sel_dirs('Oil') end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: sel dir', },
+    },
     opts = {
       keymaps = {
         ['?'] = 'actions.show_help',
