@@ -15,9 +15,6 @@ vim.g.angle_bracket = '' -- <>
 vim.g.curline = ''
 
 function M.setreg()
-  if vim.fn.mode() == 'c' then
-    return
-  end
   local bak = vim.fn.getreg '"'
   local save_cursor = vim.fn.getpos '.'
   local line = vim.fn.trim(vim.fn.getline '.')
@@ -61,12 +58,12 @@ function M.setreg()
 end
 
 B.aucmd({ 'BufLeave', 'CmdlineEnter', }, 'my.insertenter: CmdlineEnter', {
-  callback = function()
+  callback = function(ev)
     local word = vim.fn.expand '<cword>'
     if #word > 0 then vim.fn.setreg('e', word) end
     local Word = vim.fn.expand '<cWORD>'
     if #Word > 0 then vim.fn.setreg('3', Word) end
-    if vim.g.telescope_entered or B.is_buf_fts { 'NvimTree', 'DiffviewFileHistory', } then return end
+    if vim.g.telescope_entered or B.is_buf_fts { 'NvimTree', 'TelescopePrompt', 'DiffviewFileHistory', } then return end
     M.setreg()
   end,
 })
