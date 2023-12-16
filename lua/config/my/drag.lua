@@ -17,6 +17,8 @@ M._en_doc_must_system_open = 1
 M._last_file = ''
 M._callbacks = {}
 
+M._xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
+
 -- eanblea or disable
 function M.enable()
   M._en_total = 1
@@ -53,11 +55,39 @@ function M.system_open(cur_file)
 end
 
 -- bin
+function M._xxd_do(cur_file)
+  local bin_fname = B.rep_slash_lower(cur_file)
+  local bin_fname_tail = vim.fn.fnamemodify(bin_fname, ':t')
+  local bin_fname_full__ = string.gsub(vim.fn.fnamemodify(bin_fname, ':h'), '\\', '_')
+  bin_fname_full__ = string.gsub(bin_fname_full__, ':', '_')
+  local xxd_output_sub_dir_path = M._xxd_output_dir_path:joinpath(bin_fname_full__)
+  if not xxd_output_sub_dir_path:exists() then vim.fn.mkdir(xxd_output_sub_dir_path.filename) end
+  local xxd = xxd_output_sub_dir_path:joinpath(bin_fname_tail .. '.xxd').filename
+  local c = xxd_output_sub_dir_path:joinpath(bin_fname_tail .. '.c').filename
+  local bak = xxd_output_sub_dir_path:joinpath(bin_fname_tail .. '.bak').filename
+  vim.fn.system(string.format('copy /y "%s" "%s"', bin_fname, bak))
+  vim.fn.system(string.format('xxd "%s" "%s"', bak, xxd))
+  vim.fn.system(string.format('%s && xxd -i "%s" "%s"', B.system_cd(bak), vim.fn.fnamemodify(bak, ':t'), c))
+  vim.cmd('e ' .. xxd)
+  vim.cmd 'setlocal ft=xxd'
+end
+
 function M.bin_xxd(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
   if M._is_bin(cur_file) then
-    B.system_run('start silent', '"%s"', cur_file)
+    M._delete_buffer()
+    B.set_timeout(50, function()
+      M._xxd_do(cur_file)
+    end)
   end
+end
+
+function M.bin_xxd_force(cur_file)
+  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
+  M._delete_buffer()
+  B.set_timeout(50, function()
+    M._xxd_do(cur_file)
+  end)
 end
 
 function M._is_bin(cur_file)
