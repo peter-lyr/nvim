@@ -45,8 +45,12 @@ function M.disable_doc_must_system_open()
 end
 
 -- common
-function M._delete_buffer()
-  vim.cmd 'Bdelete!'
+function M._delete_buffer(cur_file)
+  if cur_file then
+    B.cmd('Bdelete! %s', cur_file)
+  else
+    vim.cmd 'Bdelete!'
+  end
 end
 
 function M.system_open(cur_file)
@@ -75,7 +79,7 @@ end
 function M.bin_xxd(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
   if M._is_bin(cur_file) then
-    M._delete_buffer()
+    M._delete_buffer(cur_file)
     B.set_timeout(50, function()
       M._xxd_do(cur_file)
     end)
@@ -84,7 +88,7 @@ end
 
 function M.bin_xxd_force(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  M._delete_buffer()
+  M._delete_buffer(cur_file)
   B.set_timeout(50, function()
     M._xxd_do(cur_file)
   end)
@@ -106,11 +110,11 @@ function M._check_bin(cur_file)
     return {
       ['bin xxd and delete buffer'] = function()
         M.bin_xxd(cur_file)
-        M._delete_buffer()
+        M._delete_buffer(cur_file)
       end,
       ['system open and delete buffer'] = function()
         M.system_open(cur_file)
-        M._delete_buffer()
+        M._delete_buffer(cur_file)
       end,
     }
   end
@@ -123,11 +127,11 @@ function M._check_doc(cur_file)
     return {
       ['bin xxd and delete buffer'] = function()
         M.bin_xxd(cur_file)
-        M._delete_buffer()
+        M._delete_buffer(cur_file)
       end,
       ['system open and delete buffer'] = function()
         M.system_open(cur_file)
-        M._delete_buffer()
+        M._delete_buffer(cur_file)
       end,
     }
   end
@@ -150,18 +154,18 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
     if M._en_total then
       if M._en_doc_must_system_open and B.is_file_in_extensions(M.DOC_EXTS, ev.file) then
         M.system_open(ev.file)
-        M._delete_buffer()
+        M._delete_buffer(ev.file)
         return
       elseif M._en_bin_must_xxd and M._is_bin(ev.file) then
         M.bin_xxd(ev.file)
-        M._delete_buffer()
+        M._delete_buffer(ev.file)
         return
       end
       local count = B.get_dict_count(M._callbacks)
       if count == 1 then
         for _, callback in pairs(M._callbacks) do callback() end
       elseif count > 1 then
-        M._callbacks = B.merge_dict(M._callbacks, { ['Delete buffer'] = M._delete_buffer, })
+        M._callbacks = B.merge_dict(M._callbacks, { ['Delete buffer'] = function() M._delete_buffer(ev.file) end, })
         B.ui_sel(vim.fn.sort(vim.tbl_keys(M._callbacks)), 'Drag', function(callback)
           if callback then
             M._callbacks[callback]()
