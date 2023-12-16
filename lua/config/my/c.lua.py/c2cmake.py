@@ -1,7 +1,6 @@
 import os
-import sys
-
 import shutil
+import sys
 
 
 def rep(text):

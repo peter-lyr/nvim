@@ -1,7 +1,7 @@
 import os
 import re
-import sys
 import shutil
+import sys
 
 patt = r'(.*)->([^\r]*)'
 patt = re.compile(patt.encode('utf-8'))
