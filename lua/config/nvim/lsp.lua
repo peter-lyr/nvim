@@ -13,7 +13,9 @@ require 'mason'.setup { install_root_dir = B.getcreate_stddata_dirpath 'mason'.f
 
 require 'mason-null-ls'.setup {
   ensure_installed = {
-    'clang_format',
+    'black', 'isort', -- python
+    'markdownlint',
+    'clang_format',   -- clang_format
   },
   automatic_installation = true,
 }
@@ -23,6 +25,7 @@ require 'mason-lspconfig'.setup {
     'clangd',
     'pyright',
     'lua_ls',
+    'marksman',
   },
   automatic_installation = true,
 }
@@ -30,7 +33,7 @@ require 'mason-lspconfig'.setup {
 nls.setup {
   sources = {
     nls.builtins.formatting.clang_format.with { filetypes = { 'c', 'cpp', '*.h', }, },
-    nls.builtins.formatting.black.with { args = { '--indent', '2', }, extra_args = { '--fast', }, filetypes = { 'python', }, },
+    nls.builtins.formatting.black.with { extra_args = { '--fast', }, filetypes = { 'python', }, },
     nls.builtins.formatting.isort.with { extra_args = { '--profile', 'black', }, filetypes = { 'python', }, },
     nls.builtins.diagnostics.markdownlint.with { extra_args = { '-r', '~MD013', }, filetypes = { 'markdown', }, },
   },

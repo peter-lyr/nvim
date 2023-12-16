@@ -113,7 +113,7 @@ return {
       })
       local tab_4_fts = {
         'c', 'cpp',
-        -- 'python',
+        'python',
         'ld',
       }
       require 'base'.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
