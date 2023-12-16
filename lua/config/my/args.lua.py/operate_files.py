@@ -16,9 +16,14 @@ def _move(src, tgt):
   os.system(f'git mv "{src}" "{tgt}"')
   shutil.move(src, tgt)
 
+def _copy(src, tgt):
+  shutil.copy(src, tgt)
+
 if __name__ == "__main__":
-  if len(sys.argv) != 2:
+  if len(sys.argv) != 3:
     os._exit(1)
+
+  copy_or_move = sys.argv[2]
 
   with open(sys.argv[1], 'rb') as f:
     lines = f.readlines()
@@ -33,12 +38,16 @@ if __name__ == "__main__":
     tgt = res[0][1].decode('utf-8')
     try:
       if not tgt:
-        os.remove(src)
+        if copy_or_move == 'move':
+          os.remove(src)
         continue
       elif tgt[-1] in '/\\':
         mkdir(tgt)
       else:
         mkdir(os.path.dirname(tgt))
-      _move(src, tgt)
+      if copy_or_move == 'move':
+        _move(src, tgt)
+      else:
+        _copy(src, tgt)
     except Exception as e:
       pass

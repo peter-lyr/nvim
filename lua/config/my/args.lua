@@ -42,6 +42,7 @@ end
 -- multiple files
 ----------------------
 M.files = {}
+M.copy_or_move = 'move'
 
 function M._stack_files_from_qflist()
   M.files = {}
@@ -79,7 +80,7 @@ function M._get_buffer_files(buffers)
       return
     else
       local last_char = string.sub(file2, #file2, #file2)
-      if vim.tbl_contains({'/', '\\'}, last_char) == false then
+      if vim.tbl_contains({ '/', '\\', }, last_char) == false then
         temp[#temp + 1] = file2
       end
     end
@@ -96,7 +97,7 @@ function M._get_buffer_files(buffers)
       ok = 1
     end
   end
-  if ok then B.system_run('start', 'chcp 65001 && %s && python "%s" "%s"', B.system_cd(vim.loop.cwd()), M.operate_files_py, temp_path.filename) end
+  if ok then B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s"', B.system_cd(vim.loop.cwd()), M.operate_files_py, temp_path.filename, M.copy_or_move) end
 end
 
 function M._wait_close_buffer(buffers)
@@ -147,13 +148,23 @@ function M._prepare_buffer()
   M._wait_close_buffer(buffers)
 end
 
-function M.operate_files()
+function M._operate_files()
   M._stack_files_from_qflist()
   if #M.files == 0 then
     B.notify_info 'no files in qflist'
     return
   end
   M._prepare_buffer()
+end
+
+function M.copy_files()
+  M.copy_or_move = 'copy'
+  M._operate_files()
+end
+
+function M.move_files()
+  M.copy_or_move = 'move'
+  M._operate_files()
 end
 
 B.create_user_command_with_M(M, 'Args')
