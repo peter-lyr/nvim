@@ -5,7 +5,7 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-M.operate_files_py = B.getcreate_filepath(M.source .. '.py', 'operate_files.py')
+M.operate_files_py = B.getcreate_filepath(M.source .. '.py', 'operate_files.py').filename
 
 ----------------------
 -- two files

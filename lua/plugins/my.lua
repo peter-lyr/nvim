@@ -165,6 +165,7 @@ return {
     dir = '',
     event = { 'BufReadPre', 'BufNewFile', },
     cmd = {
+      'MyGit',
       'Git',
       'Gitsings',
       'DiffviewOpen', 'DiffviewFileHistory',

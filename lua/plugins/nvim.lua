@@ -83,8 +83,8 @@ return {
   -- cmp
   {
     'hrsh7th/nvim-cmp',
-    lazy = true,
     version = false, -- last release is way too old
+    event = { 'InsertEnter', 'CmdlineEnter', },
     ft = {
       'c', 'cpp',
       'lua',

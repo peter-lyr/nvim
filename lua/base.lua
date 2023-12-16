@@ -417,6 +417,14 @@ function M.scan_dirs(dir, pattern)
   return dirs
 end
 
+function M.cmd_sel_all_git_repos(cmd)
+  M.ui_sel(require 'config.my.git'.get_all_git_repos(), cmd, function(dir)
+    if dir then
+      M.cmd('%s %s', cmd, dir)
+    end
+  end)
+end
+
 function M.cmd_sel_cwd_dirs(cmd)
   M.ui_sel(M.scan_dirs(vim.loop.cwd()), cmd, function(dir)
     if dir then
