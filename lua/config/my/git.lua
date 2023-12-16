@@ -452,7 +452,6 @@ B.lazy_map {
   { '<leader>gmtw', M.toggle_word_diff,          mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_word_diff', },
 }
 
-
 -- lazygit
 function M.lazygit() B.system_run('start', 'lazygit') end
 
