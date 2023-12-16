@@ -6,6 +6,16 @@ import shutil
 patt = r'(.*)->([^\r]*)'
 patt = re.compile(patt.encode('utf-8'))
 
+def mkdir(dir):
+  try:
+    os.makedirs(dir)
+  except:
+    pass
+
+def _move(src, tgt):
+  os.system(f'git mv "{src}" "{tgt}"')
+  shutil.move(src, tgt)
+
 if __name__ == "__main__":
   if len(sys.argv) != 2:
     os._exit(1)
@@ -15,21 +25,20 @@ if __name__ == "__main__":
 
   for line in lines:
     res = re.findall(patt, line)
-    if res:
-      src = res[0][0].decode('utf-8')
-      if os.path.isfile(src):
-        tgt = res[0][1].decode('utf-8')
-        try:
-          if not tgt:
-            os.remove(src)
-          elif tgt[-1] in '/\\':
-            os.makedirs(tgt)
-            shutil.move(src, tgt)
-          else:
-            parent = os.path.dirname(tgt)
-            os.makedirs(parent)
-            shutil.move(src, tgt)
-        except Exception as e:
-          pass
-
-  os.system('pause')
+    if not res:
+      continue
+    src = res[0][0].decode('utf-8')
+    if not os.path.isfile(src):
+      continue
+    tgt = res[0][1].decode('utf-8')
+    try:
+      if not tgt:
+        os.remove(src)
+        continue
+      elif tgt[-1] in '/\\':
+        mkdir(tgt)
+      else:
+        mkdir(os.path.dirname(tgt))
+      _move(src, tgt)
+    except Exception as e:
+      pass
