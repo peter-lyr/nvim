@@ -268,4 +268,28 @@ return {
     end,
   },
 
+  -- my.gui
+  {
+    name = 'my.gui',
+    dir = '',
+    cmd = { 'Gui', },
+    keys = {
+      { '<c-0>',      function() require 'config.my.gui' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.gui---', },
+      { '<c-0><c-0>', function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
+      { '<c-->',      function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
+      { '<c-=>',      function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd('VimLeave', {
+        callback = function()
+          vim.cmd 'Lazy load my.gui'
+          require 'config.my.gui'.save_last_fontsize()
+        end,
+      })
+    end,
+    config = function()
+      require 'config.my.gui'
+    end,
+  },
+
 }
