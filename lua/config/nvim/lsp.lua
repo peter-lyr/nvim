@@ -30,6 +30,9 @@ require 'mason-lspconfig'.setup {
 nls.setup {
   sources = {
     nls.builtins.formatting.clang_format.with { filetypes = { 'c', 'cpp', '*.h', }, },
+    nls.builtins.formatting.black.with { args = { '--indent', '2', }, extra_args = { '--fast', }, filetypes = { 'python', }, },
+    nls.builtins.formatting.isort.with { extra_args = { '--profile', 'black', }, filetypes = { 'python', }, },
+    nls.builtins.diagnostics.markdownlint.with { extra_args = { '-r', '~MD013', }, filetypes = { 'markdown', }, },
   },
 }
 
