@@ -55,6 +55,14 @@ lspconfig.pyright.setup {
   },
 }
 
+-- markdown
+lspconfig.marksman.setup {
+  capabilities = capabilities,
+  root_dir = M.root_dir {
+    '.git',
+  },
+}
+
 -- clangd
 lspconfig.clangd.setup {
   capabilities = {
