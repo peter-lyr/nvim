@@ -47,6 +47,14 @@ function M.root_dir(root_files)
   end
 end
 
+-- python
+lspconfig.pyright.setup {
+  capabilities = capabilities,
+  root_dir = M.root_dir {
+    '.git',
+  },
+}
+
 -- clangd
 lspconfig.clangd.setup {
   capabilities = {
