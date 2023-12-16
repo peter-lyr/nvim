@@ -47,7 +47,9 @@ end
 -- common
 function M._delete_buffer(cur_file)
   if cur_file then
-    B.cmd('Bdelete! %s', cur_file)
+    if B.is_file_opened_buffer(cur_file) then
+      B.cmd('Bdelete! %s', cur_file)
+    end
   else
     vim.cmd 'Bdelete!'
   end

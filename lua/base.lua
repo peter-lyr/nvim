@@ -629,4 +629,12 @@ function M.is_file_in_extensions(extensions, file)
   return M.is(vim.tbl_contains(extensions, string.match(file, '%.([^.]+)$'))) and 1 or nil
 end
 
+function M.is_file_opened_buffer(file)
+  if vim.fn.index(vim.fn.map(vim.fn.range(1, vim.fn.bufnr '$'), 'bufname(v:val)'), file) ~= -1 then
+    return 1
+  else
+    return nil
+  end
+end
+
 return M
