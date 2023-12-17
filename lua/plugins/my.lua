@@ -192,6 +192,9 @@ return {
       { '<leader>gs',  function() require 'config.my.git'.stage_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: stage_hunk_v', },
       { '<leader>gu',  function() require 'config.my.git'.undo_stage_hunk() end, mode = { 'n', },      silent = true, desc = 'my.git.signs: undo_stage_hunk', },
 
+      -- git.diffview
+      { '<leader>gv',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.diffview---', },
+
       -- git.lazy
       { '<leader>gl',  function() require 'config.my.git'.lazygit() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
 
