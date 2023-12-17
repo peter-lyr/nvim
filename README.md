@@ -8,3 +8,4 @@
 6. TODO: [x] oil sel dirs
 7. TODO: [x] drag file(s) or folder(s)
 8. TODO: [ ] api to get any files conveniently
+9. TODO: [ ] command sel arg in telescope
