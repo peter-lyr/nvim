@@ -432,6 +432,9 @@ function M.del_dir(dir)
 end
 
 function M.scan_files(dir, pattern)
+  if not dir then
+    dir = vim.loop.cwd()
+  end
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = false, })
   local files = {}
   for _, entry in ipairs(entries) do
@@ -445,6 +448,9 @@ end
 
 function M.scan_dirs(dir, pattern)
   vim.cmd 'mes clear'
+  if not dir then
+    dir = vim.loop.cwd()
+  end
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = false, depth = 64, add_dirs = true, })
   local dirs = {}
   for _, entry in ipairs(entries) do

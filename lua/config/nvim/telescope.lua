@@ -263,8 +263,34 @@ function M.cur_root_sel_do(dir)
   M.telescope_root_txt_path:write(vim.inspect(M.cur_root), 'w')
 end
 
-function M.cur_root_sel()
+function M.root_sel()
+  local dirs = B.get_file_dirs()
+  if dirs and #dirs == 1 then
+    M.cur_root_sel_do(dirs[1])
+  else
+    B.ui_sel(dirs, 'sel as telescope root', function(dir)
+      if dir then
+        M.cur_root_sel_do(dir)
+      end
+    end)
+  end
+end
+
+function M.root_sel_till_git()
   local dirs = B.get_file_dirs_till_git()
+  if dirs and #dirs == 1 then
+    M.cur_root_sel_do(dirs[1])
+  else
+    B.ui_sel(dirs, 'sel as telescope root', function(dir)
+      if dir then
+        M.cur_root_sel_do(dir)
+      end
+    end)
+  end
+end
+
+function M.root_sel_scan_dirs()
+  local dirs = B.scan_dirs()
   if dirs and #dirs == 1 then
     M.cur_root_sel_do(dirs[1])
   else
@@ -472,6 +498,9 @@ B.lazy_map {
   { '<leader>sh',     function() M.search_history() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: search_history', },
   { '<leader>sj',     function() M.jumplist() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: jumplist', },
   { '<leader>sm',     function() M.keymaps() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: keymaps', },
+  { '<leader>sr',     function() M.root_sel_till_git() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_till_git', },
+  { '<leader>sR',     function() M.root_sel_scan_dirs() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_scan_dirs', },
+  { '<leader>s<c-r>', function() M.root_sel() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel', },
   { '<leader>sq',     function() M.quickfix() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfix', },
   { '<leader>svq',    function() M.quickfixhistory() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfixhistory', },
   { '<leader>ss',     function() M.grep_string() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
