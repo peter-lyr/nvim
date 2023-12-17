@@ -296,4 +296,14 @@ return {
     end,
   },
 
+  -- my.info
+  {
+    name = 'my.info',
+    dir = '',
+    dependencies = { 'itchyny/vim-gitbranch', },
+    keys = {
+      { '<f1>', function() require 'config.my.info'.show() end, mode = { 'n', 'v', }, silent = true, desc = 'my.info: show', },
+    },
+  },
+
 }
