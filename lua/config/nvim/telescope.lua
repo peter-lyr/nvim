@@ -250,6 +250,32 @@ require 'project_nvim'.setup {
   patterns = { '.git', },
 }
 
+-- sel root
+M.telescope_root_txt_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'telescope_root'.filename, 'telescope_root.txt')
+
+M.cur_root = loadstring('return ' .. M.telescope_root_txt_path:read())()
+if not M.cur_root then
+  M.cur_root = {}
+end
+
+function M.cur_root_sel_do(dir)
+  M.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](dir))] = B.rep_backslash_lower(dir)
+  M.telescope_root_txt_path:write(vim.inspect(M.cur_root), 'w')
+end
+
+function M.cur_root_sel()
+  local dirs = B.get_file_dirs_till_git()
+  if dirs and #dirs == 1 then
+    M.cur_root_sel_do(dirs[1])
+  else
+    B.ui_sel(dirs, 'sel as telescope root', function(dir)
+      if dir then
+        M.cur_root_sel_do(dir)
+      end
+    end)
+  end
+end
+
 function M.projects_do()
   M.setreg()
   vim.cmd 'Telescope projects'
@@ -269,12 +295,12 @@ end
 -- builtins
 function M.buffers_all()
   M.setreg()
-  vim.cmd 'Telescope buffers'
-end
-
-function M.oldfiles()
-  M.setreg()
-  vim.cmd 'Telescope oldfiles'
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
+    B.cmd('Telescope buffers cwd=%s', M.cur_root[root_dir])
+  else
+    vim.cmd 'Telescope buffers'
+  end
 end
 
 function M.buffers_cur()
@@ -284,12 +310,27 @@ end
 
 function M.find_files()
   M.setreg()
-  vim.cmd 'Telescope find_files'
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
+    B.cmd('Telescope find_files cwd=%s', M.cur_root[root_dir])
+  else
+    vim.cmd 'Telescope find_files'
+  end
+end
+
+function M.oldfiles()
+  M.setreg()
+  vim.cmd 'Telescope oldfiles'
 end
 
 function M.live_grep()
   M.setreg()
-  vim.cmd 'Telescope live_grep'
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
+    B.cmd('Telescope live_grep cwd=%s', M.cur_root[root_dir])
+  else
+    vim.cmd 'Telescope live_grep'
+  end
 end
 
 function M.search_history()
@@ -384,7 +425,12 @@ end
 
 function M.grep_string()
   M.setreg()
-  vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true'
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
+    B.cmd('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true cwd=%s', M.cur_root[root_dir])
+  else
+    vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true'
+  end
 end
 
 function M.keymaps()
