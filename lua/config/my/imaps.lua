@@ -3,7 +3,7 @@ local M = {}
 local B = require 'base'
 
 vim.fn.setreg('e', 'reg e empty')
-vim.fn.setreg('3', 'reg 3 empty')
+vim.fn.setreg('4', 'reg 4 empty')
 
 vim.g.single_quote = ''  -- ''
 vim.g.double_quote = ''  -- ""
@@ -62,7 +62,7 @@ B.aucmd({ 'BufLeave', 'CmdlineEnter', }, 'my.insertenter: CmdlineEnter', {
     local word = vim.fn.expand '<cword>'
     if #word > 0 then vim.fn.setreg('e', word) end
     local Word = vim.fn.expand '<cWORD>'
-    if #Word > 0 then vim.fn.setreg('3', Word) end
+    if #Word > 0 then vim.fn.setreg('4', Word) end
     if vim.g.telescope_entered or B.is_buf_fts { 'NvimTree', 'TelescopePrompt', 'DiffviewFileHistory', } then return end
     M.setreg()
   end,
@@ -71,7 +71,7 @@ B.aucmd({ 'BufLeave', 'CmdlineEnter', }, 'my.insertenter: CmdlineEnter', {
 B.lazy_map {
   -- reg
   { '<c-e>',   '<c-r>e',                               mode = { 'c', 'i', },      desc = 'my.insertenter: paste <cword>', },
-  { '<c-3>',   '<c-r>3',                               mode = { 'c', 'i', },      desc = 'my.insertenter: paste <cWORD>', },
+  { '<c-4>',   '<c-r>4',                               mode = { 'c', 'i', },      desc = 'my.insertenter: paste <cWORD>', },
 
   { '<c-t>',   '<c-r>=expand("%:t")<cr>',              mode = { 'c', 'i', },      desc = 'my.insertenter: paste %:t', },
   { '<c-b>',   '<c-r>=bufname()<cr>',                  mode = { 'c', 'i', },      desc = 'my.insertenter: paste bufname()', },
