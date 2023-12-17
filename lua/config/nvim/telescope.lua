@@ -116,6 +116,7 @@ telescope.setup {
       i = {
         ['<C-c>'] = actions.close,
         ['<C-3>'] = actions.close,
+        ['<C-q>'] = actions.close,
 
         ['<C-a>'] = actions.select_default,
         ['<C-;>'] = actions.select_default,
@@ -132,7 +133,7 @@ telescope.setup {
 
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
-        ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
+        ['<C-Tab>'] = actions.send_to_qflist + actions.open_qflist,
         ['<M-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
 
         ['<C-/>'] = actions.which_key,
@@ -179,6 +180,7 @@ telescope.setup {
       n = {
         ['q'] = actions.close,
         ['<C-3>'] = actions.close,
+        ['<C-q>'] = actions.close,
         ['<esc>'] = actions.close,
 
         ['<CR>'] = actions.select_default,
@@ -191,7 +193,7 @@ telescope.setup {
 
         ['<Tab>'] = actions.toggle_selection + actions.move_selection_worse,
         ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_better,
-        ['<C-q>'] = actions.send_to_qflist + actions.open_qflist,
+        ['<C-Tab>'] = actions.send_to_qflist + actions.open_qflist,
         ['<M-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
 
         ['j'] = actions.move_selection_next,
