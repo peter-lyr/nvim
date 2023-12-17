@@ -13,7 +13,7 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    event = { 'BufReadPre', 'BufNewFile', },
+    event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
     -- lazy = false,
     -- priority = 1000,
     config = function()
