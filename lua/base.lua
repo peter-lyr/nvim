@@ -329,6 +329,10 @@ function M.system_run(way, str_format, ...)
   end
 end
 
+function M.format(str_format, ...)
+  return string.format(str_format, ...)
+end
+
 function M.cmd(str_format, ...)
   if type(str_format) == 'table' then
     str_format = vim.fn.join(str_format, ' && ')
