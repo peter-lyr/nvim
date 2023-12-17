@@ -279,6 +279,9 @@ return {
     opts = {
       keymaps = {
         ['<c-;>'] = 'actions.select',
+        ['<c-3>'] = 'actions.select',
+        ['<c-2>'] = 'actions.select',
+        ['<c-1>'] = 'actions.parent',
         ['<c-q>'] = 'actions.close',
       },
       columns = {
