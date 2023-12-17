@@ -75,7 +75,7 @@ function M.create_user_command_with_M(m, name)
   })
 end
 
-function M.all_command()
+function M.all_commands()
   M.ui_sel(vim.tbl_keys(M.commands), 'All Commands', function(command)
     if not command then
       return
@@ -90,7 +90,7 @@ function M.all_command()
   end)
 end
 
-M.lazy_map { { '<leader><c-;>', M.all_command, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', }, }
+M.lazy_map { { '<leader><c-;>', M.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', }, }
 
 --------------------
 
