@@ -289,4 +289,20 @@ return {
     },
   },
 
+  -- bqf
+  {
+    'kevinhwang91/nvim-bqf',
+    event = { 'LspAttach', 'CmdlineEnter', },
+    config = function()
+      require 'bqf'.setup {
+        auto_resize_height = true,
+        preview = {
+          win_height = vim.fn.float2nr(vim.o.lines * 50 / 100 - 3),
+          win_vheight = vim.fn.float2nr(vim.o.lines * 50 / 100 - 3),
+          wrap = true,
+        },
+      }
+    end,
+  },
+
 }
