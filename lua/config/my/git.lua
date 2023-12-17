@@ -458,13 +458,13 @@ B.lazy_map {
 -- lazygit
 function M.lazygit() B.system_run('start', 'lazygit') end
 
-function M.get_all_git_repos()
+function M.get_all_git_repos(force)
   local all_git_repos_txt = B.getcreate_filepath(
     B.getcreate_stddata_dirpath 'all_git_repos'.filename,
     'all_git_repos.txt'
   ).filename
   local repos = vim.fn.readfile(all_git_repos_txt)
-  if #repos == 0 then
+  if #repos == 0 or force then
     B.system_run('start', 'chcp 65001 && python "%s" "%s"',
       B.getcreate_filepath(M.source .. '.py', 'scan_git_repos.py').filename, all_git_repos_txt)
     B.notify_info 'scan_git_repos, try again later.'

@@ -271,9 +271,10 @@ return {
     cmd = { 'Oil', },
     event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
-      { '<leader>\'',     function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,      mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
-      { '<leader><c-\'>', function() require 'base'.cmd_sel_parent_dirs 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
-      { '<leader>"',      function() require 'base'.cmd_sel_all_git_repos 'Oil' end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
+      { '<leader>\'',       function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
+      { '<leader><c-\'>',   function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
+      { '<leader>"',        function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
+      { '<leader><c-s-\'>', function() require 'config.my.git'.get_all_git_repos(1) end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
     },
     opts = {
       keymaps = {

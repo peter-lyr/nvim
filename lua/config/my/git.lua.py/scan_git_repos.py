@@ -8,6 +8,8 @@ if __name__ == "__main__":
     cnt = 0
     all_git_repos_txt = sys.argv[1]
 
+    print(f'scanning all git repos in this computer...')
+
     with open(all_git_repos_txt, 'wb') as f:
         for driver in range(ord("A"), ord("A") + 26):
             driver = chr(driver) + ":\\"
