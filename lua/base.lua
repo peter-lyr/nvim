@@ -24,6 +24,24 @@ function M.getsource(luafile)
   return M.rep_backslash(vim.fn.trim(luafile, '@'))
 end
 
+-------
+
+function M.lazy_map(tbls)
+  for _, tbl in ipairs(tbls) do
+    local opt = {}
+    for k, v in pairs(tbl) do
+      if type(k) == 'string' and k ~= 'mode' then
+        opt[k] = v
+      end
+    end
+    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], opt)
+  end
+end
+
+function M.del_map(mode, lhs)
+  pcall(vim.keymap.del, mode, lhs)
+end
+
 function M._get_functions_of_M(m)
   local functions = {}
   for k, v in pairs(m) do
@@ -35,7 +53,10 @@ function M._get_functions_of_M(m)
   return functions
 end
 
+M.commands = {}
+
 function M.create_user_command_with_M(m, name)
+  M.commands[name] = M._get_functions_of_M(m)
   vim.api.nvim_create_user_command(name, function(params)
     if #params.fargs == 0 then
       pcall(M.cmd, "lua require('%s').main()", m.lua)
@@ -49,10 +70,27 @@ function M.create_user_command_with_M(m, name)
     nargs = '*',
     desc = name,
     complete = function()
-      return M._get_functions_of_M(m)
+      return M.commands[name]
     end,
   })
 end
+
+function M.all_command()
+  M.ui_sel(vim.tbl_keys(M.commands), 'All Commands', function(command)
+    if not command then
+      return
+    end
+    M.ui_sel(M.commands[command], command, function(args)
+      if args then
+        command = string.format('%s %s', command, args)
+        vim.cmd(command)
+        vim.fn.histadd(':', command)
+      end
+    end)
+  end)
+end
+
+M.lazy_map { { '<leader><c-;>', M.all_command, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', }, }
 
 --------------------
 
@@ -557,24 +595,6 @@ M.my_dirs = {
   M.rep_backslash_lower(vim.fn.stdpath 'data'),
   M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
 }
-
------------
-
-function M.lazy_map(tbls)
-  for _, tbl in ipairs(tbls) do
-    local opt = {}
-    for k, v in pairs(tbl) do
-      if type(k) == 'string' and k ~= 'mode' then
-        opt[k] = v
-      end
-    end
-    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], opt)
-  end
-end
-
-function M.del_map(mode, lhs)
-  pcall(vim.keymap.del, mode, lhs)
-end
 
 -----------
 
