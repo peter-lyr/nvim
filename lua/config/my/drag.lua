@@ -11,6 +11,11 @@ M.DOC_EXTS = {
   'pdf',
 }
 
+M.BIN_EXTS = {
+  'bin',
+  'wav', 'mp3',
+}
+
 M._en_total = 1
 M._en_bin_must_xxd = 1
 M._en_doc_must_system_open = 1
@@ -159,6 +164,12 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
         M._delete_buffer(ev.file)
         return
       elseif M._en_bin_must_xxd and M._is_bin(ev.file) then
+        if not B.is_file_in_extensions(M.BIN_EXTS, ev.file) then
+          local res = vim.fn.input('detected as binary file: ' .. ev.file .. ', too xxd? [N/y]: ', 'y')
+          if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
+            return
+          end
+        end
         M.bin_xxd(ev.file)
         M._delete_buffer(ev.file)
         return
