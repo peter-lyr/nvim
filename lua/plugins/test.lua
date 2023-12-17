@@ -268,9 +268,9 @@ return {
   -- oil
   {
     'stevearc/oil.nvim',
-    cmd = { 'Oil', },
     event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
+      { '<c-q>',            '<cmd>Oil .<cr>',                                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
       { '<leader>\'',       function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<leader><c-\'>',   function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
       { '<leader>"',        function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
@@ -279,6 +279,7 @@ return {
     opts = {
       keymaps = {
         ['<c-;>'] = 'actions.select',
+        ['<c-q>'] = 'actions.close',
       },
       columns = {
         'icon',
