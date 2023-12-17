@@ -270,7 +270,8 @@ return {
     'stevearc/oil.nvim',
     event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
-      { '<c-q>',            '<cmd>Oil .<cr>',                                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
+      { '<c-q>',            '<cmd>exe "Oil " . fnamemodify(bufname(), ":h")<cr>',        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
+      { '<c-s-q>',          '<cmd>Oil .<cr>',                                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd', },
       { '<leader>\'',       function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<leader><c-\'>',   function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
       { '<leader>"',        function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
