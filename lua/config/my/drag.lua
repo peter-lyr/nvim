@@ -165,7 +165,8 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
         return
       elseif M._en_bin_must_xxd and M._is_bin(ev.file) then
         if not B.is_file_in_extensions(M.BIN_EXTS, ev.file) then
-          local res = vim.fn.input('detected as binary file: ' .. ev.file .. ', too xxd? [N/y]: ', 'y')
+          B.notify_info('Something happened.')
+          local res = vim.fn.input('detected as binary file: ' .. ev.file .. ', to xxd? [N/y]: ', 'y')
           if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
             return
           end
