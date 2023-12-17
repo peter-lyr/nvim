@@ -241,9 +241,11 @@ end
 --------------------------------------------
 
 M.cmake_dir = B.getcreate_dir(M.source .. '.py')
+M.clang_format_dir = B.getcreate_dir(M.source .. '.clang-format')
 
 M.c2cmake_py = B.get_filepath(M.cmake_dir, 'c2cmake.py').filename
 M.cbp2cmake_py = B.get_filepath(M.cmake_dir, 'cbp2cmake.py').filename
+M._clang_format = B.get_filepath(M.clang_format_dir, '.clang-format').filename
 
 function M._get_cbps(file)
   local cbps = {}
@@ -274,6 +276,7 @@ function M._to_cmake_do(proj)
     B.notify_info 'cbp2cmake...'
     B.system_run('start', 'chcp 65001 && %s && python "%s" "%s"', B.system_cd(proj), M.cbp2cmake_py, proj)
   end
+  B.system_run('start silent', 'copy /y "%s" "%s"', B.rep_slash(M._clang_format), B.rep_slash(require 'plenary.path':new(proj):joinpath '.clang-format'.filename))
 end
 
 function M.cmake()
