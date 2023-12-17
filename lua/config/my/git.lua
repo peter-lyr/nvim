@@ -628,6 +628,4 @@ function M.get_all_git_repos(force)
   return repos
 end
 
-B.create_user_command_with_M(M, 'MyGit')
-
 return M
