@@ -118,6 +118,9 @@ telescope.setup {
 
         ['<C-a>'] = actions.select_default,
         ['<C-;>'] = actions.select_default,
+        ['<C-1>'] = actions.select_default,
+        ['<C-2>'] = actions.select_default,
+        ['<C-3>'] = actions.select_default,
         ['<C-,>'] = actions.select_default,
         ['<CR>'] = actions.select_default,
         ['<C-x>'] = actions.select_horizontal,
@@ -178,6 +181,10 @@ telescope.setup {
         ['<esc>'] = actions.close,
 
         ['<CR>'] = actions.select_default,
+        ['<C-;>'] = actions.select_default,
+        ['<C-1>'] = actions.select_default,
+        ['<C-2>'] = actions.select_default,
+        ['<C-3>'] = actions.select_default,
         ['<C-x>'] = actions.select_horizontal,
         ['<C-v>'] = actions.select_vertical,
         ['<C-t>'] = actions.select_tab,
