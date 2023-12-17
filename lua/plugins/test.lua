@@ -280,6 +280,12 @@ return {
       keymaps = {
         ['<c-;>'] = 'actions.select',
       },
+      columns = {
+        'icon',
+        'permissions',
+        'size',
+        'mtime',
+      },
     },
   },
 
