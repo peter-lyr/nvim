@@ -258,6 +258,8 @@ require 'project_nvim'.setup {
 }
 
 -- sel root
+M.cur_root = {}
+
 function M.cur_root_sel_do(dir)
   M.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](dir))] = B.rep_backslash_lower(dir)
 end
