@@ -270,20 +270,20 @@ return {
     'stevearc/oil.nvim',
     event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
-      { '<c-q>',            '<cmd>Oil<cr>',                                              mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
-      { '<c-s-q>',          '<cmd>exe "Oil " . getcwd()<cr>',                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd', },
-      { '<leader>\'',       function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
-      { '<leader><c-\'>',   function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
-      { '<leader>"',        function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
-      { '<leader><c-s-\'>', function() require 'config.my.git'.get_all_git_repos(1) end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
+      { '<c-q>', '<cmd>Oil<cr>',                                              mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
+      { '<c-3>', '<cmd>exe "Oil " . getcwd()<cr>',                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd', },
+      { '<c-1>', function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
+      { '<c-2>', function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
+      { '<c-4>', function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
+      { '<c-5>', function() require 'config.my.git'.get_all_git_repos(1) end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
     },
     opts = {
       keymaps = {
         ['<c-;>'] = 'actions.select',
-        ['<c-3>'] = 'actions.select',
         ['<c-2>'] = 'actions.select',
         ['<c-1>'] = 'actions.parent',
         ['<c-q>'] = 'actions.close',
+        ['<c-3>'] = 'actions.close',
       },
       columns = {
         'icon',
