@@ -306,4 +306,37 @@ return {
     },
   },
 
+  -- my.hili
+  {
+    name = 'my_hili',
+    dir = '',
+    dependencies = { 'peter-lyr/sha2', },
+    event = { 'BufReadPost', 'BufNewFile', },
+    keys = {
+      { '*',       function() require 'config.my.hili'.search() end,          mode = { 'v', },      silent = true, desc = 'hili multiline search', },
+      -- windo cursorword
+      { '<a-7>',   function() require 'config.my.hili'.cursorword() end,      mode = { 'n', },      silent = true, desc = 'hili cursor word', },
+      { '<a-8>',   function() require 'config.my.hili'.windocursorword() end, mode = { 'n', },      silent = true, desc = 'hili windo cursor word', },
+      -- cword hili
+      { '<c-8>',   function() require 'config.my.hili'.hili_n() end,          mode = { 'n', },      silent = true, desc = 'hili cword', },
+      { '<c-8>',   function() require 'config.my.hili'.hili_v() end,          mode = { 'v', },      silent = true, desc = 'hili cword', },
+      -- cword hili rm
+      { '<c-s-8>', function() require 'config.my.hili'.rmhili_v() end,        mode = { 'v', },      silent = true, desc = 'hili rm v', },
+      { '<c-s-8>', function() require 'config.my.hili'.rmhili_n() end,        mode = { 'n', },      silent = true, desc = 'hili rm n', },
+      -- select hili
+      { '<c-7>',   function() require 'config.my.hili'.selnexthili() end,     mode = { 'n', 'v', }, silent = true, desc = 'hili sel next', },
+      { '<c-s-7>', function() require 'config.my.hili'.selprevhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'hili sel prev', },
+      -- go hili
+      { '<c-n>',   function() require 'config.my.hili'.prevhili() end,        mode = { 'n', 'v', }, silent = true, desc = 'hili go prev', },
+      { '<c-m>',   function() require 'config.my.hili'.nexthili() end,        mode = { 'n', 'v', }, silent = true, desc = 'hili go next', },
+      -- go cur hili
+      { '<c-s-n>', function() require 'config.my.hili'.prevcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'hili go cur prev', },
+      { '<c-s-m>', function() require 'config.my.hili'.nextcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'hili go cur next', },
+    },
+    config = function()
+      vim.o.updatetime = 10
+      require 'config.my.hili'
+    end,
+  },
+
 }
