@@ -236,8 +236,6 @@ end
 -- please add to PATH:
 -- INCLUDE: mingw64\x86_64-w64-mingw32\include
 
-B.create_user_command_with_M(M, 'Make')
-
 --------------------------------------------
 -- cmake
 --------------------------------------------
@@ -278,7 +276,7 @@ function M._to_cmake_do(proj)
   end
 end
 
-function M.main()
+function M.cmake()
   if #vim.call 'ProjectRootGet' == 0 then
     B.notify_info 'cmake: not in a git repo'
     return
@@ -290,6 +288,6 @@ function M.main()
   end)
 end
 
-B.create_user_command_with_M(M, 'CMake')
+B.create_user_command_with_M(M, 'C')
 
 return M

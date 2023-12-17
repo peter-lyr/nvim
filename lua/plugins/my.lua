@@ -214,7 +214,7 @@ return {
   {
     name = 'my.c',
     dir = '',
-    cmd = { 'Make', 'CMake', },
+    cmd = { 'C', },
     ft = { 'c', 'cpp', },
     config = function()
       require 'config.my.c'
