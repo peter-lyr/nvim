@@ -23,11 +23,11 @@ M.en_bin_must_xxd = 1
 M.xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
 
 -- eanblea or disable
-function M.enable()
+function M.enable_check_all()
   M.en_check_all = 1
 end
 
-function M.disable()
+function M.disable_check_all()
   M.en_check_all = nil
 end
 
@@ -71,7 +71,7 @@ function M._delete_buffer(file)
   end
 end
 
-function M.system_open(file)
+function M.system_open_and_delete_buffer(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
   B.system_run('start silent', '"%s"', file)
   M._delete_buffer(file)
@@ -102,7 +102,7 @@ function M._bin_xxd_and_delete_buffer(file)
   end)
 end
 
-function M.bin_xxd(file)
+function M.bin_xxd_and_delete_buffer(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
   if M._is_bin(file) then
     if not B.is_file_in_extensions(M.BIN_EXTS, file) then
@@ -115,7 +115,7 @@ function M.bin_xxd(file)
   end
 end
 
-function M.bin_xxd_force(file)
+function M.bin_xxd_and_delete_buffer_force(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
   M._bin_xxd_and_delete_buffer(file)
 end
@@ -137,8 +137,8 @@ function M._add_callbacks_basic(file)
   M._add_callbacks {
     { 'nop',                           function() end, },
     { 'delete buffer',                 function() M._delete_buffer(file) end, },
-    { 'bin xxd and delete buffer',     function() M.bin_xxd(file) end, },
-    { 'system open and delete buffer', function() M.system_open(file) end, },
+    { 'bin xxd and delete buffer',     function() M.bin_xxd_and_delete_buffer(file) end, },
+    { 'system open and delete buffer', function() M.system_open_and_delete_buffer(file) end, },
   }
 end
 
@@ -153,7 +153,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 
     if M._is_doc(M._cur_file) then
       if M.en_doc_must_system_open then
-        M.system_open(M._cur_file)
+        M.system_open_and_delete_buffer(M._cur_file)
         return
       end
       M._add_callbacks_basic(M._cur_file)
@@ -161,7 +161,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 
     if M._is_bin(M._cur_file) then
       if M.en_bin_must_xxd then
-        M.bin_xxd_force(M._cur_file)
+        M.bin_xxd_and_delete_buffer_force(M._cur_file)
         return
       end
       M._add_callbacks_basic(M._cur_file)
