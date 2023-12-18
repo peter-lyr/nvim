@@ -95,6 +95,13 @@ function M._xxd_do(file)
   vim.cmd 'setlocal ft=xxd'
 end
 
+function M._bin_xxd_and_delete_buffer(file)
+  M._delete_buffer(file)
+  B.set_timeout(50, function()
+    M._xxd_do(file)
+  end)
+end
+
 function M.bin_xxd(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
   if M._is_bin(file) then
@@ -104,19 +111,13 @@ function M.bin_xxd(file)
         return
       end
     end
-    M._delete_buffer(file)
-    B.set_timeout(50, function()
-      M._xxd_do(file)
-    end)
+    M._bin_xxd_and_delete_buffer(file)
   end
 end
 
 function M.bin_xxd_force(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
-  M._delete_buffer(file)
-  B.set_timeout(50, function()
-    M._xxd_do(file)
-  end)
+  M._bin_xxd_and_delete_buffer(file)
 end
 
 -- callback
