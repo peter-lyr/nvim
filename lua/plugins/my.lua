@@ -388,4 +388,23 @@ return {
     end,
   },
 
+  -- markdown
+  {
+    'iamcco/markdown-preview.nvim',
+    lazy = true,
+    build = ':call mkdp#util#install()',
+    ft = { 'markdown', },
+    cmd = { 'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle', },
+    init = function()
+      vim.g.mkdp_theme              = 'light'
+      vim.g.mkdp_auto_close         = 0
+      vim.g.mkdp_auto_start         = 0
+      vim.g.mkdp_combine_preview    = 1
+      vim.g.mkdp_command_for_global = 1
+    end,
+    config = function()
+      require 'config.my.markdown'
+    end,
+  },
+
 }
