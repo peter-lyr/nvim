@@ -359,6 +359,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     dependencies = {
+      'nvim-tree/nvim-web-devicons',
       'dbakker/vim-projectroot',
       'peter-lyr/vim-bbye',
     },
