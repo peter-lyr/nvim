@@ -86,6 +86,12 @@ end
 function M.bin_xxd(cur_file)
   if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
   if M._is_bin(cur_file) then
+    if not B.is_file_in_extensions(M.BIN_EXTS, cur_file) then
+      local res = vim.fn.input('detected as binary file: ' .. cur_file .. ', to xxd? [N/y]: ', 'y')
+      if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
+        return
+      end
+    end
     M._delete_buffer(cur_file)
     B.set_timeout(50, function()
       M._xxd_do(cur_file)
@@ -117,7 +123,6 @@ function M._check_bin(cur_file)
     return {
       ['bin xxd and delete buffer'] = function()
         M.bin_xxd(cur_file)
-        M._delete_buffer(cur_file)
       end,
       ['system open and delete buffer'] = function()
         M.system_open(cur_file)
@@ -134,7 +139,6 @@ function M._check_doc(cur_file)
     return {
       ['bin xxd and delete buffer'] = function()
         M.bin_xxd(cur_file)
-        M._delete_buffer(cur_file)
       end,
       ['system open and delete buffer'] = function()
         M.system_open(cur_file)
@@ -158,15 +162,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
       M._delete_buffer(cur_file)
       return
     elseif M._en_bin_must_xxd and M._is_bin(cur_file) then
-      if not B.is_file_in_extensions(M.BIN_EXTS, cur_file) then
-        B.notify_info('Something happened.')
-        local res = vim.fn.input('detected as binary file: ' .. cur_file .. ', to xxd? [N/y]: ', 'y')
-        if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
-          return
-        end
-      end
       M.bin_xxd(cur_file)
-      M._delete_buffer(cur_file)
       return
     end
     local count = B.get_dict_count(M._callbacks)
