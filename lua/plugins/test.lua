@@ -320,4 +320,38 @@ return {
     end,
   },
 
+  -- minimap
+  {
+    'echasnovski/mini.map',
+    version = '*',
+    event = { 'BufReadPost', 'BufNewFile', },
+    keys = {
+      { '<c-\\>', function() require 'mini.map'.toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle', },
+      { '<a-\\>', function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
+    },
+    config = function()
+      local minimap = require 'mini.map'
+      local symbols = minimap.gen_encode_symbols.dot '4x2'
+      symbols[1] = ' '
+      minimap.setup {
+        integrations = {
+          minimap.gen_integration.builtin_search(),
+          minimap.gen_integration.gitsigns(),
+          minimap.gen_integration.diagnostic(),
+        },
+        symbols = {
+          encode = symbols,
+        },
+        window = {
+          focusable = true,
+          -- side = 'right',
+          -- show_integration_count = true,
+          -- width = 10,
+          -- winblend = 25,
+          -- zindex = 10,
+        },
+      }
+    end,
+  },
+
 }
