@@ -353,4 +353,38 @@ return {
     },
   },
 
+  -- my.tabline
+  {
+    name = 'my.tabline',
+    dir = '',
+    event = { 'BufReadPost', 'BufNewFile', },
+    dependencies = {
+      'dbakker/vim-projectroot',
+      'peter-lyr/vim-bbye',
+    },
+    keys = {
+      { '<c-l>',             function() require 'config.my.tabline'.b_next_buf() end,                      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_next_buf', },
+      { '<c-h>',             function() require 'config.my.tabline'.b_prev_buf() end,                      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_prev_buf', },
+      { '<c-s-l>',           function() require 'config.my.tabline'.bd_next_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_next_buf', },
+      { '<c-s-h>',           function() require 'config.my.tabline'.bd_prev_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_prev_buf', },
+      { '<leader>qw',        function() require 'config.my.tabline'.only_cur_buffer() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: only_cur_buffer', },
+      { '<leader>qt',        function() require 'config.my.tabline'.restore_hidden_tabs() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
+      { '<leader>qd',        function() require 'config.my.tabline'.append_one_proj_right_down() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down', },
+      { '<leader>qn',        function() require 'config.my.tabline'.append_one_proj_new_tab() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab', },
+      { '<leader>qm',        function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', },
+      { '<leader>q<leader>', function() require 'config.my.tabline'.simple_statusline_toggle() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: simple_statusline_toggle', },
+      { '<leader>q<cr>',     function() require 'config.my.tabline'.toggle_tabs_way() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: toggle_tabs_way', },
+      { '<leader>qu',        function() require 'config.my.tabline'.append_unload_right_down() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_unload_right_down', },
+      { '<leader>xL',        function() require 'config.my.tabline'.bd_all_next_buf() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_all_next_buf', },
+      { '<leader>xH',        function() require 'config.my.tabline'.bd_all_prev_buf() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_all_prev_buf', },
+    },
+    init = function()
+      vim.opt.tabline = vim.loop.cwd()
+      vim.opt.showtabline = 2
+    end,
+    config = function()
+      require 'config.my.tabline'
+    end,
+  },
+
 }
