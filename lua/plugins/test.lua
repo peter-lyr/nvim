@@ -128,10 +128,13 @@ return {
       'preservim/nerdcommenter',
     },
     keys = {
-      { '<leader>co', "}kvip:call nerdcommenter#Comment('x', 'invert')<CR>", mode = { 'n', }, desc = 'Nerdcommenter invert a paragraph', },
-      { '<leader>cp', "}kvip:call nerdcommenter#Comment('x', 'toggle')<CR>", mode = { 'n', }, desc = 'Nerdcommenter toggle a paragraph', },
+      { '<leader>c',  function() end,                                        mode = { 'n', 'v', }, desc = '---test.commenter---', },
+      { '<leader>co', "}kvip:call nerdcommenter#Comment('x', 'invert')<CR>", mode = { 'n', },      desc = 'Nerdcommenter invert a paragraph', },
+      { '<leader>cp', "}kvip:call nerdcommenter#Comment('x', 'toggle')<CR>", mode = { 'n', },      desc = 'Nerdcommenter toggle a paragraph', },
     },
     config = function()
+      require 'base'.del_map({ 'n', 'v', }, '<leader>c')
+      require 'which-key'.register { ['<leader>c'] = { name = 'test.commenter', }, }
       -- nerdcommenter
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
@@ -255,12 +258,15 @@ return {
   {
     'nvim-pack/nvim-spectre',
     keys = {
+      { '<leader>r',      function() end,                                                            mode = { 'n', 'v', }, silent = true, desc = '---test.spectre---', },
       { '<leader>rf',     function() require 'spectre'.open_file_search { select_word = true, } end, mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur cword', },
       { '<leader>r<c-f>', function() require 'spectre'.open_file_search() end,                       mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur', },
       { '<leader>rw',     function() require 'spectre'.open_visual { select_word = true, } end,      mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd cword', },
       { '<leader>r<c-w>', function() require 'spectre'.open() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd', },
     },
     config = function()
+      require 'base'.del_map({ 'n', 'v', }, '<leader>r')
+      require 'which-key'.register { ['<leader>r'] = { name = 'test.spectre', }, }
       require 'spectre'.setup()
     end,
   },
