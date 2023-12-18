@@ -210,25 +210,6 @@ function M.open_proj_in_new_tab(proj)
   vim.cmd 'e!'
 end
 
-function M.append_one_proj_new_tab()
-  if #vim.tbl_keys(M.proj_bufs) > 1 then
-    local projs = {}
-    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
-    for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
-      if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
-        projs[#projs + 1] = project
-      end
-    end
-    if #projs > 0 then
-      vim.ui.select(projs, { prompt = 'append_one_proj_new_tab', }, function(proj, idx)
-        M.open_proj_in_new_tab(proj)
-      end)
-    else
-      print 'no append_one_proj_new_tab'
-    end
-  end
-end
-
 function M.append_one_proj_new_tab_no_dupl()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local projs = {}
@@ -282,24 +263,6 @@ function M.is_buf_deleted(buf)
     return true
   end
   return false
-end
-
-function M.append_unload_right_down()
-  local files = {}
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    local file = B.rep_slash_lower(vim.api.nvim_buf_get_name(buf))
-    if B.is(M.is_buf_deleted(buf)) then
-      files[#files + 1] = file
-    end
-  end
-  B.ui_sel(files, 'open deleted file', function(file)
-    vim.cmd 'wincmd b'
-    if B.file_exists(vim.api.nvim_buf_get_name(0)) then
-      vim.cmd 'wincmd W'
-    end
-    vim.cmd 'wincmd s'
-    B.cmd("e %s", file)
-  end)
 end
 
 function M.update_bufs_and_refresh_tabline()
