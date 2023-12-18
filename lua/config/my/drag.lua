@@ -135,6 +135,8 @@ end
 
 function M._add_callbacks_basic(file)
   M._add_callbacks {
+    { 'nop',                           function() end, },
+    { 'delete buffer',                 function() M._delete_buffer(file) end, },
     { 'bin xxd and delete buffer',     function() M.bin_xxd(file) end, },
     { 'system open and delete buffer', function() M.system_open(file) end, },
   }
