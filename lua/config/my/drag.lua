@@ -16,62 +16,74 @@ M.BIN_EXTS = {
   'wav', 'mp3',
 }
 
-M._en_total = 1
-M._en_bin_must_xxd = 1
-M._en_doc_must_system_open = 1
-M._last_file = ''
-M._callbacks = {}
+M.en_check_all = 1
+M.en_doc_must_system_open = 1
+M.en_bin_must_xxd = 1
 
-M._xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
+M.xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
 
 -- eanblea or disable
 function M.enable()
-  M._en_total = 1
+  M.en_check_all = 1
 end
 
 function M.disable()
-  M._en_total = nil
+  M.en_check_all = nil
 end
 
 function M.enable_bin_must_xxd()
-  M._en_bin_must_xxd = 1
+  M.en_bin_must_xxd = 1
 end
 
 function M.disable_bin_must_xxd()
-  M._en_bin_must_xxd = nil
+  M.en_bin_must_xxd = nil
 end
 
 function M.enable_doc_must_system_open()
-  M._en_doc_must_system_open = 1
+  M.en_doc_must_system_open = 1
 end
 
 function M.disable_doc_must_system_open()
-  M._en_doc_must_system_open = nil
+  M.en_doc_must_system_open = nil
+end
+
+-- is
+function M._is_doc(file)
+  return B.is_file_in_extensions(M.DOC_EXTS, file)
+end
+
+function M._is_bin(file)
+  local info = vim.fn.system(string.format('file -b --mime-type --mime-encoding "%s"', file))
+  info = string.gsub(info, '%s', '')
+  local info_l = vim.fn.split(info, ';')
+  if info_l[2] and string.match(info_l[2], 'binary') and info_l[1] and not string.match(info_l[1], 'empty') then
+    return 1
+  end
+  return nil
 end
 
 -- common
-function M._delete_buffer(cur_file)
-  if cur_file then
-    if B.is_file_opened_buffer(cur_file) then
-      B.cmd('Bdelete! %s', cur_file)
-    end
+function M._delete_buffer(file)
+  if file then
+    B.cmd('Bdelete! %s', file)
   else
     vim.cmd 'Bdelete!'
   end
 end
 
-function M.system_open(cur_file)
-  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  B.system_run('start silent', '"%s"', cur_file)
+function M.system_open(file)
+  if not file then file = vim.api.nvim_buf_get_name(0) end
+  B.system_run('start silent', '"%s"', file)
+  M._delete_buffer(file)
 end
 
 -- bin
-function M._xxd_do(cur_file)
-  local bin_fname = B.rep_slash_lower(cur_file)
+function M._xxd_do(file)
+  local bin_fname = B.rep_slash_lower(file)
   local bin_fname_tail = vim.fn.fnamemodify(bin_fname, ':t')
   local bin_fname_full__ = string.gsub(vim.fn.fnamemodify(bin_fname, ':h'), '\\', '_')
   bin_fname_full__ = string.gsub(bin_fname_full__, ':', '_')
-  local xxd_output_sub_dir_path = M._xxd_output_dir_path:joinpath(bin_fname_full__)
+  local xxd_output_sub_dir_path = M.xxd_output_dir_path:joinpath(bin_fname_full__)
   if not xxd_output_sub_dir_path:exists() then vim.fn.mkdir(xxd_output_sub_dir_path.filename) end
   local xxd = xxd_output_sub_dir_path:joinpath(bin_fname_tail .. '.xxd').filename
   local c = xxd_output_sub_dir_path:joinpath(bin_fname_tail .. '.c').filename
@@ -83,106 +95,81 @@ function M._xxd_do(cur_file)
   vim.cmd 'setlocal ft=xxd'
 end
 
-function M.bin_xxd(cur_file)
-  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  if M._is_bin(cur_file) then
-    if not B.is_file_in_extensions(M.BIN_EXTS, cur_file) then
-      local res = vim.fn.input('detected as binary file: ' .. cur_file .. ', to xxd? [N/y]: ', 'y')
+function M.bin_xxd(file)
+  if not file then file = vim.api.nvim_buf_get_name(0) end
+  if M._is_bin(file) then
+    if not B.is_file_in_extensions(M.BIN_EXTS, file) then
+      local res = vim.fn.input('detected as binary file: ' .. file .. ', to xxd? [N/y]: ', 'y')
       if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
         return
       end
     end
-    M._delete_buffer(cur_file)
+    M._delete_buffer(file)
     B.set_timeout(50, function()
-      M._xxd_do(cur_file)
+      M._xxd_do(file)
     end)
   end
 end
 
-function M.bin_xxd_force(cur_file)
-  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  M._delete_buffer(cur_file)
+function M.bin_xxd_force(file)
+  if not file then file = vim.api.nvim_buf_get_name(0) end
+  M._delete_buffer(file)
   B.set_timeout(50, function()
-    M._xxd_do(cur_file)
+    M._xxd_do(file)
   end)
 end
 
-function M._is_bin(cur_file)
-  local info = vim.fn.system(string.format('file -b --mime-type --mime-encoding "%s"', cur_file))
-  info = string.gsub(info, '%s', '')
-  local info_l = vim.fn.split(info, ';')
-  if info_l[2] and string.match(info_l[2], 'binary') and info_l[1] and not string.match(info_l[1], 'empty') then
-    return 1
-  end
-  return nil
-end
+-- callback
+M._titles = {}
+M._callbacks = {}
 
-function M._check_bin(cur_file)
-  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  if M._is_bin(cur_file) then
-    return {
-      ['bin xxd and delete buffer'] = function()
-        M.bin_xxd(cur_file)
-      end,
-      ['system open and delete buffer'] = function()
-        M.system_open(cur_file)
-        M._delete_buffer(cur_file)
-      end,
-    }
+function M._add_callbacks(tbl)
+  for _, v in ipairs(tbl) do
+    if not B.is(vim.tbl_contains(M._titles, v[1])) then
+      M._titles[#M._titles + 1] = v[1]
+      M._callbacks[#M._callbacks + 1] = v[2]
+    end
   end
 end
 
--- doc
-function M._check_doc(cur_file)
-  if not cur_file then cur_file = vim.api.nvim_buf_get_name(0) end
-  if B.is_file_in_extensions(M.DOC_EXTS, cur_file) then
-    return {
-      ['bin xxd and delete buffer'] = function()
-        M.bin_xxd(cur_file)
-      end,
-      ['system open and delete buffer'] = function()
-        M.system_open(cur_file)
-        M._delete_buffer(cur_file)
-      end,
-    }
-  end
+function M._add_callbacks_basic(file)
+  M._add_callbacks {
+    { 'bin xxd and delete buffer',     function() M.bin_xxd(file) end, },
+    { 'system open and delete buffer', function() M.system_open(file) end, },
+  }
 end
 
 B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
   callback = function(ev)
-    if not M._en_total then
+    if not M.en_check_all then
       return
     end
-    local cur_file = B.get_full_name(ev.file)
-    M._callbacks = { ['Nop'] = function() end, }
-    M._callbacks = B.merge_dict(M._callbacks, M._check_bin(cur_file))
-    M._callbacks = B.merge_dict(M._callbacks, M._check_doc(cur_file))
-    if M._en_doc_must_system_open and B.is_file_in_extensions(M.DOC_EXTS, cur_file) then
-      M.system_open(cur_file)
-      M._delete_buffer(cur_file)
-      return
-    elseif M._en_bin_must_xxd and M._is_bin(cur_file) then
-      M.bin_xxd(cur_file)
-      return
-    end
-    local count = B.get_dict_count(M._callbacks)
-    if count == 1 then
-      for _, callback in pairs(M._callbacks) do callback() end
-    elseif count > 1 then
-      M._callbacks = B.merge_dict(M._callbacks, { ['Delete buffer'] = function() M._delete_buffer(cur_file) end, })
-      B.ui_sel(vim.fn.sort(vim.tbl_keys(M._callbacks)), 'Drag', function(callback)
-        if callback then
-          M._callbacks[callback]()
-        end
-      end)
-    end
-  end,
-})
+    M._cur_file = B.get_full_name(ev.file)
+    M._titles = {}
+    M._callbacks = {}
 
-B.aucmd('BufEnter', 'my.drag.BufEnter', {
-  callback = function(ev)
-    if M._en_total then
-      M._last_file = B.get_full_name(ev.file)
+    if M._is_doc(M._cur_file) then
+      if M.en_doc_must_system_open then
+        M.system_open(M._cur_file)
+        return
+      end
+      M._add_callbacks_basic(M._cur_file)
+    end
+
+    if M._is_bin(M._cur_file) then
+      if M.en_bin_must_xxd then
+        M.bin_xxd_force(M._cur_file)
+        return
+      end
+      M._add_callbacks_basic(M._cur_file)
+    end
+
+    if #M._callbacks == 1 then
+      M._callbacks[1]()
+    else
+      B.ui_sel(M._titles, 'Drag', function(_, index)
+        M._callbacks[index]()
+      end)
     end
   end,
 })
