@@ -144,48 +144,41 @@ function M._check_doc(cur_file)
   end
 end
 
--- aucmd
-B.aucmd('BufReadPre', 'my.drag.BufReadPre', {
-  callback = function(ev)
-    if M._en_total then
-      local file = B.get_full_name(ev.file)
-      M._callbacks = { ['Nop'] = function() end, }
-      M._callbacks = B.merge_dict(M._callbacks, M._check_bin(file))
-      M._callbacks = B.merge_dict(M._callbacks, M._check_doc(file))
-    end
-  end,
-})
-
 B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
   callback = function(ev)
-    if M._en_total then
-      if M._en_doc_must_system_open and B.is_file_in_extensions(M.DOC_EXTS, ev.file) then
-        M.system_open(ev.file)
-        M._delete_buffer(ev.file)
-        return
-      elseif M._en_bin_must_xxd and M._is_bin(ev.file) then
-        if not B.is_file_in_extensions(M.BIN_EXTS, ev.file) then
-          B.notify_info('Something happened.')
-          local res = vim.fn.input('detected as binary file: ' .. ev.file .. ', to xxd? [N/y]: ', 'y')
-          if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
-            return
-          end
+    if not M._en_total then
+      return
+    end
+    local cur_file = B.get_full_name(ev.file)
+    M._callbacks = { ['Nop'] = function() end, }
+    M._callbacks = B.merge_dict(M._callbacks, M._check_bin(cur_file))
+    M._callbacks = B.merge_dict(M._callbacks, M._check_doc(cur_file))
+    if M._en_doc_must_system_open and B.is_file_in_extensions(M.DOC_EXTS, cur_file) then
+      M.system_open(cur_file)
+      M._delete_buffer(cur_file)
+      return
+    elseif M._en_bin_must_xxd and M._is_bin(cur_file) then
+      if not B.is_file_in_extensions(M.BIN_EXTS, cur_file) then
+        B.notify_info('Something happened.')
+        local res = vim.fn.input('detected as binary file: ' .. cur_file .. ', to xxd? [N/y]: ', 'y')
+        if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
+          return
         end
-        M.bin_xxd(ev.file)
-        M._delete_buffer(ev.file)
-        return
       end
-      local count = B.get_dict_count(M._callbacks)
-      if count == 1 then
-        for _, callback in pairs(M._callbacks) do callback() end
-      elseif count > 1 then
-        M._callbacks = B.merge_dict(M._callbacks, { ['Delete buffer'] = function() M._delete_buffer(ev.file) end, })
-        B.ui_sel(vim.fn.sort(vim.tbl_keys(M._callbacks)), 'Drag', function(callback)
-          if callback then
-            M._callbacks[callback]()
-          end
-        end)
-      end
+      M.bin_xxd(cur_file)
+      M._delete_buffer(cur_file)
+      return
+    end
+    local count = B.get_dict_count(M._callbacks)
+    if count == 1 then
+      for _, callback in pairs(M._callbacks) do callback() end
+    elseif count > 1 then
+      M._callbacks = B.merge_dict(M._callbacks, { ['Delete buffer'] = function() M._delete_buffer(cur_file) end, })
+      B.ui_sel(vim.fn.sort(vim.tbl_keys(M._callbacks)), 'Drag', function(callback)
+        if callback then
+          M._callbacks[callback]()
+        end
+      end)
     end
   end,
 })
