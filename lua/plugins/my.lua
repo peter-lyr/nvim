@@ -69,9 +69,7 @@ return {
     name = 'my.nmaps',
     dir = '',
     event = 'VeryLazy',
-    config = function()
-      require 'config.my.nmaps'
-    end,
+    config = function() require 'config.my.nmaps' end,
   },
 
   -- my.uienter
@@ -91,9 +89,7 @@ return {
     name = 'my.vimleavepre',
     dir = '',
     event = 'VimLeavePre',
-    config = function()
-      vim.fn['GuiWindowFrameless'](0)
-    end,
+    config = function() vim.fn['GuiWindowFrameless'](0) end,
   },
 
   -- my.bufreadpost
@@ -154,9 +150,7 @@ return {
     name = 'my.imaps',
     dir = '',
     event = { 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
-    config = function()
-      require 'config.my.imaps'
-    end,
+    config = function() require 'config.my.imaps' end,
   },
 
   -- my.git
@@ -208,9 +202,7 @@ return {
       'peter-lyr/diffview.nvim',
       'dbakker/vim-projectroot',
     },
-    config = function()
-      require 'config.my.git'
-    end,
+    config = function() require 'config.my.git' end,
   },
 
   -- my.c
@@ -219,9 +211,7 @@ return {
     dir = '',
     cmd = { 'C', },
     ft = { 'c', 'cpp', },
-    config = function()
-      require 'config.my.c'
-    end,
+    config = function() require 'config.my.c' end,
   },
 
   -- my.args
@@ -230,9 +220,7 @@ return {
     dir = '',
     cmd = { 'Args', },
     event = { 'BufReadPre', 'BufNewFile', },
-    config = function()
-      require 'config.my.args'
-    end,
+    config = function() require 'config.my.args' end,
   },
 
   -- my.drag
@@ -258,9 +246,7 @@ return {
       { '<leader>y',  function() require 'config.my.copy' end,            mode = { 'n', 'v', }, silent = true, desc = '---my.copy---', },
       { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'my.copy: copy_cwd', },
     },
-    config = function()
-      require 'config.my.copy'
-    end,
+    config = function() require 'config.my.copy' end,
   },
 
   -- my.source
@@ -268,9 +254,7 @@ return {
     name = 'my.source',
     dir = '',
     cmd = { 'Source', },
-    config = function()
-      require 'config.my.source'
-    end,
+    config = function() require 'config.my.source' end,
   },
 
   -- my.gui
@@ -292,9 +276,7 @@ return {
         end,
       })
     end,
-    config = function()
-      require 'config.my.gui'
-    end,
+    config = function() require 'config.my.gui' end,
   },
 
   -- my.info
@@ -382,9 +364,7 @@ return {
       vim.opt.tabline = vim.loop.cwd()
       vim.opt.showtabline = 2
     end,
-    config = function()
-      require 'config.my.tabline'
-    end,
+    config = function() require 'config.my.tabline' end,
   },
 
   -- markdown
@@ -401,9 +381,7 @@ return {
       vim.g.mkdp_combine_preview    = 1
       vim.g.mkdp_command_for_global = 1
     end,
-    config = function()
-      require 'config.my.markdown'
-    end,
+    config = function() require 'config.my.markdown' end,
   },
 
   -- my.test
@@ -413,9 +391,7 @@ return {
     keys = {
       { '<leader><c-t>', function() require 'config.my.test' end, mode = { 'n', 'v', }, silent = true, desc = '---my.test---', },
     },
-    config = function()
-      require 'config.my.test'
-    end,
+    config = function() require 'config.my.test' end,
   },
 
 }
