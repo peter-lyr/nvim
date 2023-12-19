@@ -300,7 +300,7 @@ B.lazy_map {
   { '<leader>g<c-`>',    M.addcommitpush_back_quote,        mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush back_quote', },
   { '<leader>g<c-s-.>',  M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
   { '<leader>g<c-e>',    M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
-  { '<leader>g<c-3>',    M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
+  { '<leader>g<c-4>',    M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
 }
 
 -- gitsigns
