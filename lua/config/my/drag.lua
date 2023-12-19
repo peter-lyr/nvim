@@ -29,6 +29,7 @@ M.en_bin_must_xxd = 1
 M.xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
 
 M._last_file = ''
+M._last_lnr = 1
 
 -- eanblea or disable
 function M.enable_check_all()
@@ -101,7 +102,7 @@ end
 M._image_root_dir_name = '.images'
 M._image_root_dir_md_name = '_.md'
 
-function M._paste_image(image_file, markdown_file)
+function M._paste_image(image_file, markdown_file, lnr)
   local _proj_root = vim.fn['ProjectRootGet'](markdown_file)
   if not B.is(_proj_root) then
     B.notify_info('not in a project root: ' .. markdown_file)
@@ -110,17 +111,17 @@ function M._paste_image(image_file, markdown_file)
   local _image_root_dir = B.getcreate_dirpath { _proj_root, M._image_root_dir_name, }.filename
   local _image_root_dir_md_path = B.getcreate_filepath(_image_root_dir, M._image_root_dir_md_name)
   B.print('_proj_root: %s, _image_root_dir: %s, _image_root_dir_md_path: %s', _proj_root, _image_root_dir, _image_root_dir_md_path)
-  B.print('will paste %s to %s', image_file, markdown_file)
+  B.print('will paste %s to %s at line #%d', image_file, markdown_file, lnr)
 end
 
-function M.paste_image_and_delete_buffer(image_file, markdown_file)
+function M.paste_image_and_delete_buffer(image_file, markdown_file, lnr)
   if not M._is_in_image_fts(image_file) then
     return
   end
   if not M._is_in_markdown_fts(markdown_file) then
     return
   end
-  M._paste_image(image_file, markdown_file)
+  M._paste_image(image_file, markdown_file, lnr)
   M._delete_buffer(image_file)
 end
 
@@ -200,7 +201,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 
     if M._is_in_markdown_fts(M._last_file) then
       if M._is_in_image_fts(M._cur_file) then
-        M.paste_image_and_delete_buffer(M._cur_file, M._last_file)
+        M.paste_image_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
         return
       end
     end
@@ -235,6 +236,14 @@ B.aucmd('BufEnter', 'my.drag.BufEnter', {
   callback = function(ev)
     if M.en_check_all then
       M._last_file = B.get_full_name(ev.file)
+    end
+  end,
+})
+
+B.aucmd('CursorMoved', 'my.drag.CursorMoved', {
+  callback = function()
+    if M.en_check_all then
+      M._last_lnr = vim.fn.line('.')
     end
   end,
 })
