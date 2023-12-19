@@ -345,7 +345,7 @@ return {
     name = 'my.toggle',
     dir = '',
     keys = {
-      { '<leader>t',  function() end,                                           mode = { 'n', 'v', }, silent = true, desc = '---my.toggle---', },
+      { '<leader>t', function() end, mode = { 'n', 'v', }, silent = true, desc = '---my.toggle---', },
     },
     config = function()
       require 'base'.del_map({ 'n', 'v', }, '<leader>t')
