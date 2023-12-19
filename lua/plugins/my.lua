@@ -411,4 +411,18 @@ return {
     end,
   },
 
+  -- my.test
+  {
+    name = 'my.test',
+    dir = '',
+    keys = {
+      { '<a-t>r', function() require 'config.my.test'.restart_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.test: restart_nvim_qt', },
+      { '<a-t>s', function() require 'config.my.test'.start_new_nvim_qt() end, mode = { 'n', 'v', }, silent = true, desc = 'my.test: start_new_nvim_qt', },
+      { '<a-t>q', function() require 'config.my.test'.quit_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.test: quit_nvim_qt', },
+    },
+    config = function()
+      require 'config.my.test'
+    end,
+  },
+
 }
