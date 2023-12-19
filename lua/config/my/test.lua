@@ -30,7 +30,14 @@ function M.quit_nvim_qt()
 end
 
 -- mapping
+B.del_map({ 'n', 'v', }, '<leader><c-t>')
+
+require 'which-key'.register { ['<leader><c-t>'] = { name = 'my.test', }, }
+
 B.lazy_map {
+  { '<leader><c-t>r', function() require 'config.my.test'.restart_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.test: restart_nvim_qt', },
+  { '<leader><c-t>s', function() require 'config.my.test'.start_new_nvim_qt() end, mode = { 'n', 'v', }, silent = true, desc = 'my.test: start_new_nvim_qt', },
+  { '<leader><c-t>q', function() require 'config.my.test'.quit_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.test: quit_nvim_qt', },
 }
 
 return M
