@@ -110,8 +110,7 @@ function M._paste_image(image_file, markdown_file, lnr)
   end
   local _image_root_dir = B.getcreate_dirpath { _proj_root, M._image_root_dir_name, }.filename
   local _image_root_dir_md_path = B.getcreate_filepath(_image_root_dir, M._image_root_dir_md_name)
-  B.print('_proj_root: %s, _image_root_dir: %s, _image_root_dir_md_path: %s', _proj_root, _image_root_dir, _image_root_dir_md_path)
-  B.print('will paste %s to %s at line #%d', image_file, markdown_file, lnr)
+  B.print('will paste %s to %s at line #%d, _image_root_dir_md_path: %s', image_file, markdown_file, lnr, _image_root_dir_md_path)
 end
 
 function M.paste_image_and_delete_buffer(image_file, markdown_file, lnr)
