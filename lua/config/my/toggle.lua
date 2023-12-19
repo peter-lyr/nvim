@@ -1,5 +1,7 @@
 local M = {}
 
+local B = require 'base'
+
 M.diff = function()
   if vim.o.diff == false then
     vim.cmd 'diffthis'
@@ -58,5 +60,20 @@ M.iskeyword = function()
   end
   print(vim.o.iskeyword)
 end
+
+-- mapping
+B.del_map({ 'n', 'v', }, '<leader>t')
+
+require 'which-key'.register { ['<leader>t'] = { name = 'my.toggle', }, }
+
+B.lazy_map {
+  { '<leader>td', function() require 'config.my.toggle'.diff() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: diff', },
+  { '<leader>tw', function() require 'config.my.toggle'.wrap() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: wrap', },
+  { '<leader>tr', function() require 'config.my.toggle'.renu() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: renu', },
+  { '<leader>ts', function() require 'config.my.toggle'.signcolumn() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: signcolumn', },
+  { '<leader>tc', function() require 'config.my.toggle'.conceallevel() end, mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: conceallevel', },
+  { '<leader>tk', function() require 'config.my.toggle'.iskeyword() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: iskeyword', },
+}
+
 
 return M
