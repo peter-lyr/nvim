@@ -301,6 +301,16 @@ B.lazy_map {
   { '<leader>g<c-s-.>',  M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
   { '<leader>g<c-e>',    M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
   { '<leader>g<c-4>',    M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
+  { 'g<c-l>',            M.addcommitpush_curline,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush curline', },
+  { 'g<c-\'>',           M.addcommitpush_single_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush single_quote', },
+  { 'g<c-s-\'>',         M.addcommitpush_double_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush double_quote', },
+  { 'g<c-0>',            M.addcommitpush_parentheses,       mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush parentheses', },
+  { 'g<c-]>',            M.addcommitpush_bracket,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush bracket', },
+  { 'g<c-s-]>',          M.addcommitpush_brace,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush brace', },
+  { 'g<c-`>',            M.addcommitpush_back_quote,        mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush back_quote', },
+  { 'g<c-s-.>',          M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
+  { 'g<c-e>',            M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
+  { 'g<c-4>',            M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
 }
 
 -- gitsigns
