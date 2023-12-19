@@ -100,15 +100,16 @@ end
 -- image
 M._image_root_dir_name = '.images'
 M._image_root_dir_md_name = '_.md'
-M._image_root_path = ''
 
 function M._paste_image(image_file, markdown_file)
-  M._image_root_path = vim.fn['ProjectRootGet'](markdown_file)
-  if not B.is(M._image_root_path) then
+  local _proj_root = vim.fn['ProjectRootGet'](markdown_file)
+  if not B.is(_proj_root) then
     B.notify_info('not in a project root: ' .. markdown_file)
     return
   end
-  B.notify_info('project root: ' .. M._image_root_path)
+  local _image_root_dir = B.getcreate_dirpath { _proj_root, M._image_root_dir_name, }.filename
+  local _image_root_dir_md_path = B.getcreate_filepath(_image_root_dir, M._image_root_dir_md_name)
+  B.print('_proj_root: %s, _image_root_dir: %s, _image_root_dir_md_path: %s', _proj_root, _image_root_dir, _image_root_dir_md_path)
   B.print('will paste %s to %s', image_file, markdown_file)
 end
 
