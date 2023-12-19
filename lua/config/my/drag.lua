@@ -98,7 +98,18 @@ function M.system_open_and_delete_buffer(file)
 end
 
 -- image
+M._image_root_dir_name = '.images'
+M._image_root_dir_md_name = '_.md'
+M._image_root_path = ''
+
 function M._paste_image(image_file, markdown_file)
+  M._image_root_path = vim.fn['ProjectRootGet'](markdown_file)
+  if B.is(M._image_root_path) then
+    B.notify_info('project root: ' .. M._image_root_path)
+  else
+    M._image_root_path = vim.fn.expand [[$HOME]]
+    B.notify_info('not in a project root: ' .. markdown_file .. ', switch to ' .. M._image_root_path)
+  end
   B.print('will paste %s to %s', image_file, markdown_file)
 end
 
