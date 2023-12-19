@@ -381,8 +381,6 @@ return {
       { 'qh',      function() require 'config.my.tabline'.restore_hidden_tabs() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
       { 'qj',      function() require 'config.my.tabline'.append_one_proj_right_down() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down', },
       { 'qk',      function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', },
-      { '<a-i>',   'gT',                                                                         mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: gT', },
-      { '<a-o>',   'gt',                                                                         mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: gt', },
     },
     init = function()
       vim.opt.tabline = vim.loop.cwd()

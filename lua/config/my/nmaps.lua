@@ -37,6 +37,10 @@ lazy_map {
   { '<a-s-p>',             '"+P',                 mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: "+P', },
   -- for youdao dict
   { '<c-c>',               '"+y',                 mode = { 'v', },      silent = true,  desc = 'my.maps: "+y', },
+  -- tab
+  { '<a-i>',               'gT',                  mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: gT', },
+  { '<a-o>',               'gt',                  mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: gt', },
+  { '<a-u>',               '<c-tab>',             mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: <c-tab>', },
 }
 
 lazy_map {
