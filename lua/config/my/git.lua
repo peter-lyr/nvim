@@ -7,6 +7,13 @@ M.lua = B.getlua(M.source)
 
 require 'telescope'.load_extension 'ui-select'
 
+function M.get_info(info)
+  info = string.gsub(info, '"', '\\"')
+  info = string.gsub(info, '#', '_')
+  info = vim.fn.trim(info)
+  return info
+end
+
 -- gitpush
 function M.addcommitpush(info)
   pcall(vim.call, 'ProjectRootCD')
@@ -18,7 +25,7 @@ function M.addcommitpush(info)
     end
     if #info > 0 then
       B.set_timeout(10, function()
-        info = string.gsub(info, '"', '\\"')
+        info = M.get_info(info)
         B.system_run('asyncrun', 'git add -A && git status && git commit -m "%s" && git push', info)
       end)
     end
@@ -87,7 +94,7 @@ function M.commit_push(info)
     end
     if #info > 0 then
       B.set_timeout(10, function()
-        info = string.gsub(info, '"', '\\"')
+        info = M.get_info(info)
         B.system_run('asyncrun', 'git commit -m "%s" && git push', info)
       end)
     end
@@ -106,7 +113,7 @@ function M.commit(info)
     end
     if #info > 0 then
       B.set_timeout(10, function()
-        info = string.gsub(info, '"', '\\"')
+        info = M.get_info(info)
         B.system_run('asyncrun', 'git commit -m "%s"', info)
       end)
     end
