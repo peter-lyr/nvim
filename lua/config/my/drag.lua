@@ -102,7 +102,7 @@ end
 M._image_root_dir_name = '.images'
 M._image_root_dir_md_name = '_.md'
 
-function M._paste_image(image_file, markdown_file, lnr)
+function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   local _proj_root = vim.fn['ProjectRootGet'](markdown_file)
   if not B.is(_proj_root) then
     B.notify_info('not in a project root: ' .. markdown_file)
@@ -110,22 +110,47 @@ function M._paste_image(image_file, markdown_file, lnr)
   end
   local _image_root_dir = B.getcreate_dirpath { _proj_root, M._image_root_dir_name, }.filename
   local _image_root_dir_md_path = B.getcreate_filepath(_image_root_dir, M._image_root_dir_md_name)
-  B.print('will paste %s to %s at line #%d, _image_root_dir_md_path: %s', image_file, markdown_file, lnr, _image_root_dir_md_path)
+  local _image_hash_64 = B.get_hash(image_file)
+  local _image_hash_8 = string.sub(_image_hash_64, 1, 8)
+  local _image_fname_tail = vim.fn.fnamemodify(image_file, ':t')
+  local _image_fname_tail_root = vim.fn.fnamemodify(_image_fname_tail, ':r')
+  local _image_fname_tail_ext = vim.fn.fnamemodify(_image_fname_tail, ':e')
+  local _image_hash_name = _image_hash_8 .. '.' .. _image_fname_tail_ext
+  local _image_target_file = B.getcreate_filepath(_image_root_dir, _image_hash_name).filename
+  -- TODO: [Done] copy image_file to _image_root_dir
+  vim.fn.system(string.format('copy /y "%s" "%s"', image_file, _image_target_file))
+  -- TODO: [Done] create _image_root_dir_md_name image url
+  local _image_root_dir_md_url = string.format('![%s](%s)\n', _image_fname_tail_root, _image_hash_name)
+  -- TODO: [Done] write _image_root_dir_md_name image url
+  _image_root_dir_md_path:write(_image_root_dir_md_url, 'a')
+  -- TODO: [Done] create markdown_file image url
+  local relative = ''
+  local count = B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\')
+  if count > 0 then
+    for _ = 1, count do
+      relative = relative .. '../'
+    end
+  end
+  local _image_root_dir_md_url_relative = string.format('![%s](%s%s/%s)', _image_fname_tail_root, relative, M._image_root_dir_name, _image_hash_name)
+  -- TODO: [Done] append markdown_file image url
+  B.cmd('e %s', markdown_file)
+  vim.fn.append(lnr, _image_root_dir_md_url_relative)
 end
 
-function M.paste_image_and_delete_buffer(image_file, markdown_file, lnr)
+function M._copy_image_2_markdown_and_delete_buffer(image_file, markdown_file, lnr)
   if not M._is_in_image_fts(image_file) then
     return
   end
   if not M._is_in_markdown_fts(markdown_file) then
     return
   end
-  M._paste_image(image_file, markdown_file, lnr)
+  M._copy_image_2_markdown(image_file, markdown_file, lnr)
   M._delete_buffer(image_file)
 end
 
 -- bin
 function M.bin_xxd(file)
+  if not file then file = vim.api.nvim_buf_get_name(0) end
   local bin_fname = B.rep_slash_lower(file)
   local bin_fname_tail = vim.fn.fnamemodify(bin_fname, ':t')
   local bin_fname_full__ = string.gsub(vim.fn.fnamemodify(bin_fname, ':h'), '\\', '_')
@@ -200,7 +225,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 
     if M._is_in_markdown_fts(M._last_file) then
       if M._is_in_image_fts(M._cur_file) then
-        M.paste_image_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
+        M._copy_image_2_markdown_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
         return
       end
     end
@@ -242,7 +267,7 @@ B.aucmd('BufEnter', 'my.drag.BufEnter', {
 B.aucmd('CursorHold', 'my.drag.CursorHold', {
   callback = function()
     if M.en_check_all then
-      M._last_lnr = vim.fn.line('.')
+      M._last_lnr = vim.fn.line '.'
     end
   end,
 })

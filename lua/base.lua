@@ -724,4 +724,18 @@ function M.get_root_short(project_root_path)
   return updir .. '/' .. temp__
 end
 
+function M.count_char(str, char)
+  local count = 0
+  for i = 1, #str do
+    if str:sub(i, i) == char then
+      count = count + 1
+    end
+  end
+  return count
+end
+
+function M.get_hash(file)
+  return require 'sha2'.sha256(require 'plenary.path':new(file):_read())
+end
+
 return M
