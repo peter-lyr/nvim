@@ -48,11 +48,15 @@ function M.disable_doc_must_system_open()
 end
 
 -- is
-function M._is_doc(file)
+function M._is_in_doc_fts(file)
   return B.is_file_in_extensions(M.DOC_EXTS, file)
 end
 
-function M._is_bin(file)
+function M._is_in_bin_fts(file)
+  return B.is_file_in_extensions(M.BIN_EXTS, file)
+end
+
+function M._is_detected_as_bin(file)
   local info = vim.fn.system(string.format('file -b --mime-type --mime-encoding "%s"', file))
   info = string.gsub(info, '%s', '')
   local info_l = vim.fn.split(info, ';')
@@ -104,8 +108,8 @@ end
 
 function M.bin_xxd_and_delete_buffer(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
-  if M._is_bin(file) then
-    if not B.is_file_in_extensions(M.BIN_EXTS, file) then
+  if M._is_detected_as_bin(file) then
+    if not M._is_in_bin_fts(file) then
       local res = vim.fn.input('detected as binary file: ' .. file .. ', to xxd? [N/y]: ', 'y')
       if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
         return
@@ -151,7 +155,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
     M._titles = {}
     M._callbacks = {}
 
-    if M._is_doc(M._cur_file) then
+    if M._is_in_doc_fts(M._cur_file) then
       if M.en_doc_must_system_open then
         M.system_open_and_delete_buffer(M._cur_file)
         return
@@ -159,7 +163,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
       M._add_callbacks_basic(M._cur_file)
     end
 
-    if M._is_bin(M._cur_file) then
+    if M._is_detected_as_bin(M._cur_file) then
       if M.en_bin_must_xxd then
         M.bin_xxd_and_delete_buffer_force(M._cur_file)
         return
