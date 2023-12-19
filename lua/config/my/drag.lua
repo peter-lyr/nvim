@@ -125,7 +125,7 @@ function M.paste_image_and_delete_buffer(image_file, markdown_file, lnr)
 end
 
 -- bin
-function M._xxd_do(file)
+function M.bin_xxd(file)
   local bin_fname = B.rep_slash_lower(file)
   local bin_fname_tail = vim.fn.fnamemodify(bin_fname, ':t')
   local bin_fname_full__ = string.gsub(vim.fn.fnamemodify(bin_fname, ':h'), '\\', '_')
@@ -145,7 +145,7 @@ end
 function M._bin_xxd_and_delete_buffer(file)
   M._delete_buffer(file)
   B.set_timeout(50, function()
-    M._xxd_do(file)
+    M.bin_xxd(file)
   end)
 end
 
