@@ -124,13 +124,7 @@ function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   -- TODO: [Done] write _image_root_dir_md_name image url
   _image_root_dir_md_path:write(_image_root_dir_md_url, 'a')
   -- TODO: [Done] create markdown_file image url
-  local relative = ''
-  local count = B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\')
-  if count > 0 then
-    for _ = 1, count do
-      relative = relative .. '../'
-    end
-  end
+  local relative = vim.fn['repeat']('../', B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\'))
   local _image_root_dir_md_url_relative = string.format('![%s](%s%s/%s)', _image_fname_tail_root, relative, M._image_root_dir_name, _image_hash_name)
   -- TODO: [Done] append markdown_file image url
   B.cmd('e %s', markdown_file)
