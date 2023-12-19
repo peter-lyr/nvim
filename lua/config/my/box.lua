@@ -29,15 +29,15 @@ function M.quit_nvim_qt()
   vim.cmd 'wqall'
 end
 
--- mapping
-B.del_map({ 'n', 'v', }, '<leader><c-t>')
+-- mappink
+B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
-require 'which-key'.register { ['<leader><c-t>'] = { name = 'my.test', }, }
+require 'which-key'.register { ['<leader><c-3>'] = { name = 'my.box', }, }
 
 B.lazy_map {
-  { '<leader><c-t>r', function() require 'config.my.test'.restart_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.test: restart_nvim_qt', },
-  { '<leader><c-t>s', function() require 'config.my.test'.start_new_nvim_qt() end, mode = { 'n', 'v', }, silent = true, desc = 'my.test: start_new_nvim_qt', },
-  { '<leader><c-t>q', function() require 'config.my.test'.quit_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.test: quit_nvim_qt', },
+  { '<leader><c-3>r', function() M.restart_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
+  { '<leader><c-3>s', function() M.start_new_nvim_qt() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
+  { '<leader><c-3>q', function() M.quit_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
 }
 
 return M

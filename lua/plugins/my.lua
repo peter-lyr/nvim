@@ -384,14 +384,14 @@ return {
     config = function() require 'config.my.markdown' end,
   },
 
-  -- my.test
+  -- my.box
   {
-    name = 'my.test',
+    name = 'my.box',
     dir = '',
     keys = {
-      { '<leader><c-t>', function() require 'config.my.test' end, mode = { 'n', 'v', }, silent = true, desc = '---my.test---', },
+      { '<leader><c-3>', function() require 'config.my.box' end, mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
     },
-    config = function() require 'config.my.test' end,
+    config = function() require 'config.my.box' end,
   },
 
 }
