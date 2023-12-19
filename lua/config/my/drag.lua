@@ -239,7 +239,7 @@ B.aucmd('BufEnter', 'my.drag.BufEnter', {
   end,
 })
 
-B.aucmd('CursorMoved', 'my.drag.CursorMoved', {
+B.aucmd('CursorHold', 'my.drag.CursorHold', {
   callback = function()
     if M.en_check_all then
       M._last_lnr = vim.fn.line('.')

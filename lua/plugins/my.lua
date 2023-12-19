@@ -244,6 +244,7 @@ return {
     event = { 'FocusLost', },
     dependencies = { 'peter-lyr/vim-bbye', },
     config = function()
+      vim.o.updatetime = 100
       require 'config.my.drag'
     end,
   },
@@ -334,7 +335,7 @@ return {
       { '<c-s-m>', function() require 'config.my.hili'.nextcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.hili: go cur next', },
     },
     config = function()
-      vim.o.updatetime = 10
+      vim.o.updatetime = 100
       require 'config.my.hili'
     end,
   },
