@@ -5,6 +5,12 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
+M.MARKDOWN_EXTS = {
+  'md',
+}
+
+M.IMAGE_EXTS = { 'jpg', 'png', }
+
 M.DOC_EXTS = {
   'doc', 'docx',
   'html',
@@ -21,6 +27,8 @@ M.en_doc_must_system_open = 1
 M.en_bin_must_xxd = 1
 
 M.xxd_output_dir_path = B.getcreate_temp_dirpath { 'xxd_output', }
+
+M._last_file = ''
 
 -- eanblea or disable
 function M.enable_check_all()
@@ -48,6 +56,14 @@ function M.disable_doc_must_system_open()
 end
 
 -- is
+function M._is_in_markdown_fts(file)
+  return B.is_file_in_extensions(M.MARKDOWN_EXTS, file)
+end
+
+function M._is_in_image_fts(file)
+  return B.is_file_in_extensions(M.IMAGE_EXTS, file)
+end
+
 function M._is_in_doc_fts(file)
   return B.is_file_in_extensions(M.DOC_EXTS, file)
 end
@@ -79,6 +95,22 @@ function M.system_open_and_delete_buffer(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
   B.system_run('start silent', '"%s"', file)
   M._delete_buffer(file)
+end
+
+-- image
+function M._paste_image(image_file, markdown_file)
+  B.print('will paste %s to %s', image_file, markdown_file)
+end
+
+function M.paste_image_and_delete_buffer(image_file, markdown_file)
+  if not M._is_in_image_fts(image_file) then
+    return
+  end
+  if not M._is_in_markdown_fts(markdown_file) then
+    return
+  end
+  M._paste_image(image_file, markdown_file)
+  M._delete_buffer(image_file)
 end
 
 -- bin
@@ -155,6 +187,13 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
     M._titles = {}
     M._callbacks = {}
 
+    if M._is_in_markdown_fts(M._last_file) then
+      if M._is_in_image_fts(M._cur_file) then
+        M.paste_image_and_delete_buffer(M._cur_file, M._last_file)
+        return
+      end
+    end
+
     if M._is_in_doc_fts(M._cur_file) then
       if M.en_doc_must_system_open then
         M.system_open_and_delete_buffer(M._cur_file)
@@ -177,6 +216,14 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
       B.ui_sel(M._titles, 'Drag', function(_, index)
         M._callbacks[index]()
       end)
+    end
+  end,
+})
+
+B.aucmd('BufEnter', 'my.drag.BufEnter', {
+  callback = function(ev)
+    if M.en_check_all then
+      M._last_file = B.get_full_name(ev.file)
     end
   end,
 })
