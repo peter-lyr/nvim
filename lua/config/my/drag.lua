@@ -266,6 +266,86 @@ B.aucmd('CursorHold', 'my.drag.CursorHold', {
   end,
 })
 
+function M.paste_jpg_2_markdown(png, no_input_image_name)
+  print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
+  --   local file = vim.api.nvim_buf_get_name(0)
+  --   local project = B.rep_slash_lower(vim.fn['ProjectRootGet'](file))
+  --   local image_name = vim.fn.strftime '%Y%m%d-%A-%H%M%S'
+  --   if not no_input_image_name then
+  --     image_name = vim.fn.input('Input ' .. png .. ' image name: ', image_name .. '-')
+  --   end
+  --   if not B.is(image_name) then
+  --     return
+  --   end
+  --   vim.g.temp_image_file = require 'plenary.path':new(vim.fn.expand '$temp'):joinpath(image_name .. '.' .. png).filename
+  --   vim.g.temp_image_ext = png
+  --   vim.g.temp_image_drag = require 'plenary.path':new(M.source):parent().filename
+  --   vim.cmd [[
+  --   python << EOF
+  -- import vim
+  -- import subprocess
+  -- arg1 = vim.eval('g:temp_image_file')
+  -- arg2 = vim.eval('g:temp_image_ext')
+  -- cwd = vim.eval('g:temp_image_drag')
+  -- psxmlgen = subprocess.Popen([r'powershell.exe', '-ExecutionPolicy', 'Unrestricted', './my_drag_images.lua.GetClipboardImage.ps1', arg1, arg2], cwd=cwd)
+  -- psxmlgen.wait()
+  --   EOF
+  --   ]]
+  --   if require 'plenary.path':new(vim.g.temp_image_file):exists() then
+  --     M.prepare(project, vim.g.temp_image_file, file)
+  --     M.save_image()
+  --     M.append_info()
+  --     M.append_line()
+  --   else
+  --     B.notify_info 'get image failed.'
+  --   end
+end
+
+function M._is_image_in_clipboard()
+  vim.g.temp_res = nil
+  vim.cmd [[
+    python << EOF
+import vim
+try:
+  from PIL import ImageGrab, Image
+except:
+  import os
+  cmd = "pip install pillow -i http://pypi.douban.com/simple --trusted-host pypi.douban.com"
+  print(cmd)
+  os.system(cmd)
+  from PIL import ImageGrab, Image
+img = ImageGrab.grabclipboard()
+if isinstance(img, Image.Image):
+  vim.command('let g:temp_res = 1')
+EOF
+  ]]
+  local file = vim.api.nvim_buf_get_name(0)
+  if not M._is_in_markdown_fts(file) then
+    B.print('not a markdown file: ' .. file)
+    return nil
+  end
+  local project = B.rep_slash_lower(vim.fn['ProjectRootGet'](file))
+  if #project == 0 then
+    B.print('not in a project root: ' .. file)
+    return nil
+  end
+  return vim.g.temp_res
+end
+
+function M._middlemouse()
+  if vim.fn.getmousepos()['line'] == 0 then
+    return '<MiddleMouse>'
+  end
+  if M._is_image_in_clipboard() then
+    return ':<c-u>Drag paste_jpg_2_markdown<cr>'
+  end
+  return '<MiddleMouse>'
+end
+
+B.lazy_map {
+  { '<MiddleMouse>', M._middlemouse, mode = { 'n', 'v', }, silent = true, desc = 'my.drag: _middlemouse', expr = true, },
+}
+
 B.create_user_command_with_M(M, 'Drag')
 
 return M
