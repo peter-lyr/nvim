@@ -101,6 +101,7 @@ end
 -- image
 M._image_root_dir_name = '.images'
 M._image_root_dir_md_name = '_.md'
+M._image_paste_temp_name = 'nvim_paste_temp'
 
 function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   local _proj_root = vim.fn['ProjectRootGet'](markdown_file)
@@ -114,6 +115,9 @@ function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   local _image_hash_8 = string.sub(_image_hash_64, 1, 8)
   local _image_fname_tail = vim.fn.fnamemodify(image_file, ':t')
   local _image_fname_tail_root = vim.fn.fnamemodify(_image_fname_tail, ':r')
+  if _image_fname_tail_root == M._image_paste_temp_name then
+    _image_fname_tail_root = vim.fn.strftime '%Y%m%d-%A-%H%M%S'
+  end
   local _image_fname_tail_ext = vim.fn.fnamemodify(_image_fname_tail, ':e')
   local _image_hash_name = _image_hash_8 .. '.' .. _image_fname_tail_ext
   local _image_target_file = B.getcreate_filepath(_image_root_dir, _image_hash_name).filename
@@ -266,43 +270,51 @@ B.aucmd('CursorHold', 'my.drag.CursorHold', {
   end,
 })
 
-function M.paste_jpg_2_markdown(png, no_input_image_name)
-  print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
-  --   local file = vim.api.nvim_buf_get_name(0)
-  --   local project = B.rep_slash_lower(vim.fn['ProjectRootGet'](file))
-  --   local image_name = vim.fn.strftime '%Y%m%d-%A-%H%M%S'
-  --   if not no_input_image_name then
-  --     image_name = vim.fn.input('Input ' .. png .. ' image name: ', image_name .. '-')
-  --   end
-  --   if not B.is(image_name) then
-  --     return
-  --   end
-  --   vim.g.temp_image_file = require 'plenary.path':new(vim.fn.expand '$temp'):joinpath(image_name .. '.' .. png).filename
-  --   vim.g.temp_image_ext = png
-  --   vim.g.temp_image_drag = require 'plenary.path':new(M.source):parent().filename
-  --   vim.cmd [[
-  --   python << EOF
-  -- import vim
-  -- import subprocess
-  -- arg1 = vim.eval('g:temp_image_file')
-  -- arg2 = vim.eval('g:temp_image_ext')
-  -- cwd = vim.eval('g:temp_image_drag')
-  -- psxmlgen = subprocess.Popen([r'powershell.exe', '-ExecutionPolicy', 'Unrestricted', './my_drag_images.lua.GetClipboardImage.ps1', arg1, arg2], cwd=cwd)
-  -- psxmlgen.wait()
-  --   EOF
-  --   ]]
-  --   if require 'plenary.path':new(vim.g.temp_image_file):exists() then
-  --     M.prepare(project, vim.g.temp_image_file, file)
-  --     M.save_image()
-  --     M.append_info()
-  --     M.append_line()
-  --   else
-  --     B.notify_info 'get image failed.'
-  --   end
+-- image_type: 'jpg', 'png'
+function M._paste_image_2_markdown(image_type)
+  if not vim.g.paste_image_allowed and not M._is_to_paste_image() then
+    return
+  end
+  -- TODO: [Done] paste to file
+  if not image_type then image_type = 'jpg' end
+  vim.g.temp_image_file = B.getcreate_temp_dirpath 'nvim_paste_image':joinpath(M._image_paste_temp_name .. '.' .. image_type).filename
+  vim.g.temp_image_type = image_type == 'jpg' and 'Jpeg' or 'Png'
+  vim.g.temp_res = nil
+  vim.cmd [[
+    python << EOF
+import vim
+import subprocess
+temp_image_file = vim.eval('g:temp_image_file')
+temp_image_type = vim.eval('g:temp_image_type')
+completed_process = subprocess.run(["powershell.exe", "-Command", f"""
+Add-Type -AssemblyName System.Windows.Forms;
+if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {{
+  $imageObj = [System.Drawing.Bitmap][System.Windows.Forms.Clipboard]::GetDataObject().getimage();
+  $imageObj.Save("{temp_image_file}", [System.Drawing.Imaging.ImageFormat]::{temp_image_type});
+}}
+"""], capture_output=True, text=True)
+if completed_process.returncode:
+  print(f"Error: {completed_process.stderr}")
+else:
+  print(f"Success: {completed_process.stdout}")
+  vim.command('let g:temp_res = 1')
+EOF
+]]
+  if vim.g.temp_res then
+    M._copy_image_2_markdown(vim.g.temp_image_file, vim.api.nvim_buf_get_name(0), vim.fn.line '.')
+  end
 end
 
-function M._is_image_in_clipboard()
-  vim.g.temp_res = nil
+function M.paste_jpg_2_markdown()
+  M._paste_image_2_markdown 'jpg'
+end
+
+function M.paste_png_2_markdown()
+  M._paste_image_2_markdown 'png'
+end
+
+function M._is_to_paste_image()
+  vim.g.paste_image_allowed = nil
   vim.cmd [[
     python << EOF
 import vim
@@ -316,7 +328,7 @@ except:
   from PIL import ImageGrab, Image
 img = ImageGrab.grabclipboard()
 if isinstance(img, Image.Image):
-  vim.command('let g:temp_res = 1')
+  vim.command('let g:paste_image_allowed = 1')
 EOF
   ]]
   local file = vim.api.nvim_buf_get_name(0)
@@ -329,21 +341,32 @@ EOF
     B.print('not in a project root: ' .. file)
     return nil
   end
-  return vim.g.temp_res
+  return vim.g.paste_image_allowed
 end
 
 function M._middlemouse()
   if vim.fn.getmousepos()['line'] == 0 then
     return '<MiddleMouse>'
   end
-  if M._is_image_in_clipboard() then
+  if M._is_to_paste_image() then
     return ':<c-u>Drag paste_jpg_2_markdown<cr>'
   end
   return '<MiddleMouse>'
 end
 
+function M._s_middlemouse()
+  if vim.fn.getmousepos()['line'] == 0 then
+    return '<S-MiddleMouse>'
+  end
+  if M._is_to_paste_image() then
+    return ':<c-u>Drag paste_png_2_markdown<cr>'
+  end
+  return '<S-MiddleMouse>'
+end
+
 B.lazy_map {
-  { '<MiddleMouse>', M._middlemouse, mode = { 'n', 'v', }, silent = true, desc = 'my.drag: _middlemouse', expr = true, },
+  { '<MiddleMouse>',   M._middlemouse,   mode = { 'n', 'v', }, silent = true, desc = 'my.drag: _middlemouse',   expr = true, },
+  { '<S-MiddleMouse>', M._s_middlemouse, mode = { 'n', 'v', }, silent = true, desc = 'my.drag: _s_middlemouse', expr = true, },
 }
 
 B.create_user_command_with_M(M, 'Drag')
