@@ -486,6 +486,40 @@ function M.buffers()
   vim.cmd 'Telescope buffers'
 end
 
+-- terminal
+
+function M.terminal_cmd()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+  B.set_timeout(20, function()
+    vim.cmd [[call feedkeys("term:cmd")]]
+  end)
+end
+
+function M.terminal_ipython()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+  B.set_timeout(20, function()
+    vim.cmd [[call feedkeys("term:ipython")]]
+  end)
+end
+
+function M.terminal_bash()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+  B.set_timeout(20, function()
+    vim.cmd [[call feedkeys("term:bash")]]
+  end)
+end
+
+function M.terminal_powershell()
+  M.setreg()
+  vim.cmd 'Telescope buffers'
+  B.set_timeout(20, function()
+    vim.cmd [[call feedkeys("term:powershell")]]
+  end)
+end
+
 function M.nop() end
 
 -- mappings
@@ -539,6 +573,11 @@ B.lazy_map {
   -- git
   { '<leader>gtb',    function() M.git_bcommits() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: bcommits', },
   { '<leader>gtc',    function() M.git_commits() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: commits', },
+  -- terminal
+  { '<leader>stc',    function() M.terminal_cmd() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: cmd', },
+  { '<leader>sti',    function() M.terminal_ipython() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: ipython', },
+  { '<leader>stb',    function() M.terminal_bash() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
+  { '<leader>stp',    function() M.terminal_powershell() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
 }
 
 return M
