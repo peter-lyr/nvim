@@ -742,7 +742,7 @@ M.source = M.getsource(debug.getinfo(1)['source'])
 
 function M.get_SHGetFolderPath(name)
   local exe_name = 'SHGetFolderPath'
-  local SHGetFolderPath_without_ext = M.getcreate_filepath(M.source .. '.c', exe_name).filename
+  local SHGetFolderPath_without_ext = M.get_filepath(M.source .. '.c', exe_name).filename
   local SHGetFolderPath_exe = SHGetFolderPath_without_ext .. '.exe'
   if not M.is(vim.fn.filereadable(SHGetFolderPath_exe)) then
     M.system_run('start silent', '%s && gcc %s.c -Wall -s -ffunction-sections -fdata-sections -Wl,--gc-sections -O2 -o %s.exe', M.system_cd(SHGetFolderPath_without_ext), exe_name, exe_name)
