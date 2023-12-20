@@ -342,6 +342,21 @@ function M.cursorword()
   end
 end
 
+B.aucmd('InsertEnter', 'my.hili.InsertEnter', {
+  callback = function()
+    M.hicurword_bak = M.hicurword
+    M.hicurword = nil
+  end,
+})
+
+B.aucmd('InsertLeave', 'my.hili.InsertLeave', {
+  callback = function()
+    if M.hicurword_bak then
+      M.hicurword = 1
+    end
+  end,
+})
+
 B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'my.hili.CursorHold', {
   callback = function(ev)
     M.on_cursorhold(ev)
