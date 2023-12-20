@@ -276,37 +276,50 @@ function M._paste_image_2_markdown(image_type)
     return
   end
   -- TODO: [Done] paste to file
-  if not image_type then image_type = 'jpg' end
-  vim.g.temp_image_file = B.getcreate_temp_dirpath 'nvim_paste_image':joinpath(M._image_paste_temp_name .. '.' .. image_type).filename
-  vim.g.temp_image_type = image_type == 'jpg' and 'Jpeg' or 'Png'
-  vim.g.temp_res = nil
+  vim.g.temp_image_file_with_ext = B.getcreate_temp_dirpath 'nvim_paste_image':joinpath(M._image_paste_temp_name).filename
+  vim.g.temp_image_file = image_type and vim.g.temp_image_file_with_ext .. '.' .. image_type or ''
+  vim.g.temp_image_type = image_type and image_type or ''
+  vim.g.paste_image_allowed = nil
   vim.cmd [[
     python << EOF
 import vim
 import subprocess
 temp_image_file = vim.eval('g:temp_image_file')
 temp_image_type = vim.eval('g:temp_image_type')
-completed_process = subprocess.run(["powershell.exe", "-Command", f"""
+temp_image_file_with_ext = vim.eval('g:temp_image_file_with_ext')
+script_code = f"""
 Add-Type -AssemblyName System.Windows.Forms;
 if ($([System.Windows.Forms.Clipboard]::ContainsImage())) {{
   $imageObj = [System.Drawing.Bitmap][System.Windows.Forms.Clipboard]::GetDataObject().getimage();
-  $imageObj.Save("{temp_image_file}", [System.Drawing.Imaging.ImageFormat]::{temp_image_type});
 }}
-"""], capture_output=True, text=True)
+"""
+if temp_image_type:
+  script_code += f'''
+  $imageObj.Save("{temp_image_file}", [System.Drawing.Imaging.ImageFormat]::{temp_image_type});
+'''
+else:
+  script_code += f'''
+  $imageObj.Save("{temp_image_file_with_ext}.jpg", [System.Drawing.Imaging.ImageFormat]::Jpeg);
+  $imageObj.Save("{temp_image_file_with_ext}.png", [System.Drawing.Imaging.ImageFormat]::Png);
+'''
+completed_process = subprocess.run(["powershell.exe", "-Command", script_code], capture_output=True, text=True)
 if completed_process.returncode:
   print(f"Error: {completed_process.stderr}")
 else:
-  print(f"Success: {completed_process.stdout}")
-  vim.command('let g:temp_res = 1')
+  vim.command('let g:paste_image_allowed = 1')
 EOF
 ]]
-  if vim.g.temp_res then
-    M._copy_image_2_markdown(vim.g.temp_image_file, vim.api.nvim_buf_get_name(0), vim.fn.line '.')
+  if vim.g.paste_image_allowed then
+    if not image_type then
+      image_type = vim.fn.getfsize(vim.g.temp_image_file_with_ext .. '.jpg') > vim.fn.getfsize(vim.g.temp_image_file_with_ext .. '.png') and 'png' or 'jpg'
+    end
+    M._copy_image_2_markdown(vim.g.temp_image_file_with_ext .. '.' .. image_type, vim.api.nvim_buf_get_name(0), vim.fn.line '.')
+  else
   end
 end
 
-function M.paste_jpg_2_markdown()
-  M._paste_image_2_markdown 'jpg'
+function M.paste_small_image_2_markdown()
+  M._paste_image_2_markdown()
 end
 
 function M.paste_png_2_markdown()
@@ -349,7 +362,7 @@ function M._middlemouse()
     return '<MiddleMouse>'
   end
   if M._is_to_paste_image() then
-    return ':<c-u>Drag paste_jpg_2_markdown<cr>'
+    return ':<c-u>Drag paste_small_image_2_markdown<cr>'
   end
   return '<MiddleMouse>'
 end
