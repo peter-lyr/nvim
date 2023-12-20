@@ -10,3 +10,4 @@
 8. TODO: [ ] api to get any files conveniently
 9. TODO: [ ] command sel arg in telescope
 10. TODO: [x] insert mode no hili
+11. TODO: [ ] Github Desktop
