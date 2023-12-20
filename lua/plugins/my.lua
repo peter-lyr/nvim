@@ -249,14 +249,6 @@ return {
     config = function() require 'config.my.copy' end,
   },
 
-  -- my.source
-  {
-    name = 'my.source',
-    dir = '',
-    cmd = { 'Source', },
-    config = function() require 'config.my.source' end,
-  },
-
   -- my.gui
   {
     name = 'my.gui',
