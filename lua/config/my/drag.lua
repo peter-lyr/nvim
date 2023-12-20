@@ -234,7 +234,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 
     if M._is_detected_as_bin(M._cur_file) then
       if M.en_bin_must_xxd then
-        M.bin_xxd_and_delete_buffer_force(M._cur_file)
+        M.bin_xxd_and_delete_buffer(M._cur_file)
         return
       end
       M._add_callbacks_basic(M._cur_file)
