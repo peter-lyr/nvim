@@ -241,7 +241,7 @@ telescope.setup {
       '--fixed-strings',
     },
     wrap_results = true,
-    -- initial_mode = 'normal',
+    initial_mode = 'normal',
   },
 }
 
@@ -365,7 +365,7 @@ function M.live_grep()
     B.cmd((cmd))
     B.notify_info(cmd)
   else
-    vim.cmd 'Telescope live_grep'
+    vim.cmd 'Telescope live_grep initial_mode=insert'
   end
 end
 
