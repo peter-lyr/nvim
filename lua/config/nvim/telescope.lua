@@ -241,6 +241,7 @@ telescope.setup {
       '--fixed-strings',
     },
     wrap_results = true,
+    -- initial_mode = 'normal',
   },
 }
 
