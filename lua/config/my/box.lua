@@ -22,11 +22,11 @@ end
 function M.restart_nvim_qt()
   vim.cmd 'SessionsSave'
   M.start_new_nvim_qt()
-  vim.cmd 'wqall'
+  vim.cmd 'qall!'
 end
 
 function M.quit_nvim_qt()
-  vim.cmd 'wqall'
+  vim.cmd 'qall!'
 end
 
 -- mappink
