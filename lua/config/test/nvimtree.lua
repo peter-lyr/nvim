@@ -118,6 +118,139 @@ function M._delete_sel()
   end
 end
 
+function M._get_dtarget(node)
+  if node.type == 'directory' then
+    return B.rep_slash_lower(node.absolute_path)
+  end
+  if node.type == 'file' then
+    return B.rep_slash_lower(node.parent.absolute_path)
+  end
+  return nil
+end
+
+function M._move_sel(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  local marks = require 'nvim-tree.marks'.get_marks()
+  local res = vim.fn.input(dtarget .. '\nConfirm movment ' .. #marks .. ' [N/y] ', 'y')
+  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+    for _, v in ipairs(marks) do
+      local absolute_path = v['absolute_path']
+      if require 'plenary.path':new(absolute_path):is_dir() then
+        local dname = B.get_fname_tail(absolute_path)
+        dname = string.format('%s\\%s', dtarget, dname)
+        if require 'plenary.path':new(dname):exists() then
+          vim.cmd 'redraw'
+          local dname_new = vim.fn.input(absolute_path .. ' ->\nExisted! Rename? ', dname)
+          if #dname_new > 0 and dname_new ~= dname then
+            vim.fn.system(string.format('move "%s" "%s"', string.sub(absolute_path, 1, #absolute_path - 1), dname_new))
+          elseif #dname_new == 0 then
+            print 'cancel all!'
+            return
+          else
+            vim.cmd 'redraw'
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          vim.fn.system(string.format('move "%s" "%s"', string.sub(absolute_path, 1, #absolute_path - 1), dname))
+        end
+      else
+        local fname = B.get_fname_tail(absolute_path)
+        fname = string.format('%s\\%s', dtarget, fname)
+        if require 'plenary.path':new(fname):exists() then
+          vim.cmd 'redraw'
+          local fname_new = vim.fn.input(absolute_path .. ' ->\nExisted! Rename? ', fname)
+          if #fname_new > 0 and fname_new ~= fname then
+            vim.fn.system(string.format('move "%s" "%s"', absolute_path, fname_new))
+          elseif #fname_new == 0 then
+            print 'cancel all!'
+            return
+          else
+            vim.cmd 'redraw'
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          vim.fn.system(string.format('move "%s" "%s"', absolute_path, fname))
+        end
+      end
+      pcall(vim.cmd, 'bw! ' .. B.rep_slash_lower(absolute_path))
+      ::continue::
+    end
+    require 'nvim-tree.marks'.clear_marks()
+    require 'nvim-tree.api'.tree.reload()
+  else
+    print 'canceled!'
+  end
+end
+
+function M._copy_sel(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  local marks = require 'nvim-tree.marks'.get_marks()
+  local res = vim.fn.input(dtarget .. '\nConfirm copy ' .. #marks .. ' [N/y] ', 'y')
+  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+    for _, v in ipairs(marks) do
+      local absolute_path = v['absolute_path']
+      if require 'plenary.path':new(absolute_path):is_dir() then
+        local dname = B.get_fname_tail(absolute_path)
+        dname = string.format('%s\\%s', dtarget, dname)
+        if require 'plenary.path':new(dname):exists() then
+          vim.cmd 'redraw'
+          local dname_new = vim.fn.input(absolute_path .. ' ->\nExisted! Rename? ', dname)
+          if #dname_new > 0 and dname_new ~= dname then
+            if string.sub(dname_new, #dname_new, #dname_new) ~= '\\' then
+              dname_new = dname_new .. '\\'
+            end
+            vim.fn.system(string.format('xcopy "%s" "%s" /s /e /f', absolute_path, dname_new))
+          elseif #dname_new == 0 then
+            print 'cancel all!'
+            return
+          else
+            vim.cmd 'redraw'
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          if string.sub(dname, #dname, #dname) ~= '\\' then
+            dname = dname .. '\\'
+          end
+          vim.fn.system(string.format('xcopy "%s" "%s" /s /e /f', absolute_path, dname))
+        end
+      else
+        local fname = B.get_fname_tail(absolute_path)
+        fname = string.format('%s\\%s', dtarget, fname)
+        if require 'plenary.path':new(fname):exists() then
+          vim.cmd 'redraw'
+          local fname_new = vim.fn.input(absolute_path .. '\n ->Existed! Rename? ', fname)
+          if #fname_new > 0 and fname_new ~= fname then
+            vim.fn.system(string.format('copy "%s" "%s"', absolute_path, fname_new))
+          elseif #fname_new == 0 then
+            print 'cancel all!'
+            return
+          else
+            vim.cmd 'redraw'
+            print(absolute_path .. ' -> failed!')
+            goto continue
+          end
+        else
+          vim.fn.system(string.format('copy "%s" "%s"', absolute_path, fname))
+        end
+      end
+      ::continue::
+    end
+    require 'nvim-tree.marks'.clear_marks()
+    require 'nvim-tree.api'.tree.reload()
+  else
+    print 'canceled!'
+  end
+end
+
 M.init_root = vim.fn.getcwd()
 
 M._change_root = function(path, bufnr)
@@ -255,6 +388,8 @@ function M._on_attach(bufnr)
     { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go prev', },
     { 'de',            M._wrap_node(M._empty_sel),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
     { 'dd',            M._wrap_node(M._delete_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
+    { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
+    { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
 
   }
 end
