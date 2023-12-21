@@ -90,6 +90,34 @@ function M._empty_sel()
   print 'empty selected.'
 end
 
+function M._delete_sel()
+  local marks = require 'nvim-tree.marks'.get_marks()
+  local res = vim.fn.input('Confirm deletion ' .. #marks .. ' [N/y] ', 'y')
+  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+    for _, v in ipairs(marks) do
+      local absolute_path = v['absolute_path']
+      absolute_path = absolute_path:match '^(.-)\\*$'
+      local path = require 'plenary.path':new(absolute_path)
+      if path:is_dir() then
+        local entries = require 'plenary.scandir'.scan_dir(absolute_path, { hidden = true, depth = 10, add_dirs = false, })
+        for _, entry in ipairs(entries) do
+          pcall(vim.cmd, 'bw! ' .. entry)
+        end
+      else
+        pcall(vim.cmd, 'bw! ' .. absolute_path)
+      end
+      if #vim.fn['ProjectRootGet']() ~= 0 then
+        B.system_run('start silent', string.format('git rm "%s"', absolute_path:match '^(.-)\\*$'))
+      end
+      B.system_run('start silent', string.format('del /s /f /q "%s"', absolute_path:match '^(.-)\\*$'))
+    end
+    require 'nvim-tree.marks'.clear_marks()
+    require 'nvim-tree.api'.tree.reload()
+  else
+    print 'canceled!'
+  end
+end
+
 M.init_root = vim.fn.getcwd()
 
 M._change_root = function(path, bufnr)
@@ -226,6 +254,7 @@ function M._on_attach(bufnr)
     { "'",             M._wrap_node(M._toggle_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go next', },
     { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go prev', },
     { 'de',            M._wrap_node(M._empty_sel),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
+    { 'dd',            M._wrap_node(M._delete_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
 
   }
 end
