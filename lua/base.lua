@@ -481,6 +481,24 @@ function M.cmd_sel_cwd_dirs(cmd)
   end)
 end
 
+function M.cmd_sel_dirvers(cmd)
+  local drivers = {}
+  for i = 1, 26 do
+    local driver = vim.fn.nr2char(64 + i) .. ':\\'
+    if M.is(vim.fn.isdirectory(driver)) then
+      drivers[#drivers + 1] = driver
+    end
+  end
+  M.ui_sel(drivers, cmd, function(driver)
+    if driver then
+      M.cmd('%s %s', cmd, driver)
+    end
+  end)
+  M.set_timeout(20, function()
+    vim.cmd [[call feedkeys("\<esc>")]]
+  end)
+end
+
 function M.cmd_sel_parent_dirs(cmd)
   M.ui_sel(M.get_file_dirs(vim.loop.cwd()), cmd, function(dir)
     if dir then

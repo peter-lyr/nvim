@@ -279,6 +279,7 @@ return {
     keys = {
       { '<c-q>', '<cmd>Oil<cr>',                                              mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
       { '<c-3>', '<cmd>exe "Oil " . getcwd()<cr>',                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd', },
+      { '<c-`>', function() require 'base'.cmd_sel_dirvers 'Oil' end,         mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<c-1>', function() require 'base'.cmd_sel_cwd_dirs 'Oil' end,        mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd_dirs', },
       { '<c-2>', function() require 'base'.cmd_sel_parent_dirs 'Oil' end,     mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_parent_dirs', },
       { '<c-4>', function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
