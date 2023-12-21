@@ -362,4 +362,17 @@ return {
     end,
   },
 
+  -- nvim-tree
+  {
+    'nvim-tree/nvim-tree.lua',
+    commit = '00741206',
+    cmd = {
+      'NvimTree',
+      'NvimTreeOpen',
+      'NvimTreeFindFile',
+      'NvimTreeFindFileToggle',
+    },
+    config = function() require 'config.test.nvimtree' end,
+  },
+
 }
