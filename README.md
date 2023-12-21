@@ -13,3 +13,4 @@
 11. TODO: [ ] Github Desktop
 12. TODO: [ ] drag data file to markdown file, check them
 13. TODO: [ ] oil a: ~ z:
+14. TODO: [ ] folder do not be music type
