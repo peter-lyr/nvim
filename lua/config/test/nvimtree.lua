@@ -70,6 +70,26 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   end,
 })
 
+function M._toggle_sel(node)
+  require 'nvim-tree.marks'.toggle_mark(node)
+  local marks = require 'nvim-tree.marks'.get_marks()
+  print('selected', #marks, 'items.')
+  vim.cmd 'norm j'
+end
+
+function M._toggle_sel_up(node)
+  require 'nvim-tree.marks'.toggle_mark(node)
+  local marks = require 'nvim-tree.marks'.get_marks()
+  print('selected', #marks, 'items.')
+  vim.cmd 'norm k'
+end
+
+function M._empty_sel()
+  require 'nvim-tree.marks'.clear_marks()
+  require 'nvim-tree.api'.tree.reload()
+  print 'empty selected.'
+end
+
 M.init_root = vim.fn.getcwd()
 
 M._change_root = function(path, bufnr)
@@ -200,6 +220,13 @@ function M._on_attach(bufnr)
 
     { 'f',             api.live_filter.start,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Filter', },
     { 'gf',            api.live_filter.clear,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Clean Filter', },
+
+    ----------
+
+    { "'",             M._wrap_node(M._toggle_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go next', },
+    { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go prev', },
+    { 'de',            M._wrap_node(M._empty_sel),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
+
   }
 end
 
