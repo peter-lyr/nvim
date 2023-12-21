@@ -90,7 +90,7 @@ function M.all_commands()
   end)
 end
 
-M.lazy_map { { '<leader><c-;>', M.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', }, }
+M.lazy_map { { '<c-;>', M.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', }, }
 
 --------------------
 
