@@ -12,3 +12,4 @@
 10. TODO: [x] insert mode no hili
 11. TODO: [ ] Github Desktop
 12. TODO: [ ] drag data file to markdown file, check them
+13. TODO: [ ] oil a: ~ z:
