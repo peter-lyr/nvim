@@ -140,7 +140,11 @@ function M._ma_buffer(lines)
   return vim.fn.bufnr()
 end
 
-function M._prepare_buffer()
+function M._operate_files_do()
+  if #M.files == 0 then
+    B.notify_info 'M.files empty'
+    return
+  end
   local buffers = {
     M._ro_buffer(M.files),
     M._ma_buffer(M.files),
@@ -149,12 +153,15 @@ function M._prepare_buffer()
 end
 
 function M._operate_files()
-  M._stack_files_from_qflist()
   if #M.files == 0 then
-    B.notify_info 'no files in qflist'
-    return
+    for _, v in ipairs(require 'nvim-tree.marks'.get_marks()) do
+      M.files[#M.files + 1] = v['absolute_path']
+    end
   end
-  M._prepare_buffer()
+  if #M.files == 0 then
+    M._stack_files_from_qflist()
+  end
+  M._operate_files_do()
 end
 
 function M.copy_files()
