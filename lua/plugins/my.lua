@@ -386,4 +386,12 @@ return {
     config = function() require 'config.my.box' end,
   },
 
+  -- my.scroll
+  {
+    name = 'my.scroll',
+    dir = '',
+    event = { 'BufReadPost', 'BufNewFile', },
+    config = function() require 'config.my.scroll' end,
+  },
+
 }
