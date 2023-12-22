@@ -204,6 +204,7 @@ end
 
 function M.pull()
   pcall(vim.call, 'ProjectRootCD')
+  B.notify_info('git pull')
   B.system_run('asyncrun', 'git pull')
 end
 
