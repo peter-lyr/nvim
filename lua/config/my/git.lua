@@ -10,6 +10,7 @@ require 'telescope'.load_extension 'ui-select'
 function M.get_info(info)
   info = string.gsub(info, '"', "'")
   info = string.gsub(info, '#', ' ')
+  info = string.gsub(info, [[]], ' ')
   info = vim.fn.trim(info)
   return info
 end
