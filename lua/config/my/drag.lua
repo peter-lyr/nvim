@@ -9,7 +9,9 @@ M.MARKDOWN_EXTS = {
   'md',
 }
 
-M.IMAGE_EXTS = { 'jpg', 'png', }
+M.IMAGE_EXTS = {
+  'jpg', 'png',
+}
 
 M.NOT_IMAGE_EXTS = {
   'doc', 'docx',
