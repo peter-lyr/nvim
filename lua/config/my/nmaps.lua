@@ -53,3 +53,6 @@ cab xpx sort
 cab xqc g/^\(.*\)$\n\1$/d
 cab xpq sort\|g/^\(.*\)$\n\1$/d
 ]]
+
+-- 只保留第二列数据
+-- %s/[^,]\+,\([^,]*\),.*/\=submatch(1)
