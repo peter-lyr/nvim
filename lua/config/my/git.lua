@@ -29,7 +29,7 @@ function M.addcommitpush(info)
     if #info > 0 then
       B.set_timeout(10, function()
         info = M.get_info(info)
-        B.notify_info_append(info)
+        B.notify_info_append('addcommitpush: ' .. info)
         B.system_run('asyncrun', 'git add -A && git status && git commit -m "%s" && git push', info)
       end)
     end
@@ -99,7 +99,7 @@ function M.commit_push(info)
     if #info > 0 then
       B.set_timeout(10, function()
         info = M.get_info(info)
-        B.notify_info_append(info)
+        B.notify_info_append('commit_push: ' .. info)
         B.system_run('asyncrun', 'git commit -m "%s" && git push', info)
       end)
     end
@@ -119,7 +119,7 @@ function M.commit(info)
     if #info > 0 then
       B.set_timeout(10, function()
         info = M.get_info(info)
-        B.notify_info_append(info)
+        B.notify_info_append('commit: ' .. info)
         B.system_run('asyncrun', 'git commit -m "%s"', info)
       end)
     end
