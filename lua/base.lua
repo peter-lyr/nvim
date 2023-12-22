@@ -345,17 +345,21 @@ function M.system_run(way, str_format, ...)
   if way == 'start' then
     cmd = string.format([[silent !start cmd /c "%s"]], cmd)
     vim.cmd(cmd)
+    M.notify_info_append(cmd)
   elseif way == 'start silent' then
     cmd = string.format([[silent !start /b /min cmd /c "%s"]], cmd)
     vim.cmd(cmd)
+    M.notify_info_append(cmd)
   elseif way == 'asyncrun' then
     vim.cmd 'Lazy load asyncrun.vim'
     cmd = string.format('AsyncRun %s', cmd)
     M.asyncrun_prepare_default()
     vim.cmd(cmd)
+    M.notify_info_append(cmd)
   elseif way == 'term' then
     cmd = string.format('wincmd s|term %s', cmd)
     vim.cmd(cmd)
+    M.notify_info_append(cmd)
   end
 end
 
