@@ -242,6 +242,36 @@ function M.notify_error(message)
   })
 end
 
+function M.notify_info_append(message)
+  local messages = type(message) == 'table' and message or { message, }
+  local title = ''
+  if #messages > 1 then
+    title = table.remove(messages, 1)
+  end
+  message = vim.fn.join(messages, '\n')
+  vim.notify(message, 'info', {
+    title = title,
+    animate = false,
+    on_open = M.notify_on_open,
+    timeout = 1000 * 8,
+  })
+end
+
+function M.notify_error_append(message)
+  local messages = type(message) == 'table' and message or { message, }
+  local title = ''
+  if #messages > 1 then
+    title = table.remove(messages, 1)
+  end
+  message = vim.fn.join(messages, '\n')
+  vim.notify(message, 'error', {
+    title = title,
+    animate = false,
+    on_open = M.notify_on_open,
+    timeout = 1000 * 8,
+  })
+end
+
 function M.notify_qflist()
   local lines = {}
   for _, i in ipairs(vim.fn.getqflist()) do
