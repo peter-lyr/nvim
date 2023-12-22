@@ -204,7 +204,7 @@ end
 
 function M.pull()
   pcall(vim.call, 'ProjectRootCD')
-  B.notify_info('git pull')
+  B.notify_info 'git pull'
   B.system_run('asyncrun', 'git pull')
 end
 
@@ -651,5 +651,25 @@ function M.get_all_git_repos(force)
   end
   return repos
 end
+
+-- fugitive
+M.fugitive_winid = 0
+
+function M.fugitive_toggle()
+  if B.is_buf_fts 'fugitive' then
+    vim.cmd 'close'
+    B.set_timeout(10, function()
+      vim.fn.win_gotoid(M.fugitive_winid)
+    end)
+  else
+    M.fugitive_winid = vim.fn.win_getid()
+    vim.cmd 'Git'
+    -- vim.api.nvim_win_set_height(0, vim.fn.line '$' + 1)
+  end
+end
+
+B.lazy_map {
+  { '<c-bs>', M.fugitive_toggle, mode = { 'n', 'v', }, silent = true, desc = 'Git', },
+}
 
 return M
