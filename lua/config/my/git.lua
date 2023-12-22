@@ -664,7 +664,7 @@ function M.fugitive_toggle()
   else
     M.fugitive_winid = vim.fn.win_getid()
     vim.cmd 'Git'
-    -- vim.api.nvim_win_set_height(0, vim.fn.line '$' + 1)
+    vim.api.nvim_win_set_height(0, vim.fn.line '$' + 3)
   end
 end
 
