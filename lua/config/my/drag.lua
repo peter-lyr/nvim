@@ -146,6 +146,54 @@ function M._copy_image_2_markdown_and_delete_buffer(image_file, markdown_file, l
   M._delete_buffer(image_file)
 end
 
+-- doc
+M._doc_root_dir_name = '.docs'
+M._doc_root_dir_md_name = '_.md'
+M._doc_paste_temp_name = 'nvim_paste_temp'
+
+function M._copy_doc_2_markdown(doc_file, markdown_file, lnr)
+  local _proj_root = vim.fn['ProjectRootGet'](markdown_file)
+  if not B.is(_proj_root) then
+    B.notify_info('not in a project root: ' .. markdown_file)
+    return
+  end
+  local _doc_root_dir = B.getcreate_dirpath { _proj_root, M._doc_root_dir_name, }.filename
+  local _doc_root_dir_md_path = B.getcreate_filepath(_doc_root_dir, M._doc_root_dir_md_name)
+  local _doc_hash_64 = B.get_hash(doc_file)
+  local _doc_hash_8 = string.sub(_doc_hash_64, 1, 8)
+  local _doc_fname_tail = vim.fn.fnamemodify(doc_file, ':t')
+  local _doc_fname_tail_root = vim.fn.fnamemodify(_doc_fname_tail, ':r')
+  if _doc_fname_tail_root == M._doc_paste_temp_name then
+    _doc_fname_tail_root = vim.fn.strftime '%Y%m%d-%A-%H%M%S'
+  end
+  local _doc_fname_tail_ext = vim.fn.fnamemodify(_doc_fname_tail, ':e')
+  local _doc_hash_name = _doc_hash_8 .. '.' .. _doc_fname_tail_ext
+  local _doc_target_file = B.getcreate_filepath(_doc_root_dir, _doc_hash_name).filename
+  -- TODO: [Done] copy doc_file to _doc_root_dir
+  vim.fn.system(string.format('copy /y "%s" "%s"', doc_file, _doc_target_file))
+  -- TODO: [Done] create _doc_root_dir_md_name doc url
+  local _doc_root_dir_md_url = string.format('[%s](%s)\n', _doc_fname_tail_root, _doc_hash_name)
+  -- TODO: [Done] write _doc_root_dir_md_name doc url
+  _doc_root_dir_md_path:write(_doc_root_dir_md_url, 'a')
+  -- TODO: [Done] create markdown_file doc url
+  local relative = vim.fn['repeat']('../', B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\'))
+  local _doc_root_dir_md_url_relative = string.format('[%s](%s%s/%s)', _doc_fname_tail_root, relative, M._doc_root_dir_name, _doc_hash_name)
+  -- TODO: [Done] append markdown_file doc url
+  B.cmd('e %s', markdown_file)
+  vim.fn.append(lnr, _doc_root_dir_md_url_relative)
+end
+
+function M._copy_doc_2_markdown_and_delete_buffer(doc_file, markdown_file, lnr)
+  if not M._is_in_doc_fts(doc_file) then
+    return
+  end
+  if not M._is_in_markdown_fts(markdown_file) then
+    return
+  end
+  M._copy_doc_2_markdown(doc_file, markdown_file, lnr)
+  M._delete_buffer(doc_file)
+end
+
 -- bin
 function M.bin_xxd(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
@@ -224,6 +272,10 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
     if M._is_in_markdown_fts(M._last_file) then
       if M._is_in_image_fts(M._cur_file) then
         M._copy_image_2_markdown_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
+        return
+      end
+      if M._is_in_doc_fts(M._cur_file) then
+        M._copy_doc_2_markdown_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
         return
       end
     end
