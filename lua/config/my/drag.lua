@@ -287,7 +287,7 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
     M._titles = {}
     M._callbacks = {}
 
-    if M._is_in_markdown_fts(M._last_file) then
+    if M._is_in_markdown_fts(M._last_file) and M._dragging then
       if M._is_in_image_fts(M._cur_file) then
         M._copy_image_2_markdown_and_delete_buffer(M._cur_file, M._last_file, M._last_lnr)
         return
@@ -345,6 +345,24 @@ B.aucmd('CursorHold', 'my.drag.CursorHold', {
       if B.file_exists(ev.file) then
         M._last_lnr = vim.fn.line '.'
       end
+    end
+  end,
+})
+
+B.aucmd('FocusLost', 'my.drag.FocusLost', {
+  callback = function()
+    if M.en_check_all then
+      M._dragging = 1
+    end
+  end,
+})
+
+B.aucmd('FocusGained', 'my.drag.FocusGained', {
+  callback = function()
+    if M.en_check_all then
+      B.set_timeout(500, function()
+        M._dragging = nil
+      end)
     end
   end,
 })
