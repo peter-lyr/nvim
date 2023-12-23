@@ -118,6 +118,7 @@ telescope.setup {
         ['<C-3>'] = actions.close,
         ['<C-q>'] = actions.close,
 
+        ['<leader><leader>'] = actions.select_default,
         ['<C-a>'] = actions.select_default,
         ['<C-;>'] = actions.select_default,
         ['<C-1>'] = actions.select_default,
