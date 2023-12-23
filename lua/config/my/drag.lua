@@ -228,19 +228,6 @@ end
 
 function M.bin_xxd_and_delete_buffer(file)
   if not file then file = vim.api.nvim_buf_get_name(0) end
-  if M._is_detected_as_bin(file) then
-    if not M._is_in_bin_fts(file) and not M._is_in_not_bin_fts(file) then
-      local res = vim.fn.input('detected as binary file: ' .. file .. ', to xxd? [N/y]: ', 'y')
-      if not B.is(vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res)) then
-        return
-      end
-    end
-    M._bin_xxd_and_delete_buffer(file)
-  end
-end
-
-function M.bin_xxd_and_delete_buffer_force(file)
-  if not file then file = vim.api.nvim_buf_get_name(0) end
   M._bin_xxd_and_delete_buffer(file)
 end
 
@@ -304,13 +291,11 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
       end
     else
       if M._is_detected_as_bin(M._cur_file) then
-        if M.en_bin_must_xxd then
+        if M.en_bin_must_xxd and M._is_in_bin_fts(M._cur_file) then
           M.bin_xxd_and_delete_buffer(M._cur_file)
           return
         end
-        M._add_callbacks_no_markdown(M._cur_file)
-      elseif M._is_in_not_image_fts(M._cur_file) then
-        if M.en_not_image_must_system_open then
+        if M.en_not_image_must_system_open and M._is_in_not_image_fts(M._cur_file) then
           M.system_open_and_delete_buffer(M._cur_file)
           return
         end
