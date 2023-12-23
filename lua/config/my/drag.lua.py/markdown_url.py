@@ -12,9 +12,10 @@ if __name__ == "__main__":
 
     cmd = rep(sys.argv[1])
     proj = rep(sys.argv[2])
-    url_name = "/".join(rep(sys.argv[3]).split("/")[-2:])
-    exclude_md_name = sys.argv[4].split(",")
-    include_md_ft = sys.argv[5].split(",")
+    cur_file = rep(sys.argv[3])
+    url_name = "/".join(rep(sys.argv[4]).split("/")[-2:])
+    exclude_md_name = sys.argv[5].split(",")
+    include_md_ft = sys.argv[6].split(",")
 
     url_file = rep(os.path.join(proj, url_name))
     if not os.path.exists(url_file):

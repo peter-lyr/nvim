@@ -375,8 +375,8 @@ function M.test_markdown_url_dir_py(cmd)
   end
   local exclude_md_name = M._not_image_root_dir_md_name .. ',' .. M._image_root_dir_md_name
   local include_md_ft = vim.fn.join(M.MARKDOWN_EXTS, ',')
-  B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s" "%s" "%s" "%s"',
-    B.system_cd(proj), M.markdown_url_py, cmd, proj, url_name, exclude_md_name, include_md_ft
+  B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s" "%s" "%s" "%s" "%s"',
+    B.system_cd(proj), M.markdown_url_py, cmd, proj, vim.api.nvim_buf_get_name(0), url_name, exclude_md_name, include_md_ft
   )
 end
 
