@@ -332,15 +332,19 @@ B.aucmd('BufReadPost', 'my.drag.BufReadPost', {
 B.aucmd('BufEnter', 'my.drag.BufEnter', {
   callback = function(ev)
     if M.en_check_all then
-      M._last_file = B.get_full_name(ev.file)
+      if B.file_exists(ev.file) then
+        M._last_file = B.get_full_name(ev.file)
+      end
     end
   end,
 })
 
 B.aucmd('CursorHold', 'my.drag.CursorHold', {
-  callback = function()
+  callback = function(ev)
     if M.en_check_all then
-      M._last_lnr = vim.fn.line '.'
+      if B.file_exists(ev.file) then
+        M._last_lnr = vim.fn.line '.'
+      end
     end
   end,
 })
