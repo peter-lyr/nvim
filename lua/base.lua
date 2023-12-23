@@ -790,6 +790,10 @@ function M.get_hash(file)
   return require 'sha2'.sha256(require 'plenary.path':new(file):_read())
 end
 
+function M.is_in_tbl(item, tbl)
+  return M.is(vim.tbl_contains(tbl, item))
+end
+
 M.source = M.getsource(debug.getinfo(1)['source'])
 
 function M.get_SHGetFolderPath(name)
@@ -799,17 +803,21 @@ function M.get_SHGetFolderPath(name)
   if not M.is(vim.fn.filereadable(SHGetFolderPath_exe)) then
     M.system_run('start silent', '%s && gcc %s.c -Wall -s -ffunction-sections -fdata-sections -Wl,--gc-sections -O2 -o %s.exe', M.system_cd(SHGetFolderPath_without_ext), exe_name, exe_name)
     M.notify_info 'exe creating, try again later...'
-    return ''
+    return {}
   end
-  local f = io.popen(SHGetFolderPath_exe .. ' ' .. name)
+  local f = io.popen(SHGetFolderPath_exe .. ' ' .. (name and name or ''))
   if f then
+    local dirs = {}
     for dir in string.gmatch(f:read '*a', '([%S ]+)') do
-      f:close()
-      return vim.fn.tolower(dir)
+      dir = M.rep_slash(dir)
+      if not M.is_in_tbl(dir, dirs) then
+        dirs[#dirs + 1] = dir
+      end
     end
     f:close()
+    return dirs
   end
-  return ''
+  return {}
 end
 
 return M
