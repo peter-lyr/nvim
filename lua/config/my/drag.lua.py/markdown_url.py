@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 
 
@@ -33,6 +34,9 @@ if __name__ == "__main__":
             ):
                 continue
             file = rep(os.path.join(root, file))
+            if cmd != "show": # show read more
+                F[file] = []
+                break
             with open(file, "rb") as f:
                 lines = f.readlines()
             for i in range(len(lines)):
@@ -41,12 +45,24 @@ if __name__ == "__main__":
                     continue
                 if file not in F:
                     F[file] = []
-                F[file].append([i, line.strip().decode("utf-8")])
+                F[file].append([i + 1, line.strip().decode("utf-8")])
 
     if cmd == "show":
+        print(f'=========== {proj} ===========')
         for f, lines in F.items():
+            print(f'     ------ {f} ------')
             print(f)
             for line in lines:
                 print("  ", line)
+
+    if cmd == "update_cur":
+        print(f'=========== {proj} ===========')
+        for f, _ in F.items():
+            print(f'     ------ {f} ------')
+            url = ''
+            for _ in re.findall('/', f[len(proj)+1:]):
+                url += '../'
+            url += url_name.decode('utf-8')
+            print('  ', url)
 
     os.system("pause")

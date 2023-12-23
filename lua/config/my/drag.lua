@@ -371,7 +371,8 @@ function M.test_markdown_url_dir_py(cmd)
     return
   end
   if not cmd then
-    cmd = 'show'
+    -- cmd = 'show'
+    cmd = 'update_cur'
   end
   local exclude_md_name = M._not_image_root_dir_md_name .. ',' .. M._image_root_dir_md_name
   local include_md_ft = vim.fn.join(M.MARKDOWN_EXTS, ',')
