@@ -669,7 +669,27 @@ function M.fugitive_toggle()
 end
 
 B.lazy_map {
-  { '<c-bs>', M.fugitive_toggle, mode = { 'n', 'v', }, silent = true, desc = 'Git', },
+  { '<c-bs>', M.fugitive_toggle, mode = { 'n', 'v', }, silent = true, desc = 'fugitive_toggle', },
+}
+
+-- qf
+M.quickfix_winid = 0
+
+function M.quickfix_toggle()
+  if B.is_buf_fts 'qf' then
+    vim.cmd 'cclose'
+    B.set_timeout(10, function()
+      vim.fn.win_gotoid(M.quickfix_winid)
+    end)
+  else
+    M.quickfix_winid = vim.fn.win_getid()
+    vim.cmd 'copen'
+    vim.api.nvim_win_set_height(0, vim.fn.line '$' + 3)
+  end
+end
+
+B.lazy_map {
+  { '<a-bs>', M.quickfix_toggle, mode = { 'n', 'v', }, silent = true, desc = 'quickfix_toggle', },
 }
 
 return M
