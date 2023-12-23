@@ -541,6 +541,14 @@ function M.cmd_sel_parent_dirs(cmd)
   end)
 end
 
+function M.cmd_sel_SHGetFolderPath(cmd)
+  M.ui_sel(M.get_SHGetFolderPath(), cmd, function(dir)
+    if dir then
+      M.cmd('%s %s', cmd, dir)
+    end
+  end)
+end
+
 function M.time_diff(timestamp)
   local diff = os.time() - timestamp
   local years, months, weeks, days, hours, minutes, seconds = 0, 0, 0, 0, 0, 0, 0
