@@ -352,8 +352,13 @@ B.aucmd('FocusGained', 'my.drag.FocusGained', {
   end,
 })
 
+-- update markdown url
 M.markdown_url_dir = B.getcreate_dir(M.source .. '.py')
 M.markdown_url_py = B.get_filepath(M.markdown_url_dir, 'markdown_url.py').filename
+
+function M._get_cur_line_url()
+  return string.match(vim.fn.getline '.', '%[[^%]]*%]%(([^%)]+)%)')
+end
 
 function M.test_markdown_url_dir_py(cmd)
   local proj = vim.call 'ProjectRootGet'
@@ -361,10 +366,13 @@ function M.test_markdown_url_dir_py(cmd)
     B.notify_info 'markdown_url: not in a git repo'
     return
   end
+  local url_name = M._get_cur_line_url()
+  if not url_name then
+    return
+  end
   if not cmd then
     cmd = 'show'
   end
-  local url_name = '../.images/16ed3bd4.jpg'
   local exclude_md_name = M._not_image_root_dir_md_name .. ',' .. M._image_root_dir_md_name
   local include_md_ft = vim.fn.join(M.MARKDOWN_EXTS, ',')
   B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s" "%s" "%s" "%s"',
