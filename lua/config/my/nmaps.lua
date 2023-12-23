@@ -46,6 +46,7 @@ lazy_map {
 lazy_map {
   { 'q.', function() vim.cmd 'silent !explorer %:h' end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer %:h', },
   { 'qw', function() vim.cmd('silent !explorer ' .. vim.loop.cwd()) end, mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer cwd', },
+  { 'qs', function() vim.cmd 'silent !start %:p' end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
 }
 
 vim.cmd [[
