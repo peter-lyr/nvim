@@ -8,7 +8,7 @@
 6. TODO: [x] oil sel dirs
 7. TODO: [x] drag file(s) or folder(s)
 8. TODO: [ ] api to get any files conveniently
-9. TODO: [ ] command sel arg in telescope
+9. TODO: [x] command sel arg in telescope
 10. TODO: [x] insert mode no hili
 11. TODO: [ ] Github Desktop
 12. TODO: [x] drag data file to markdown file, check them
