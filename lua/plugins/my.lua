@@ -394,4 +394,12 @@ return {
     config = function() require 'config.my.scroll' end,
   },
 
+  -- my.window
+  {
+    name = 'my.window',
+    dir = '',
+    event = { 'BufReadPost', 'BufNewFile', },
+    config = function() require 'config.my.window' end,
+  },
+
 }
