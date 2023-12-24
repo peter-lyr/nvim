@@ -48,4 +48,19 @@ B.lazy_map {
   { '<leader><c-3><c-s>', function() M.source() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
 }
 
+vim.cmd [[
+  aunmenu PopUp
+  vnoremenu PopUp.Cut                         "+x
+  vnoremenu PopUp.Copy                        "+y
+  anoremenu PopUp.Paste                       "+gP
+  vnoremenu PopUp.Paste                       "+P
+  vnoremenu PopUp.Delete                      "_x
+  nnoremenu PopUp.Select\ All                 ggVG
+  vnoremenu PopUp.Select\ All                 gg0oG$
+  inoremenu PopUp.Select\ All                 <C-Home><C-O>VG
+  nnoremenu PopUp.Run\ Cur\ File              :silent !start %:p<cr>
+  vnoremenu PopUp.Run\ Cur\ File              :<C-U>silent !start %:p<cr>
+  inoremenu PopUp.Run\ Cur\ File              <C-O>:<C-u>silent !start %:p<cr>
+]]
+
 return M
