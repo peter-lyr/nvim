@@ -375,6 +375,7 @@ return {
       'NvimTreeFindFileToggle',
     },
     keys = {
+      { '<c-;>',    require 'base'.all_commands,       mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
       { '<c-s-cr>', '<cmd>NvimTreeOpen<cr>',           mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: NvimTreeOpen', },
       { '<c-cr>',   '<cmd>NvimTreeFindFileToggle<cr>', mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: NvimTreeFindFileToggle', },
     },

@@ -192,6 +192,9 @@ return {
       -- git.lazy
       { '<leader>gl',  function() require 'config.my.git'.lazygit() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
 
+      --
+      { '<c-;>',       require 'base'.all_commands,                              mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+
     },
     dependencies = {
       'skywind3000/asyncrun.vim',
@@ -211,6 +214,9 @@ return {
     dir = '',
     cmd = { 'C', },
     ft = { 'c', 'cpp', },
+    keys = {
+      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+    },
     config = function() require 'config.my.c' end,
   },
 
@@ -220,6 +226,9 @@ return {
     dir = '',
     cmd = { 'Args', },
     event = { 'BufReadPre', 'BufNewFile', },
+    keys = {
+      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+    },
     config = function() require 'config.my.args' end,
   },
 
@@ -231,6 +240,9 @@ return {
     cmd = { 'Drag', },
     event = { 'FocusLost', },
     dependencies = { 'peter-lyr/vim-bbye', },
+    keys = {
+      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+    },
     config = function()
       vim.o.updatetime = 100
       require 'config.my.drag'
@@ -245,6 +257,7 @@ return {
     keys = {
       { '<leader>y',  function() require 'config.my.copy' end,            mode = { 'n', 'v', }, silent = true, desc = '---my.copy---', },
       { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'my.copy: copy_cwd', },
+      { '<c-;>',      require 'base'.all_commands,                        mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function() require 'config.my.copy' end,
   },
