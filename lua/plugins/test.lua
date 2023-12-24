@@ -304,6 +304,17 @@ return {
           desc = 'test.oil: start',
           mode = { 'n', 'v', },
         },
+        ['<c-tab>'] = {
+          callback = function()
+            local entry = require 'oil'.get_cursor_entry()
+            local dir = require 'oil'.get_current_dir()
+            if not entry or not dir then return end
+            vim.cmd 'NvimTreeOpen'
+            require 'base'.cmd('cd %s', dir .. entry.name)
+          end,
+          desc = 'test.oil: nvimtree',
+          mode = { 'n', 'v', },
+        },
       },
       columns = {
         'icon',
