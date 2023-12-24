@@ -38,7 +38,7 @@ end
 
 M.ausize_en = 1
 
-function M.ausize_toggle()
+function M._ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
   print('ausize_en:', M.ausize_en)
 end
@@ -390,6 +390,7 @@ function M._on_attach(bufnr)
     { 'dd',            M._wrap_node(M._delete_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
     { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
     { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
+    { 'da',            M._wrap_node(M._ausize_toggle),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
 
   }
 end
@@ -449,7 +450,5 @@ require 'nvim-tree'.setup {
     },
   },
 }
-
-B.create_user_command_with_M(M, 'NvimTree')
 
 return M
