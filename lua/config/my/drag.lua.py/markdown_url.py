@@ -7,6 +7,73 @@ def rep(text):
     return text.replace("\\", "/").rstrip("/")
 
 
+def output(file, line):
+    global file_printed
+    if not file_printed:
+        print('----', file)
+        file_printed = 1
+    print(line)
+
+
+def one(file):
+    global cmd
+    global proj
+    global cur_file
+    global url_name
+    global exclude_md_name
+    global include_md_ft
+    global patt
+
+    if (
+        rep(file).split("/")[-1].lower() in exclude_md_name
+        or file.split(".")[-1].lower() not in include_md_ft
+    ):
+        return
+    with open(file, "rb") as f:
+        lines = f.readlines()
+
+    if "show" not in cmd:
+        f = open(file, "wb")
+
+    url = b""
+    for _ in re.findall("/", file[len(proj) + 1 :]):
+        url += b"../"
+
+    global file_printed
+    file_printed = 0
+
+    for i in range(len(lines)):
+        line = lines[i]
+        res = re.findall(patt, line)
+        if "update" in cmd:
+            if res:
+                res = res[0]
+                temp = res[0]
+                temp += res[1]
+                temp += b"("
+                temp += url
+                temp += "/".join(rep(res[2].decode("utf-8")).split("/")[-2:]).encode(
+                    "utf-8"
+                )
+                temp += b")"
+                temp += res[3]
+                temp += b"\n"
+                f.write(temp)
+                output(file, '%s %s' % (f'{i + 1:4d}', temp.strip().decode('utf-8')))
+            else:
+                f.write(line)
+        elif "show" in cmd:
+            if res:
+                if 'under' in cmd:
+                    if url_name in line:
+                        output(file, '%s %s' % (f'{i + 1:4d}', line.strip().decode("utf-8")))
+                else:
+                    output(file, '%s %s' % (f'{i + 1:4d}', line.strip().decode("utf-8")))
+
+    if "show" not in cmd:
+        f.close()
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         os._exit(1)
@@ -14,55 +81,18 @@ if __name__ == "__main__":
     cmd = rep(sys.argv[1])
     proj = rep(sys.argv[2])
     cur_file = rep(sys.argv[3])
-    url_name = "/".join(rep(sys.argv[4]).split("/")[-2:])
+    url_name = rep(sys.argv[4]).encode('utf-8')
     exclude_md_name = sys.argv[5].split(",")
     include_md_ft = sys.argv[6].split(",")
+    patt = b"(.*)(!*\\[[^\\]]+\\])\\(([^\\)]+)\\)(.*)"
 
-    url_file = rep(os.path.join(proj, url_name))
-    if not os.path.exists(url_file):
-        os._exit(2)
+    print('====', cmd)
 
-    url_name = url_name.encode("utf-8")
-
-    F = {}
-
-    for root, _, files in os.walk(proj):
-        for file in files:
-            if (
-                file in exclude_md_name
-                or file.split(".")[-1].lower() not in include_md_ft
-            ):
-                continue
-            file = rep(os.path.join(root, file))
-            if cmd != "show": # show read more
-                F[file] = []
-                break
-            with open(file, "rb") as f:
-                lines = f.readlines()
-            for i in range(len(lines)):
-                line = lines[i]
-                if url_name not in line:
-                    continue
-                if file not in F:
-                    F[file] = []
-                F[file].append([i + 1, line.strip().decode("utf-8")])
-
-    if cmd == "show":
-        print(f'=========== {proj} ===========')
-        for f, lines in F.items():
-            print(f'     ------ {f} ------')
-            print(f)
-            for line in lines:
-                print("  ", line)
-
-    if cmd == "update_cur":
-        print(f'=========== {proj} ===========')
-        for f, _ in F.items():
-            print(f'     ------ {f} ------')
-            url = ''
-            for _ in re.findall('/', f[len(proj)+1:]):
-                url += '../'
-            url += url_name.decode('utf-8')
-            print('  ', url)
+    if "cur" in cmd:
+        one(cur_file)
+    else:
+        for root, _, files in os.walk(proj):
+            for file in files:
+                one(rep(os.path.join(root, file)))
 
     os.system("pause")

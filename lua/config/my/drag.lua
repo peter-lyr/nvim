@@ -366,13 +366,15 @@ function M.test_markdown_url_dir_py(cmd)
     B.notify_info 'markdown_url: not in a git repo'
     return
   end
+  if not cmd then
+    cmd = 'show_under'
+    -- cmd = 'show_proj'
+    -- cmd = 'update_cur'
+    -- cmd = 'update_proj'
+  end
   local url_name = M._get_cur_line_url()
   if not url_name then
-    return
-  end
-  if not cmd then
-    -- cmd = 'show'
-    cmd = 'update_cur'
+    url_name = ''
   end
   local exclude_md_name = M._not_image_root_dir_md_name .. ',' .. M._image_root_dir_md_name
   local include_md_ft = vim.fn.join(M.MARKDOWN_EXTS, ',')
