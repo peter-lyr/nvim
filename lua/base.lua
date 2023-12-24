@@ -276,7 +276,9 @@ function M.notify_qflist()
     i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
     lines[#lines + 1] = i['text']
   end
-  vim.fn.setqflist(qflist)
+  if qflist then
+    vim.fn.setqflist(qflist)
+  end
   M.notify_info(lines)
 end
 
