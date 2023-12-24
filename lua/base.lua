@@ -545,6 +545,14 @@ function M.cmd_sel_SHGetFolderPath(cmd)
   end)
 end
 
+function M.cmd_sel_my_dirs(cmd)
+  M.ui_sel(M.get_my_dirs(), cmd, function(dir)
+    if dir then
+      M.cmd('%s %s', cmd, dir)
+    end
+  end)
+end
+
 function M.time_diff(timestamp)
   local diff = os.time() - timestamp
   local years, months, weeks, days, hours, minutes, seconds = 0, 0, 0, 0, 0, 0, 0
@@ -661,6 +669,10 @@ M.my_dirs = {
   M.rep_backslash_lower(vim.fn.stdpath 'data'),
   M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
 }
+
+function M.get_my_dirs()
+  return M.my_dirs
+end
 
 -----------
 
