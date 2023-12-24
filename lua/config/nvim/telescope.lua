@@ -1,5 +1,6 @@
 local M = {}
 
+local action_set = require 'telescope.actions.set'
 local B = require 'base'
 
 -- telescope
@@ -213,7 +214,7 @@ telescope.setup {
 
         ['?'] = actions.which_key,
 
-        ['<leader>'] = actions.select_default,
+        ['<leader>'] = { function(prompt_bufnr) actions.select_default(prompt_bufnr) end, type = 'action', opts = { nowait = true, silent = true, desc = 'nvim.telescope: select_default', }, },
 
         ['<F5>'] = actions_layout.toggle_preview,
 
@@ -580,5 +581,16 @@ B.lazy_map {
   { '<leader>stb',    function() M.terminal_bash() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
   { '<leader>stp',    function() M.terminal_powershell() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
 }
+
+B.aucmd({ 'BufEnter', }, 'nvim.telescope.BufEnter', {
+  callback = function(ev)
+    local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
+    local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
+    local bufname = vim.api.nvim_buf_get_name(ev.buf)
+    if filetype == '' and buftype == '' and bufname == '' then
+      vim.api.nvim_buf_set_option(ev.buf, 'buftype', 'nofile')
+    end
+  end,
+})
 
 return M
