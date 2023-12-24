@@ -11,6 +11,6 @@
 9. TODO: [ ] command sel arg in telescope
 10. TODO: [x] insert mode no hili
 11. TODO: [ ] Github Desktop
-12. TODO: [ ] drag data file to markdown file, check them
+12. TODO: [x] drag data file to markdown file, check them
 13. TODO: [ ] oil a: ~ z:
 14. TODO: [ ] folder do not be music type
