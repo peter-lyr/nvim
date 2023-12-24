@@ -360,15 +360,15 @@ function M._get_cur_line_url()
   return string.match(vim.fn.getline '.', '%[[^%]]*%]%(([^%)]+)%)')
 end
 
-function M.test_markdown_url_dir_py(cmd)
+function M._markdown_url_do(cmd)
   local proj = vim.call 'ProjectRootGet'
   if #proj == 0 then
     B.notify_info 'markdown_url: not in a git repo'
     return
   end
   if not cmd then
-    cmd = 'show_under'
-    -- cmd = 'show_proj'
+    cmd = 'show_proj'
+    -- cmd = 'show_under'
     -- cmd = 'update_cur'
     -- cmd = 'update_proj'
   end
@@ -381,6 +381,22 @@ function M.test_markdown_url_dir_py(cmd)
   B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s" "%s" "%s" "%s" "%s"',
     B.system_cd(proj), M.markdown_url_py, cmd, proj, vim.api.nvim_buf_get_name(0), url_name, exclude_md_name, include_md_ft
   )
+end
+
+function M.markdown_url_show_under()
+  M._markdown_url_do 'show_under'
+end
+
+function M.markdown_url_show_proj()
+  M._markdown_url_do 'show_proj'
+end
+
+function M.markdown_url_update_proj()
+  M._markdown_url_do 'update_proj'
+end
+
+function M.markdown_url_update_cur()
+  M._markdown_url_do 'update_cur'
 end
 
 -- image_type: 'jpg', 'png'
