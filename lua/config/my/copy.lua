@@ -57,6 +57,4 @@ B.lazy_map {
   { '<leader>yrh', M.rela_head, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: rela_head', },
 }
 
-B.create_user_command_with_M(M, 'Copy')
-
 return M

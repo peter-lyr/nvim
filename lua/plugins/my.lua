@@ -253,11 +253,10 @@ return {
   {
     name = 'my.copy',
     dir = '',
-    cmd = { 'Copy', },
+    event = { 'BufReadPost', 'BufNewFile', },
     keys = {
       { '<leader>y',  function() require 'config.my.copy' end,            mode = { 'n', 'v', }, silent = true, desc = '---my.copy---', },
       { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'my.copy: copy_cwd', },
-      { '<c-;>',      require 'base'.all_commands,                        mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function() require 'config.my.copy' end,
   },
