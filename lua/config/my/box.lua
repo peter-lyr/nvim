@@ -36,7 +36,7 @@ function M.quit_nvim_qt()
   vim.cmd 'qall!'
 end
 
--- mappink
+-- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
 require 'which-key'.register { ['<leader><c-3>'] = { name = 'my.box', }, }

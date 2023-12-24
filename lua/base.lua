@@ -273,8 +273,10 @@ end
 function M.notify_qflist()
   local lines = {}
   for _, i in ipairs(vim.fn.getqflist()) do
+    i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
     lines[#lines + 1] = i['text']
   end
+  vim.fn.setqflist(qflist)
   M.notify_info(lines)
 end
 
