@@ -1,3 +1,7 @@
+local M = {}
+
+local B = require 'base'
+
 require 'oil'.setup {
   keymaps = {
     ['<c-;>'] = 'actions.select',
@@ -5,7 +9,7 @@ require 'oil'.setup {
     ['<c-1>'] = 'actions.parent',
     ['<c-q>'] = 'actions.close',
     ['<c-3>'] = 'actions.close',
-    ['gx'] = {
+    ['<c-x>'] = {
       callback = function()
         local entry = require 'oil'.get_cursor_entry()
         local dir = require 'oil'.get_current_dir()
@@ -14,6 +18,7 @@ require 'oil'.setup {
       end,
       desc = 'test.oil: start',
       mode = { 'n', 'v', },
+      nowait = true,
     },
     ['<c-tab>'] = {
       callback = function()
@@ -25,6 +30,45 @@ require 'oil'.setup {
       end,
       desc = 'test.oil: nvimtree',
       mode = { 'n', 'v', },
+      nowait = true,
+    },
+    ['<c-a>'] = {
+      callback = function()
+        local dir = require 'oil'.get_current_dir()
+        if not dir then return end
+        B.ui_sel({
+          'live_grep cwd=',
+          'find_files cwd=',
+          'grep_string cwd=',
+        }, 'Telescope', function(cwd)
+          if cwd then
+            B.cmd('Telescope %s%s', cwd, B.rep_backslash(dir))
+          end
+        end)
+      end,
+      desc = 'test.oil: telescope all',
+      mode = { 'n', 'v', },
+      nowait = true,
+    },
+    ['<c-`>'] = {
+      callback = function()
+        local dir = require 'oil'.get_current_dir()
+        if not dir then return end
+        B.cmd('Telescope find_files cwd=%s', B.rep_backslash(dir))
+      end,
+      desc = 'test.oil: telescope find_files',
+      mode = { 'n', 'v', },
+      nowait = true,
+    },
+    ['<c-w>'] = {
+      callback = function()
+        local dir = require 'oil'.get_current_dir()
+        if not dir then return end
+        B.cmd('Telescope live_grep cwd=%s', B.rep_backslash(dir))
+      end,
+      desc = 'test.oil: telescope live_grep',
+      mode = { 'n', 'v', },
+      nowait = true,
     },
   },
   columns = {
@@ -34,3 +78,5 @@ require 'oil'.setup {
     'mtime',
   },
 }
+
+return M
