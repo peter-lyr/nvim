@@ -27,7 +27,12 @@ require 'oil'.setup {
         if not entry or not dir then return end
         require 'oil'.close()
         vim.cmd 'NvimTreeOpen'
-        require 'base'.cmd('cd %s', dir .. entry.name)
+        local file = dir .. entry.name
+        if vim.fn.filereadable(file) == 1 then
+          require 'base'.cmd('cd %s', dir)
+        else
+          require 'base'.cmd('cd %s', file)
+        end
       end,
       desc = 'test.oil: nvimtree',
       mode = { 'n', 'v', },
@@ -42,11 +47,11 @@ require 'oil'.setup {
           'find_files cwd=',
           'grep_string cwd=',
         }, 'Telescope', function(cwd)
-          if cwd then
-            require 'oil'.close()
-            B.cmd('Telescope %s%s', cwd, B.rep_backslash(dir))
-          end
-        end)
+            if cwd then
+              require 'oil'.close()
+              B.cmd('Telescope %s%s', cwd, B.rep_backslash(dir))
+            end
+          end)
       end,
       desc = 'test.oil: telescope all',
       mode = { 'n', 'v', },
