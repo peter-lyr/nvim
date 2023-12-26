@@ -43,6 +43,25 @@ function M._ausize_toggle()
   print('ausize_en:', M.ausize_en)
 end
 
+M.run_what = {
+  'wmplayer.exe',
+}
+
+function M._run_what(node)
+  local file = node.absolute_path
+  if B.is_dir(file) then
+  elseif B.is_file(file) then
+    if #M.run_what == 0 then
+    elseif #M.run_what == 1 then
+      B.system_run('start silent', '%s \"%s\"', M.run_what[1], file)
+    else
+      B.ui_sel(M.run_what, 'run_what', function(run_what)
+        B.system_run('start silent', '%s \"%s\"', run_what, file)
+      end)
+    end
+  end
+end
+
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
     if vim.bo.ft == 'NvimTree' and B.is(M.ausize_en) then
@@ -390,7 +409,10 @@ function M._on_attach(bufnr)
     { 'dd',            M._wrap_node(M._delete_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
     { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
     { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
+
     { 'da',            M._wrap_node(M._ausize_toggle),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
+
+    { '<c-1>',         M._wrap_node(M._run_what),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
 
   }
 end

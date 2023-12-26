@@ -617,6 +617,30 @@ function M.file_exists(file)
   return require 'plenary.path':new(file):exists()
 end
 
+function M.is_file(file)
+  vim.cmd 'Lazy load plenary.nvim'
+  file = M.rep_slash(file)
+  local fpath = require 'plenary.path':new(file)
+  if fpath:exists() then
+    if fpath:is_file() then
+      return 1
+    end
+  end
+  return nil
+end
+
+function M.is_dir(file)
+  vim.cmd 'Lazy load plenary.nvim'
+  file = M.rep_slash(file)
+  local fpath = require 'plenary.path':new(file)
+  if fpath:exists() then
+    if fpath:is_dir() then
+      return 1
+    end
+  end
+  return nil
+end
+
 function M.fetch_existed_files(files)
   local new_files = {}
   for _, file in ipairs(files) do
