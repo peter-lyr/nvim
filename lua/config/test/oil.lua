@@ -25,6 +25,7 @@ require 'oil'.setup {
         local entry = require 'oil'.get_cursor_entry()
         local dir = require 'oil'.get_current_dir()
         if not entry or not dir then return end
+        require 'oil.actions'.close()
         vim.cmd 'NvimTreeOpen'
         require 'base'.cmd('cd %s', dir .. entry.name)
       end,
