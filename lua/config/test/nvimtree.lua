@@ -59,9 +59,18 @@ for _, exe in ipairs(M.run_what_list) do
   M._run_what_dict[exe] = M._wrap_run_what(exe)
 end
 
-function M._run_what(node)
+function M._run_what(what)
+  local node = require 'nvim-tree.lib'.get_node_at_cursor()
   local file = node.absolute_path
   local run_what_keys = vim.tbl_keys(M._run_what_dict)
+  if what then
+    if B.is_in_tbl(what, run_what_keys) then
+      M._run_what_dict[what](file)
+    else
+      B.notify_info(what .. ' is not in run_what_list')
+    end
+    return
+  end
   if B.is_dir(file) then
   elseif B.is_file(file) then
     if #run_what_keys == 0 then
@@ -69,7 +78,9 @@ function M._run_what(node)
       M._run_what_dict[run_what_keys[1]](file)
     else
       B.ui_sel(run_what_keys, 'run_what', function(run_what)
-        M._run_what_dict[run_what](file)
+        if run_what then
+          M._run_what_dict[run_what](file)
+        end
       end)
     end
   end
@@ -83,7 +94,6 @@ M._run_whats_dict = {}
 
 function M._wrap_run_whats(exe)
   return function(files)
-    B.print('%s \"%s\"', exe, vim.fn.join(files, '\" \"'))
     B.system_run('start silent', '%s \"%s\"', exe, vim.fn.join(files, '\" \"'))
   end
 end
@@ -92,7 +102,7 @@ for _, exe in ipairs(M.run_whats_list) do
   M._run_whats_dict[exe] = M._wrap_run_whats(exe)
 end
 
-function M._run_whats()
+function M._run_whats(what)
   local files = {}
   local marks = require 'nvim-tree.marks'.get_marks()
   for _, v in ipairs(marks) do
@@ -104,12 +114,22 @@ function M._run_whats()
   require 'nvim-tree.marks'.clear_marks()
   require 'nvim-tree.api'.tree.reload()
   local run_whats_keys = vim.tbl_keys(M._run_whats_dict)
+  if what then
+    if B.is_in_tbl(what, run_whats_keys) then
+      M._run_whats_dict[what](files)
+    else
+      B.notify_info(what .. ' is not in run_whats_list')
+    end
+    return
+  end
   if #run_whats_keys == 0 then
   elseif #run_whats_keys == 1 then
     M._run_whats_dict[run_whats_keys[1]](files)
   else
     B.ui_sel(run_whats_keys, 'run_whats', function(run_whats)
-      M._run_whats_dict[run_whats](files)
+      if run_whats then
+        M._run_whats_dict[run_whats](files)
+      end
     end)
   end
 end
@@ -457,16 +477,23 @@ function M._on_attach(bufnr)
 
     { "'",             M._wrap_node(M._toggle_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go next', },
     { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go prev', },
-    { 'de',            M._wrap_node(M._empty_sel),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
-    { 'dd',            M._wrap_node(M._delete_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
+    { 'de',            M._empty_sel,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
+    { 'dd',            M._delete_sel,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
     { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
     { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
 
-    { 'da',            M._wrap_node(M._ausize_toggle),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
+    { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
 
     { '<c-1>',         M._wrap_node(M._run_what),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
     { '<c-2>',         M._wrap_node(M._run_whats),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
 
+  }
+
+  B.lazy_map {
+    -- { '<c-1>', M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
+    -- { '<c-2>', M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
+    { '<c-3>', function() M._run_what 'wmplayer' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
+    { '<c-4>', function() M._run_whats 'bcomp' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
   }
 end
 
