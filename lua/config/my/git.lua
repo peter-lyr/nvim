@@ -169,7 +169,7 @@ function M.init_do(git_root_dir)
     end
   else
     file_path:write(remote_name, 'w')
-    file_path:write('.clang-format', 'w')
+    file_path:write('.clang-format', 'a')
   end
   B.asyncrun_prepare_add(function()
     M.addcommitpush 's1'
