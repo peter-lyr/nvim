@@ -75,6 +75,45 @@ function M._run_what(node)
   end
 end
 
+M.run_whats_list = {
+  'bcomp',
+}
+
+M._run_whats_dict = {}
+
+function M._wrap_run_whats(exe)
+  return function(files)
+    B.print('%s \"%s\"', exe, vim.fn.join(files, '\" \"'))
+    B.system_run('start silent', '%s \"%s\"', exe, vim.fn.join(files, '\" \"'))
+  end
+end
+
+for _, exe in ipairs(M.run_whats_list) do
+  M._run_whats_dict[exe] = M._wrap_run_whats(exe)
+end
+
+function M._run_whats()
+  local files = {}
+  local marks = require 'nvim-tree.marks'.get_marks()
+  for _, v in ipairs(marks) do
+    local absolute_path = v.absolute_path:match '^(.-)\\*$'
+    if B.is_file(absolute_path) then
+      files[#files + 1] = absolute_path
+    end
+  end
+  require 'nvim-tree.marks'.clear_marks()
+  require 'nvim-tree.api'.tree.reload()
+  local run_whats_keys = vim.tbl_keys(M._run_whats_dict)
+  if #run_whats_keys == 0 then
+  elseif #run_whats_keys == 1 then
+    M._run_whats_dict[run_whats_keys[1]](files)
+  else
+    B.ui_sel(run_whats_keys, 'run_whats', function(run_whats)
+      M._run_whats_dict[run_whats](files)
+    end)
+  end
+end
+
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
     if vim.bo.ft == 'NvimTree' and B.is(M.ausize_en) then
@@ -426,6 +465,7 @@ function M._on_attach(bufnr)
     { 'da',            M._wrap_node(M._ausize_toggle),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
 
     { '<c-1>',         M._wrap_node(M._run_what),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
+    { '<c-2>',         M._wrap_node(M._run_whats),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
 
   }
 end
