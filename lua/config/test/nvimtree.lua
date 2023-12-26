@@ -44,19 +44,32 @@ function M._ausize_toggle()
 end
 
 M.run_what = {
-  'wmplayer.exe',
+  'wmplayer',
 }
+
+M._run_what = {}
+
+function M.wrap(exe)
+  return function(file)
+    B.system_run('start silent', '%s \"%s\"', exe, file)
+  end
+end
+
+for _, exe in ipairs(M.run_what) do
+  M._run_what[exe] = M.wrap(exe)
+end
 
 function M._run_what(node)
   local file = node.absolute_path
+  local run_what_keys = vim.tbl_keys(M._run_what)
   if B.is_dir(file) then
   elseif B.is_file(file) then
-    if #M.run_what == 0 then
-    elseif #M.run_what == 1 then
-      B.system_run('start silent', '%s \"%s\"', M.run_what[1], file)
+    if #run_what_keys == 0 then
+    elseif #run_what_keys == 1 then
+      M._run_what[run_what_keys[1]](file)
     else
-      B.ui_sel(M.run_what, 'run_what', function(run_what)
-        B.system_run('start silent', '%s \"%s\"', run_what, file)
+      B.ui_sel(run_what_keys, 'run_what', function(run_what)
+        M._run_what[run_what](file)
       end)
     end
   end
