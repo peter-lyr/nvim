@@ -43,8 +43,11 @@ function M._ausize_toggle()
   print('ausize_en:', M.ausize_en)
 end
 
+---------------------------------------
+
 M.run_what_list = {
   'wmplayer',
+  'notepad',
 }
 
 M._run_what_dict = {}
@@ -86,7 +89,10 @@ function M._run_what(what)
   end
 end
 
+-----
+
 M.run_whats_list = {
+  'bcomp',
   'bcomp',
 }
 
@@ -133,6 +139,8 @@ function M._run_whats(what)
     end)
   end
 end
+
+---------------------------------------
 
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
@@ -490,8 +498,8 @@ function M._on_attach(bufnr)
   }
 
   B.lazy_map {
-    -- { '<c-1>', M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    -- { '<c-2>', M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
+    { '<c-1>', M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
+    { '<c-2>', M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
     { '<c-3>', function() M._run_what 'wmplayer' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
     { '<c-4>', function() M._run_whats 'bcomp' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
   }
