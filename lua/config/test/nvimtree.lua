@@ -93,7 +93,7 @@ end
 
 M.run_whats_list = {
   'bcomp',
-  'bcomp',
+  'BCompare',
 }
 
 M._run_whats_dict = {}
