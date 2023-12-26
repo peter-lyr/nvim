@@ -25,7 +25,7 @@ require 'oil'.setup {
         local entry = require 'oil'.get_cursor_entry()
         local dir = require 'oil'.get_current_dir()
         if not entry or not dir then return end
-        require 'oil.actions'.close()
+        require 'oil'.close()
         vim.cmd 'NvimTreeOpen'
         require 'base'.cmd('cd %s', dir .. entry.name)
       end,
@@ -43,6 +43,7 @@ require 'oil'.setup {
           'grep_string cwd=',
         }, 'Telescope', function(cwd)
           if cwd then
+            require 'oil'.close()
             B.cmd('Telescope %s%s', cwd, B.rep_backslash(dir))
           end
         end)
@@ -55,6 +56,7 @@ require 'oil'.setup {
       callback = function()
         local dir = require 'oil'.get_current_dir()
         if not dir then return end
+        require 'oil'.close()
         B.cmd('Telescope find_files cwd=%s', B.rep_backslash(dir))
       end,
       desc = 'test.oil: telescope find_files',
@@ -65,6 +67,7 @@ require 'oil'.setup {
       callback = function()
         local dir = require 'oil'.get_current_dir()
         if not dir then return end
+        require 'oil'.close()
         B.cmd('Telescope live_grep cwd=%s', B.rep_backslash(dir))
       end,
       desc = 'test.oil: telescope live_grep',
