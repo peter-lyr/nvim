@@ -79,4 +79,21 @@ require 'oil'.setup {
   },
 }
 
+function M.last_dir()
+  if B.is(M._last_dir) then
+    B.print('Oil %s', vim.inspect(M._last_dir))
+    B.cmd('Oil %s', M._last_dir)
+  end
+end
+
+B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.oil.CursorHold', {
+  callback = function(ev)
+    if B.is_buf_fts('oil', ev.buf) then
+      local dir = require 'oil'.get_current_dir()
+      if not dir then return end
+      M._last_dir = dir
+    end
+  end,
+})
+
 return M

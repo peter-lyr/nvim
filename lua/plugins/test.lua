@@ -284,6 +284,7 @@ return {
       { '<c-2>',   function() require 'base'.cmd_sel_my_dirs 'Oil' end,         mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_my_dirs', },
       { '<c-s-2>', function() require 'base'.cmd_sel_SHGetFolderPath 'Oil' end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_SHGetFolderPath', },
       { '<c-3>',   '<cmd>exe "Oil " . getcwd()<cr>',                            mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cwd', },
+      { '<c-s-3>', function() require 'config.test.oil'.last_dir() end,         mode = { 'n', 'v', }, silent = true, desc = 'test.oil: last_dir', },
       { '<c-4>',   function() require 'base'.cmd_sel_all_git_repos 'Oil' end,   mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_all_git_repos', },
       { '<c-s-4>', function() require 'config.my.git'.get_all_git_repos(1) end, mode = { 'n', 'v', }, silent = true, desc = 'test.oil: get_all_git_repos', },
     },
