@@ -43,33 +43,33 @@ function M._ausize_toggle()
   print('ausize_en:', M.ausize_en)
 end
 
-M.run_what = {
+M.run_what_list = {
   'wmplayer',
 }
 
-M._run_what = {}
+M._run_what_dict = {}
 
-function M.wrap(exe)
+function M._wrap_run_what(exe)
   return function(file)
     B.system_run('start silent', '%s \"%s\"', exe, file)
   end
 end
 
-for _, exe in ipairs(M.run_what) do
-  M._run_what[exe] = M.wrap(exe)
+for _, exe in ipairs(M.run_what_list) do
+  M._run_what_dict[exe] = M._wrap_run_what(exe)
 end
 
 function M._run_what(node)
   local file = node.absolute_path
-  local run_what_keys = vim.tbl_keys(M._run_what)
+  local run_what_keys = vim.tbl_keys(M._run_what_dict)
   if B.is_dir(file) then
   elseif B.is_file(file) then
     if #run_what_keys == 0 then
     elseif #run_what_keys == 1 then
-      M._run_what[run_what_keys[1]](file)
+      M._run_what_dict[run_what_keys[1]](file)
     else
       B.ui_sel(run_what_keys, 'run_what', function(run_what)
-        M._run_what[run_what](file)
+        M._run_what_dict[run_what](file)
       end)
     end
   end
