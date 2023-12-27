@@ -380,6 +380,47 @@ function M._copy_sel(node)
   end
 end
 
+---------------------------------
+
+function M.open(dir)
+  vim.cmd 'NvimTreeOpen'
+  B.set_timeout(20, function() B.cmd('cd %s', dir) end)
+end
+
+function M._sel_dirs_do(dirs, prompt)
+  B.ui_sel(dirs, prompt, function(dir) if dir then M.open(dir) end end)
+  B.set_timeout(20, function() vim.cmd [[call feedkeys("\<esc>")]] end)
+end
+
+function M.sel_dirvers()
+  local drivers = {}
+  for i = 1, 26 do
+    local driver = vim.fn.nr2char(64 + i) .. ':\\'
+    if B.is(vim.fn.isdirectory(driver)) then drivers[#drivers + 1] = driver end
+  end
+  M._sel_dirs_do(drivers, 'drivers')
+end
+
+function M.sel_parent_dirs() M._sel_dirs_do(B.get_file_dirs(vim.loop.cwd()), 'parent_dirs') end
+
+function M.sel_my_dirs() M._sel_dirs_do(B.get_my_dirs(), 'my_dirs') end
+
+function M.sel_SHGetFolderPath() M._sel_dirs_do(B.get_SHGetFolderPath(), 'SHGetFolderPath') end
+
+function M.sel_all_git_repos() M._sel_dirs_do(require 'config.my.git'.get_all_git_repos(), 'all_git_repos') end
+
+function M.last_dir() if B.is(M._last_dir) then M.open(M._last_dir) end end
+
+B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
+  callback = function(ev)
+    if B.is_buf_fts('NvimTree', ev.buf) then
+      M._last_dir = vim.loop.cwd()
+    end
+  end,
+})
+
+-----------------------------------
+
 M.init_root = vim.fn.getcwd()
 
 M._change_root = function(path, bufnr)

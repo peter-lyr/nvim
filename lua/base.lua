@@ -500,64 +500,6 @@ function M.scan_dirs(dir, pattern)
   return dirs
 end
 
-function M.cmd_sel_all_git_repos(cmd)
-  M.ui_sel(require 'config.my.git'.get_all_git_repos(), cmd, function(dir)
-    if dir then
-      M.cmd('%s %s', cmd, dir)
-    end
-  end)
-end
-
-function M.cmd_sel_cwd_dirs(cmd)
-  M.ui_sel(M.scan_dirs(vim.loop.cwd()), cmd, function(dir)
-    if dir then
-      M.cmd('%s %s', cmd, dir)
-    end
-  end)
-end
-
-function M.cmd_sel_dirvers(cmd)
-  local drivers = {}
-  for i = 1, 26 do
-    local driver = vim.fn.nr2char(64 + i) .. ':\\'
-    if M.is(vim.fn.isdirectory(driver)) then
-      drivers[#drivers + 1] = driver
-    end
-  end
-  M.ui_sel(drivers, cmd, function(driver)
-    if driver then
-      M.cmd('%s %s', cmd, driver)
-    end
-  end)
-  M.set_timeout(20, function()
-    vim.cmd [[call feedkeys("\<esc>")]]
-  end)
-end
-
-function M.cmd_sel_parent_dirs(cmd)
-  M.ui_sel(M.get_file_dirs(vim.loop.cwd()), cmd, function(dir)
-    if dir then
-      M.cmd('%s %s', cmd, dir)
-    end
-  end)
-end
-
-function M.cmd_sel_SHGetFolderPath(cmd)
-  M.ui_sel(M.get_SHGetFolderPath(), cmd, function(dir)
-    if dir then
-      M.cmd('%s %s', cmd, dir)
-    end
-  end)
-end
-
-function M.cmd_sel_my_dirs(cmd)
-  M.ui_sel(M.get_my_dirs(), cmd, function(dir)
-    if dir then
-      M.cmd('%s %s', cmd, dir)
-    end
-  end)
-end
-
 function M.time_diff(timestamp)
   local diff = os.time() - timestamp
   local years, months, weeks, days, hours, minutes, seconds = 0, 0, 0, 0, 0, 0, 0

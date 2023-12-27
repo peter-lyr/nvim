@@ -17,5 +17,5 @@
 15. TODO: [ ] focuslost long time restart and load session
 16. TODO: [ ] fork sessions.nvim save path
 17. TODO: [x] nvim-tree gx sel in telescope
-18. TODO: [ ] <c-i> <c-o> not working well
+18. TODO: [x] <c-i> <c-o> not working well
 > disabling stevearc/oil.nvim make it work find
