@@ -275,7 +275,7 @@ return {
   -- oil
   {
     'stevearc/oil.nvim',
-    event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
+    -- event = { 'BufReadPre', 'BufNewFile', 'FocusLost', },
     keys = {
       { '<c-`>',   function() require 'base'.cmd_sel_dirvers 'Oil' end,         mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_dirvers', },
       { '<c-q>',   '<cmd>Oil<cr>',                                              mode = { 'n', 'v', }, silent = true, desc = 'test.oil: cmd_sel_cur', },
