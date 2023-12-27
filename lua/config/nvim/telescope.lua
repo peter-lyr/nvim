@@ -216,7 +216,7 @@ telescope.setup {
 
         ['<leader>'] = { function(prompt_bufnr) actions.select_default(prompt_bufnr) end, type = 'action', opts = { nowait = true, silent = true, desc = 'nvim.telescope: select_default', }, },
 
-        ['<F5>'] = actions_layout.toggle_preview,
+        ['<c-g>'] = actions_layout.toggle_preview,
 
         ['<c-j>'] = M.five_down(),
         ['<c-k>'] = M.five_up(),
