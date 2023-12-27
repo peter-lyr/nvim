@@ -89,6 +89,21 @@ function M._run_what(what)
   end
 end
 
+function M._run_what_add_do(what)
+  M._run_what_dict[what] = M._wrap_run_what(what)
+  M._run_what(what)
+end
+
+function M._run_what_add()
+  local run_what_keys = vim.tbl_keys(M._run_what_dict)
+  table.insert(run_what_keys, 1, '_run_what_add')
+  B.notify_info(run_what_keys)
+  local what = vim.fn.input 'Add new: '
+  if B.is(what) then
+    M._run_what_add_do(what)
+  end
+end
+
 -----
 
 M.run_whats_list = {
@@ -137,6 +152,21 @@ function M._run_whats(what)
         M._run_whats_dict[run_whats](files)
       end
     end)
+  end
+end
+
+function M._run_whats_add_do(what)
+  M._run_whats_dict[what] = M._wrap_run_whats(what)
+  M._run_whats(what)
+end
+
+function M._run_whats_add()
+  local run_whats_keys = vim.tbl_keys(M._run_whats_dict)
+  table.insert(run_whats_keys, 1, '_run_whats_add')
+  B.notify_info(run_whats_keys)
+  local what = vim.fn.input 'Add new: '
+  if B.is(what) then
+    M._run_whats_add_do(what)
   end
 end
 
@@ -502,6 +532,8 @@ function M._on_attach(bufnr)
     { '<c-2>', M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
     { '<c-3>', function() M._run_what 'wmplayer' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
     { '<c-4>', function() M._run_whats 'bcomp' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
+    { '<f3>',  function() M._run_what_add() end,      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
+    { '<f4>',  function() M._run_whats_add() end,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
   }
 end
 
