@@ -272,8 +272,7 @@ end
 
 function M.notify_qflist()
   local lines = {}
-  local chcp = vim.fn.system 'chcp'
-  local chcp_en = M.is_in_str('65001', chcp)
+  local chcp_en = M.is_in_str('65001', vim.fn.system 'chcp')
   for _, i in ipairs(vim.fn.getqflist()) do
     if not chcp_en then
       i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
