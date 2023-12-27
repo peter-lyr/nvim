@@ -326,6 +326,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     commit = '00741206',
+    event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
     cmd = {
       'NvimTree',
       'NvimTreeOpen',
