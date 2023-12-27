@@ -143,7 +143,7 @@ telescope.setup {
 
         ['<C-w>'] = { '<c-s-w>', type = 'command', },
 
-        ['<c-g>'] = actions_layout.toggle_preview,
+        ['<c-g>'] = { function(prompt_bufnr) actions_layout.toggle_preview(prompt_bufnr) end, type = 'action', opts = { nowait = true, silent = true, desc = 'nvim.telescope: toggle_preview', }, },
 
         ['<C-s>'] = M.paste('<c-r>"', 'nvim.telescope.paste: "'),
         ['<C-=>'] = M.paste([[<c-r>=trim(getreg("+"))<cr>]], 'nvim.telescope.paste: +'),
@@ -216,7 +216,7 @@ telescope.setup {
 
         ['<leader>'] = { function(prompt_bufnr) actions.select_default(prompt_bufnr) end, type = 'action', opts = { nowait = true, silent = true, desc = 'nvim.telescope: select_default', }, },
 
-        ['<c-g>'] = actions_layout.toggle_preview,
+        ['<c-g>'] = { function(prompt_bufnr) actions_layout.toggle_preview(prompt_bufnr) end, type = 'action', opts = { nowait = true, silent = true, desc = 'nvim.telescope: toggle_preview', }, },
 
         ['<c-j>'] = M.five_down(),
         ['<c-k>'] = M.five_up(),
