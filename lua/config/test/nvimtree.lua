@@ -75,18 +75,15 @@ function M._run_what(what)
     end
     return
   end
-  if B.is_dir(file) then
-  elseif B.is_file(file) then
-    if #run_what_keys == 0 then
-    elseif #run_what_keys == 1 then
-      M._run_what_dict[run_what_keys[1]](file)
-    else
-      B.ui_sel(run_what_keys, 'run_what', function(run_what)
-        if run_what then
-          M._run_what_dict[run_what](file)
-        end
-      end)
-    end
+  if #run_what_keys == 0 then
+  elseif #run_what_keys == 1 then
+    M._run_what_dict[run_what_keys[1]](file)
+  else
+    B.ui_sel(run_what_keys, 'run_what', function(run_what)
+      if run_what then
+        M._run_what_dict[run_what](file)
+      end
+    end)
   end
 end
 
@@ -129,9 +126,7 @@ function M._run_whats(what)
   local marks = require 'nvim-tree.marks'.get_marks()
   for _, v in ipairs(marks) do
     local absolute_path = v.absolute_path:match '^(.-)\\*$'
-    if B.is_file(absolute_path) then
-      files[#files + 1] = absolute_path
-    end
+    files[#files + 1] = absolute_path
   end
   if #files == 0 then
     return
