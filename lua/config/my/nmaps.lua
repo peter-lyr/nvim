@@ -46,7 +46,7 @@ lazy_map {
 lazy_map {
   { 'q.', function() vim.cmd 'silent !explorer %:h' end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer %:h', },
   { 'qw', function() vim.cmd('silent !explorer ' .. vim.loop.cwd()) end, mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer cwd', },
-  { 'qs', function() vim.cmd 'silent !start %:p' end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
+  { 'qs', function() vim.cmd 'silent !cmd /c start "" %:p' end,          mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
 }
 
 vim.cmd [[
@@ -65,9 +65,9 @@ vim.cmd [[
   nnoremenu PopUp.Select\ All                 ggVG
   vnoremenu PopUp.Select\ All                 gg0oG$
   inoremenu PopUp.Select\ All                 <C-Home><C-O>VG
-  nnoremenu PopUp.Run\ Cur\ File              :silent !start %:p<cr>
-  vnoremenu PopUp.Run\ Cur\ File              :<C-U>silent !start %:p<cr>
-  inoremenu PopUp.Run\ Cur\ File              <C-O>:<C-u>silent !start %:p<cr>
+  nnoremenu PopUp.Open\ Cur\ File             :silent !cmd /c start "" %:p<cr>
+  vnoremenu PopUp.Open\ Cur\ File             :<C-U>silent !cmd /c start "" %:p<cr>
+  inoremenu PopUp.Open\ Cur\ File             <C-O>:<C-u>silent !cmd /c start "" %:p<cr>
 ]]
 
 -- 只保留第二列数据
