@@ -16,5 +16,5 @@
 14. TODO: [ ] folder do not be music type
 15. TODO: [ ] focuslost long time restart and load session
 16. TODO: [ ] fork sessions.nvim save path
-17. TODO: [ ] nvim-tree gx sel in telescope
+17. TODO: [x] nvim-tree gx sel in telescope
 18. TODO: [ ] <c-i> <c-o> not working well
