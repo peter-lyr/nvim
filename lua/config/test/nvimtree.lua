@@ -652,10 +652,10 @@ B.lazy_map {
 B.del_map({ 'n', 'v', }, '<RightMouse>')
 
 vim.cmd [[
-  anoremenu PopUp.-2-            <Nop>
-  nnoremenu PopUp.NvimTreeToggle :NvimTreeToggle<cr>
-  vnoremenu PopUp.NvimTreeToggle :<C-U>NvimTreeToggle<cr>
-  inoremenu PopUp.NvimTreeToggle <C-O>:<C-u>NvimTreeToggle<cr>
+  anoremenu PopUp.-2-              <Nop>
+  nnoremenu PopUp.NvimTree\ Toggle :NvimTreeToggle<cr>
+  vnoremenu PopUp.NvimTree\ Toggle :<C-U>NvimTreeToggle<cr>
+  inoremenu PopUp.NvimTree\ Toggle <C-O>:<C-u>NvimTreeToggle<cr>
 ]]
 
 opts['on_attach'] = M._on_attach

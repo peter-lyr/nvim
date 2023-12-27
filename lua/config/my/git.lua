@@ -703,13 +703,17 @@ B.lazy_map {
 B.del_map({ 'n', 'v', }, '<RightMouse>')
 
 vim.cmd [[
-  anoremenu PopUp.-3-                    <Nop>
-  nnoremenu PopUp.QuickFixOpen             :copen<cr>
-  vnoremenu PopUp.QuickFixOpen             :<C-U>copen<cr>
-  inoremenu PopUp.QuickFixOpen             <C-O>:<C-u>copen<cr>
-  nnoremenu PopUp.QuickFixClose            :cclose<cr>
-  vnoremenu PopUp.QuickFixClose            :<C-U>cclose<cr>
-  inoremenu PopUp.QuickFixClose            <C-O>:<C-u>cclose<cr>
+  anoremenu PopUp.-3-              <Nop>
+  nnoremenu PopUp.QuickFix\ Open   :copen<cr>
+  vnoremenu PopUp.QuickFix\ Open   :<C-U>copen<cr>
+  inoremenu PopUp.QuickFix\ Open   <C-O>:<C-u>copen<cr>
+  nnoremenu PopUp.QuickFix\ Close  :cclose<cr>
+  vnoremenu PopUp.QuickFix\ Close  :<C-U>cclose<cr>
+  inoremenu PopUp.QuickFix\ Close  <C-O>:<C-u>cclose<cr>
+  anoremenu PopUp.-4-              <Nop>
+  nnoremenu PopUp.Fugitive\ Toggle :lua require 'config.my.git'.fugitive_toggle()<cr>
+  vnoremenu PopUp.Fugitive\ Toggle :<C-U>lua require 'config.my.git'.fugitive_toggle()<cr>
+  inoremenu PopUp.Fugitive\ Toggle <C-O>:<C-u>lua require 'config.my.git'.fugitive_toggle()<cr>
 ]]
 
 return M

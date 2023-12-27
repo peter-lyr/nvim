@@ -294,8 +294,9 @@ return {
     version = '*',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<c-\\>', function() require 'mini.map'.toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle', },
-      { '<a-\\>', function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
+      { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
+      { '<c-\\>',       function() require 'mini.map'.toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle', },
+      { '<a-\\>',       function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
     },
     config = function()
       local minimap = require 'mini.map'
@@ -319,6 +320,13 @@ return {
           -- zindex = 10,
         },
       }
+      require 'base'.del_map({ 'n', 'v', }, '<RightMouse>')
+      vim.cmd [[
+        anoremenu PopUp.-5-             <Nop>
+        nnoremenu PopUp.Minimap\ Toggle :lua require 'mini.map'.toggle()<cr>
+        vnoremenu PopUp.Minimap\ Toggle :<C-U>lua require 'mini.map'.toggle()<cr>
+        inoremenu PopUp.Minimap\ Toggle <C-O>:<C-u>lua require 'mini.map'.toggle()<cr>
+      ]]
     end,
   },
 
