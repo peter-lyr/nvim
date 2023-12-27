@@ -143,7 +143,7 @@ telescope.setup {
 
         ['<C-w>'] = { '<c-s-w>', type = 'command', },
 
-        ['<F5>'] = actions_layout.toggle_preview,
+        ['<c-g>'] = actions_layout.toggle_preview,
 
         ['<C-s>'] = M.paste('<c-r>"', 'nvim.telescope.paste: "'),
         ['<C-=>'] = M.paste([[<c-r>=trim(getreg("+"))<cr>]], 'nvim.telescope.paste: +'),
