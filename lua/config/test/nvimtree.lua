@@ -133,6 +133,9 @@ function M._run_whats(what)
       files[#files + 1] = absolute_path
     end
   end
+  if #files == 0 then
+    return
+  end
   require 'nvim-tree.marks'.clear_marks()
   require 'nvim-tree.api'.tree.reload()
   local run_whats_keys = vim.tbl_keys(M._run_whats_dict)
@@ -634,6 +637,7 @@ function M._on_attach(bufnr)
     { '<c-1>',         M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
     { '<MiddleMouse>', M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
     { '<c-2>',         M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
+    { '<RightMouse>',  M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
     { '<c-3>',         function() M._run_what 'wmplayer' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
     { '<c-4>',         function() M._run_whats 'bcomp' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
     { '<f3>',          function() M._run_what_add() end,      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
