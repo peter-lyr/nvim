@@ -700,4 +700,16 @@ B.lazy_map {
   { '<a-bs>', M.quickfix_toggle, mode = { 'n', 'v', }, silent = true, desc = 'quickfix_toggle', },
 }
 
+B.del_map({ 'n', 'v', }, '<RightMouse>')
+
+vim.cmd [[
+  anoremenu PopUp.-3-                    <Nop>
+  nnoremenu PopUp.QuickFixOpen             :copen<cr>
+  vnoremenu PopUp.QuickFixOpen             :<C-U>copen<cr>
+  inoremenu PopUp.QuickFixOpen             <C-O>:<C-u>copen<cr>
+  nnoremenu PopUp.QuickFixClose            :cclose<cr>
+  vnoremenu PopUp.QuickFixClose            :<C-U>cclose<cr>
+  inoremenu PopUp.QuickFixClose            <C-O>:<C-u>cclose<cr>
+]]
+
 return M

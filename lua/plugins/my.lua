@@ -165,35 +165,37 @@ return {
       'DiffviewOpen', 'DiffviewFileHistory',
     },
     keys = {
+      { '<RightMouse>', function() end,                                           mode = { 'n', 'v', }, silent = true, desc = 'my.git', },
+
       -- git.push
-      { '<leader>g',   function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git---', },
-      { '<leader>gg',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.push---', },
-      { '<leader>ga',  function() require 'config.my.git'.addcommitpush() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush', },
-      { '<leader>gp',  function() require 'config.my.git'.pull() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull', },
-      { '<leader>gc',  function() require 'config.my.git'.commit_push() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
+      { '<leader>g',    function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git---', },
+      { '<leader>gg',   function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.push---', },
+      { '<leader>ga',   function() require 'config.my.git'.addcommitpush() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush', },
+      { '<leader>gp',   function() require 'config.my.git'.pull() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull', },
+      { '<leader>gc',   function() require 'config.my.git'.commit_push() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
 
       -- git.signs
-      { '<leader>gm',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
-      { '<leader>gmt', function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
-      { 'ig',          ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
-      { 'ag',          ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
-      { '<leader>j',   desc = 'my.git.signs next_hunk', },
-      { '<leader>k',   desc = 'my.git.signs prev_hunk', },
-      { '<leader>gd',  function() require 'config.my.git'.diffthis() end,        mode = { 'n', },      silent = true, desc = 'my.git.signs: diffthis', },
-      { '<leader>gr',  function() require 'config.my.git'.reset_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: reset_hunk', },
-      { '<leader>gr',  function() require 'config.my.git'.reset_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: reset_hunk_v', },
-      { '<leader>gs',  function() require 'config.my.git'.stage_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: stage_hunk', },
-      { '<leader>gs',  function() require 'config.my.git'.stage_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: stage_hunk_v', },
-      { '<leader>gu',  function() require 'config.my.git'.undo_stage_hunk() end, mode = { 'n', },      silent = true, desc = 'my.git.signs: undo_stage_hunk', },
+      { '<leader>gm',   function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
+      { '<leader>gmt',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
+      { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
+      { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
+      { '<leader>j',    desc = 'my.git.signs next_hunk', },
+      { '<leader>k',    desc = 'my.git.signs prev_hunk', },
+      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        mode = { 'n', },      silent = true, desc = 'my.git.signs: diffthis', },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: reset_hunk', },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: reset_hunk_v', },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: stage_hunk', },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: stage_hunk_v', },
+      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, mode = { 'n', },      silent = true, desc = 'my.git.signs: undo_stage_hunk', },
 
       -- git.diffview
-      { '<leader>gv',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.diffview---', },
+      { '<leader>gv',   function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.diffview---', },
 
       -- git.lazy
-      { '<leader>gl',  function() require 'config.my.git'.lazygit() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
+      { '<leader>gl',   function() require 'config.my.git'.lazygit() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
 
       --
-      { '<c-;>',       require 'base'.all_commands,                              mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-;>',        require 'base'.all_commands,                              mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
 
     },
     dependencies = {

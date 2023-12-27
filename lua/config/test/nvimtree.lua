@@ -649,6 +649,15 @@ B.lazy_map {
   { '<a-s-cr>', M._reopen, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_reopen', },
 }
 
+B.del_map({ 'n', 'v', }, '<RightMouse>')
+
+vim.cmd [[
+  anoremenu PopUp.-2-            <Nop>
+  nnoremenu PopUp.NvimTreeToggle :NvimTreeToggle<cr>
+  vnoremenu PopUp.NvimTreeToggle :<C-U>NvimTreeToggle<cr>
+  inoremenu PopUp.NvimTreeToggle <C-O>:<C-u>NvimTreeToggle<cr>
+]]
+
 opts['on_attach'] = M._on_attach
 
 require 'nvim-tree'.setup(opts)

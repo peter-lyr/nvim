@@ -326,7 +326,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     commit = '00741206',
-    event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
+    event = { 'BufReadPre', 'BufNewFile', },
     cmd = {
       'NvimTree',
       'NvimTreeOpen',
@@ -334,18 +334,20 @@ return {
       'NvimTreeFindFileToggle',
     },
     keys = {
-      { '<c-;>',    require 'base'.all_commands,                                         mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
-      { '<c-cr>',   '<cmd>NvimTreeFindFileToggle<cr>',                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: NvimTreeFindFileToggle', },
+      { '<RightMouse>', function() end,                                                      mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
 
-      { '<c-s-cr>', function() require 'config.test.nvimtree'.last_dir() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: last_dir', },
+      { '<c-;>',        function() require 'base'.all_commands() end,                        mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-cr>',       '<cmd>NvimTreeFindFileToggle<cr>',                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: NvimTreeFindFileToggle', },
 
-      { '<c-`>',    function() require 'config.test.nvimtree'.sel_dirvers() end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_dirvers', },
-      { '<c-1>',    function() require 'config.test.nvimtree'.sel_parent_dirs() end,     mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_parent_dirs', },
-      { '<c-2>',    function() require 'config.test.nvimtree'.sel_my_dirs() end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_my_dirs', },
-      { '<c-3>',    function() require 'config.test.nvimtree'.sel_SHGetFolderPath() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_SHGetFolderPath', },
+      { '<c-s-cr>',     function() require 'config.test.nvimtree'.last_dir() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: last_dir', },
 
-      { '<c-4>',    function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
-      { '<c-s-4>',  function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
+      { '<c-`>',        function() require 'config.test.nvimtree'.sel_dirvers() end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_dirvers', },
+      { '<c-1>',        function() require 'config.test.nvimtree'.sel_parent_dirs() end,     mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_parent_dirs', },
+      { '<c-2>',        function() require 'config.test.nvimtree'.sel_my_dirs() end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_my_dirs', },
+      { '<c-3>',        function() require 'config.test.nvimtree'.sel_SHGetFolderPath() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_SHGetFolderPath', },
+
+      { '<c-4>',        function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
+      { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
     },
     config = function() require 'config.test.nvimtree' end,
   },
