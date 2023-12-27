@@ -17,7 +17,7 @@ function M._tab()
   vim.cmd 'norm j'
 end
 
-function M._c_tab()
+function M._s_tab()
   local api = require 'nvim-tree.api'
   api.node.open.preview()
   vim.cmd 'norm k'
@@ -548,7 +548,7 @@ function M._on_attach(bufnr)
     { 'a',             api.node.open.edit,                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open', },
 
     { '<Tab>',         M._tab,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open Preview', },
-    { '<C-Tab>',       M._c_tab,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open Preview', },
+    { '<S-Tab>',       M._s_tab,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open Preview', },
 
     { '<2-LeftMouse>', api.node.open.no_window_picker,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open', },
     { '<CR>',          api.node.open.no_window_picker,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: No Window Picker', },
