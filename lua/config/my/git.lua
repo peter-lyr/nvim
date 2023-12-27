@@ -684,7 +684,15 @@ function M.quickfix_toggle()
   else
     M.quickfix_winid = vim.fn.win_getid()
     vim.cmd 'copen'
-    vim.api.nvim_win_set_height(0, vim.fn.line '$' + 3)
+    local height = vim.fn.line '$' + 3
+    if height > vim.o.lines / 2 then
+      if vim.o.lines % 2 == 1 then
+        height = (vim.o.lines - 1) / 2
+      else
+        height = vim.o.lines / 2
+      end
+    end
+    vim.api.nvim_win_set_height(0, height)
   end
 end
 
