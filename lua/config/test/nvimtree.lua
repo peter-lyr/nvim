@@ -481,6 +481,12 @@ end
 -- setup
 -----------------------------------------------------
 
+function M._reopen()
+  package.loaded[M.lua] = nil
+  require 'config.test.nvimtree'
+  print 'config.test.nvimtree'
+end
+
 local opts = {
   update_focused_file = {
     -- enable = true,
@@ -632,6 +638,10 @@ function M._on_attach(bufnr)
     { '<f4>',  function() M._run_whats_add() end,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
   }
 end
+
+B.lazy_map {
+  { '<a-s-cr>', M._reopen, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_reopen', },
+}
 
 opts['on_attach'] = M._on_attach
 
