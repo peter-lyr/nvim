@@ -272,8 +272,12 @@ end
 
 function M.notify_qflist()
   local lines = {}
+  local chcp = vim.fn.system 'chcp'
+  local chcp_en = M.is_in_str('65001', chcp)
   for _, i in ipairs(vim.fn.getqflist()) do
-    i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
+    if not chcp_en then
+      i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
+    end
     lines[#lines + 1] = i['text']
   end
   if qflist then
@@ -834,6 +838,10 @@ end
 
 function M.is_in_tbl(item, tbl)
   return M.is(vim.tbl_contains(tbl, item))
+end
+
+function M.is_in_str(item, str)
+  return string.match(str, item)
 end
 
 M.source = M.getsource(debug.getinfo(1)['source'])
