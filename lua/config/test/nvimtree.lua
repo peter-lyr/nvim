@@ -579,6 +579,22 @@ local opts = {
   },
 }
 
+function M.fd(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  B.cmd('Telescope find_files cwd=%s previewer=true', dtarget)
+end
+
+function M.rg(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget)
+end
+
 function M._on_attach(bufnr)
   local api = require 'nvim-tree.api'
   B.lazy_map {
@@ -677,6 +693,8 @@ function M._on_attach(bufnr)
     { '<RightMouse>',  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
     { '<c-3>',         function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
     { '<c-4>',         function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
+    { '<f1>',          M._wrap_node(M.rg),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'rg', },
+    { '<f2>',          M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'fd', },
     { '<f3>',          function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
     { '<f4>',          function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
   }
