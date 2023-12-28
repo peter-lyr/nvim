@@ -6,6 +6,7 @@ M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
 M.run_what_list = {
+  '"Adobe Audition.exe"',
   '"wmplayer.exe"',
   '"notepad.exe"',
   'cmd /c start ""',
@@ -44,7 +45,7 @@ function M._run_what(what)
   elseif #run_what_keys == 1 then
     M._run_what_dict[run_what_keys[1]](file)
   else
-    B.ui_sel(run_what_keys, 'run_what', function(run_what)
+    B.ui_sel(run_what_keys, 'run_what with ' .. file, function(run_what)
       if run_what then
         M._run_what_dict[run_what](file)
       end
@@ -106,7 +107,7 @@ function M._run_whats(what)
   elseif #run_whats_keys == 1 then
     M._run_whats_dict[run_whats_keys[1]](files)
   else
-    B.ui_sel(run_whats_keys, 'run_whats', function(run_whats)
+    B.ui_sel(run_whats_keys, string.format('run whats with %d files', #files), function(run_whats)
       if run_whats then
         M._run_whats_dict[run_whats](files)
       end
