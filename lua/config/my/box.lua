@@ -86,7 +86,7 @@ B.lazy_map {
   { '<leader><c-3>q',     function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
   { '<leader><c-3><c-s>', function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader><c-3>e',     function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader><c-3><c-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
 }
 
 return M
