@@ -46,8 +46,8 @@ end
 ---------------------------------------
 
 M.run_what_list = {
-  'wmplayer',
-  'notepad',
+  '"wmplayer.exe"',
+  '"notepad.exe"',
   'cmd /c start ""',
 }
 
@@ -105,8 +105,8 @@ end
 -----
 
 M.run_whats_list = {
-  'bcomp',
-  'BCompare',
+  '"bcomp.exe"',
+  '"BCompare.exe"',
 }
 
 M._run_whats_dict = {}
@@ -657,14 +657,14 @@ function M._on_attach(bufnr)
   }
 
   B.lazy_map {
-    { '<c-1>',         M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    { '<MiddleMouse>', M._run_what,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    { '<c-2>',         M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
-    { '<RightMouse>',  M._run_whats,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
-    { '<c-3>',         function() M._run_what 'wmplayer' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
-    { '<c-4>',         function() M._run_whats 'bcomp' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
-    { '<f3>',          function() M._run_what_add() end,      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
-    { '<f4>',          function() M._run_whats_add() end,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
+    { '<c-1>',         M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
+    { '<MiddleMouse>', M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
+    { '<c-2>',         M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
+    { '<RightMouse>',  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
+    { '<c-3>',         function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
+    { '<c-4>',         function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
+    { '<f3>',          function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
+    { '<f4>',          function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
   }
 end
 
