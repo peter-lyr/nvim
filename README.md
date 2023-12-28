@@ -19,3 +19,4 @@
 17. [x] TODO: nvim-tree gx sel in telescope
 18. [x] TODO: <c-i> <c-o> not working well
 > disabling stevearc/oil.nvim make it work find
+19. [ ] TODO: everything vs rg/fd
