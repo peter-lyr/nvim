@@ -70,6 +70,11 @@ function M.type_execute_output()
   end
 end
 
+function M.mes_clear()
+  vim.cmd 'mes clear'
+  vim.cmd 'echo "mes clear"'
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
@@ -81,6 +86,7 @@ B.lazy_map {
   { '<leader><c-3>q',     function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
   { '<leader><c-3><c-s>', function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader><c-3>e',     function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader><c-3><c-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
 }
 
 return M
