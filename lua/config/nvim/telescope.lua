@@ -371,6 +371,14 @@ function M.live_grep()
   end
 end
 
+function M.everything()
+  M.setreg()
+  local search = vim.fn.input 'Everything: '
+  if B.is(search) then
+    B.system_run('start silent', 'Everything.exe -url %s', search)
+  end
+end
+
 function M.search_history()
   M.setreg()
   vim.cmd 'Telescope search_history'
