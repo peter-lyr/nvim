@@ -394,6 +394,7 @@ return {
   {
     name = 'my.box',
     dir = '',
+    cmd = 'ExecuteOutput',
     keys = {
       { '<leader><c-3>', function() require 'config.my.box' end, mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
     },
@@ -414,14 +415,6 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     config = function() require 'config.my.window' end,
-  },
-
-  -- my.test
-  {
-    name = 'my.test',
-    dir = '',
-    cmd = 'ExecuteOutput',
-    config = function() require 'config.my.test' end,
   },
 
 }
