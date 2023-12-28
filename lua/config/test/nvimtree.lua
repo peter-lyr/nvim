@@ -248,6 +248,9 @@ function M._delete_sel()
 end
 
 function M._get_dtarget(node)
+  if node.name == '..' then
+    return vim.loop.cwd()
+  end
   if node.type == 'directory' then
     return B.rep_slash(node.absolute_path)
   end
