@@ -248,10 +248,10 @@ end
 
 function M._get_dtarget(node)
   if node.type == 'directory' then
-    return B.rep_slash_lower(node.absolute_path)
+    return B.rep_slash(node.absolute_path)
   end
   if node.type == 'file' then
-    return B.rep_slash_lower(node.parent.absolute_path)
+    return B.rep_slash(node.parent.absolute_path)
   end
   return nil
 end
@@ -417,6 +417,31 @@ B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
     end
   end,
 })
+
+---------
+
+M.nvimtree_dir = B.getcreate_dir(M.source .. '.exe')
+
+M.copy2clip_exe = B.get_filepath(M.nvimtree_dir, 'copy2clip.exe').filename
+
+M._copy_2_clip = function()
+  local marks = require 'nvim-tree.marks'.get_marks()
+  local files = ''
+  for _, v in ipairs(marks) do
+    files = files .. ' ' .. '"' .. v.absolute_path .. '"'
+  end
+  B.system_run('start silent', '%s%s', M.copy2clip_exe, files)
+  require 'nvim-tree.marks'.clear_marks()
+  require 'nvim-tree.api'.tree.reload()
+end
+
+M._paste_from_clip = function(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  B.powershell_run('Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Destination "%s" }', dtarget)
+end
 
 -----------------------------------
 
@@ -620,6 +645,9 @@ function M._on_attach(bufnr)
     { 'dd',            M._delete_sel,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
     { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
     { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
+
+    { 'dy',            M._wrap_node(M._copy_2_clip),       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_copy_2_clip', },
+    { 'dp',            M._wrap_node(M._paste_from_clip),   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_paste_from_clip', },
 
     { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
 

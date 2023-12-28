@@ -811,4 +811,20 @@ function M.get_SHGetFolderPath(name)
   return {}
 end
 
+function M.powershell_run(str_format, ...)
+  vim.g.powershell_script_code = string.format(str_format, ...)
+  vim.g.powershell_status_code = nil
+  vim.cmd [[
+    python << EOF
+import vim
+import subprocess
+powershell_script_code = vim.eval('g:powershell_script_code')
+completed_process = subprocess.run(["powershell.exe", "-Command", powershell_script_code], capture_output=True, text=True)
+if completed_process.returncode:
+  print(f"Error: {completed_process.stderr}")
+  vim.command('let g:powershell_status_code = 1')
+EOF
+]]
+end
+
 return M
