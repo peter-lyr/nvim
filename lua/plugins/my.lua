@@ -416,4 +416,12 @@ return {
     config = function() require 'config.my.window' end,
   },
 
+  -- my.test
+  {
+    name = 'my.test',
+    dir = '',
+    cmd = 'ExecuteOutput',
+    config = function() require 'config.my.test' end,
+  },
+
 }
