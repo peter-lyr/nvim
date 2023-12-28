@@ -237,7 +237,7 @@ function M._delete_sel()
       if #vim.fn['ProjectRootGet']() ~= 0 then
         B.system_run('start silent', string.format('git rm "%s"', absolute_path:match '^(.-)\\*$'))
       end
-      B.system_run('start silent', string.format('del /s /f /q "%s"', absolute_path:match '^(.-)\\*$'))
+      B.system_run('start silent', string.format('del /f /q "%s"', absolute_path:match '^(.-)\\*$'))
     end
     require 'nvim-tree.marks'.clear_marks()
     require 'nvim-tree.api'.tree.reload()
