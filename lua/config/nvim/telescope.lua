@@ -375,7 +375,15 @@ function M.everything()
   M.setreg()
   local search = vim.fn.input 'Everything: '
   if B.is(search) then
-    B.system_run('start silent', 'Everything.exe -url %s', search)
+    B.system_run('start silent', 'Everything.exe -search %s', search)
+  end
+end
+
+function M.everything_regex()
+  M.setreg()
+  local search = vim.fn.input 'Everything: '
+  if B.is(search) then
+    B.system_run('start silent', 'Everything.exe -regex -search %s', search)
   end
 end
 
