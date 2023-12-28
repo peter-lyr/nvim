@@ -48,7 +48,7 @@ end
 M.run_what_list = {
   'wmplayer',
   'notepad',
-  'start',
+  'cmd /c start ""',
 }
 
 M._run_what_dict = {}

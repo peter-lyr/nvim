@@ -12,6 +12,7 @@ function M.get_info(info)
   info = string.gsub(info, '#', ' ')
   info = string.gsub(info, '\r', '\n')
   info = string.gsub(info, '\r\n', '\n')
+  info = string.gsub(info, ':\n+', '. ')
   info = string.gsub(info, '\n+', '. ')
   info = vim.fn.trim(info)
   return info
