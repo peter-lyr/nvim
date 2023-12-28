@@ -386,7 +386,7 @@ function M._copy_dtarget(node)
     return
   end
   vim.fn.setreg('+', dtarget)
-  B.print('Copied %s to system clipboard!')
+  B.print('Copied %s to system clipboard!', dtarget)
 end
 
 ---------------------------------
