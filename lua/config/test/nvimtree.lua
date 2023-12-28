@@ -5,50 +5,15 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-vim.cmd [[
-  hi NvimTreeOpenedFile guibg=#238789
-  hi NvimTreeModifiedFile guibg=#87237f
-  hi NvimTreeSpecialFile guifg=brown gui=bold,underline
-]]
-
-function M._tab()
-  local api = require 'nvim-tree.api'
-  api.node.open.preview()
-  vim.cmd 'norm j'
-end
-
-function M._s_tab()
-  local api = require 'nvim-tree.api'
-  api.node.open.preview()
-  vim.cmd 'norm k'
-end
-
-function M._close() vim.cmd 'NvimTreeClose' end
-
-function M._system_run_and_close()
-  require 'nvim-tree.api'.node.run.system()
-  M._close()
-end
-
-function M._delete(node)
-  B.cmd('Bdelete %s', node.absolute_path)
-  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
-  vim.cmd 'norm j'
-end
-
-M.ausize_en = 1
-
-function M._ausize_toggle()
-  M.ausize_en = 1 - M.ausize_en
-  print('ausize_en:', M.ausize_en)
-end
-
----------------------------------------
-
 M.run_what_list = {
   '"wmplayer.exe"',
   '"notepad.exe"',
   'cmd /c start ""',
+}
+
+M.run_whats_list = {
+  '"bcomp.exe"',
+  '"BCompare.exe"',
 }
 
 M._run_what_dict = {}
@@ -103,11 +68,6 @@ function M._run_what_add()
 end
 
 -----
-
-M.run_whats_list = {
-  '"bcomp.exe"',
-  '"BCompare.exe"',
-}
 
 M._run_whats_dict = {}
 
@@ -167,6 +127,46 @@ function M._run_whats_add()
   if B.is(what) then
     M._run_whats_add_do(what)
   end
+end
+
+---------------------------------------
+
+vim.cmd [[
+  hi NvimTreeOpenedFile guibg=#238789
+  hi NvimTreeModifiedFile guibg=#87237f
+  hi NvimTreeSpecialFile guifg=brown gui=bold,underline
+]]
+
+function M._tab()
+  local api = require 'nvim-tree.api'
+  api.node.open.preview()
+  vim.cmd 'norm j'
+end
+
+function M._s_tab()
+  local api = require 'nvim-tree.api'
+  api.node.open.preview()
+  vim.cmd 'norm k'
+end
+
+function M._close() vim.cmd 'NvimTreeClose' end
+
+function M._system_run_and_close()
+  require 'nvim-tree.api'.node.run.system()
+  M._close()
+end
+
+function M._delete(node)
+  B.cmd('Bdelete %s', node.absolute_path)
+  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
+  vim.cmd 'norm j'
+end
+
+M.ausize_en = 1
+
+function M._ausize_toggle()
+  M.ausize_en = 1 - M.ausize_en
+  print('ausize_en:', M.ausize_en)
 end
 
 ---------------------------------------
