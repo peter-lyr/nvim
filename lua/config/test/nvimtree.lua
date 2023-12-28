@@ -380,6 +380,15 @@ function M._copy_sel(node)
   end
 end
 
+function M._copy_dtarget(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  vim.fn.setreg('+', dtarget)
+  B.print('Copied %s to system clipboard!')
+end
+
 ---------------------------------
 
 function M.open(dir)
@@ -599,6 +608,7 @@ function M._on_attach(bufnr)
     { 'gy',            api.fs.copy.absolute_path,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Copy Absolute Path', },
     { 'Y',             api.fs.copy.relative_path,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Copy Relative Path', },
     { 'y',             api.fs.copy.filename,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Copy Name', },
+    { '<c-s-y>',       M._wrap_node(M._copy_dtarget),      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _copy_dtarget', },
 
     { 'vo',            api.tree.change_root_to_node,       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: CD', },
     { 'u',             api.tree.change_root_to_parent,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Up', },
