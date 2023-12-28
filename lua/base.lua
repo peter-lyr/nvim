@@ -419,7 +419,7 @@ function M.get_file_dirs(file)
   local file_path = require 'plenary.path':new(file)
   local dirs = {}
   if not file_path:is_file() then
-    dirs[#dirs + 1] = M.rep_backslash(file_path.filename)
+    table.insert(dirs, 1, M.rep_backslash(file_path.filename))
   end
   for _ = 1, 24 do
     file_path = file_path:parent()
@@ -447,7 +447,7 @@ function M.get_file_dirs_till_git(file)
   for _ = 1, 24 do
     file_path = file_path:parent()
     local name = M.rep_backslash(file_path.filename)
-    dirs[#dirs + 1] = name
+    table.insert(dirs, 1, name)
     if M.file_exists(require 'plenary.path':new(name):joinpath '.git'.filename) then
       break
     end
