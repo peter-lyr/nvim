@@ -269,10 +269,12 @@ return {
     dir = '',
     cmd = { 'Gui', },
     keys = {
-      { '<c-0>',      function() require 'config.my.gui' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.gui---', },
-      { '<c-0><c-0>', function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
-      { '<c-->',      function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
-      { '<c-=>',      function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
+      { '<c-0>',               function() require 'config.my.gui' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.gui---', },
+      { '<c-0><c-0>',          function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
+      { '<c-->',               function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
+      { '<c-=>',               function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
+      { '<c-ScrollWheelDown>', function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
+      { '<c-ScrollWheelUp>',   function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
     },
     init = function()
       vim.api.nvim_create_autocmd('VimLeave', {
