@@ -68,8 +68,13 @@ function M.sel_open_temp_txt()
   end)
 end
 
+M.temp_extensions = {
+  'txt', 'md',
+  'c', 'py',
+}
+
 function M.sel_write_to_temp()
-  B.ui_sel({ 'txt', 'py', }, 'save to which', function(extension)
+  B.ui_sel(M.temp_extensions, 'save to which', function(extension)
     if extension then
       B.write_to_temp('', extension)
     end
