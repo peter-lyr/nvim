@@ -279,10 +279,6 @@ M.ignore_fts = { 'minimap', }
 
 M.iskeyword_pattern = '^[%w_一-龥]+$'
 
-vim.cmd [[
-  hi CursorColumn guibg=#555555
-]]
-
 function M.on_cursorhold(ev)
   local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
   if vim.tbl_contains(M.ignore_fts, filetype) == true then
@@ -321,7 +317,7 @@ end
 
 function M.on_colorscheme()
   M.rehili()
-  vim.api.nvim_set_hl(0, 'CursorWord', { reverse = true, bold = true, })
+  vim.api.nvim_set_hl(0, 'CursorWord', { fg = 'yellow', bg = 'green', reverse = false, bold = true, })
 end
 
 M.on_colorscheme()
