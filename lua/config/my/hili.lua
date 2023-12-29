@@ -279,6 +279,10 @@ M.ignore_fts = { 'minimap', }
 
 M.iskeyword_pattern = '^[%w_一-龥]+$'
 
+vim.cmd [[
+  hi CursorColumn guibg=#555555
+]]
+
 function M.on_cursorhold(ev)
   local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
   if vim.tbl_contains(M.ignore_fts, filetype) == true then
