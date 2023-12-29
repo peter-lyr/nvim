@@ -156,9 +156,11 @@ function M.getcreate_stddata_dirpath(dirs)
   return M.getcreate_dirpath(dirs)
 end
 
+M.windows_temp = [[C:\Windows\Temp]]
+
 function M.getcreate_temp_dirpath(dirs)
   dirs = M.totable(dirs)
-  table.insert(dirs, 1, [[C:\Windows\Temp]])
+  table.insert(dirs, 1, M.windows_temp)
   return M.getcreate_dirpath(dirs)
 end
 
@@ -484,6 +486,21 @@ end
 
 function M.del_dir(dir)
   M.system_run('start silent', [[del /s /q %s & rd /s /q %s]], dir, dir)
+end
+
+function M.scan_files_deep(dir, pattern)
+  if not dir then
+    dir = vim.loop.cwd()
+  end
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 32, add_dirs = false, })
+  local files = {}
+  for _, entry in ipairs(entries) do
+    local file = M.rep_slash(entry)
+    if not pattern or string.match(file, pattern) then
+      files[#files + 1] = M.get_only_name(file)
+    end
+  end
+  return files
 end
 
 function M.scan_files(dir, pattern)
@@ -825,6 +842,47 @@ function M.get_SHGetFolderPath(name)
     return dirs
   end
   return {}
+end
+
+function M.wingoto_file_or_open(file)
+  local winnr = vim.fn.bufwinnr(vim.fn.bufnr(file))
+  if winnr ~= -1 then
+    vim.fn.win_gotoid(vim.fn.win_getid(winnr))
+    return 1
+  end
+  vim.cmd 'wincmd s'
+  M.cmd('e %s', file)
+  return nil
+end
+
+M.temp_prefix = 'nvim_temp'
+
+function M.get_temp(filename, extension)
+  if #filename > 0 then
+    filename = M.temp_prefix .. '_' .. filename
+  else
+    filename = M.temp_prefix
+  end
+  return M.getcreate_temp_dirpath { M.temp_prefix .. '_' .. extension, }:joinpath(filename .. '.' .. extension).filename
+end
+
+function M.open_temp(filename, extension)
+  local nvim_temp = M.get_temp(filename, extension)
+  M.wingoto_file_or_open(nvim_temp)
+  return nvim_temp
+end
+
+function M.write_to_temp(filename, extension)
+  local nvim_temp = M.get_temp(filename, extension)
+  if M.is_file(nvim_temp) then
+    vim.fn.system(string.format('move "%s" "%s"', nvim_temp, string.match(nvim_temp, '(.+)%.%w+') .. vim.fn.strftime '-%Y%m%d-%H%M%S.' .. extension))
+  end
+  M.cmd('w! %s', nvim_temp)
+  M.cmd('e %s', nvim_temp)
+end
+
+function M.scan_temp()
+  return M.scan_files_deep(M.windows_temp, M.temp_prefix .. '.+')
 end
 
 return M

@@ -54,9 +54,26 @@ function M.map_buf_c_q_close(buf, cmd)
 end
 
 function M.execute_output(cmd)
-  vim.cmd 'wincmd n'
+  B.open_temp('execute_output', 'txt')
+  vim.cmd 'norm ggdG'
   vim.fn.append(vim.fn.line '.', vim.fn.split(vim.fn.execute(cmd), '\n'))
   M.map_buf_c_q_close(vim.fn.bufnr(), 'bwipeout!')
+end
+
+function M.sel_open_temp_txt()
+  B.ui_sel(B.scan_temp(), 'open which', function(file)
+    if file then
+      B.wingoto_file_or_open(file)
+    end
+  end)
+end
+
+function M.sel_write_to_temp()
+  B.ui_sel({ 'txt', 'py', }, 'save to which', function(extension)
+    if extension then
+      B.write_to_temp('', extension)
+    end
+  end)
 end
 
 vim.api.nvim_create_user_command('ExecuteOutput', function(params)
@@ -81,12 +98,14 @@ B.del_map({ 'n', 'v', }, '<leader><c-3>')
 require 'which-key'.register { ['<leader><c-3>'] = { name = 'my.box', }, }
 
 B.lazy_map {
-  { '<leader><c-3>r',     function() M.restart_nvim_qt() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
-  { '<leader><c-3>s',     function() M.start_new_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
-  { '<leader><c-3>q',     function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
-  { '<leader><c-3><c-s>', function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
-  { '<leader><c-3>e',     function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
+  { '<leader><c-3>r',       function() M.restart_nvim_qt() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
+  { '<leader><c-3>s',       function() M.start_new_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
+  { '<leader><c-3>q',       function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
+  { '<leader><c-3><c-s>',   function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
+  { '<leader><c-3>e',       function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader><c-3><c-e>',   function() M.sel_open_temp_txt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp_txt', },
+  { '<leader><c-3><c-w>',   function() M.sel_write_to_temp() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
+  { '<leader><c-3><c-s-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
 }
 
 return M
