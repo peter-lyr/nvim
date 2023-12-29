@@ -875,6 +875,9 @@ end
 function M.write_to_temp(filename, extension)
   local nvim_temp = M.get_temp(filename, extension)
   if M.is_file(nvim_temp) then
+    if vim.fn.bufnr(nvim_temp) ~= -1 then
+      M.cmd('bw! %s', nvim_temp)
+    end
     vim.fn.system(string.format('move "%s" "%s"', nvim_temp, string.match(nvim_temp, '(.+)%.%w+') .. vim.fn.strftime '-%Y%m%d-%H%M%S.' .. extension))
   end
   M.cmd('w! %s', nvim_temp)
