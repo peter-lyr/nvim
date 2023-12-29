@@ -249,13 +249,13 @@ end
 
 function M._get_dtarget(node)
   if node.name == '..' then
-    return vim.loop.cwd()
+    return vim.fn.trim(B.rep_slash(vim.loop.cwd()), '\\')
   end
   if node.type == 'directory' then
-    return B.rep_slash(node.absolute_path)
+    return vim.fn.trim(B.rep_slash(node.absolute_path), '\\')
   end
   if node.type == 'file' then
-    return B.rep_slash(node.parent.absolute_path)
+    return vim.fn.trim(B.rep_slash(node.parent.absolute_path), '\\')
   end
   return nil
 end
@@ -540,7 +540,7 @@ function M.fd(node)
   if not dtarget then
     return
   end
-  B.cmd('Telescope find_files cwd=%s previewer=true', dtarget)
+  B.cmd('Telescope find_files cwd=%s previewer=true', dtarget .. '\\\\')
 end
 
 function M.rg(node)
@@ -548,7 +548,7 @@ function M.rg(node)
   if not dtarget then
     return
   end
-  B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget)
+  B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget .. '\\\\')
 end
 
 function M._on_attach(bufnr)
