@@ -22,3 +22,4 @@
 19. [x] TODO: `everything` vs `rg/fd`
 > 1. everything: telescope `<leader><c-l>`
 > 2. rg/fd: nvimtree `<f1>` `<f2>`
+20. [ ] TODO: markdown formatter
