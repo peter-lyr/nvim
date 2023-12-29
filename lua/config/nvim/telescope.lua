@@ -459,12 +459,12 @@ end
 
 function M.lsp_document_symbols()
   M.setreg()
-  vim.cmd 'Telescope lsp_document_symbols'
+  vim.cmd 'Telescope lsp_document_symbols previewer=true'
 end
 
 function M.lsp_references()
   M.setreg()
-  vim.cmd 'Telescope lsp_references'
+  vim.cmd 'Telescope lsp_references previewer=true'
 end
 
 function M.help_tags()
