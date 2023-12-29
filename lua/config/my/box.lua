@@ -60,10 +60,15 @@ function M.execute_output(cmd)
   M.map_buf_c_q_close(vim.fn.bufnr(), 'bwipeout!')
 end
 
-function M.sel_open_temp_txt()
-  B.ui_sel(B.scan_temp(), 'open which', function(file)
-    if file then
-      B.wingoto_file_or_open(file)
+function M.sel_open_temp()
+  local files = B.scan_temp()
+  local only_names = {}
+  for _, file in ipairs(files) do
+    only_names[#only_names + 1] = B.get_only_name(file)
+  end
+  B.ui_sel(only_names, 'open which', function(_, index)
+    if index then
+      B.wingoto_file_or_open(files[index])
     end
   end)
 end
@@ -108,7 +113,7 @@ B.lazy_map {
   { '<leader><c-3>q',       function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
   { '<leader><c-3><c-s>',   function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader><c-3>e',       function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>',   function() M.sel_open_temp_txt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp_txt', },
+  { '<leader><c-3><c-e>',   function() M.sel_open_temp() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
   { '<leader><c-3><c-w>',   function() M.sel_write_to_temp() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
   { '<leader><c-3><c-s-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
 }

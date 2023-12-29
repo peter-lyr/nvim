@@ -497,7 +497,7 @@ function M.scan_files_deep(dir, pattern)
   for _, entry in ipairs(entries) do
     local file = M.rep_slash(entry)
     if not pattern or string.match(file, pattern) then
-      files[#files + 1] = M.get_only_name(file)
+      files[#files + 1] = file
     end
   end
   return files
