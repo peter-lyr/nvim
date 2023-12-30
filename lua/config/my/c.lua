@@ -223,14 +223,34 @@ function M.start_run()
   M._run 'start'
 end
 
-function M.gcc()
+function M._gcc_do(run_way, cur_file, fname, exe_name)
+  B.system_run(run_way,
+    [[%s && gcc %s -Wall -s -ffunction-sections -fdata-sections -Wl,--gc-sections -O2 -o %s & strip -s %s & upx -qq --best %s & %s & pause]],
+    B.system_cd(cur_file), fname, exe_name, exe_name, exe_name, exe_name)
+end
+
+function M.gcc_start()
   local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
   local fname = B.get_only_name(cur_file)
   local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
   local exe_name = B.get_only_name(exe)
-  B.system_run('start',
-    [[%s && gcc %s -Wall -s -ffunction-sections -fdata-sections -Wl,--gc-sections -O2 -o %s & strip -s %s & upx -qq --best %s & %s & pause]],
-    B.system_cd(cur_file), fname, exe_name, exe_name, exe_name, exe_name)
+  M._gcc_do('start', cur_file, fname, exe_name)
+end
+
+function M.gcc_start_silent()
+  local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  local fname = B.get_only_name(cur_file)
+  local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
+  local exe_name = B.get_only_name(exe)
+  M._gcc_do('start silent', cur_file, fname, exe_name)
+end
+
+function M.gcc_asyncrun()
+  local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  local fname = B.get_only_name(cur_file)
+  local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
+  local exe_name = B.get_only_name(exe)
+  M._gcc_do('asyncrun', cur_file, fname, exe_name)
 end
 
 -- please add to PATH:
