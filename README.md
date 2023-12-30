@@ -18,8 +18,8 @@
 16. [ ] TODO: fork sessions.nvim save path
 17. [x] TODO: nvim-tree gx sel in telescope
 18. [x] TODO: `<c-i>` `<c-o>` not working well
-> disabling `stevearc/oil.nvim` make it work find
+    > disabling `stevearc/oil.nvim` make it work find
 19. [x] TODO: `everything` vs `rg/fd`
-> 1. everything: telescope `<leader><c-l>`
-> 2. rg/fd: nvimtree `<f1>` `<f2>`
+    > 1. everything: telescope `<leader><c-l>`
+    > 2. rg/fd: nvimtree `<f1>` `<f2>`
 20. [ ] TODO: markdown formatter

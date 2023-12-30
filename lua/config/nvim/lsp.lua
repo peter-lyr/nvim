@@ -16,6 +16,7 @@ require 'mason-null-ls'.setup {
     'black', 'isort', -- python
     'markdownlint',
     'clang_format',   -- clang_format
+    'prettier', 'prettierd',
   },
   automatic_installation = true,
 }
@@ -36,6 +37,8 @@ nls.setup {
     nls.builtins.formatting.black.with { extra_args = { '--fast', }, filetypes = { 'python', }, },
     nls.builtins.formatting.isort.with { extra_args = { '--profile', 'black', }, filetypes = { 'python', }, },
     nls.builtins.diagnostics.markdownlint.with { extra_args = { '-r', '~MD013', }, filetypes = { 'markdown', }, },
+    nls.builtins.formatting.prettier.with { filetypes = { 'markdown', }, timeout = 10000, },
+    nls.builtins.formatting.prettierd.with { filetypes = { 'markdown', }, },
   },
 }
 
