@@ -11,22 +11,23 @@ capabilities = require 'cmp_nvim_lsp'.default_capabilities(capabilities)
 
 require 'mason'.setup { install_root_dir = B.getcreate_stddata_dirpath 'mason'.filename, }
 
-require 'mason-null-ls'.setup {
-  ensure_installed = {
-    'black', 'isort', -- python
-    'markdownlint',
-    'clang_format',   -- clang_format
-    'prettier', 'prettierd',
-  },
-  automatic_installation = true,
-}
-
 require 'mason-lspconfig'.setup {
   ensure_installed = {
     'clangd',
     'pyright',
     'lua_ls',
     'marksman',
+  },
+  automatic_installation = true,
+}
+
+require 'mason-null-ls'.setup {
+  ensure_installed = {
+    'black', 'isort', -- python
+    'markdownlint',
+    'clang_format',   -- clang_format
+    'prettier', 'prettierd',
+    'gitsigns',
   },
   automatic_installation = true,
 }
@@ -39,6 +40,7 @@ nls.setup {
     nls.builtins.diagnostics.markdownlint.with { extra_args = { '-r', '~MD013', }, filetypes = { 'markdown', }, },
     nls.builtins.formatting.prettier.with { filetypes = { 'markdown', }, timeout = 10000, },
     nls.builtins.formatting.prettierd.with { filetypes = { 'markdown', }, },
+    nls.builtins.code_actions.gitsigns.with {},
   },
 }
 
