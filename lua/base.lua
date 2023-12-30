@@ -488,6 +488,21 @@ function M.del_dir(dir)
   M.system_run('start silent', [[del /s /q %s & rd /s /q %s]], dir, dir)
 end
 
+M.ignore_dirs = {
+  'build', 'dist',
+  '%.cache',
+  '%.git', '%.git-.*',
+}
+
+function M.match_string_or(str, patterns)
+  for _, pattern in ipairs(patterns) do
+    if string.match(str, pattern) then
+      return 1
+    end
+  end
+  return nil
+end
+
 function M.scan_files_deep(dir, pattern)
   if not dir then
     dir = vim.loop.cwd()
@@ -496,8 +511,11 @@ function M.scan_files_deep(dir, pattern)
   local files = {}
   for _, entry in ipairs(entries) do
     local file = M.rep_slash(entry)
-    if not pattern or string.match(file, pattern) then
-      files[#files + 1] = file
+    local f = string.sub(file, #dir + 2, #file)
+    if not pattern or string.match(f, pattern) then
+      if not M.match_string_or(f, M.ignore_dirs) then
+        files[#files + 1] = file
+      end
     end
   end
   return files
@@ -884,8 +902,22 @@ function M.write_to_temp(filename, extension)
   M.cmd('e %s', nvim_temp)
 end
 
+function M.get_ignore_files()
+  local _proj_root = M.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if not M.is(_proj_root) then
+    M.notify_info('not in a project root: ' .. file)
+    return {}
+  end
+  local ignored_files = {}
+  local out = vim.fn.system 'git ls-files --exclude-standard --ignored --others'
+  for rel in string.gmatch(out, '([^\r\n]+)') do
+    ignored_files[#ignored_files + 1] = _proj_root .. '/' .. M.rep_backslash_lower(rel)
+  end
+  return ignored_files
+end
+
 function M.scan_temp()
-  return M.scan_files_deep(M.windows_temp, M.temp_prefix .. '.+')
+  return M.scan_files_deep(M.windows_temp, M.temp_prefix .. '.+\\' .. M.temp_prefix .. '.+')
 end
 
 return M

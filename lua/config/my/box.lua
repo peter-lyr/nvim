@@ -64,7 +64,7 @@ function M.sel_open_temp()
   local files = B.scan_temp()
   local only_names = {}
   for _, file in ipairs(files) do
-    only_names[#only_names + 1] = B.get_only_name(file)
+    only_names[#only_names + 1] = string.sub(file, #B.windows_temp+2, #file)
   end
   B.ui_sel(only_names, 'open which', function(_, index)
     if index then
