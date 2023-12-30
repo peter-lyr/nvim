@@ -9,7 +9,13 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities = require 'cmp_nvim_lsp'.default_capabilities(capabilities)
 
-require 'mason'.setup { install_root_dir = B.getcreate_stddata_dirpath 'mason'.filename, }
+require 'mason'.setup {
+  install_root_dir = B.getcreate_stddata_dirpath 'mason'.filename,
+  pip = {
+    upgrade_pip = true,
+    install_args = { '-i', 'http://pypi.douban.com/simple', '--trusted-host', 'pypi.douban.com', },
+  },
+}
 
 require 'mason-lspconfig'.setup {
   ensure_installed = {
