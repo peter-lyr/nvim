@@ -38,6 +38,8 @@ require 'mason-null-ls'.setup {
     'buf',
     'markdownlint_cli2',
     'markdown_toc',
+    'trim_newlines',
+    'trim_whitespace',
   },
   automatic_installation = true,
 }
@@ -55,6 +57,8 @@ nls.setup {
     nls.builtins.diagnostics.buf.with {},
     nls.builtins.diagnostics.markdownlint_cli2.with {},
     nls.builtins.formatting.markdown_toc.with {},
+    nls.builtins.formatting.trim_newlines.with {},
+    nls.builtins.formatting.trim_whitespace.with {},
   },
 }
 
