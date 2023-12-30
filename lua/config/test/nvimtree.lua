@@ -637,9 +637,6 @@ function M._on_attach(bufnr)
 
     { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
 
-    { '<c-1>',         M._wrap_node(M._run_what),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    { '<c-2>',         M._wrap_node(M._run_whats),         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
-
   }
 
   B.lazy_map {
