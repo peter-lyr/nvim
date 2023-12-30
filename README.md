@@ -1,4 +1,12 @@
-# nvim
+# hi
+
+<!-- toc -->
+
+- [TODO](#todo)
+
+<!-- tocstop -->
+
+# TODO
 
 1. [ ] TODO: yank pool
 2. [ ] TODO: call stuff in desktop tools

@@ -31,6 +31,7 @@ require 'mason-null-ls'.setup {
     'cspell',
     'buf',
     'markdownlint_cli2',
+    'markdown_toc',
   },
   automatic_installation = true,
 }
@@ -47,6 +48,7 @@ nls.setup {
     nls.builtins.code_actions.cspell.with {},
     nls.builtins.diagnostics.buf.with {},
     nls.builtins.diagnostics.markdownlint_cli2.with {},
+    nls.builtins.formatting.markdown_toc.with {},
   },
 }
 
