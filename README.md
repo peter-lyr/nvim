@@ -32,4 +32,4 @@
     > 2. rg/fd: nvimtree `<f1>` `<f2>`
 20. [x] TODO: markdown formatter
 21. [ ] TODO: do anything at dir
-22. [ ] FIX: B.scan_temp do not ignore .git/*
+22. [x] FIX: B.scan_temp do not ignore .git/*
