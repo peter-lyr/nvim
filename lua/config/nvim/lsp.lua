@@ -29,6 +29,7 @@ require 'mason-null-ls'.setup {
     'prettier', 'prettierd',
     'gitsigns',
     'cspell',
+    'buf',
   },
   automatic_installation = true,
 }
@@ -43,6 +44,7 @@ nls.setup {
     nls.builtins.formatting.prettierd.with { filetypes = { 'markdown', }, },
     nls.builtins.code_actions.gitsigns.with {},
     nls.builtins.code_actions.cspell.with {},
+    nls.builtins.diagnostics.buf.with {},
   },
 }
 
