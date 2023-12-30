@@ -31,3 +31,4 @@
     > 1. everything: telescope `<leader><c-l>`
     > 2. rg/fd: nvimtree `<f1>` `<f2>`
 20. [x] TODO: markdown formatter
+21. [ ] TODO: do anything at dir
