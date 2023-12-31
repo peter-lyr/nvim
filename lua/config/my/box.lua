@@ -102,10 +102,38 @@ function M.mes_clear()
   vim.cmd 'echo "mes clear"'
 end
 
+function M.monitor_1min()
+  B.system_run('start silent', 'powercfg -x -monitor-timeout-ac 1')
+  B.notify_info 'monitor_1min'
+end
+
+function M.monitor_30min()
+  B.system_run('start silent', 'powercfg -x -monitor-timeout-ac 30')
+  B.notify_info 'monitor_30min'
+end
+
+function M.proxy_on()
+  B.system_run('start silent', [[reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f]])
+  B.notify_info 'proxy_on'
+end
+
+function M.proxy_off()
+  B.system_run('start silent', [[reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f]])
+  B.notify_info 'proxy_off'
+end
+
+function M.open_path() B.system_run('start silent', 'start rundll32 sysdm.cpl,EditEnvironmentVariables') end
+
+function M.open_sound() B.system_run('start silent', 'mmsys.cpl') end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
 require 'which-key'.register { ['<leader><c-3>'] = { name = 'my.box', }, }
+
+require 'which-key'.register { ['<leader><c-3>o'] = { name = 'my.box.open', }, }
+require 'which-key'.register { ['<leader><c-3>m'] = { name = 'my.box.monitor', }, }
+require 'which-key'.register { ['<leader><c-3>p'] = { name = 'my.box.proxy', }, }
 
 B.lazy_map {
   { '<leader><c-3>r',       function() M.restart_nvim_qt() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
@@ -116,6 +144,12 @@ B.lazy_map {
   { '<leader><c-3><c-e>',   function() M.sel_open_temp() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
   { '<leader><c-3><c-w>',   function() M.sel_write_to_temp() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
   { '<leader><c-3><c-s-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
+  { '<leader><c-3>op',      function() M.open_path() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_path', },
+  { '<leader><c-3>os',      function() M.open_sound() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_sound', },
+  { '<leader><c-3>m1',      function() M.monitor_1min() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_1min', },
+  { '<leader><c-3>m3',      function() M.monitor_30min() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_30min', },
+  { '<leader><c-3>pn',      function() M.proxy_on() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_on', },
+  { '<leader><c-3>pf',      function() M.proxy_off() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_off', },
 }
 
 return M
