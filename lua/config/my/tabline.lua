@@ -281,7 +281,7 @@ vim.cmd [[
   hi tbltab guifg=#64e66e guibg=NONE gui=bold
   hi tblfil guifg=gray
   hi NormalNC guibg=#1a1816 guifg=gray
-  hi CursorColumn guibg=black
+  hi CursorColumn guibg=#243548
 ]]
 
 M.tabhiname = 'tbltab'
