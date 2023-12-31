@@ -506,8 +506,12 @@ end
 
 function M.scan_files_do(dir, opt, entries)
   local files = {}
-  local patterns = opt['patterns']
-  local filetypes = opt['filetypes']
+  local patterns = nil
+  local filetypes = nil
+  if opt then
+    patterns = opt['patterns']
+    filetypes = opt['filetypes']
+  end
   for _, entry in ipairs(entries) do
     local file = M.rep_slash(entry)
     local f = string.sub(file, #dir + 2, #file)
