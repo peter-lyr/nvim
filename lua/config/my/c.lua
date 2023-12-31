@@ -70,7 +70,7 @@ function M._make_do(runway, build_dir)
   M.runnow_en = nil
 end
 
-function M.make(runway)
+function M._make(runway)
   if #vim.call 'ProjectRootGet' == 0 then
     B.notify_info 'not in a git repo'
     return
@@ -93,34 +93,34 @@ end
 
 function M.asyncrun_remake()
   M.remake_en = 1
-  M.make 'asyncrun'
+  M._make 'asyncrun'
 end
 
 function M.start_remake()
   M.remake_en = 1
-  M.make 'start'
+  M._make 'start'
 end
 
 function M.asyncrun_make_run()
   M.runnow_en = 1
-  M.make 'asyncrun'
+  M._make 'asyncrun'
 end
 
 function M.start_make_run()
   M.runnow_en = 1
-  M.make 'start'
+  M._make 'start'
 end
 
 function M.asyncrun_remake_run()
   M.remake_en = 1
   M.runnow_en = 1
-  M.make 'asyncrun'
+  M._make 'asyncrun'
 end
 
 function M.start_remake_run()
   M.remake_en = 1
   M.runnow_en = 1
-  M.make 'start'
+  M._make 'start'
 end
 
 -- clean
