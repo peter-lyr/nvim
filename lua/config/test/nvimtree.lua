@@ -625,36 +625,36 @@ function M._on_attach(bufnr)
 
     ----------
 
-    { "'",             M._wrap_node(M._toggle_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go next', },
-    { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'toggle and go prev', },
-    { 'de',            M._empty_sel,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'empty all selections', },
-    { 'dd',            M._delete_sel,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'delete all selections', },
-    { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'move all selections', },
-    { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'copy all selections', },
+    { "'",             M._wrap_node(M._toggle_sel),        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: toggle and go next', },
+    { '"',             M._wrap_node(M._toggle_sel_up),     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: toggle and go prev', },
+    { 'de',            M._empty_sel,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: empty all selections', },
+    { 'dd',            M._delete_sel,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete all selections', },
+    { 'dm',            M._wrap_node(M._move_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: move all selections', },
+    { 'dc',            M._wrap_node(M._copy_sel),          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: copy all selections', },
 
-    { 'dy',            M._wrap_node(M._copy_2_clip),       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_copy_2_clip', },
-    { 'dp',            M._wrap_node(M._paste_from_clip),   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_paste_from_clip', },
+    { 'dy',            M._wrap_node(M._copy_2_clip),       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _copy_2_clip', },
+    { 'dp',            M._wrap_node(M._paste_from_clip),   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _paste_from_clip', },
 
-    { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_ausize_toggle', },
+    { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _ausize_toggle', },
 
   }
 
   B.lazy_map {
-    { '<c-1>',         M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    { '<MiddleMouse>', M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what', },
-    { '<c-2>',         M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
-    { '<RightMouse>',  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats', },
-    { '<c-3>',         function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'wmplayer', },
-    { '<c-4>',         function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'bcomp', },
-    { '<f1>',          M._wrap_node(M.rg),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'rg', },
-    { '<f2>',          M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'fd', },
-    { '<f3>',          function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_what_add', },
-    { '<f4>',          function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_run_whats_add', },
+    { '<c-1>',         M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_what', },
+    { '<MiddleMouse>', M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_what', },
+    { '<c-2>',         M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_whats', },
+    { '<RightMouse>',  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_whats', },
+    { '<c-3>',         function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: wmplayer', },
+    { '<c-4>',         function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: bcomp', },
+    { '<f1>',          M._wrap_node(M.rg),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: rg', },
+    { '<f2>',          M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: fd', },
+    { '<f3>',          function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_what_add', },
+    { '<f4>',          function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _run_whats_add', },
   }
 end
 
 B.lazy_map {
-  { '<a-s-cr>', M._reopen, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = '_reopen', },
+  { '<a-s-cr>', M._reopen, mode = { 'n', }, silent = true, desc = 'test.nvim: _reopen', },
 }
 
 B.del_map({ 'n', 'v', }, '<RightMouse>')
