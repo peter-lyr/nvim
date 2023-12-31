@@ -505,9 +505,6 @@ function M.match_string_or(str, patterns)
 end
 
 function M.scan_files_do(dir, opt, entries)
-  if not dir then
-    dir = vim.loop.cwd()
-  end
   local files = {}
   local patterns = opt['patterns']
   local filetypes = opt['filetypes']
@@ -525,11 +522,13 @@ function M.scan_files_do(dir, opt, entries)
 end
 
 function M.scan_files_deep(dir, opt)
+  if not dir then dir = vim.loop.cwd() end
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 32, add_dirs = false, })
   return M.scan_files_do(dir, opt, entries)
 end
 
 function M.scan_files(dir, opt)
+  if not dir then dir = vim.loop.cwd() end
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = false, })
   return M.scan_files_do(dir, opt, entries)
 end
@@ -933,6 +932,10 @@ end
 function M.scan_temp(opt)
   local default = { patterns = M.temp_prefix .. '.+\\' .. M.temp_prefix .. '.+', }
   return M.scan_files_deep(M.windows_temp, M.tbl_deep_extend_force(default, opt))
+end
+
+function M.delete_file(file)
+  M.system_run('start silent', string.format('del /f /q "%s"', file))
 end
 
 return M

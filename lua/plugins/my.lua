@@ -382,7 +382,7 @@ return {
     lazy = true,
     build = ':call mkdp#util#install()',
     ft = { 'markdown', },
-    cmd = { 'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle', },
+    cmd = { 'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle', 'MarkdownExportCreate', 'MarkdownExportDelete', },
     init = function()
       vim.g.mkdp_theme              = 'light'
       vim.g.mkdp_auto_close         = 0
