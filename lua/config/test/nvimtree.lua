@@ -231,14 +231,13 @@ function M._delete_sel()
         local entries = require 'plenary.scandir'.scan_dir(absolute_path, { hidden = true, depth = 10, add_dirs = false, })
         for _, entry in ipairs(entries) do
           pcall(vim.cmd, 'bw! ' .. entry)
+          B.delete_file(entry)
         end
+        B.delete_folder(absolute_path)
       else
         pcall(vim.cmd, 'bw! ' .. absolute_path)
+        B.delete_file(absolute_path)
       end
-      if #vim.fn['ProjectRootGet']() ~= 0 then
-        B.system_run('start silent', string.format('git rm "%s"', absolute_path:match '^(.-)\\*$'))
-      end
-      B.system_run('start silent', string.format('del /f /q "%s"', absolute_path:match '^(.-)\\*$'))
     end
     require 'nvim-tree.marks'.clear_marks()
     require 'nvim-tree.api'.tree.reload()
@@ -277,7 +276,7 @@ function M._move_sel(node)
           vim.cmd 'redraw'
           local dname_new = vim.fn.input(absolute_path .. ' ->\nExisted! Rename? ', dname)
           if #dname_new > 0 and dname_new ~= dname then
-            vim.fn.system(string.format('move "%s" "%s"', string.sub(absolute_path, 1, #absolute_path - 1), dname_new))
+            vim.fn.system(string.format('move "%s" "%s"', absolute_path, dname_new))
           elseif #dname_new == 0 then
             print 'cancel all!'
             return
@@ -287,7 +286,7 @@ function M._move_sel(node)
             goto continue
           end
         else
-          vim.fn.system(string.format('move "%s" "%s"', string.sub(absolute_path, 1, #absolute_path - 1), dname))
+          vim.fn.system(string.format('move "%s" "%s"', absolute_path, dname))
         end
       else
         local fname = B.get_fname_tail(absolute_path)

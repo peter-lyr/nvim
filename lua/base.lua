@@ -935,7 +935,12 @@ function M.scan_temp(opt)
 end
 
 function M.delete_file(file)
+  M.system_run('start silent', string.format('git rm "%s"', file))
   M.system_run('start silent', string.format('del /f /q "%s"', file))
+end
+
+function M.delete_folder(folder)
+  M.system_run('start silent', string.format('rd /s /q "%s"', folder))
 end
 
 function M.get_cfile()
