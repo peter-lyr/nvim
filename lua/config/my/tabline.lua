@@ -280,7 +280,7 @@ vim.cmd [[
   hi tblsel guifg=#f8dfcf guibg=#777777 gui=bold
   hi tbltab guifg=#64e66e guibg=NONE gui=bold
   hi tblfil guifg=gray
-  hi NormalNC guibg=black guifg=gray
+  hi NormalNC guibg=#1a1816 guifg=gray
   hi CursorColumn guibg=black
 ]]
 
