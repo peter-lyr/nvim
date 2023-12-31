@@ -12,7 +12,7 @@ vim.g.mkdp_highlight_css = B.get_filepath(B.getcreate_dir(M.source .. '.css'), '
 M.markdown_export_py = B.get_filepath(B.getcreate_dir(M.source .. '.py'), 'markdown_export.py').filename
 
 vim.api.nvim_create_user_command('MarkdownExportCreate', function()
-  B.system_run('start', 'python %s %s & pause', M.markdown_export_py, vim.api.nvim_buf_get_name(0))
+  B.system_run('asyncrun', 'python %s %s & pause', M.markdown_export_py, vim.api.nvim_buf_get_name(0))
 end, {
   nargs = 0,
   desc = 'MarkdownExportCreate',
