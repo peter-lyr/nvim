@@ -37,4 +37,4 @@
 20. [x] TODO: markdown formatter
 21. [ ] TODO: do anything at dir
 22. [x] FIX: B.scan_temp do not ignore .git/*
-23. [ ] <c-g> open under
+23. [x] <a-o> open under
