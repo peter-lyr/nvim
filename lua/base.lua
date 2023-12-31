@@ -495,6 +495,7 @@ M.ignore_dirs = {
 }
 
 function M.match_string_or(str, patterns)
+  patterns = M.totable(patterns)
   for _, pattern in ipairs(patterns) do
     if string.match(str, pattern) then
       return 1
@@ -503,16 +504,18 @@ function M.match_string_or(str, patterns)
   return nil
 end
 
-function M.scan_files_deep(dir, pattern)
+function M.scan_files_do(dir, opt, entries)
   if not dir then
     dir = vim.loop.cwd()
   end
-  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 32, add_dirs = false, })
   local files = {}
+  local patterns = opt['patterns']
+  local filetypes = opt['filetypes']
   for _, entry in ipairs(entries) do
     local file = M.rep_slash(entry)
     local f = string.sub(file, #dir + 2, #file)
-    if not pattern or string.match(f, pattern) then
+    if (not M.is(patterns) or M.match_string_or(f, patterns)) and
+        (not M.is(filetypes) or M.is_file_in_filetypes(f, filetypes)) then
       if not M.match_string_or(f, M.ignore_dirs) then
         files[#files + 1] = file
       end
@@ -521,19 +524,14 @@ function M.scan_files_deep(dir, pattern)
   return files
 end
 
-function M.scan_files(dir, pattern)
-  if not dir then
-    dir = vim.loop.cwd()
-  end
+function M.scan_files_deep(dir, opt)
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 32, add_dirs = false, })
+  return M.scan_files_do(dir, opt, entries)
+end
+
+function M.scan_files(dir, opt)
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = false, })
-  local files = {}
-  for _, entry in ipairs(entries) do
-    local file = M.rep_slash(entry)
-    if not pattern or string.match(file, pattern) then
-      files[#files + 1] = M.get_only_name(file)
-    end
-  end
-  return files
+  return M.scan_files_do(dir, opt, entries)
 end
 
 function M.scan_dirs(dir, pattern)
@@ -706,6 +704,18 @@ function M.is_buf_fts(fts, buf)
     fts = { fts, }
   end
   if M.is(vim.tbl_contains(fts, vim.api.nvim_buf_get_option(buf, 'filetype'))) then
+    return 1
+  end
+  return nil
+end
+
+function M.is_file_in_filetypes(file, filetypes)
+  if not file then
+    file = vim.api.nvim_buf_get_name(0)
+  end
+  filetypes = M.totable(filetypes)
+  local ext = string.match(file, '%.([^.]+)$')
+  if not filetypes or M.is(vim.tbl_contains(filetypes, ext)) then
     return 1
   end
   return nil
@@ -916,8 +926,13 @@ function M.get_ignore_files()
   return ignored_files
 end
 
-function M.scan_temp()
-  return M.scan_files_deep(M.windows_temp, M.temp_prefix .. '.+\\' .. M.temp_prefix .. '.+')
+function M.tbl_deep_extend_force(default, opt)
+  return vim.tbl_deep_extend('force', default, opt or {})
+end
+
+function M.scan_temp(opt)
+  local default = { patterns = M.temp_prefix .. '.+\\' .. M.temp_prefix .. '.+', }
+  return M.scan_files_deep(M.windows_temp, M.tbl_deep_extend_force(default, opt))
 end
 
 return M

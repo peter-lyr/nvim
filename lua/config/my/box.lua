@@ -60,11 +60,16 @@ function M.execute_output(cmd)
   M.map_buf_c_q_close(vim.fn.bufnr(), 'bwipeout!')
 end
 
+M.temp_extensions = {
+  'txt', 'md',
+  'c', 'py',
+}
+
 function M.sel_open_temp()
-  local files = B.scan_temp()
+  local files = B.scan_temp { filetypes = M.temp_extensions, }
   local only_names = {}
   for _, file in ipairs(files) do
-    only_names[#only_names + 1] = string.sub(file, #B.windows_temp+2, #file)
+    only_names[#only_names + 1] = string.sub(file, #B.windows_temp + 2, #file)
   end
   B.ui_sel(only_names, 'open which', function(_, index)
     if index then
@@ -72,11 +77,6 @@ function M.sel_open_temp()
     end
   end)
 end
-
-M.temp_extensions = {
-  'txt', 'md',
-  'c', 'py',
-}
 
 function M.sel_write_to_temp()
   B.ui_sel(M.temp_extensions, 'save to which', function(extension)
