@@ -938,4 +938,12 @@ function M.delete_file(file)
   M.system_run('start silent', string.format('del /f /q "%s"', file))
 end
 
+function M.get_cfile()
+  return M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>')
+end
+
+function M.system_open_cfile(str_format, ...)
+  M.system_run('start', str_format, ...)
+end
+
 return M

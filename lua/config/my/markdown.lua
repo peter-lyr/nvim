@@ -33,4 +33,6 @@ end, {
   desc = 'MarkdownExportDelete',
 })
 
+function M.system_open_cfile() B.system_open_cfile('%s', B.get_cfile()) end
+
 return M
