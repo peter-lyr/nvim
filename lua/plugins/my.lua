@@ -288,16 +288,6 @@ return {
     config = function() require 'config.my.gui' end,
   },
 
-  -- my.info
-  {
-    name = 'my.info',
-    dir = '',
-    dependencies = { 'itchyny/vim-gitbranch', },
-    keys = {
-      { '<f1>', function() require 'config.my.info'.show() end, mode = { 'n', 'v', }, silent = true, desc = 'my.info: show', },
-    },
-  },
-
   -- my.hili
   {
     name = 'my_hili',
@@ -401,8 +391,10 @@ return {
     name = 'my.box',
     dir = '',
     cmd = 'ExecuteOutput',
+    dependencies = { 'itchyny/vim-gitbranch', },
     keys = {
-      { '<leader><c-3>', function() require 'config.my.box' end, mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
+      { '<leader><c-3>', function() require 'config.my.box' end,             mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
+      { '<f1>',          function() require 'config.my.box'.show_info() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: show info', },
     },
     config = function() require 'config.my.box' end,
   },
