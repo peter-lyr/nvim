@@ -494,6 +494,16 @@ M.ignore_dirs = {
   '%.git', '%.git-.*',
 }
 
+function M.match_string_and(str, patterns)
+  patterns = M.totable(patterns)
+  for _, pattern in ipairs(patterns) do
+    if not string.match(str, pattern) then
+      return nil
+    end
+  end
+  return 1
+end
+
 function M.match_string_or(str, patterns)
   patterns = M.totable(patterns)
   for _, pattern in ipairs(patterns) do
@@ -951,8 +961,48 @@ function M.get_cfile()
   return M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>')
 end
 
-function M.system_open_cfile(str_format, ...)
+function M.system_open_file(str_format, ...)
   M.system_run('start', str_format, ...)
+end
+
+function M.system_open_file_silent(str_format, ...)
+  M.system_run('start silent', str_format, ...)
+end
+
+function M.filter_exclude(tbl, patterns)
+  return vim.tbl_filter(function(str)
+    if M.match_string_or(str, patterns) then
+      return false
+    end
+    return true
+  end, tbl)
+end
+
+function M.get_startup_files()
+  local all_startup = M.get_SHGetFolderPath 'all_startup'
+  if M.is(all_startup) then
+    local files = {}
+    for _, start_up in ipairs(all_startup) do
+      local a = M.scan_files_deep(start_up, { filetypes = { 'lnk', }, })
+      files = M.merge_tables(files, a)
+    end
+    return files
+  end
+  return {}
+end
+
+function M.get_programs_files()
+  local all_programs = M.get_SHGetFolderPath 'all_programs'
+  if M.is(all_programs) then
+    local files = {}
+    for _, programs in ipairs(all_programs) do
+      local a = M.scan_files_deep(programs, { filetypes = { 'lnk', }, })
+      a = M.filter_exclude(a, { '卸载', 'uninst', 'Uninst', })
+      files = M.merge_tables(files, a)
+    end
+    return files
+  end
+  return {}
 end
 
 return M

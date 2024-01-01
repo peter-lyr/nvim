@@ -126,6 +126,24 @@ function M.open_path() B.system_run('start silent', 'start rundll32 sysdm.cpl,Ed
 
 function M.open_sound() B.system_run('start silent', 'mmsys.cpl') end
 
+function M.sel_open_programs_file()
+  local programs_files = B.get_programs_files()
+  B.ui_sel(programs_files, 'sel_open_programs_file', function(programs_file)
+    if programs_file then
+      B.system_open_file_silent(programs_file)
+    end
+  end)
+end
+
+function M.sel_open_startup_file()
+  local startup_files = B.get_startup_files()
+  B.ui_sel(startup_files, 'sel_open_startup_file', function(startup_file)
+    if startup_file then
+      B.system_open_file_silent(startup_file)
+    end
+  end)
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
@@ -136,20 +154,22 @@ require 'which-key'.register { ['<leader><c-3>m'] = { name = 'my.box.monitor', }
 require 'which-key'.register { ['<leader><c-3>p'] = { name = 'my.box.proxy', }, }
 
 B.lazy_map {
-  { '<leader><c-3>r',       function() M.restart_nvim_qt() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
-  { '<leader><c-3>s',       function() M.start_new_nvim_qt() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
-  { '<leader><c-3>q',       function() M.quit_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
-  { '<leader><c-3><c-s>',   function() M.source() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
-  { '<leader><c-3>e',       function() M.type_execute_output() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>',   function() M.sel_open_temp() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
-  { '<leader><c-3><c-w>',   function() M.sel_write_to_temp() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
-  { '<leader><c-3><c-s-e>', function() M.mes_clear() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
-  { '<leader><c-3>op',      function() M.open_path() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_path', },
-  { '<leader><c-3>os',      function() M.open_sound() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_sound', },
-  { '<leader><c-3>m1',      function() M.monitor_1min() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_1min', },
-  { '<leader><c-3>m3',      function() M.monitor_30min() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_30min', },
-  { '<leader><c-3>pn',      function() M.proxy_on() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_on', },
-  { '<leader><c-3>pf',      function() M.proxy_off() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_off', },
+  { '<leader><c-3>r',       function() M.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
+  { '<leader><c-3>s',       function() M.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
+  { '<leader><c-3>q',       function() M.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
+  { '<leader><c-3><c-s>',   function() M.source() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
+  { '<leader><c-3>e',       function() M.type_execute_output() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader><c-3><c-e>',   function() M.sel_open_temp() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
+  { '<leader><c-3><c-w>',   function() M.sel_write_to_temp() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
+  { '<leader><c-3><c-s-e>', function() M.mes_clear() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
+  { '<leader><c-3>op',      function() M.open_path() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_path', },
+  { '<leader><c-3>os',      function() M.open_sound() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_sound', },
+  { '<leader><c-3>m1',      function() M.monitor_1min() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_1min', },
+  { '<leader><c-3>m3',      function() M.monitor_30min() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_30min', },
+  { '<leader><c-3>pn',      function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_on', },
+  { '<leader><c-3>pf',      function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_off', },
+  { '<leader><c-3>sp',      function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_programs_file', },
+  { '<leader><c-3>ss',      function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_startup_file', },
 }
 
 return M
