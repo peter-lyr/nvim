@@ -344,6 +344,8 @@ function M.notify_on_open(win)
   vim.api.nvim_win_set_option(win, 'concealcursor', 'nvic')
 end
 
+M.histadd_en = nil
+
 function M.system_run(way, str_format, ...)
   if type(str_format) == 'table' then
     str_format = vim.fn.join(str_format, ' && ')
@@ -363,7 +365,14 @@ function M.system_run(way, str_format, ...)
   elseif way == 'term' then
     cmd = string.format('wincmd s|term %s', cmd)
     vim.cmd(cmd)
+  else
+    M.histadd_en = nil
+    return
   end
+  if M.histadd_en then
+    vim.fn.histadd(':', cmd)
+  end
+  M.histadd_en = nil
 end
 
 function M.powershell_run(str_format, ...)
@@ -962,10 +971,12 @@ function M.get_cfile()
 end
 
 function M.system_open_file(str_format, ...)
+  M.histadd_en = 1
   M.system_run('start', str_format, ...)
 end
 
 function M.system_open_file_silent(str_format, ...)
+  M.histadd_en = 1
   M.system_run('start silent', str_format, ...)
 end
 

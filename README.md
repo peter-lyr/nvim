@@ -45,3 +45,4 @@
 21. [ ] TODO: do anything at dir
 22. [x] FIX: `B.scan_temp` do not ignore `.git/*`
 23. [x] TODO: `<a-o>` open under
+24. [ ] TODO: sel add to hist
