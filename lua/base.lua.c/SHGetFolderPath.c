@@ -1,6 +1,22 @@
 #include <shlobj.h>
 #include <stdio.h>
 
+void all_startup(void)
+{
+    char path[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_ALTSTARTUP, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_ALTSTARTUP, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_STARTUP, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_STARTUP, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+}
 void all(void)
 {
     char path[MAX_PATH];
@@ -419,6 +435,8 @@ int main(int argc, char *argv[])
         if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_WINDOWS, NULL, 0, path))) {
             printf("%s\n", path);
         }
+    } else if (strcmp(argv[1], "all_startup") == 0) {
+        all_startup();
     } else {
         all();
     }
