@@ -155,22 +155,22 @@ require 'which-key'.register { ['<leader><c-3>p'] = { name = 'my.box.proxy', }, 
 require 'which-key'.register { ['<leader><c-3>s'] = { name = 'my.box.sel/nvim-qt', }, }
 
 B.lazy_map {
-  { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box: restart_nvim_qt', },
-  { '<leader><c-3>s<leader>', function() M.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: start_new_nvim_qt', },
-  { '<leader><c-3>sq',        function() M.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: quit_nvim_qt', },
+  { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
+  { '<leader><c-3>s<leader>', function() M.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
+  { '<leader><c-3>sq',        function() M.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
   { '<leader><c-3><c-s>',     function() M.source() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader><c-3>e',         function() M.type_execute_output() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
   { '<leader><c-3><c-e>',     function() M.sel_open_temp() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
   { '<leader><c-3><c-w>',     function() M.sel_write_to_temp() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
   { '<leader><c-3><c-s-e>',   function() M.mes_clear() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
-  { '<leader><c-3>op',        function() M.open_path() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_path', },
-  { '<leader><c-3>os',        function() M.open_sound() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box: open_sound', },
-  { '<leader><c-3>m1',        function() M.monitor_1min() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_1min', },
-  { '<leader><c-3>m3',        function() M.monitor_30min() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: monitor_30min', },
-  { '<leader><c-3>pn',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_on', },
-  { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: proxy_off', },
-  { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_programs_file', },
-  { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_startup_file', },
+  { '<leader><c-3>op',        function() M.open_path() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
+  { '<leader><c-3>os',        function() M.open_sound() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
+  { '<leader><c-3>m1',        function() M.monitor_1min() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
+  { '<leader><c-3>m3',        function() M.monitor_30min() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
+  { '<leader><c-3>pn',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
+  { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
+  { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
+  { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
 }
 
 return M
