@@ -1,4 +1,5 @@
 import os
+from os.path import dirname
 import re
 import sys
 
@@ -15,6 +16,13 @@ def output(file, line):
     print(line)
 
 
+def is_dir_names_in_str(dir_name, str):
+    for i in dir_name:
+        if i in str:
+            return True
+    return False
+
+
 def one(file):
     global cmd
     global proj
@@ -23,6 +31,7 @@ def one(file):
     global exclude_md_name
     global include_md_ft
     global patt
+    global dir_name
 
     if (
         rep(file).split("/")[-1].lower() in exclude_md_name
@@ -48,6 +57,9 @@ def one(file):
         if "update" in cmd:
             if res:
                 res = res[0]
+                if not is_dir_names_in_str(dir_name, rep(res[2].decode("utf-8"))):
+                    f.write(line)
+                    continue
                 temp = res[0]
                 temp += res[1]
                 temp += b"("
@@ -64,6 +76,8 @@ def one(file):
                 f.write(line)
         elif "show" in cmd:
             if res:
+                if not is_dir_names_in_str(dir_name, rep(res[2].decode("utf-8"))):
+                    continue
                 if 'under' in cmd:
                     if url_name in line:
                         output(file, '%s %s' % (f'{i + 1:4d}', line.strip().decode("utf-8")))
@@ -84,6 +98,7 @@ if __name__ == "__main__":
     url_name = rep(sys.argv[4]).encode('utf-8')
     exclude_md_name = sys.argv[5].split(",")
     include_md_ft = sys.argv[6].split(",")
+    dir_name = sys.argv[7].split(",")
     patt = b"(.*)(!*\\[[^\\]]+\\])\\(([^\\)]+)\\)(.*)"
 
     print('====', cmd)
