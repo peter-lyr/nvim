@@ -46,5 +46,5 @@
 22. [x] FIX: `B.scan_temp` do not ignore `.git/*`
 23. [x] TODO: `<a-o>` open under
 24. [x] TODO: sel add to hist
->
+
 > - system_open_file_silent
