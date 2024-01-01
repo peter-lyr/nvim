@@ -124,8 +124,8 @@ def get_toc_html(content):
   }
   md = markdown.Markdown(extensions=extensions, extension_configs=extension_configs)
   html = md.convert(content)
-  # toc = md.toc if md.toc_tokens else ''
-  toc = ""
+  toc = md.toc if md.toc_tokens else ''
+  # toc = ""
   return toc, html
 
 
