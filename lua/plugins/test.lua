@@ -295,7 +295,16 @@ return {
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
       { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
-      { '<c-\\>',       function() require 'mini.map'.toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle', },
+      {
+        '<c-\\>',
+        function()
+          require 'mini.map'.toggle()
+          vim.cmd 'AerialClose'
+        end,
+        mode = { 'n', 'v', },
+        silent = true,
+        desc = 'test.minimap: toggle',
+      },
       { '<a-\\>',       function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
     },
     config = function()
@@ -326,6 +335,63 @@ return {
         nnoremenu PopUp.Minimap\ Toggle :lua require 'mini.map'.toggle()<cr>
         vnoremenu PopUp.Minimap\ Toggle :<C-U>lua require 'mini.map'.toggle()<cr>
         inoremenu PopUp.Minimap\ Toggle <C-O>:<C-u>lua require 'mini.map'.toggle()<cr>
+      ]]
+    end,
+  },
+
+  -- aerial
+  {
+    'stevearc/aerial.nvim',
+    event = { 'LspAttach', },
+    cmd = {
+      'AerialToggle',
+    },
+    keys = {
+      { '<RightMouse>', function() end,        mode = { 'n', 'v', }, silent = true, desc = 'test.aerial', },
+      {
+        '<c-]>',
+        function()
+          vim.cmd 'AerialToggle'
+          require 'mini.map'.close()
+        end,
+        mode = { 'n', 'v', },
+        silent = true,
+        desc = 'test.aerial: toggle',
+      },
+      { ']a',           '<cmd>AerialNext<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialNext', },
+      { '[a',           '<cmd>AerialPrev<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialPrev', },
+    },
+    config = function()
+      require 'aerial'.setup {
+        layout = {
+          max_width = 20,
+          min_width = 10,
+          preserve_equality = nil,
+        },
+        keymaps = {
+          ['<C-s>'] = false,
+          ['<C-j>'] = false,
+          ['<C-k>'] = false,
+          ['a'] = 'actions.jump',
+          ['o'] = 'actions.jump',
+          ['<2-LeftMouse>'] = 'actions.jump',
+        },
+        filter_kind = false,
+        backends = { 'markdown', 'lsp', 'treesitter', 'man', },
+        -- backends = { "lsp", },
+        post_jump_cmd = [[norm zz]],
+        close_automatic_events = {},
+        close_on_select = false,
+        float = {
+          relative = 'editor',
+        },
+      }
+      require 'base'.del_map({ 'n', 'v', }, '<RightMouse>')
+      vim.cmd [[
+        anoremenu PopUp.-6-             <Nop>
+        nnoremenu PopUp.Aerial\ Toggle :AerialToggle<cr>
+        vnoremenu PopUp.Aerial\ Toggle :<C-U>AerialToggle<cr>
+        inoremenu PopUp.Aerial\ Toggle <C-O>:<C-u>AerialToggle<cr>
       ]]
     end,
   },
