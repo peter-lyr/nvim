@@ -5,11 +5,11 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-vim.g.mkdp_highlight_css = B.get_filepath(B.getcreate_dir(M.source .. '.css'), 'mkdp_highlight.css').filename
+vim.g.mkdp_highlight_css = B.get_filepath(B.getcreate_dir(M.source .. '.preview'), 'mkdp_highlight.css').filename
 
 -------------
 
-M.markdown_export_py = B.get_filepath(B.getcreate_dir(M.source .. '.py'), 'markdown_export.py').filename
+M.markdown_export_py = B.get_filepath(B.getcreate_dir(M.source .. '.export'), 'markdown_export.py').filename
 
 vim.api.nvim_create_user_command('MarkdownExportCreate', function()
   B.system_run('asyncrun', 'python %s %s & pause', M.markdown_export_py, vim.api.nvim_buf_get_name(0))
