@@ -64,6 +64,7 @@ with_mathjax = False
 def get_md_from_file(f):
   with open(f, "rb") as f:
     content = f.read().decode("utf-8")
+    content = re.subn(re.compile(r"<!-- toc[\s\S]*?tocstop -->"), "", content)[0]
     content = re.subn(re.compile(r"<!--[\s\S]*?-->"), "", content)[0]
     return content
 
