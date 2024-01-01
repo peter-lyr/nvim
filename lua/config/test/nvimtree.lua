@@ -476,7 +476,7 @@ end
 function M._reopen()
   package.loaded[M.lua] = nil
   require 'config.test.nvimtree'
-  print 'config.test.nvimtree'
+  print '_reopen: config.test.nvimtree'
 end
 
 local opts = {
