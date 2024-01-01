@@ -17,6 +17,18 @@ void all_startup(void)
         printf("%s\n", path);
     }
 }
+
+void all_programs(void)
+{
+    char path[MAX_PATH];
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PROGRAMS, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+    if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_PROGRAMS, NULL, 0, path))) {
+        printf("%s\n", path);
+    }
+}
+
 void all(void)
 {
     char path[MAX_PATH];
@@ -437,6 +449,8 @@ int main(int argc, char *argv[])
         }
     } else if (strcmp(argv[1], "all_startup") == 0) {
         all_startup();
+    } else if (strcmp(argv[1], "all_programs") == 0) {
+        all_programs();
     } else {
         all();
     }
