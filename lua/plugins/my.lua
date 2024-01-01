@@ -384,7 +384,7 @@ return {
     ft = { 'markdown', },
     cmd = { 'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle', 'MarkdownExportCreate', 'MarkdownExportDelete', },
     keys = {
-      { '<a-o>', function() require 'config.my.markdown'.system_open_cfile() end, mode = { 'n', 'v', }, silent = true, desc = 'nvimtree: start cfile', },
+      { '<a-o>', function() require 'config.my.markdown'.system_open_cfile() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
     },
     init = function()
       vim.g.mkdp_theme              = 'light'
