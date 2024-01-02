@@ -1016,4 +1016,20 @@ function M.get_programs_files()
   return {}
 end
 
+function M.normpath(file)
+  if not M.file_exists(file) then
+    return ''
+  end
+  vim.g.normpath = file
+  vim.cmd [[
+    python << EOF
+import os
+import vim
+normpath = os.path.normpath(vim.eval('g:normpath')).replace('\\', '/')
+vim.command(f'let g:normpath = "{normpath}"')
+EOF
+]]
+  return vim.g.normpath
+end
+
 return M

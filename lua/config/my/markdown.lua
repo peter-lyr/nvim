@@ -33,6 +33,13 @@ end, {
   desc = 'MarkdownExportDelete',
 })
 
-function M.system_open_cfile() B.system_open_file_silent('%s', B.get_cfile()) end
+function M.system_open_cfile() B.system_open_file_silent('%s', B.normpath(B.get_cfile())) end
+
+function M.buffer_open_cfile()
+  local cfile = B.normpath(B.get_cfile())
+  if B.is(cfile) and B.file_exists(cfile) then
+    B.cmd('e %s', cfile)
+  end
+end
 
 return M
