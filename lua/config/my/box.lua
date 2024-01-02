@@ -188,6 +188,17 @@ function M.show_info()
   B.notify_info(vim.fn.join(items, '\n'))
 end
 
+function M.git_init_and_cmake()
+  local dirs = B.get_file_dirs()
+  dirs = B.merge_tables(dirs, { vim.loop.cwd(), })
+  B.ui_sel(dirs, 'git_init_and_cmake', function(dir)
+    if dir then
+      require 'config.my.git'.init_do(dir)
+      require 'config.my.c'._cmake_do(dir, 1)
+    end
+  end)
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
@@ -197,6 +208,7 @@ require 'which-key'.register { ['<leader><c-3>o'] = { name = 'my.box.open', }, }
 require 'which-key'.register { ['<leader><c-3>m'] = { name = 'my.box.monitor', }, }
 require 'which-key'.register { ['<leader><c-3>p'] = { name = 'my.box.proxy', }, }
 require 'which-key'.register { ['<leader><c-3>s'] = { name = 'my.box.sel/nvim-qt', }, }
+require 'which-key'.register { ['<leader><c-3>g'] = { name = 'my.box.git', }, }
 
 B.lazy_map {
   { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
@@ -215,6 +227,7 @@ B.lazy_map {
   { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
   { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
   { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
+  { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
 }
 
 return M

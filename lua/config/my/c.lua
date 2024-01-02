@@ -282,9 +282,9 @@ function M._get_cbps(file)
   return cbps
 end
 
-function M._to_cmake_do(proj)
+function M._cmake_do(proj, force)
   proj = B.rep_backslash_lower(proj)
-  if #proj == 0 then
+  if not force and #proj == 0 then
     B.notify_info('not in a project: ' .. B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
     return
   end
@@ -306,7 +306,7 @@ function M.cmake()
   end
   B.ui_sel(B.get_file_dirs_till_git(), 'which dir to cmake', function(proj)
     if proj then
-      M._to_cmake_do(proj)
+      M._cmake_do(proj)
     end
   end)
 end
