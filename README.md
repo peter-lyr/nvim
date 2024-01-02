@@ -48,3 +48,5 @@
 24. [x] TODO: sel add to hist
 
 > - system_open_file_silent
+
+25. [ ] git commit complete last all
