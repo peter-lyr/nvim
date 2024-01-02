@@ -18,22 +18,53 @@ function M.get_info(info)
   return info
 end
 
+function M.get_commit_history()
+  local f = io.popen 'git log --pretty=format:"%s"'
+  if f then
+    local commits = {}
+    for commit in string.gmatch(f:read '*a', '([%S ]+)') do
+      if not B.is_in_tbl(commit, commits) then
+        commits[#commits + 1] = commit
+      end
+    end
+    f:close()
+    return commits
+  end
+  return {}
+end
+
+function M.get_commit_and_do(commits, prompt, callback)
+  B.ui_sel(commits, prompt, function(commit)
+    if not commit then
+      commit = ''
+    end
+    local info = vim.fn.input(prompt, commit)
+    if B.is(info) then
+      callback(info)
+    end
+  end)
+end
+
 -- gitpush
+function M.addcommitpush_do(info)
+  if info and #info > 0 then
+    B.set_timeout(10, function()
+      info = M.get_info(info)
+      B.notify_info_append('addcommitpush: ' .. info)
+      B.system_run('asyncrun', 'git add -A && git status && git commit -m "%s" && git push', info)
+    end)
+  end
+end
+
 function M.addcommitpush(info)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'status', '-s', }
   if #result > 0 then
     B.notify_info { 'git status -s', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      info = vim.fn.input 'commit info (Add all and push): '
+      M.get_commit_and_do(M.get_commit_history(), 'commit info (Add all and push): ', M.addcommitpush_do)
     end
-    if #info > 0 then
-      B.set_timeout(10, function()
-        info = M.get_info(info)
-        B.notify_info_append('addcommitpush: ' .. info)
-        B.system_run('asyncrun', 'git add -A && git status && git commit -m "%s" && git push', info)
-      end)
-    end
+    M.addcommitpush_do(info)
   else
     vim.notify 'no changes'
   end
@@ -90,22 +121,36 @@ function M.addcommitpush_cWORD()
 end
 
 function M.commit_push(info)
+  if #info > 0 then
+    B.set_timeout(10, function()
+      info = M.get_info(info)
+      B.notify_info_append('commit_push: ' .. info)
+      B.system_run('asyncrun', 'git commit -m "%s" && git push', info)
+    end)
+  end
+end
+
+function M.commit_push(info)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'diff', '--staged', '--stat', }
   if #result > 0 then
     B.notify_info { 'git diff --staged --stat', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      info = vim.fn.input 'commit info (commit and push): '
+      M.get_commit_and_do(M.get_commit_history(), 'commit info (commit and push): ', M.commit_push_do)
     end
-    if #info > 0 then
-      B.set_timeout(10, function()
-        info = M.get_info(info)
-        B.notify_info_append('commit_push: ' .. info)
-        B.system_run('asyncrun', 'git commit -m "%s" && git push', info)
-      end)
-    end
+    M.commit_push_do(info)
   else
     vim.notify 'no staged'
+  end
+end
+
+function M.commit_do(info)
+  if #info > 0 then
+    B.set_timeout(10, function()
+      info = M.get_info(info)
+      B.notify_info_append('commit: ' .. info)
+      B.system_run('asyncrun', 'git commit -m "%s"', info)
+    end)
   end
 end
 
@@ -115,15 +160,9 @@ function M.commit(info)
   if #result > 0 then
     B.notify_info { 'git diff --staged --stat', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      info = vim.fn.input 'commit info (just commit): '
+      M.get_commit_and_do(M.get_commit_history(), 'commit info (just commit): ', M.commit_do)
     end
-    if #info > 0 then
-      B.set_timeout(10, function()
-        info = M.get_info(info)
-        B.notify_info_append('commit: ' .. info)
-        B.system_run('asyncrun', 'git commit -m "%s"', info)
-      end)
-    end
+    M.commit_do(info)
   else
     vim.notify 'no staged'
   end
