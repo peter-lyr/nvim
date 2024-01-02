@@ -57,6 +57,7 @@ function M.addcommitpush_do(info)
 end
 
 function M.addcommitpush(info)
+
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'status', '-s', }
   if #result > 0 then
@@ -120,8 +121,8 @@ function M.addcommitpush_cWORD()
   M.addcommitpush(vim.fn.expand '<cWORD>')
 end
 
-function M.commit_push(info)
-  if #info > 0 then
+function M.commit_push_do(info)
+  if info and #info > 0 then
     B.set_timeout(10, function()
       info = M.get_info(info)
       B.notify_info_append('commit_push: ' .. info)
@@ -145,7 +146,7 @@ function M.commit_push(info)
 end
 
 function M.commit_do(info)
-  if #info > 0 then
+  if info and #info > 0 then
     B.set_timeout(10, function()
       info = M.get_info(info)
       B.notify_info_append('commit: ' .. info)
