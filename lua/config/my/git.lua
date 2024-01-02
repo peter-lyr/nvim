@@ -19,7 +19,7 @@ function M.get_info(info)
 end
 
 function M.get_commit_history()
-  local f = io.popen 'git log --pretty=format:"%s"'
+  local f = io.popen 'git log --pretty=format:"%h - %an, %ar :::: %s"'
   if f then
     local commits = {}
     for commit in string.gmatch(f:read '*a', '([%S ]+)') do
@@ -33,10 +33,14 @@ function M.get_commit_history()
   return {}
 end
 
+function M.show_commit_history() B.ui_sel(M.get_commit_history(), 'Show Commit History', function() end) end
+
 function M.get_commit_and_do(commits, prompt, callback)
   B.ui_sel(commits, prompt, function(commit)
     if not commit then
       commit = ''
+    else
+      commit = string.match(commit, '.*:::: (.+)')
     end
     local info = vim.fn.input(prompt, commit)
     if B.is(info) then
@@ -345,6 +349,7 @@ B.lazy_map {
   { '<leader>ggd',       M.reset_hard_clean,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard_clean', },
   { '<leader>ggD',       M.clean_ignored_files_and_folders, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clean_ignored_files_and_folders', },
   { '<leader>ggC',       M.clone,                           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clone', },
+  { '<leader>ggh',       M.show_commit_history,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: show_commit_history', },
   { '<leader>g<c-l>',    M.addcommitpush_curline,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush curline', },
   { '<leader>g<c-\'>',   M.addcommitpush_single_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush single_quote', },
   { '<leader>g<c-s-\'>', M.addcommitpush_double_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush double_quote', },
