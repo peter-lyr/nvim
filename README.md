@@ -49,4 +49,4 @@
 
 > - system_open_file_silent
 
-25. [ ] git commit complete last all
+25. [x] TODO: git sel commit history

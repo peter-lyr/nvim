@@ -57,7 +57,6 @@ function M.addcommitpush_do(info)
 end
 
 function M.addcommitpush(info)
-
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'status', '-s', }
   if #result > 0 then
