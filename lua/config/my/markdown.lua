@@ -42,4 +42,21 @@ function M.buffer_open_cfile()
   end
 end
 
+function M.make_url()
+  local file = vim.fn.getreg '+'
+  if not B.file_exists(file) then
+    return
+  end
+  local cur_file = vim.fn.expand '%:p:h'
+  if not B.is(cur_file) then
+    return
+  end
+  local rel = B.relpath(file, cur_file)
+  if B.is(rel) then
+    vim.fn.append('.', rel)
+  else
+    B.notify_info_append(string.format('not making rel: %s, %s', file, cur_file))
+  end
+end
+
 return M

@@ -378,6 +378,7 @@ return {
     keys = {
       { '<a-o>', function() require 'config.my.markdown'.system_open_cfile() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-i>', function() require 'config.my.markdown'.buffer_open_cfile() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
+      { '<a-u>', function() require 'config.my.markdown'.make_url() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url', },
     },
     init = function()
       vim.g.mkdp_theme              = 'light'

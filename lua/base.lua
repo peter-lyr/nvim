@@ -1032,4 +1032,24 @@ EOF
   return vim.g.normpath
 end
 
+function M.relpath(file, start)
+  if not M.is(file) then
+    return
+  end
+  vim.g.relpath = file
+  vim.g.startpath = start and start or ''
+  vim.cmd [[
+    python << EOF
+import os
+import vim
+try:
+  relpath = os.path.relpath(vim.eval('g:relpath'), vim.eval('g:startpath')).replace('\\', '/')
+  vim.command(f'let g:relpath = "{relpath}"')
+except:
+  vim.command(f'let g:relpath = ""')
+EOF
+]]
+  return vim.g.relpath
+end
+
 return M
