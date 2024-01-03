@@ -35,18 +35,29 @@ end
 
 function M.show_commit_history() B.ui_sel(M.get_commit_history(), 'Show Commit History', function() end) end
 
-function M.get_commit_and_do(commits, prompt, callback)
-  B.ui_sel(commits, prompt, function(commit)
-    if not commit then
-      commit = ''
-    else
-      commit = string.match(commit, '.*:::: (.+)')
-    end
-    local info = vim.fn.input(prompt, commit)
+M.commit_history_en = nil
+
+function M.get_commit_and_do(prompt, callback)
+  if M.commit_history_en then
+    local commits = M.get_commit_history()
+    B.ui_sel(commits, prompt, function(commit)
+      if not commit then
+        commit = ''
+      else
+        commit = string.match(commit, '.*:::: (.+)')
+      end
+      local info = vim.fn.input(prompt, commit)
+      if B.is(info) then
+        callback(info)
+      end
+    end)
+  else
+    local info = vim.fn.input(prompt)
     if B.is(info) then
       callback(info)
     end
-  end)
+  end
+  M.commit_history_en = nil
 end
 
 -- gitpush
@@ -60,13 +71,14 @@ function M.addcommitpush_do(info)
   end
 end
 
-function M.addcommitpush(info)
+function M.addcommitpush(info, commit_history_en)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'status', '-s', }
   if #result > 0 then
     B.notify_info { 'git status -s', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      M.get_commit_and_do(M.get_commit_history(), 'commit info (Add all and push): ', M.addcommitpush_do)
+      M.commit_history_en = commit_history_en
+      M.get_commit_and_do('commit info (Add all and push): ', M.addcommitpush_do)
     end
     M.addcommitpush_do(info)
   else
@@ -134,13 +146,14 @@ function M.commit_push_do(info)
   end
 end
 
-function M.commit_push(info)
+function M.commit_push(info, commit_history_en)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'diff', '--staged', '--stat', }
   if #result > 0 then
     B.notify_info { 'git diff --staged --stat', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      M.get_commit_and_do(M.get_commit_history(), 'commit info (commit and push): ', M.commit_push_do)
+      M.commit_history_en = commit_history_en
+      M.get_commit_and_do('commit info (commit and push): ', M.commit_push_do)
     end
     M.commit_push_do(info)
   else
@@ -158,13 +171,14 @@ function M.commit_do(info)
   end
 end
 
-function M.commit(info)
+function M.commit(info, commit_history_en)
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'diff', '--staged', '--stat', }
   if #result > 0 then
     B.notify_info { 'git diff --staged --stat', vim.loop.cwd(), table.concat(result, '\n'), }
     if not info then
-      M.get_commit_and_do(M.get_commit_history(), 'commit info (just commit): ', M.commit_do)
+      M.commit_history_en = commit_history_en
+      M.get_commit_and_do('commit info (just commit): ', M.commit_do)
     end
     M.commit_do(info)
   else
@@ -339,12 +353,13 @@ require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
 require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
 
 B.lazy_map {
-  { '<leader>ggc',       M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
+  { '<leader>gc',        M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
+  { '<leader>ggc',       function() M.commit(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit commit_history_en', },
   { '<leader>ggs',       M.push,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: push', },
   { '<leader>ggg',       M.graph_asyncrun,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_asyncrun', },
   { '<leader>gg<c-g>',   M.graph_start,                     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_start', },
   { '<leader>ggv',       M.init,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: init', },
-  { '<leader>gga',       M.addall,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addall', },
+  { '<leader>g<c-a>',    M.addall,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addall', },
   { '<leader>ggr',       M.reset_hard,                      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard', },
   { '<leader>ggd',       M.reset_hard_clean,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard_clean', },
   { '<leader>ggD',       M.clean_ignored_files_and_folders, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clean_ignored_files_and_folders', },
