@@ -508,7 +508,7 @@ end
 
 function M.terminal_cmd()
   M.setreg()
-  vim.cmd 'Telescope buffers'
+  vim.cmd 'Telescope buffers previewer=true'
   B.set_timeout(20, function()
     vim.cmd [[call feedkeys("term:cmd\<esc>")]]
   end)
@@ -516,7 +516,7 @@ end
 
 function M.terminal_ipython()
   M.setreg()
-  vim.cmd 'Telescope buffers'
+  vim.cmd 'Telescope buffers previewer=true'
   B.set_timeout(20, function()
     vim.cmd [[call feedkeys("term:ipython\<esc>")]]
   end)
@@ -524,7 +524,7 @@ end
 
 function M.terminal_bash()
   M.setreg()
-  vim.cmd 'Telescope buffers'
+  vim.cmd 'Telescope buffers previewer=true'
   B.set_timeout(20, function()
     vim.cmd [[call feedkeys("term:bash\<esc>")]]
   end)
@@ -532,7 +532,7 @@ end
 
 function M.terminal_powershell()
   M.setreg()
-  vim.cmd 'Telescope buffers'
+  vim.cmd 'Telescope buffers previewer=true'
   B.set_timeout(20, function()
     vim.cmd [[call feedkeys("term:powershell\<esc>")]]
   end)
