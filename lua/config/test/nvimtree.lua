@@ -496,9 +496,9 @@ local opts = {
   reload_on_bufenter = true,
   respect_buf_cwd = true,
   filesystem_watchers = {
-    enable = true,
-    debounce_delay = 50,
-    ignore_dirs = { '*.git*', },
+    enable = false,
+    -- debounce_delay = 50,
+    -- ignore_dirs = { '*.git*', },
   },
   filters = {
     -- dotfiles = false,
