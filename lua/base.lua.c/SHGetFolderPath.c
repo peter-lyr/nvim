@@ -451,8 +451,9 @@ int main(int argc, char *argv[])
         all_startup();
     } else if (strcmp(argv[1], "all_programs") == 0) {
         all_programs();
-    } else {
+    } else if (strcmp(argv[1], "all") == 0) {
         all();
+    } else {
     }
     return 0;
 }
