@@ -735,6 +735,29 @@ B.lazy_map {
 -- qf
 M.quickfix_winid = 0
 
+vim.cmd 'Lazy load nvim-bqf'
+
+function M.nodupl()
+  local title = vim.fn.getqflist { title = 0, }.title
+  local l = {}
+  local D = {}
+  local different = nil
+  for _, i in ipairs(vim.fn.getqflist()) do
+    i.text = vim.fn.trim(i.text)
+    local d = string.format('%d-%d-%d-%s', i.bufnr, i.col, i.lnum, i.text)
+    if vim.tbl_contains(D, d) == false or #i.text == 0 then
+      l[#l + 1] = i
+      D[#D + 1] = d
+    else
+      different = 1
+    end
+  end
+  if different then
+    vim.fn.setqflist(l, 'r')
+    vim.fn.setqflist({}, 'a', { title = title, })
+  end
+end
+
 function M.quickfix_toggle()
   if B.is_buf_fts 'qf' then
     vim.cmd 'cclose'
@@ -753,6 +776,7 @@ function M.quickfix_toggle()
       end
     end
     vim.api.nvim_win_set_height(0, height)
+    M.nodupl()
   end
 end
 
