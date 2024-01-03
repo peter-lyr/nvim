@@ -190,7 +190,7 @@ end
 
 function M.git_init_and_cmake()
   local dirs = B.get_file_dirs()
-  dirs = B.merge_tables(dirs, { vim.loop.cwd(), })
+  dirs = B.merge_tables({ vim.loop.cwd(), }, dirs)
   B.ui_sel(dirs, 'git_init_and_cmake', function(dir)
     if dir then
       require 'config.my.git'.init_do(dir)
