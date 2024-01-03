@@ -53,3 +53,4 @@
 26. [ ] TODO: markdown url link to other markdown
 27. [ ] TODO: nvimtree dp paste folder not working
 28. [ ] TODO: quickfix dupl
+29. [ ] TODO: gitsigns failed to update in certain proj
