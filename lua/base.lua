@@ -967,7 +967,7 @@ function M.delete_folder(folder)
 end
 
 function M.get_cfile()
-  return M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>')
+  return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
 end
 
 function M.system_open_file(str_format, ...)
