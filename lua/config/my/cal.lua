@@ -102,5 +102,4 @@ B.lazy_map {
   { 'c/b<c-p>', function() M.count_bin('<cword>', 1, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'hex append', },
 }
 
-
 return M
