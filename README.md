@@ -51,7 +51,10 @@
 
 25. [x] TODO: git sel commit history
 26. [ ] TODO: markdown url link to other markdown
-27. [ ] TODO: nvimtree dp paste folder not working
+27. [x] TODO: nvimtree dp paste folder not working
+
+> - `B.powershell_run('Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Recurse -Destination "%s" }', dtarget)`
+
 28. [x] TODO: quickfix dupl
 29. [ ] TODO: gitsigns failed to update in certain proj
 30. [x] TODO: nvim follow cwd

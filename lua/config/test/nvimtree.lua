@@ -482,7 +482,7 @@ M._paste_from_clip = function(node)
   if not dtarget then
     return
   end
-  B.powershell_run('Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Destination "%s" }', dtarget)
+  B.powershell_run('Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Recurse -Destination "%s" }', dtarget)
 end
 
 -----------------------------------
