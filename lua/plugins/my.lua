@@ -447,4 +447,13 @@ return {
     config = function() require 'config.my.window' end,
   },
 
+  -- my.cal
+  {
+    name = 'my.cal',
+    dir = '',
+    keys = {
+      { 'c/', function() require 'config.my.cal' end, mode = { 'n', 'v', }, silent = true, desc = '---my.cal---', },
+    },
+  },
+
 }
