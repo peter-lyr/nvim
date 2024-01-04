@@ -493,6 +493,8 @@ return {
 
       { '<c-4>',        function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
       { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
+
+      { '<c-q>',        function() require 'config.test.nvimtree'.sel_sub_dirs() end,        mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_sub_dirs', },
     },
     config = function() require 'config.test.nvimtree' end,
   },

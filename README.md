@@ -54,3 +54,4 @@
 27. [ ] TODO: nvimtree dp paste folder not working
 28. [ ] TODO: quickfix dupl
 29. [ ] TODO: gitsigns failed to update in certain proj
+30. [ ] TODO: nvim follow cwd

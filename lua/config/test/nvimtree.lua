@@ -420,6 +420,8 @@ function M.sel_SHGetFolderPath() M._sel_dirs_do(B.get_SHGetFolderPath(), 'SHGetF
 
 function M.sel_all_git_repos() M._sel_dirs_do(require 'config.my.git'.get_all_git_repos(), 'all_git_repos') end
 
+function M.sel_sub_dirs() M._sel_dirs_do(B.scan_dirs(), 'sub_dirs') end
+
 function M.last_dir() if B.is(M._last_dir) then M.open(M._last_dir) end end
 
 B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
