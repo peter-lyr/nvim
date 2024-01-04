@@ -67,7 +67,7 @@ B.aucmd({ 'BufReadPre', }, 'my.markdown.BufReadPre', {
         vim.cmd 'norm ggdG'
         vim.fn.setline(1, {
           string.format('Copyright (c) %s %s. All Rights Reserved.', vim.fn.strftime '%Y', 'liudepei'),
-          vim.fn.strftime '%Y%m%d-%A-%H%M%S',
+          vim.fn.strftime 'create at %Y/%m/%d %H:%M:%S %A',
         })
         vim.cmd 'norm vip cs'
         vim.fn.setline('$', {
