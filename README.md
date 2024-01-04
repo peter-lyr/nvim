@@ -63,3 +63,5 @@
 > >
 > > 1. open: close it and open again
 > > 2. not: nop
+
+31. [ ] TODO: detect copyright in buffer and write
