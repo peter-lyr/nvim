@@ -199,6 +199,26 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   end,
 })
 
+function M.is_nvim_tree_opened()
+  for winnr = 1, vim.fn.winnr '$' do
+    local bufnr = vim.fn.winbufnr(winnr)
+    if B.is_buf_fts('NvimTree', bufnr) then
+      return 1
+    end
+  end
+  return nil
+end
+
+B.aucmd({ 'TabEnter', }, 'test.nvimtree.TabEnter', {
+  callback = function()
+    if M.is_nvim_tree_opened() then
+      vim.cmd 'NvimTreeClose'
+      vim.cmd 'NvimTreeFindFile'
+      vim.cmd 'wincmd p'
+    end
+  end,
+})
+
 function M._toggle_sel(node)
   require 'nvim-tree.marks'.toggle_mark(node)
   local marks = require 'nvim-tree.marks'.get_marks()
@@ -483,7 +503,7 @@ end
 
 local opts = {
   update_focused_file = {
-    -- enable = true,
+    enable = true,
     update_root = false,
   },
   git = {
