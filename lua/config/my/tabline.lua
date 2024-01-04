@@ -273,7 +273,13 @@ end
 function M.projectroot_titlestring(ev)
   pcall(vim.call, 'ProjectRootCD')
   local project = B.rep_backslash(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(ev.buf)))
-  vim.opt.titlestring = string.format('%s %s', B.get_root_short(project), vim.fn.fnamemodify(vim.fn.bufname(ev.buf), ':t'))
+  local titlestring = string.format('%s %s', B.get_root_short(project), vim.fn.fnamemodify(vim.fn.bufname(ev.buf), ':t'))
+  if vim.api.nvim_buf_get_option(ev.buf, 'buftype') == 'terminal' then
+    local temp = string.match(vim.fn.bufname(), 'term:.+//%d+:(.+)')
+    temp = vim.fn.fnamemodify(temp, ':t:r')
+    titlestring = string.format('%s %s', temp, titlestring)
+  end
+  vim.opt.titlestring = titlestring
 end
 
 vim.cmd [[
