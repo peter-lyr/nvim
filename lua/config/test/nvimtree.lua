@@ -211,10 +211,18 @@ end
 
 B.aucmd({ 'TabEnter', }, 'test.nvimtree.TabEnter', {
   callback = function()
+    local cur_nvim_tree = nil
+    if B.is_buf_fts('NvimTree') then
+      cur_nvim_tree = 1
+    end
     if M.is_nvim_tree_opened() then
       vim.cmd 'NvimTreeClose'
-      vim.cmd 'NvimTreeFindFile'
-      vim.cmd 'wincmd p'
+      B.set_timeout(10, function ()
+        vim.cmd 'NvimTreeFindFile'
+        if not cur_nvim_tree then
+          vim.cmd 'wincmd p'
+        end
+      end)
     end
   end,
 })
