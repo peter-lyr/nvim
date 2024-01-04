@@ -557,7 +557,7 @@ function M._on_attach(bufnr)
   B.lazy_map {
     { 'gd',            M._wrap_node(M._delete),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete buf', },
 
-    { '<c-f>',         api.node.show_info_popup,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Info', },
+    { 'gf',            api.node.show_info_popup,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Info', },
     { 'dk',            api.node.open.tab,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: New Tab', },
     { 'dl',            api.node.open.vertical,             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: Vertical Split', },
     { 'dj',            api.node.open.horizontal,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: Horizontal Split', },
