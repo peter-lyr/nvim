@@ -96,7 +96,7 @@ return {
   {
     name = 'my.bufreadpost',
     dir = '',
-    event = 'BufReadPost',
+    event = { 'BufReadPre', 'BufReadPost', },
     config = function()
       require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
         callback = function()
@@ -125,6 +125,32 @@ return {
             vim.opt.tabstop = 2
             vim.opt.softtabstop = 2
             vim.opt.shiftwidth = 2
+          end
+        end,
+      })
+      require 'base'.aucmd({ 'BufReadPre', }, 'my.bufreadpost.BufReadPre', {
+        callback = function(ev)
+          local file = vim.api.nvim_buf_get_name(ev.buf)
+          if vim.fn.getfsize(file) == 0 then
+            require 'base'.set_timeout(10, function()
+              vim.cmd 'norm ggdG'
+              vim.fn.setline(1, {
+                string.format('Copyright (c) %s %s. All Rights Reserved.', vim.fn.strftime '%Y', 'liudepei'),
+                vim.fn.strftime 'create at %Y/%m/%d %H:%M:%S %A',
+              })
+              vim.cmd 'norm gcip'
+              local ext = string.match(file, '%.([^.]+)$')
+              if ext == 'md' then
+                vim.fn.setline('$', {
+                  '<!-- toc -->',
+                  '# hi',
+                })
+                vim.lsp.buf.format()
+                vim.cmd 'norm Gw'
+              else
+                vim.cmd 'norm Go'
+              end
+            end)
           end
         end,
       })
