@@ -163,7 +163,7 @@ function M._delete(node)
   vim.cmd 'norm j'
 end
 
-M.ausize_en = 1
+M.ausize_en = 0
 
 function M._ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
@@ -491,8 +491,8 @@ local opts = {
   },
   view = {
     width = 30,
-    number = true,
-    relativenumber = true,
+    -- number = true,
+    -- relativenumber = true,
   },
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
