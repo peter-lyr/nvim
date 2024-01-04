@@ -55,3 +55,8 @@
 28. [ ] TODO: quickfix dupl
 29. [ ] TODO: gitsigns failed to update in certain proj
 30. [ ] TODO: nvim follow cwd
+
+> 1. TabEnter check nvimtree open or not
+> >
+> > 1. open: close it and open again
+> > 2. not: nop
