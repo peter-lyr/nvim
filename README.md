@@ -64,4 +64,10 @@
 > > 1. open: close it and open again
 > > 2. not: nop
 
-31. [ ] TODO: detect copyright in buffer and write
+31. [x] TODO: detect copyright in buffer and write
+
+> 1. when first opening a buffer
+> 2. check buffer empty or not
+> >
+> > 1. empty: write copyright
+> > 2. not: nop
