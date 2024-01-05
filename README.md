@@ -71,3 +71,5 @@
 > >
 > > 1. empty: write copyright
 > > 2. not: nop
+
+32. [ ] TODO: telescope projects git files
