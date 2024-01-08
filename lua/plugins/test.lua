@@ -370,6 +370,7 @@ return {
         '<c-\\>',
         function()
           require 'mini.map'.toggle()
+          vim.cmd 'Lazy load aerial.nvim'
           vim.cmd 'AerialClose'
         end,
         mode = { 'n', 'v', },

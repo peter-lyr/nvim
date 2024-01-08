@@ -75,8 +75,8 @@ def one(file):
             else:
                 f.write(line)
         elif "show" in cmd:
-            res = res[0]
             if res:
+                res = res[0]
                 if not is_dir_names_in_str(dir_name, rep(res[2].decode("utf-8"))):
                     continue
                 if 'under' in cmd:
