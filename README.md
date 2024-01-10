@@ -76,3 +76,4 @@
 33. [x] TODO: gui font diff from different tab
 34. [x] TODO: tabs_way diff from different tab
 35. [ ] TODO: 40% lalt, fn2 uncomfortable
+36. [ ] TODO: new markdown lsp format wait
