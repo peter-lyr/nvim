@@ -83,3 +83,7 @@
 
 35. [ ] TODO: 40% lalt, fn2 uncomfortable
 36. [ ] TODO: new markdown lsp format wait
+37. [x] NOTE: put all git repos to be sibling as nvim
+
+> 1. C:\Users\depei_liu\AppData\Local\nvim
+> 2. C:\Users\depei_liu\AppData\Local\repos
