@@ -75,3 +75,4 @@
 32. [ ] TODO: telescope projects git files
 33. [x] TODO: gui font diff from different tab
 34. [x] TODO: tabs_way diff from different tab
+35. [ ] TODO: 40% lalt, fn2 uncomfortable
