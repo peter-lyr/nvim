@@ -75,7 +75,7 @@
 32. [ ] TODO: telescope projects git files
 33. [x] TODO: gui font diff from different tab
 
-> 1. [ ] TODO: add session
+> 1. [x] TODO: add session
 
 34. [x] TODO: tabs_way diff from different tab
 

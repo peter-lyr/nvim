@@ -11,7 +11,7 @@ M.last_fontsize_txt_path = M.last_fontsize_dir_path:joinpath 'last-font-size.txt
 M.normal_fontsize = 9
 
 if not M.last_fontsize_txt_path:exists() then
-  M.last_fontsize_txt_path:write('9', 'w')
+  M.last_fontsize_txt_path:write(vim.inspect { [':::'] = 9, }, 'w')
 end
 
 function M._get_font_name_size()
@@ -25,19 +25,12 @@ end
 
 local _, _fontsize = M._get_font_name_size()
 
-M.lastfontsize = _fontsize
-
-if B.is(_fontsize == M.normal_fontsize) then
-  M.lastfontsize = M.last_fontsize_txt_path:read()
-end
+M.projs_diff_font_size = B.read_table_from_file(M.last_fontsize_txt_path.filename)
+M.lastfontsize = M.projs_diff_font_size[':::'] and M.projs_diff_font_size[':::'] or _fontsize
 
 function M.save_last_fontsize()
-  if M.lastfontsize ~= M.normal_fontsize then
-    M.last_fontsize_txt_path:write(M.lastfontsize, 'w')
-  end
+  B.write_table_to_file(M.last_fontsize_txt_path.filename, M.projs_diff_font_size)
 end
-
-M.projs_diff_font_size = {}
 
 function M._change_font_size(name, size)
   local cmd = 'GuiFont! ' .. name .. size

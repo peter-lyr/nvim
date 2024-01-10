@@ -243,6 +243,7 @@ return {
     name = 'my.gui',
     dir = '',
     cmd = { 'Gui', },
+    event = { 'TabEnter', },
     keys = {
       { '<c-0>',               function() require 'config.my.gui' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.gui---', },
       { '<c-0><c-0>',          function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },

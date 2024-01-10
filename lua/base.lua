@@ -1052,4 +1052,20 @@ EOF
   return vim.g.relpath
 end
 
+function M.read_table_from_file(file)
+  file = require 'plenary.path':new(file)
+  if not file:exists() then
+    return {}
+  end
+  local res = file:read()
+  if #res > 0 then
+    return loadstring('return ' .. res)()
+  end
+  return {}
+end
+
+function M.write_table_to_file(file, tbl)
+  require 'plenary.path':new(file):write(vim.inspect(tbl), 'w')
+end
+
 return M
