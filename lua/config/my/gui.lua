@@ -37,10 +37,16 @@ function M.save_last_fontsize()
   end
 end
 
+M.projs_diff_font_size = {}
+
 function M._change_font_size(name, size)
   local cmd = 'GuiFont! ' .. name .. size
   vim.cmd(cmd)
   B.set_timeout(100, function() print(cmd) end)
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(root_dir) then
+    M.projs_diff_font_size[root_dir] = size
+  end
 end
 
 function M.fontsize_up()
@@ -77,6 +83,16 @@ end
 function M.fontsize_frameless() vim.fn['GuiWindowFrameless'](1 - vim.g.GuiWindowFrameless) end
 
 function M.fontsize_fullscreen() vim.fn['GuiWindowFullScreen'](1 - vim.g.GuiWindowFullScreen) end
+
+B.aucmd({ 'TabEnter', }, 'my.gui.TabEnter', {
+  callback = function()
+    local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+    if B.is(vim.tbl_contains(vim.tbl_keys(M.projs_diff_font_size), root_dir)) then
+      local fontname, _ = M._get_font_name_size()
+      M._change_font_size(fontname, M.projs_diff_font_size[root_dir])
+    end
+  end,
+})
 
 -- mappings
 B.del_map({ 'n', 'v', }, '<c-0>')

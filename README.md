@@ -73,4 +73,5 @@
 > > 2. not: nop
 
 32. [ ] TODO: telescope projects git files
-33. [ ] TODO: gui font diff from different tab
+33. [x] TODO: gui font diff from different tab
+34. [x] TODO: tabs_way diff from different tab

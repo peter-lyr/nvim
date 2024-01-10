@@ -667,6 +667,8 @@ function M.refresh_tabline()
   vim.opt.tabline = M.get_buf_content(tab_len) .. '%#tblfil#%1@SwitchNone@%=%<%#tblfil#' .. tabs_to_show
 end
 
+M.projs_diff_tabs_way = {}
+
 function M.toggle_tabs_way()
   M.tabs_way = M.tabs_way + 1
   if M.tabs_way > 2 then
@@ -677,8 +679,22 @@ function M.toggle_tabs_way()
   elseif M.tabs_way == 2 then
     B.notify_info 'multi tabs'
   end
+  local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+  if B.is(root_dir) then
+    M.projs_diff_tabs_way[root_dir] = M.tabs_way
+  end
   M.update_bufs_and_refresh_tabline()
 end
+
+B.aucmd({ 'TabEnter', }, 'my.tabline.TabEnter', {
+  callback = function()
+    local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
+    if B.is(vim.tbl_contains(vim.tbl_keys(M.projs_diff_tabs_way), root_dir)) then
+      M.tabs_way = M.projs_diff_tabs_way[root_dir]
+      M.update_bufs_and_refresh_tabline()
+    end
+  end,
+})
 
 B.aucmd('BufEnter', 'my.tabline.BufEnter', {
   callback = function()
