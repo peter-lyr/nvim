@@ -81,7 +81,7 @@
 
 > 1. [ ] TODO: add session
 
-35. [ ] TODO: 40% lalt, fn2 uncomfortable
+35. [x] TODO: 40% lalt, fn2 uncomfortable
 36. [ ] TODO: new markdown lsp format wait
 37. [x] NOTE: put all git repos to be sibling as nvim
 
