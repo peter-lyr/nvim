@@ -87,3 +87,5 @@
 
 > 1. C:\Users\depei_liu\AppData\Local\nvim
 > 2. C:\Users\depei_liu\AppData\Local\repos
+
+38. [ ] TODO: add start explorer to session
