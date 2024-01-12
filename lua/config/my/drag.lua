@@ -18,6 +18,7 @@ M.NOT_IMAGE_EXTS = {
   'html',
   'pdf',
   'wav', 'mp3',
+  'mp4',
 }
 
 M.BIN_EXTS = {
