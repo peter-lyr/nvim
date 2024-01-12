@@ -42,6 +42,14 @@ function M.buffer_open_cfile()
   end
 end
 
+function M.copy_cfile_clip()
+  local cfile = B.get_cfile()
+  if B.is(cfile) and B.file_exists(cfile) then
+    vim.fn.setreg('+', cfile)
+    B.notify_info(cfile)
+  end
+end
+
 function M.make_url()
   local file = vim.fn.getreg '+'
   if not B.file_exists(file) then
