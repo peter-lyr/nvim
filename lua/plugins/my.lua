@@ -403,4 +403,13 @@ return {
     },
   },
 
+  -- my.svn
+  {
+    name = 'my.svn',
+    dir = '',
+    keys = {
+      { '<leader>v', function() require 'config.my.svn' end, mode = { 'n', 'v', }, silent = true, desc = '---my.svn---', },
+    },
+  },
+
 }
