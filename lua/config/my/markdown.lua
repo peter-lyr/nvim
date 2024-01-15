@@ -42,11 +42,20 @@ function M.buffer_open_cfile()
   end
 end
 
-function M.copy_cfile_clip()
+function M.copy_cfile_path_clip()
   local cfile = B.get_cfile()
   if B.is(cfile) and B.file_exists(cfile) then
     vim.fn.setreg('+', cfile)
-    B.notify_info(cfile)
+    B.notify_info(cfile .. ' path copied as text')
+  end
+end
+
+function M.copy_cfile_clip()
+  local cfile = B.get_cfile()
+  if B.is(cfile) and B.file_exists(cfile) then
+    local copy2clip_exe = require 'config.test.nvimtree'.copy2clip_exe
+    B.system_run('start silent', '%s "%s"', copy2clip_exe, cfile)
+    B.notify_info(cfile .. ' copied')
   end
 end
 
