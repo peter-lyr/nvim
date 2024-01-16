@@ -118,9 +118,12 @@ function M.align_table()
   local cols = 0
   for _, line in ipairs(lines) do
     local cells = vim.fn.split(vim.fn.trim(line), '|')
-    if cols < #cells then
+    if string.match(line, '|') and cols < #cells then
       cols = #cells
     end
+  end
+  if cols == 0 then
+    return;
   end
   local Lines = {}
   local Matrix = {}
