@@ -781,7 +781,7 @@ function M.quickfix_toggle()
 end
 
 B.lazy_map {
-  { '<a-bs>', M.quickfix_toggle, mode = { 'n', 'v', }, silent = true, desc = 'quickfix_toggle', },
+  -- { '<a-cr>', M.quickfix_toggle, mode = { 'n', 'v', }, silent = true, desc = 'quickfix_toggle', },
 }
 
 B.del_map({ 'n', 'v', }, '<RightMouse>')
