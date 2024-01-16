@@ -439,6 +439,7 @@ return {
           max_width = 20,
           min_width = 10,
           preserve_equality = nil,
+          default_direction = 'right',
         },
         keymaps = {
           ['<C-s>'] = false,
