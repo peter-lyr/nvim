@@ -123,7 +123,7 @@ function M.align_table()
     end
   end
   if cols == 0 then
-    return;
+    return
   end
   local Lines = {}
   local Matrix = {}
@@ -132,7 +132,12 @@ function M.align_table()
     local Cells = {}
     local matrix = {}
     for i = 1, cols do
-      local cell = string.gsub(cells[i], '^%s*(.-)%s*$', '%1')
+      local cell = cells[i]
+      if cell then
+        cell = string.gsub(cells[i], '^%s*(.-)%s*$', '%1')
+      else
+        cell = ''
+      end
       table.insert(Cells, cell)
       table.insert(matrix, { vim.fn.strlen(cell), vim.fn.strwidth(cell), })
     end
