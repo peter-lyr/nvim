@@ -3,6 +3,7 @@
 <!-- toc -->
 
 - [TODO](#todo)
+- [NOTE](#note)
 
 <!-- tocstop -->
 
@@ -89,3 +90,9 @@
 > 2. C:\Users\depei_liu\AppData\Local\repos
 
 38. [ ] TODO: add start explorer to session
+
+# NOTE
+
+1. ssh: connect to host github.com port 22: Connection timed out
+
+> ssh -T <git@github.com>
