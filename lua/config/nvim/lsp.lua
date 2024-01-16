@@ -235,6 +235,7 @@ function M.retab_erase_bad_white_space()
 end
 
 function M.format()
+  require 'config.my.markdown'.align_table()
   vim.lsp.buf.format {
     async = true,
     filter = function(client)
@@ -268,7 +269,6 @@ require 'which-key'.register { ['<leader>f'] = { name = 'nvim.lsp', }, }
 require 'which-key'.register { ['<leader>fv'] = { name = 'nvim.lsp.more', }, }
 
 B.lazy_map {
-  { '<leader>ff',     function() M.format() end,                      mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format', },
   { '<leader>fn',     function() M.rename() end,                      mode = { 'n', 'v', }, desc = 'config.nvim.lsp: rename', },
   { '<leader>fC',     function() M.format_input() end,                mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_input', },
   { '<leader>fD',     function() M.feedkeys_LspStop() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: feedkeys_LspStop', },
