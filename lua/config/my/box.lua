@@ -223,7 +223,7 @@ B.lazy_map {
   { '<leader><c-3>os',        function() M.open_sound() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
   { '<leader><c-3>m1',        function() M.monitor_1min() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
   { '<leader><c-3>m3',        function() M.monitor_30min() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
-  { '<leader><c-3>pn',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
+  { '<leader><c-3>po',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
   { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
   { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
   { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
