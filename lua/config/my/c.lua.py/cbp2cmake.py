@@ -94,7 +94,7 @@ def get_files_and_dirs(project_root, executable_cbp, executable_cbp_dir):
             .replace(project_root, "")
             .strip("/")
         )
-        if directory not in directories:
+        if directory not in directories and os.path.exists(directory):
             directories.append(directory)
     for file in re.findall(patt2, content):
         file = (
@@ -103,7 +103,7 @@ def get_files_and_dirs(project_root, executable_cbp, executable_cbp_dir):
             .replace(project_root, "")
             .strip("/")
         )
-        if file not in files:
+        if file not in files and os.path.exists(file):
             files.append(file)
     return files, directories
 
