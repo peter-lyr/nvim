@@ -408,14 +408,10 @@ end
 
 function M.system_cd(file)
   vim.cmd 'Lazy load plenary.nvim'
-  local new_file = ''
-  if string.sub(file, 2, 2) == ':' then
-    new_file = new_file .. string.sub(file, 1, 2) .. ' && '
-  end
   if require 'plenary.path'.new(file):is_dir() then
-    return new_file .. 'cd ' .. file
+    return 'cd /d ' .. file
   else
-    return new_file .. 'cd ' .. require 'plenary.path'.new(file):parent().filename
+    return 'cd /d ' .. require 'plenary.path'.new(file):parent().filename
   end
 end
 

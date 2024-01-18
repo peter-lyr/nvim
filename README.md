@@ -104,4 +104,4 @@ Host github.com
 
 > `ssh -T git@github.com`
 
-39. system cd, cd /d
+39. [x] TODO: system cd, cd /d
