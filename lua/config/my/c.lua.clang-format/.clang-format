@@ -39,7 +39,6 @@ AlignConsecutiveDeclarations:
   Enabled: true
   AcrossEmptyLines: true
   AcrossComments: true
-  # AlignFunctionPointers: true
 AlignConsecutiveBitFields:
   Enabled: true
   AcrossEmptyLines: true
