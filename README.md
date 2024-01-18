@@ -103,3 +103,5 @@ Host github.com
 ```
 
 > `ssh -T git@github.com`
+
+39. system cd, cd /d
