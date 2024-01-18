@@ -104,4 +104,7 @@ Host github.com
 
 > `ssh -T git@github.com`
 
+> 1. `ssh-keygen -t ed25519 -C "llydrp.ldp@gmail.com"`
+> 2. copy id_ed25519.pub to `https://github.com/settings/keys`
+
 39. [x] TODO: system cd, cd /d
