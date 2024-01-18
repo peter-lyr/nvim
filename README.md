@@ -95,4 +95,11 @@
 
 1. ssh: connect to host github.com port 22: Connection timed out
 
-> ssh -T <git@github.com>
+```~\.ssh\config
+Host github.com
+  HostName ssh.github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+```
+
+> `ssh -T git@github.com`
