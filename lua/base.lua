@@ -156,7 +156,8 @@ function M.getcreate_stddata_dirpath(dirs)
   return M.getcreate_dirpath(dirs)
 end
 
-M.windows_temp = [[C:\Windows\Temp]]
+-- M.windows_temp = [[C:\Windows\Temp]]
+M.windows_temp = vim.fn.expand [[$HOME]] .. '\\myTemp'
 
 function M.getcreate_temp_dirpath(dirs)
   dirs = M.totable(dirs)
