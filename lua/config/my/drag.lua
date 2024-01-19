@@ -23,7 +23,7 @@ M.NOT_IMAGE_EXTS = {
 
 M.BIN_EXTS = {
   'bin',
-  'wav', 'mp3',
+  'wav', 'mp3', 'pcm',
 }
 
 M.NOT_BIN_EXTS = {
