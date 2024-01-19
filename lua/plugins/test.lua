@@ -504,4 +504,10 @@ return {
     config = function() require 'colorizer'.setup() end,
   },
 
+  -- searchindex
+  {
+    'google/vim-searchindex',
+    event = { 'BufReadPost', 'BufNewFile', },
+  },
+
 }
