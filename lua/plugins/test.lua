@@ -508,6 +508,9 @@ return {
   {
     'google/vim-searchindex',
     event = { 'BufReadPost', 'BufNewFile', },
+    config = function()
+      vim.g.searchindex_line_limit = 100*10000*10000 -- 100亿
+    end,
   },
 
 }
