@@ -5,6 +5,7 @@ return {
   {
     'alec-gibson/nvim-tetris',
     cmd = { 'Tetris', },
+    -- error: k l will restart
   },
 
   {
