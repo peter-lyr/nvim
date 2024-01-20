@@ -285,10 +285,13 @@ function M.pull_all()
   if not M.pull_all_prepared then
     M.pull_all_prepare()
   end
-  B.notify_info 'git pull_all'
+  local info = ''
   for _, dir in ipairs(M.repos_dir) do
-    B.system_run('start', '%s && git pull', B.system_cd(dir))
+    B.system_run('start silent', '%s && git pull', B.system_cd(dir))
+    info = info .. dir .. '\n'
   end
+  info = info .. 'total ' .. tostring(#M.repos_dir) .. ' git repos'
+  B.notify_info({'git pull_all', info})
 end
 
 function M.reset_hard()
