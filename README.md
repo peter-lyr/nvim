@@ -108,4 +108,4 @@ Host github.com
 > 2. copy id_ed25519.pub to `https://github.com/settings/keys`
 
 39. [x] TODO: system cd, cd /d
-40. [ ] TODO: git repos pulls all
+40. [x] TODO: git repos pulls all

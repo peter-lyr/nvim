@@ -266,6 +266,31 @@ function M.pull()
   B.system_run('asyncrun', 'git pull')
 end
 
+M.nvim_dir = vim.fn.stdpath 'config'
+M.pull_all_prepared = nil
+
+function M.pull_all_prepare()
+  M.pull_all_prepared = 1
+  M.repos_dir = {
+    M.nvim_dir,
+  }
+  local repos_dirs = B.get_dirpath { B.file_parent(M.nvim_dir), 'repos', }.filename
+  local _gits = B.get_dirs_equal('.git', repos_dirs, { hidden = true, depth = 2 })
+  for _, dir in ipairs(_gits) do
+    M.repos_dir[#M.repos_dir+1] = B.file_parent(dir)
+  end
+end
+
+function M.pull_all()
+  if not M.pull_all_prepared then
+    M.pull_all_prepare()
+  end
+  B.notify_info 'git pull_all'
+  for _, dir in ipairs(M.repos_dir) do
+    B.system_run('start', '%s && git pull', B.system_cd(dir))
+  end
+end
+
 function M.reset_hard()
   local res = vim.fn.input('git reset --hard [N/y]: ', 'y')
   if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then

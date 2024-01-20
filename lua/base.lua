@@ -416,6 +416,11 @@ function M.system_cd(file)
   end
 end
 
+function M.file_parent(file)
+  vim.cmd 'Lazy load plenary.nvim'
+  return require 'plenary.path'.new(file):parent().filename
+end
+
 -------------------
 
 function M.get_file_dirs(file)
@@ -742,11 +747,13 @@ end
 
 -----------------
 
-function M.get_dirs_equal(dname, root_dir)
+function M.get_dirs_equal(dname, root_dir, opt)
   if not root_dir then
     root_dir = vim.fn['ProjectRootGet']()
   end
-  local entries = require 'plenary.scandir'.scan_dir(root_dir, { hidden = false, depth = 32, add_dirs = true, })
+  local default_opt = { hidden = false, depth = 32, add_dirs = true, }
+  opt = vim.tbl_deep_extend('force', default_opt, opt)
+  local entries = require 'plenary.scandir'.scan_dir(root_dir, opt)
   local dirs = {}
   for _, entry in ipairs(entries) do
     entry = M.rep_slash(entry)

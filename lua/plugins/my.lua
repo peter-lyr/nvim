@@ -146,6 +146,7 @@ return {
       { '<leader>gb',   function() require 'config.my.git'.commit_push() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
       { '<leader>ggb',  function() require 'config.my.git'.commit_push(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push commit_history_en', },
       { '<leader>gp',   function() require 'config.my.git'.pull() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull', },
+      { '<leader>ggp',  function() require 'config.my.git'.pull_all() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull_all', },
 
       -- git.signs
       { '<leader>gm',   function() require 'config.my.git' end,                       mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
