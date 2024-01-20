@@ -5,12 +5,12 @@ return {
   {
     'alec-gibson/nvim-tetris',
     cmd = { 'Tetris', },
-    -- error: k l will restart
   },
 
   {
     'zyedidia/vim-snake',
     cmd = { 'Snake', 'SnakeStart', 'SnakeStop', },
+    -- error: k l will restart
     config = function()
       local function stop()
         vim.cmd [[
