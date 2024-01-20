@@ -264,37 +264,37 @@ function M.reopen_deleted()
 end
 
 B.lazy_map {
-  { '<leader>wh',     function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wj',     function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wk',     function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wl',     function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wh',      function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wj',      function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wk',      function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wl',      function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
 
-  { '<leader>xh',     function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
-  { '<leader>xj',     function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
-  { '<leader>xk',     function() M.close_win_up() end,        mode = { 'n', 'v', }, desc = 'my.window: close_win_up', },
-  { '<leader>xl',     function() M.close_win_right() end,     mode = { 'n', 'v', }, desc = 'my.window: close_win_right', },
-  { '<leader>xt',     function() M.close_cur_tab() end,       mode = { 'n', 'v', }, desc = 'my.window: close_cur_tab', },
+  { '<leader>xh',      function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
+  { '<leader>xj',      function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
+  { '<leader>xk',      function() M.close_win_up() end,        mode = { 'n', 'v', }, desc = 'my.window: close_win_up', },
+  { '<leader>xl',      function() M.close_win_right() end,     mode = { 'n', 'v', }, desc = 'my.window: close_win_right', },
+  { '<leader>xt',      function() M.close_cur_tab() end,       mode = { 'n', 'v', }, desc = 'my.window: close_cur_tab', },
 
-  { '<leader>xw',     function() M.Bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_cur', },
-  { '<leader>xW',     function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
-  { '<leader>xd',     function() M.Bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: Bdelete_cur', },
-  { '<leader>xD',     function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
+  { '<leader>xw',      function() M.Bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_cur', },
+  { '<leader>x<c-w>',  function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
+  { '<leader>xd',      function() M.Bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: Bdelete_cur', },
+  { '<leader>x<c-d>',  function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
 
-  { '<leader>xow',    function() M.Bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_other', },
-  { '<leader>xoW',    function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
-  { '<leader>xod',    function() M.Bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: Bdelete_other', },
-  { '<leader>xoD',    function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
+  { '<leader>xow',     function() M.Bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_other', },
+  { '<leader>xo<c-w>', function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
+  { '<leader>xod',     function() M.Bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: Bdelete_other', },
+  { '<leader>xo<c-d>', function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
 
-  { '<leader>xc',     function() M.close_cur() end,           mode = { 'n', 'v', }, desc = 'my.window: close_cur', },
+  { '<leader>xc',      function() M.close_cur() end,           mode = { 'n', 'v', }, desc = 'my.window: close_cur', },
 
-  { '<leader>xp',     function() M.bdelete_cur_proj() end,    mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur_proj', },
-  { '<leader>xP',     function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
+  { '<leader>xp',      function() M.bdelete_cur_proj() end,    mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur_proj', },
+  { '<leader>x<c-p>',  function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
 
-  { '<leader>xop',    function() M.bdelete_other_proj() end,  mode = { 'n', 'v', }, desc = 'my.window: bdelete_other_proj', },
-  { '<leader>xoP',    function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
+  { '<leader>xop',     function() M.bdelete_other_proj() end,  mode = { 'n', 'v', }, desc = 'my.window: bdelete_other_proj', },
+  { '<leader>xo<c-p>', function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
 
-  { '<leader>x<del>', function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
-  { '<leader>x<cr>',  function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
+  { '<leader>x<del>',  function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
+  { '<leader>x<cr>',   function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
 }
 
 return M

@@ -61,6 +61,7 @@ return {
       vim.opt.laststatus    = 3
       vim.opt.statusline    = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
       vim.opt.equalalways   = false
+      vim.opt.spell         = true
     end,
   },
 
