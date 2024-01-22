@@ -1,7 +1,7 @@
 BasedOnStyle: llvm
 IndentWidth: 4
 SortIncludes: false
-ColumnLimit: 200
+ColumnLimit: 0
 AllowShortFunctionsOnASingleLine: Empty
 DerivePointerAlignment: false
 PointerAlignment: Right
@@ -44,6 +44,3 @@ AlignConsecutiveBitFields:
   AcrossEmptyLines: true
   AcrossComments: true
 ReflowComments: true
-SpacesInLineCommentPrefix:
-  Minimum: 0
-  Maximum: -1

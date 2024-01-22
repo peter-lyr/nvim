@@ -224,10 +224,12 @@ function M.init_do(git_root_dir)
     if vim.tbl_contains(lines, remote_name) == false then
       file_path:write(remote_name, 'a')
       file_path:write('\r\n.clang-format', 'a')
+      file_path:write('\r\n.clangd', 'a')
     end
   else
     file_path:write(remote_name, 'w')
     file_path:write('\r\n.clang-format', 'a')
+    file_path:write('\r\n.clangd', 'a')
   end
   B.asyncrun_prepare_add(function()
     M.addcommitpush 's1'
@@ -275,9 +277,9 @@ function M.pull_all_prepare()
     M.nvim_dir,
   }
   local repos_dirs = B.get_dirpath { B.file_parent(M.nvim_dir), 'repos', }.filename
-  local _gits = B.get_dirs_equal('.git', repos_dirs, { hidden = true, depth = 2 })
+  local _gits = B.get_dirs_equal('.git', repos_dirs, { hidden = true, depth = 2, })
   for _, dir in ipairs(_gits) do
-    M.repos_dir[#M.repos_dir+1] = B.file_parent(dir)
+    M.repos_dir[#M.repos_dir + 1] = B.file_parent(dir)
   end
 end
 
@@ -291,7 +293,7 @@ function M.pull_all()
     info = info .. dir .. '\n'
   end
   info = info .. 'total ' .. tostring(#M.repos_dir) .. ' git repos'
-  B.notify_info({'git pull_all', info})
+  B.notify_info { 'git pull_all', info, }
 end
 
 function M.reset_hard()
