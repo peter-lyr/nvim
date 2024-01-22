@@ -495,6 +495,9 @@ return {
 
       { '<c-4>',        function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
       { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
+
+      { '<leader>dj',   function() require 'config.test.nvimtree'.open_next_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_next_tree_node', },
+      { '<leader>dk',   function() require 'config.test.nvimtree'.open_prev_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_prev_tree_node', },
     },
     config = function() require 'config.test.nvimtree' end,
   },
@@ -509,7 +512,7 @@ return {
     'google/vim-searchindex',
     event = { 'BufReadPost', 'BufNewFile', },
     config = function()
-      vim.g.searchindex_line_limit = 100*10000*10000 -- 100亿
+      vim.g.searchindex_line_limit = 100 * 10000 * 10000 -- 100亿
     end,
   },
 

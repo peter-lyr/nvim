@@ -212,12 +212,12 @@ end
 B.aucmd({ 'TabEnter', }, 'test.nvimtree.TabEnter', {
   callback = function()
     local cur_nvim_tree = nil
-    if B.is_buf_fts('NvimTree') then
+    if B.is_buf_fts 'NvimTree' then
       cur_nvim_tree = 1
     end
     if M.is_nvim_tree_opened() then
       vim.cmd 'NvimTreeClose'
-      B.set_timeout(10, function ()
+      B.set_timeout(10, function()
         vim.cmd 'NvimTreeFindFile'
         if not cur_nvim_tree then
           vim.cmd 'wincmd p'
@@ -457,6 +457,20 @@ B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
     end
   end,
 })
+
+-----------
+
+function M.open_next_tree_node()
+  vim.cmd 'NvimTreeFindFile'
+  vim.cmd 'norm j'
+  vim.cmd [[call feedkeys("\<cr>")]]
+end
+
+function M.open_prev_tree_node()
+  vim.cmd 'NvimTreeFindFile'
+  vim.cmd 'norm k'
+  vim.cmd [[call feedkeys("\<cr>")]]
+end
 
 ---------
 
