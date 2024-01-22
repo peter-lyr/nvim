@@ -90,6 +90,8 @@
 > 2. C:\Users\depei_liu\AppData\Local\repos
 
 38. [ ] TODO: add start explorer to session
+39. [x] TODO: system cd, cd /d
+40. [x] TODO: git repos pulls all
 
 # NOTE
 
@@ -107,5 +109,4 @@ Host github.com
 > 1. `ssh-keygen -t ed25519 -C "llydrp.ldp@gmail.com"`
 > 2. copy id_ed25519.pub to `https://github.com/settings/keys`
 
-39. [x] TODO: system cd, cd /d
-40. [x] TODO: git repos pulls all
+1. [x] NOTE: git search *.clang-format: `path:*.clang-format`, no space in it
