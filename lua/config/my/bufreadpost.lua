@@ -3,6 +3,19 @@
 
 local M = {}
 
+vim.cmd [[
+  hi CursorLine   guifg=NONE guibg=#4a4a4a
+  hi CursorColumn guifg=NONE guibg=#4a4a4a
+  hi Comment           gui=NONE
+  hi @comment          gui=NONE
+  hi @lsp.type.comment gui=NONE
+  hi TabLine     guifg=#a4a4a4
+  hi TabLineSel  guifg=#a4a4a4
+  hi TabLineFill guifg=#a4a4a4
+  hi WinBar guifg=NONE guibg=#823767 gui=bold
+  hi WinBarNC guifg=NONE guibg=gray
+]]
+
 require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
