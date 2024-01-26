@@ -110,7 +110,7 @@ telescope.setup {
       },
     },
     preview = {
-      hide_on_startup = true,
+      hide_on_startup = false,
       check_mime_type = true,
     },
     mappings = {
