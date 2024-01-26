@@ -6,9 +6,9 @@ local M = {}
 vim.cmd [[
   hi CursorLine   guifg=NONE guibg=#4a4a4a
   hi CursorColumn guifg=NONE guibg=#4a4a4a
-  hi Comment           gui=NONE
-  hi @comment          gui=NONE
-  hi @lsp.type.comment gui=NONE
+  hi Comment      guifg=#6c7086 gui=NONE
+  hi @comment     guifg=#6c7086 gui=NONE
+  hi @lsp.type.comment guifg=#6c7086  gui=NONE
   hi TabLine     guifg=#a4a4a4
   hi TabLineSel  guifg=#a4a4a4
   hi TabLineFill guifg=#a4a4a4
