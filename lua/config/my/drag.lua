@@ -152,6 +152,7 @@ function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   -- TODO: [Done] append markdown_file image url
   B.cmd('e %s', markdown_file)
   vim.fn.append(lnr, _image_root_dir_md_url_relative)
+  vim.cmd 'norm j'
 end
 
 function M._copy_image_2_markdown_and_delete_buffer(image_file, markdown_file, lnr)
@@ -194,6 +195,7 @@ function M._copy_not_image_2_markdown(not_image_file, markdown_file, lnr)
   -- TODO: [Done] append markdown_file not_image url
   B.cmd('e %s', markdown_file)
   vim.fn.append(lnr, _not_image_root_dir_md_url_relative)
+  vim.cmd 'norm j'
 end
 
 function M._copy_not_image_2_markdown_and_delete_buffer(not_image_file, markdown_file, lnr)
