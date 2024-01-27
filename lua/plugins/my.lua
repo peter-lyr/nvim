@@ -63,6 +63,7 @@ return {
       vim.opt.equalalways   = false
       vim.opt.spell         = true
       vim.opt.spelllang     = 'en_us,cjk'
+      vim.opt.linebreak     = true
     end,
   },
 
