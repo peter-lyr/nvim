@@ -4,8 +4,8 @@
 local M = {}
 
 vim.cmd [[
-  hi CursorLine   guifg=NONE guibg=#4a4a4a
-  hi CursorColumn guifg=NONE guibg=#4a4a4a
+  hi CursorLine   guifg=NONE guibg=#64704a
+  hi CursorColumn guifg=NONE guibg=#64704a
   hi Comment      guifg=#6c7086 gui=NONE
   hi @comment     guifg=#6c7086 gui=NONE
   hi @lsp.type.comment guifg=#6c7086  gui=NONE
