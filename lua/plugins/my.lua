@@ -31,7 +31,7 @@ return {
       vim.opt.expandtab      = true
       vim.opt.cindent        = true
       vim.opt.smartindent    = true
-      vim.opt.wrap           = false
+      vim.opt.wrap           = true
       vim.opt.smartcase      = true
       vim.opt.smartindent    = true -- Insert indents automatically
       vim.opt.cursorline     = true
@@ -61,8 +61,8 @@ return {
       vim.opt.laststatus    = 3
       vim.opt.statusline    = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
       vim.opt.equalalways   = false
-      vim.opt.spell         = true
-      vim.opt.spelllang     = 'en_us,cjk'
+      -- vim.opt.spell         = true
+      -- vim.opt.spelllang     = 'en_us,cjk'
       vim.opt.linebreak     = true
     end,
   },
