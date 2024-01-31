@@ -294,6 +294,8 @@ return {
       -- go cur hili
       { '<c-s-n>', function() require 'config.my.hili'.prevcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.hili: go cur prev', },
       { '<c-s-m>', function() require 'config.my.hili'.nextcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.hili: go cur next', },
+      -- rehili
+      { '<c-s-9>', function() require 'config.my.hili'.rehili() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.hili: rehili', },
     },
     config = function()
       vim.o.updatetime = 100

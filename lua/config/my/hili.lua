@@ -193,6 +193,7 @@ function M.rehili()
       vim.fn.matchadd(hiname, content)
     end
   end
+  print 'rehili'
 end
 
 M.curcontent = ''
