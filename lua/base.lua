@@ -970,8 +970,11 @@ function M.delete_folder(folder)
   M.system_run('start silent', string.format('rd /s /q "%s"', folder))
 end
 
-function M.get_cfile()
-  return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
+function M.get_cfile(cfile)
+  if not cfile then
+    return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
+  end
+  return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', cfile))
 end
 
 function M.system_open_file(str_format, ...)
@@ -1070,6 +1073,36 @@ end
 
 function M.write_table_to_file(file, tbl)
   require 'plenary.path':new(file):write(vim.inspect(tbl), 'w')
+end
+
+function M.findall(patt, str)
+  vim.g.patt = patt
+  vim.g.str = str
+  vim.g.res = {}
+  vim.cmd [[
+    python << EOF
+import re
+import vim
+try:
+  import luadata
+except:
+  import os
+  os.sytem('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com luadata')
+  import luadata
+patt = vim.eval('g:patt')
+str = vim.eval('g:str')
+res = re.findall(patt, str)
+if res:
+  # tuple to list
+  new_res = list(res)
+  for item in new_res:
+    new_res[new_res.index(item)] = list(item)
+  # tuple to list. end
+  new_res = luadata.serialize(new_res, encoding='utf-8', indent=' ', indent_level=0)
+  vim.command(f"""lua vim.g.res = {new_res}""")
+EOF
+  ]]
+  return vim.g.res
 end
 
 return M

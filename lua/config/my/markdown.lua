@@ -52,8 +52,22 @@ end
 
 function M.copy_cfile_clip()
   local cfile = B.get_cfile()
+  local name = ''
+  if not B.is(cfile) then
+    cfile = ''
+    local res = B.findall('\\[(.*)\\]\\((.+)\\)', vim.fn.getline '.')
+    if res then
+      for _, i in ipairs(res) do
+        name = i[1]
+        cfile = B.get_cfile(i[2])
+        break
+      end
+    end
+  end
   if B.is(cfile) and B.file_exists(cfile) then
-    local name = string.match(vim.fn.getline '.', '%[(.+)%]%(')
+    if not B.is(name) then
+      name = string.match(vim.fn.getline '.', '%[(.+)%]%(')
+    end
     if name then
       local ext = string.match(cfile, '%.([^.]+)$')
       local rename_file = name .. '.' .. ext
