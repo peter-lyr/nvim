@@ -365,9 +365,13 @@ function SwitchBuffer(bufnr, mouseclicks, mousebutton, modifiers)
 end
 
 function SwitchTab(tabnr, mouseclicks, mousebutton, modifiers)
+  -- B.print("SwitchTab: tabnr: [%s], mouseclicks: [%s], mousebutton: [%s], modifiers: [%s]", tostring(tabnr), tostring(mouseclicks), tostring(mousebutton), tostring(modifiers))
   if mousebutton == 'm' then -- and mouseclicks == 1 then
     pcall(vim.cmd, tabnr .. 'tabclose')
     M.update_bufs_and_refresh_tabline()
+  elseif mousebutton == 'l' and string.sub(modifiers, 2, 2) == 'c' then
+    M.bwipeout_tab(tabnr)
+    pcall(vim.cmd, tabnr .. 'tabclose')
   elseif mousebutton == 'l' then -- and mouseclicks == 1 then
     vim.cmd(tabnr .. 'tabnext')
     pcall(vim.call, 'ProjectRootCD')
@@ -380,6 +384,9 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
   if mousebutton == 'm' then -- and mouseclicks == 1 then
     pcall(vim.cmd, tabnr .. 'tabclose')
     M.update_bufs_and_refresh_tabline()
+  elseif mousebutton == 'l' and string.sub(modifiers, 2, 2) == 'c' then
+    M.bwipeout_tab(tabnr)
+    pcall(vim.cmd, tabnr .. 'tabclose')
   elseif mousebutton == 'l' then -- and mouseclicks == 1 then
     local max_tabnr = vim.fn.tabpagenr '$'
     if tabnr < max_tabnr then
@@ -402,6 +409,16 @@ end
 -- end
 
 ---------------------
+
+function M.bwipeout_tab(tabnr)
+  local buf = vim.fn.winbufnr(vim.fn.win_getid(vim.fn.tabpagewinnr(tabnr), tabnr))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(buf)))
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
+      pcall(vim.cmd, 'Bwipeout! ' .. tostring(bufnr))
+    end
+  end
+end
 
 function M.is_buf_to_show(buf)
   local file = B.rep_slash_lower(vim.api.nvim_buf_get_name(buf))
