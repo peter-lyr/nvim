@@ -255,7 +255,7 @@ return {
       { '<c-=>',               function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
       { '<c-ScrollWheelDown>', function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
       { '<c-ScrollWheelUp>',   function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
-      { '<c-MiddleMouse>',     function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
+      { '<c-RightMouse>',      function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
     },
     init = function()
       vim.api.nvim_create_autocmd('VimLeave', {
