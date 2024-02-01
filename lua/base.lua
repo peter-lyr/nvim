@@ -1090,15 +1090,10 @@ except:
   os.sytem('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com luadata')
   import luadata
 patt = vim.eval('g:patt')
-str = vim.eval('g:str')
-res = re.findall(patt, str)
+string = vim.eval('g:str')
+res = re.findall(patt, string)
 if res:
-  # tuple to list
-  new_res = list(map(list, res))
-  # new_res = list(res)
-  # for item in new_res:
-  #   new_res[new_res.index(item)] = list(item)
-  # tuple to list. end
+  new_res = eval(str(res).replace('(', '[').replace(')', ']'))
   new_res = luadata.serialize(new_res, encoding='utf-8', indent=' ', indent_level=0)
   vim.command(f"""lua vim.g.res = {new_res}""")
 EOF
