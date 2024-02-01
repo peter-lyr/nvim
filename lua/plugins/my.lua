@@ -359,7 +359,7 @@ return {
       { '<a-o>',   function() require 'config.my.markdown'.system_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-i>',   function() require 'config.my.markdown'.buffer_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-u>',   function() require 'config.my.markdown'.make_url() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url', },
-      { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_clip', },
+      { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_path_clip', },
       { '<c-s-y>', function() require 'config.my.markdown'.copy_cfile_clip() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_clip', },
     },
     init = function()

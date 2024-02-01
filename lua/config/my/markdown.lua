@@ -53,9 +53,18 @@ end
 function M.copy_cfile_clip()
   local cfile = B.get_cfile()
   if B.is(cfile) and B.file_exists(cfile) then
-    local copy2clip_exe = require 'config.test.nvimtree'.copy2clip_exe
-    B.system_run('start silent', '%s "%s"', copy2clip_exe, cfile)
-    B.notify_info(cfile .. ' copied')
+    local name = string.match(vim.fn.getline '.', '%[(.+)%]%(')
+    if name then
+      local ext = string.match(cfile, '%.([^.]+)$')
+      local rename_file = name .. '.' .. ext
+      local newfile = B.get_filepath(B.windows_temp, rename_file)
+      local copy2clip_exe = require 'config.test.nvimtree'.copy2clip_exe
+      B.system_run('start silent', 'copy /y "%s" "%s" && %s "%s"', B.rep_slash(cfile), newfile, copy2clip_exe, newfile)
+      B.notify_info(newfile .. ' copied')
+    else
+      B.system_run('start silent', '%s "%s"', copy2clip_exe, cfile)
+      B.notify_info(cfile .. ' copied')
+    end
   end
 end
 
