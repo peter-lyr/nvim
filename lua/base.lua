@@ -1094,9 +1094,10 @@ str = vim.eval('g:str')
 res = re.findall(patt, str)
 if res:
   # tuple to list
-  new_res = list(res)
-  for item in new_res:
-    new_res[new_res.index(item)] = list(item)
+  new_res = list(map(list, res))
+  # new_res = list(res)
+  # for item in new_res:
+  #   new_res[new_res.index(item)] = list(item)
   # tuple to list. end
   new_res = luadata.serialize(new_res, encoding='utf-8', indent=' ', indent_level=0)
   vim.command(f"""lua vim.g.res = {new_res}""")
