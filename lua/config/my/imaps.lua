@@ -123,7 +123,8 @@ B.lazy_map {
   { '<esc>',   '<c-\\><c-n>',                          mode = { 't', },           desc = 'my.insertenter: esc', },
 
   -- cr
-  { '<c-;>',   '<cr>',                                 mode = { 'c', 'i', },      desc = 'my.insertenter: cr', },
+  { '<c-;>',   '<cr>',                                 mode = { 'c', },           desc = 'my.insertenter: cr', },
+  { '<c-;>',   '<esc>o',                               mode = { 'i', },           desc = 'my.insertenter: cr', },
 }
 
 B.lazy_map {
