@@ -35,7 +35,7 @@ end
 function M._change_font_size(name, size)
   local cmd = 'GuiFont! ' .. name .. size
   vim.cmd(cmd)
-  B.set_timeout(100, function() print(cmd) end)
+  B.set_timeout(100, function() B.notify_info(cmd) end)
   local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
   if B.is(root_dir) then
     M.projs_diff_font_size[root_dir] = size
