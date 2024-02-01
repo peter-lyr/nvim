@@ -199,6 +199,14 @@ function M.git_init_and_cmake()
   end)
 end
 
+function M.qfmakeconv2utf8()
+  B.qfmakeconv('cp936', 'utf-8')
+end
+
+function M.qfmakeconv2cp936()
+  B.qfmakeconv('utf-8', 'cp936')
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader><c-3>')
 
@@ -228,6 +236,8 @@ B.lazy_map {
   { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
   { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
   { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
+  { '<leader><c-3>qu',        function() M.qfmakeconv2utf8() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
+  { '<leader><c-3>q9',        function() M.qfmakeconv2cp936() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
 }
 
 return M

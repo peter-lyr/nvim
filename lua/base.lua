@@ -273,14 +273,25 @@ function M.notify_error_append(message)
   })
 end
 
+function M.qfmakeconv(from, to)
+  local qflist = vim.deepcopy(M.qflist)
+  for _, i in ipairs(qflist) do
+    i.text = vim.fn.iconv(i.text, from, to)
+  end
+  if qflist then
+    vim.fn.setqflist(qflist)
+  end
+end
+
 function M.notify_qflist()
   local lines = {}
   local chcp_en = M.is_in_str('65001', vim.fn.system 'chcp')
-  for _, i in ipairs(vim.fn.getqflist()) do
-    if not chcp_en then
+  local qflist = vim.deepcopy(M.qflist)
+  for _, i in ipairs(qflist) do
+    if chcp_en then
       i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
     end
-    lines[#lines + 1] = i['text']
+    lines[#lines + 1] = i.text
   end
   if qflist then
     vim.fn.setqflist(qflist)
@@ -296,6 +307,7 @@ end
 M.asyncrun_done_changed = nil
 
 function M.asyncrun_done_default()
+  M.qflist = vim.fn.getqflist()
   M.notify_qflist()
   M.refresh_fugitive()
   vim.cmd 'au! User AsyncRunStop'
@@ -1073,6 +1085,10 @@ end
 
 function M.write_table_to_file(file, tbl)
   require 'plenary.path':new(file):write(vim.inspect(tbl), 'w')
+end
+
+function M.append_line_to_file(file, line)
+  require 'plenary.path':new(file):write(vim.fn.trim(line) .. '\n', 'a')
 end
 
 function M.findall(patt, str)
