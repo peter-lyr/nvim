@@ -9,11 +9,11 @@ vim.cmd [[
   hi Comment      guifg=#6c7086 gui=NONE
   hi @comment     guifg=#6c7086 gui=NONE
   hi @lsp.type.comment guifg=#6c7086  gui=NONE
-  hi TabLine     guifg=#a4a4a4
-  hi TabLineSel  guifg=#a4a4a4
-  hi TabLineFill guifg=#a4a4a4
-  hi WinBar guifg=NONE guibg=#823767 gui=bold
-  hi WinBarNC guifg=NONE guibg=gray
+  hi TabLine     guibg=NONE guifg=#a4a4a4
+  hi TabLineSel  guibg=NONE guifg=#a4a4a4
+  hi TabLineFill guibg=NONE guifg=#a4a4a4
+  hi WinBar      guibg=NONE guifg=#dddddd gui=bold
+  hi WinBarNC    guibg=NONE guifg=#808080 gui=bold
 ]]
 
 require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
