@@ -171,7 +171,7 @@ return {
       -- git.lazy
       { '<leader>gl',   function() require 'config.my.git'.lazygit() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
 
-      { '<a-cr>',       function() require 'config.my.git'.quickfix_toggle() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: quickfix_toggle', },
+      { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: quickfix_toggle', },
 
       --
       { '<c-;>',        require 'base'.all_commands,                                  mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
