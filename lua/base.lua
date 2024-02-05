@@ -988,9 +988,17 @@ end
 
 function M.get_cfile(cfile)
   if not cfile then
-    return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
+    cfile = M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
+    if M.is(cfile) then
+      return cfile
+    end
+    return M.normpath(M.format('%s\\%s', vim.loop.cwd(), vim.fn.expand '<cfile>'))
   end
-  return M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', cfile))
+  cfile = M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', cfile))
+  if M.is(cfile) then
+    return cfile
+  end
+  return M.normpath(M.format('%s\\%s', vim.loop.cwd(), cfile))
 end
 
 function M.system_open_file(str_format, ...)
