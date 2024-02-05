@@ -268,16 +268,12 @@ function M.pull()
   B.system_run('asyncrun', 'git pull')
 end
 
-M.nvim_dir = vim.fn.stdpath 'config'
 M.pull_all_prepared = nil
 
 function M.pull_all_prepare()
   M.pull_all_prepared = 1
-  M.repos_dir = {
-    M.nvim_dir,
-  }
-  local repos_dirs = B.get_dirpath { B.file_parent(M.nvim_dir), 'repos', }.filename
-  local _gits = B.get_dirs_equal('.git', repos_dirs, { hidden = true, depth = 2, })
+  M.repos_dir = { B.nvim_dir, }
+  local _gits = B.get_dirs_equal('.git', B.repos_dir, { hidden = true, depth = 2, })
   for _, dir in ipairs(_gits) do
     M.repos_dir[#M.repos_dir + 1] = B.file_parent(dir)
   end
@@ -361,7 +357,7 @@ end
 
 function M.clone()
   local dirs = B.merge_tables(
-    B.my_dirs,
+    B.get_my_dirs(),
     B.get_file_dirs(B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
   )
   B.ui_sel(dirs, 'git clone sel a dir', function(proj)

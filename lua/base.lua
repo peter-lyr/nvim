@@ -713,21 +713,25 @@ function M.get_dict_count(tbl)
 end
 
 M.depei = vim.fn.expand [[$HOME]] .. '\\DEPEI'
+M.nvim_dir = vim.fn.stdpath 'config'
 
 if vim.fn.isdirectory(M.depei) == 0 then vim.fn.mkdir(M.depei) end
 
-M.my_dirs = {
-  M.rep_backslash_lower(M.depei),
-  M.rep_backslash_lower(vim.fn.expand [[$HOME]]),
-  M.rep_backslash_lower(vim.fn.expand [[$TEMP]]),
-  M.rep_backslash_lower(vim.fn.expand [[$LOCALAPPDATA]]),
-  M.rep_backslash_lower(vim.fn.stdpath 'config'),
-  M.rep_backslash_lower(vim.fn.stdpath 'data'),
-  M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
-}
+function M.get_repos_dir()
+  return M.get_dirpath { M.file_parent(M.nvim_dir), 'repos', }.filename
+end
 
 function M.get_my_dirs()
-  return M.my_dirs
+  return {
+    M.rep_backslash_lower(M.depei),
+    M.get_repos_dir(),
+    M.rep_backslash_lower(vim.fn.expand [[$HOME]]),
+    M.rep_backslash_lower(vim.fn.expand [[$TEMP]]),
+    M.rep_backslash_lower(vim.fn.expand [[$LOCALAPPDATA]]),
+    M.rep_backslash_lower(vim.fn.stdpath 'config'),
+    M.rep_backslash_lower(vim.fn.stdpath 'data'),
+    M.rep_backslash_lower(vim.fn.expand [[$VIMRUNTIME]]),
+  }
 end
 
 -----------
