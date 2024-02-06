@@ -92,7 +92,17 @@ return {
     name = 'my.vimleavepre',
     dir = '',
     event = 'VimLeavePre',
-    config = function() vim.fn['GuiWindowFrameless'](0) end,
+    config = function()
+      -- if vim.g.GuiWindowFullScreen == 1 then
+      vim.fn['GuiWindowFullScreen'](0)
+      -- end
+      -- if vim.g.GuiWindowMaximized == 1 then
+      vim.fn['GuiWindowMaximized'](0)
+      -- end
+      -- if vim.g.GuiWindowFrameless == 1 then
+      vim.fn['GuiWindowFrameless'](0)
+      -- end
+    end,
   },
 
   -- my.bufreadpost
