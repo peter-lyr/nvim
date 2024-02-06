@@ -13,7 +13,7 @@ end
 lazy_map {
   -- cmdline
   { '<leader>;',           ':',                   mode = { 'n', 'v', }, silent = false, desc = 'my.maps: cmdline', },
-  { '<leader>:',           ':lua ',               mode = { 'n', 'v', }, silent = false, desc = 'my.maps: cmdline, lua', },
+  { "<leader>'",           ':lua ',               mode = { 'n', 'v', }, silent = false, desc = 'my.maps: cmdline, lua', },
   -- record
   { 'q',                   '<cmd>WhichKey q<cr>', mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: <nop>', },
   { 'Q',                   'q',                   mode = { 'n', 'v', }, silent = true,  desc = 'my.maps: q', },
