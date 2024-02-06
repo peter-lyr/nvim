@@ -754,10 +754,6 @@ function M.fugitive_toggle()
   end
 end
 
-B.lazy_map {
-  { '<c-bs>', M.fugitive_toggle, mode = { 'n', 'v', }, silent = true, desc = 'fugitive_toggle', },
-}
-
 -- qf
 M.quickfix_winid = 0
 

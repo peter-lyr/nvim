@@ -367,7 +367,7 @@ return {
     keys = {
       { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
       {
-        '<c-\\>',
+        '<c-bs>',
         function()
           require 'mini.map'.toggle()
           vim.cmd 'Lazy load aerial.nvim'

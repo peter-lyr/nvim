@@ -168,6 +168,9 @@ return {
       -- git.diffview
       { '<leader>gv',   function() require 'config.my.git' end,                       mode = { 'n', 'v', }, silent = true, desc = '---my.git.diffview---', },
 
+      -- fugitive_toggle
+      { '<c-\\>',       function() require 'config.my.git'.fugitive_toggle() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.fugitive: toggle', },
+
       -- git.lazy
       { '<leader>gl',   function() require 'config.my.git'.lazygit() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
 
