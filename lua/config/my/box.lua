@@ -141,13 +141,13 @@ function M.get_target_path(lnk_file)
   vim.cmd [[
     python << EOF
 try:
-    import pythoncom
-    import pywintypes
+  import pythoncom
+  import pywintypes
 except:
-    import os
-    os.system('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com pywin32 pywintypes')
-    import pythoncom
-    import pywintypes
+  import os
+  os.system('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com pywin32 pywintypes')
+  import pythoncom
+  import pywintypes
 from win32com.client import Dispatch
 lnk_file = vim.eval('g:lnk_file')
 pythoncom.CoInitialize()
