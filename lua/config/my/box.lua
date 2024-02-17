@@ -149,6 +149,9 @@ EOF
   return vim.g.target_path
 end
 
+M.programs_files_dir_path = B.getcreate_stddata_dirpath 'programs-files'
+M.programs_files_txt_path = M.programs_files_dir_path:joinpath 'programs-files.txt'
+
 function M.get_programs_files_uniq()
   local programs_files = B.get_programs_files()
   local programs_files_uniq = vim.deepcopy(programs_files)
@@ -158,11 +161,12 @@ function M.get_programs_files_uniq()
       programs_files_uniq[#programs_files_uniq + 1] = programs_file
     end
   end
+  B.write_table_to_file(M.programs_files_txt_path.filename, programs_files_uniq)
   return programs_files_uniq
 end
 
 function M.sel_open_programs_file()
-  local programs_files_uniq = M.get_programs_files_uniq()
+  local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
   B.ui_sel(programs_files_uniq, 'sel_open_programs_file', function(programs_file)
     if programs_file then
       B.system_open_file_silent(programs_file)
@@ -170,9 +174,28 @@ function M.sel_open_programs_file()
   end)
 end
 
-function M.sel_kill_programs_file()
+function M.sel_open_programs_file_force()
   local programs_files_uniq = M.get_programs_files_uniq()
+  B.ui_sel(programs_files_uniq, 'sel_open_programs_file_force', function(programs_file)
+    if programs_file then
+      B.system_open_file_silent(programs_file)
+    end
+  end)
+end
+
+function M.sel_kill_programs_file()
+  local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
   B.ui_sel(programs_files_uniq, 'sel_kill_programs_file', function(programs_file)
+    if programs_file then
+      local target_temp = M.get_target_path(programs_file)
+      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(target_temp and target_temp or programs_file, ':p:t:r'))
+    end
+  end)
+end
+
+function M.sel_kill_programs_file_force()
+  local programs_files_uniq = M.get_programs_files_uniq()
+  B.ui_sel(programs_files_uniq, 'sel_kill_programs_file_force', function(programs_file)
     if programs_file then
       local target_temp = M.get_target_path(programs_file)
       B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(target_temp and target_temp or programs_file, ':p:t:r'))
@@ -264,26 +287,28 @@ require 'which-key'.register { ['<leader><c-3>s'] = { name = 'my.box.sel/nvim-qt
 require 'which-key'.register { ['<leader><c-3>g'] = { name = 'my.box.git', }, }
 
 B.lazy_map {
-  { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
-  { '<leader><c-3>s<leader>', function() M.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
-  { '<leader><c-3>sq',        function() M.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
-  { '<leader><c-3><c-s>',     function() M.source() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
-  { '<leader><c-3>e',         function() M.type_execute_output() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>',     function() M.sel_open_temp() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
-  { '<leader><c-3><c-w>',     function() M.sel_write_to_temp() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
-  { '<leader><c-3><c-s-e>',   function() M.mes_clear() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
-  { '<leader><c-3>op',        function() M.open_path() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
-  { '<leader><c-3>os',        function() M.open_sound() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
-  { '<leader><c-3>m1',        function() M.monitor_1min() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
-  { '<leader><c-3>m3',        function() M.monitor_30min() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
-  { '<leader><c-3>po',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
-  { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
-  { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
-  { '<leader><c-3>s[',        function() M.sel_kill_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
-  { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
-  { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
-  { '<leader><c-3>q8',        function() M.qfmakeconv2utf8() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
-  { '<leader><c-3>q9',        function() M.qfmakeconv2cp936() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
+  { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
+  { '<leader><c-3>s<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
+  { '<leader><c-3>sq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
+  { '<leader><c-3><c-s>',     function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
+  { '<leader><c-3>e',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader><c-3><c-e>',     function() M.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
+  { '<leader><c-3><c-w>',     function() M.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
+  { '<leader><c-3><c-s-e>',   function() M.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
+  { '<leader><c-3>op',        function() M.open_path() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
+  { '<leader><c-3>os',        function() M.open_sound() end,                   mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
+  { '<leader><c-3>m1',        function() M.monitor_1min() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
+  { '<leader><c-3>m3',        function() M.monitor_30min() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
+  { '<leader><c-3>po',        function() M.proxy_on() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
+  { '<leader><c-3>pf',        function() M.proxy_off() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
+  { '<leader><c-3>sp',        function() M.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
+  { '<leader><c-3>sP',        function() M.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file_force', },
+  { '<leader><c-3>s[',        function() M.sel_kill_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
+  { '<leader><c-3>s{',        function() M.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file_force', },
+  { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
+  { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
+  { '<leader><c-3>q8',        function() M.qfmakeconv2utf8() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
+  { '<leader><c-3>q9',        function() M.qfmakeconv2cp936() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
 }
 
 return M
