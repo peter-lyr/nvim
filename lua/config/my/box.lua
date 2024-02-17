@@ -174,12 +174,8 @@ function M.sel_kill_programs_file()
   local programs_files_uniq = M.get_programs_files_uniq()
   B.ui_sel(programs_files_uniq, 'sel_kill_programs_file', function(programs_file)
     if programs_file then
-      local programs_file_ = M.get_target_path(programs_file)
-      if programs_file_ then
-        B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(programs_file_, ':p:t:r'))
-      else
-        B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(programs_file, ':p:t:r'))
-      end
+      local target_temp = M.get_target_path(programs_file)
+      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(target_temp and target_temp or programs_file, ':p:t:r'))
     end
   end)
 end
