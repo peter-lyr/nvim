@@ -126,18 +126,9 @@ function M.open_path() B.system_run('start silent', 'start rundll32 sysdm.cpl,Ed
 
 function M.open_sound() B.system_run('start silent', 'mmsys.cpl') end
 
-function M.sel_open_programs_file()
-  local programs_files = B.get_programs_files()
-  B.ui_sel(programs_files, 'sel_open_programs_file', function(programs_file)
-    if programs_file then
-      B.system_open_file_silent(programs_file)
-    end
-  end)
-end
-
 function M.get_target_path(lnk_file)
   vim.g.lnk_file = lnk_file
-  vim.g.target_path = ''
+  vim.g.target_path = nil
   vim.cmd [[
     python << EOF
 try:
@@ -155,14 +146,40 @@ target_path = shortcut.TargetPath
 vim.command(f"""let g:target_path = '{target_path}'""")
 EOF
   ]]
-    return vim.g.target_path
+  return vim.g.target_path
+end
+
+function M.get_programs_files_uniq()
+  local programs_files = B.get_programs_files()
+  local programs_files_uniq = vim.deepcopy(programs_files)
+  for _, programs_file in pairs(programs_files) do
+    programs_file = M.get_target_path(programs_file)
+    if not B.is_in_tbl(programs_file, programs_files_uniq) then
+      programs_files_uniq[#programs_files_uniq + 1] = programs_file
+    end
+  end
+  return programs_files_uniq
+end
+
+function M.sel_open_programs_file()
+  local programs_files_uniq = M.get_programs_files_uniq()
+  B.ui_sel(programs_files_uniq, 'sel_open_programs_file', function(programs_file)
+    if programs_file then
+      B.system_open_file_silent(programs_file)
+    end
+  end)
 end
 
 function M.sel_kill_programs_file()
-  local programs_files = B.get_programs_files()
-  B.ui_sel(programs_files, 'sel_kill_programs_file', function(programs_file)
+  local programs_files_uniq = M.get_programs_files_uniq()
+  B.ui_sel(programs_files_uniq, 'sel_kill_programs_file', function(programs_file)
     if programs_file then
-      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(M.get_target_path(programs_file), ':p:t:r'))
+      local programs_file_ = M.get_target_path(programs_file)
+      if programs_file_ then
+        B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(programs_file_, ':p:t:r'))
+      else
+        B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(programs_file, ':p:t:r'))
+      end
     end
   end)
 end
