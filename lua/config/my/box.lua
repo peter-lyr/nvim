@@ -135,6 +135,40 @@ function M.sel_open_programs_file()
   end)
 end
 
+function M.get_target_path(lnk_file)
+  vim.g.lnk_file = lnk_file
+  vim.g.target_path = ''
+  vim.cmd [[
+    python << EOF
+try:
+    import pythoncom
+    import pywintypes
+except:
+    import os
+    os.system('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com pywin32 pywintypes')
+    import pythoncom
+    import pywintypes
+from win32com.client import Dispatch
+lnk_file = vim.eval('g:lnk_file')
+pythoncom.CoInitialize()
+shell = Dispatch("WScript.Shell")
+shortcut = shell.CreateShortCut(lnk_file)
+target_path = shortcut.TargetPath
+vim.command(f"""let g:target_path = '{target_path}'""")
+EOF
+  ]]
+    return vim.g.target_path
+end
+
+function M.sel_kill_programs_file()
+  local programs_files = B.get_programs_files()
+  B.ui_sel(programs_files, 'sel_kill_programs_file', function(programs_file)
+    if programs_file then
+      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(M.get_target_path(programs_file), ':p:t:r'))
+    end
+  end)
+end
+
 function M.sel_open_startup_file()
   local startup_files = B.get_startup_files()
   B.ui_sel(startup_files, 'sel_open_startup_file', function(startup_file)
@@ -234,6 +268,7 @@ B.lazy_map {
   { '<leader><c-3>po',        function() M.proxy_on() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
   { '<leader><c-3>pf',        function() M.proxy_off() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
   { '<leader><c-3>sp',        function() M.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
+  { '<leader><c-3>s[',        function() M.sel_kill_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
   { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
   { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
   { '<leader><c-3>q8',        function() M.qfmakeconv2utf8() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
