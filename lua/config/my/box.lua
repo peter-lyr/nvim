@@ -128,7 +128,7 @@ function M.open_sound() B.system_run('start silent', 'mmsys.cpl') end
 
 function M.get_target_path(lnk_file)
   local ext = string.match(lnk_file, '%.([^.]+)$')
-  if not B.is(vim.tbl_contains({'url', 'lnk'}, ext)) then
+  if not B.is(vim.tbl_contains({ 'url', 'lnk', }, ext)) then
     return lnk_file
   end
   vim.g.lnk_file = lnk_file
