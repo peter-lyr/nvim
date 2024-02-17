@@ -1086,13 +1086,16 @@ end
 function M.read_table_from_file(file)
   file = require 'plenary.path':new(file)
   if not file:exists() then
-    return {}
+    return nil
   end
   local res = file:read()
   if #res > 0 then
-    return loadstring('return ' .. res)()
+    res = loadstring('return ' .. res)()
+    if res then
+      return res
+    end
   end
-  return {}
+  return nil
 end
 
 function M.write_table_to_file(file, tbl)

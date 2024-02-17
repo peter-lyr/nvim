@@ -167,6 +167,10 @@ end
 
 function M.sel_open_programs_file()
   local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
+  if not B.is(programs_files_uniq) then
+    M.sel_open_programs_file_force()
+    return
+  end
   B.ui_sel(programs_files_uniq, 'sel_open_programs_file', function(programs_file)
     if programs_file then
       B.system_open_file_silent(programs_file)
@@ -185,6 +189,10 @@ end
 
 function M.sel_kill_programs_file()
   local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
+  if not B.is(programs_files_uniq) then
+    M.sel_kill_programs_file_force()
+    return
+  end
   B.ui_sel(programs_files_uniq, 'sel_kill_programs_file', function(programs_file)
     if programs_file then
       local target_temp = M.get_target_path(programs_file)
