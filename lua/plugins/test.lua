@@ -516,4 +516,13 @@ return {
     end,
   },
 
+  -- input method switcher
+  {
+    'Neur1n/neuims',
+    lazy = false,
+    config = function()
+      vim.cmd 'IMSToggle'
+    end,
+  },
+
 }
