@@ -518,10 +518,13 @@ return {
 
   -- input method switcher
   {
-    'Neur1n/neuims',
+    'Neur1n/neuims', -- 需要注意,设置-语言需要有中文和英语两种语言
     lazy = false,
     config = function()
-      vim.cmd 'IMSToggle'
+      vim.cmd [[
+        IMSToggle
+        nnoremap <silent> <leader><c-t> :call neuims#Switch(0)<CR>
+      ]]
     end,
   },
 
