@@ -112,6 +112,11 @@ function M.monitor_30min()
   B.notify_info 'monitor_30min'
 end
 
+function M.monitor_5hours()
+  B.system_run('start silent', 'powercfg -x -monitor-timeout-ac 300')
+  B.notify_info 'monitor_5hours'
+end
+
 function M.proxy_on()
   B.system_run('start silent', [[reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f]])
   B.notify_info 'proxy_on'
@@ -311,6 +316,7 @@ B.lazy_map {
   { '<leader><c-3>os',        function() M.open_sound() end,                   mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
   { '<leader><c-3>m1',        function() M.monitor_1min() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
   { '<leader><c-3>m3',        function() M.monitor_30min() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
+  { '<leader><c-3>m5',        function() M.monitor_5hours() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_5hours', },
   { '<leader><c-3>po',        function() M.proxy_on() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
   { '<leader><c-3>pf',        function() M.proxy_off() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
   { '<leader><c-3>sp',        function() M.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
