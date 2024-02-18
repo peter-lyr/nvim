@@ -518,7 +518,7 @@ return {
 
   -- input method switcher
   {
-    'Neur1n/neuims', -- 需要注意,设置-语言需要有中文和英语两种语言
+    'peter-lyr/neuims', -- 需要注意,设置-语言需要有中文和英语两种语言
     lazy = false,
     config = function()
       vim.cmd [[
