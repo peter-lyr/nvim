@@ -128,6 +128,10 @@ B.lazy_map {
 }
 
 B.lazy_map {
+  { "<c-'>", '<esc>a<c-r>=getline(line(".")-1)<CR><esc>0<c-a>WC', mode = { 'i', }, desc = 'my.insertenter: up line', },
+}
+
+B.lazy_map {
   { '<ScrollWheelUp>',   '<UP>',   mode = { 't', }, desc = 'my.insertenter: up', },
   { '<ScrollWheelDown>', '<DOWN>', mode = { 't', }, desc = 'my.insertenter: down', },
 }
