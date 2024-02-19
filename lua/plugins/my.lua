@@ -439,4 +439,14 @@ return {
     },
   },
 
+  -- my.neuims
+  {
+    name = 'my.neuims',
+    dir = '',
+    lazy = false,
+    config = function()
+      require 'config.my.neuims'
+    end,
+  },
+
 }

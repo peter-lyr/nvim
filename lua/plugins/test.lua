@@ -516,16 +516,4 @@ return {
     end,
   },
 
-  -- input method switcher
-  {
-    'peter-lyr/neuims', -- 需要注意,设置-语言需要有中文和英语两种语言
-    lazy = false,
-    config = function()
-      vim.cmd [[
-        IMSToggle
-        nnoremap <silent> <leader><c-t> :call neuims#Switch(0)<CR>
-      ]]
-    end,
-  },
-
 }
