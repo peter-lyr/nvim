@@ -54,6 +54,7 @@ vim.cmd [[
 cab xpx sort
 cab xqc g/^\(.*\)$\n\1$/d
 cab xpq sort\|g/^\(.*\)$\n\1$/d
+iab tm <c-r>=strftime('%Hh%Mm')<cr>
 ]]
 
 vim.cmd [[
