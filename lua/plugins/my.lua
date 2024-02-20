@@ -444,7 +444,7 @@ return {
   {
     name = 'my.neuims',
     dir = '',
-    lazy = false,
+    event = { 'BufReadPost', 'BufNewFile', },
     config = function()
       require 'config.my.neuims'
     end,
