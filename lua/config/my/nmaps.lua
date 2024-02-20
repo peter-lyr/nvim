@@ -54,7 +54,10 @@ vim.cmd [[
 cab xpx sort
 cab xqc g/^\(.*\)$\n\1$/d
 cab xpq sort\|g/^\(.*\)$\n\1$/d
-iab tm <c-r>=strftime('%Hh%Mm')<cr>
+iab xti <c-r>=strftime('%Hh%Mm')<cr>
+cab xti <c-r>=strftime('%H%M%S')<cr>
+cab xda <c-r>=strftime('%Y%m%d')<cr>
+cab xdt <c-r>=strftime('%Y%m%d-%H%M%S')<cr>
 ]]
 
 vim.cmd [[
