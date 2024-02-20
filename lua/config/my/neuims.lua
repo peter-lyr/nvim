@@ -5,34 +5,45 @@ local M = {}
 
 local B = require 'base'
 
-M.source = B.getsource(debug.getinfo(1)['source'])
-M.lua = B.getlua(M.source)
-
-local win_ims_exe = B.get_filepath(B.getcreate_dir(M.source .. '.exe'), 'win_ims.exe').filename
+function M.change_language(lang)
+  vim.g.lang = lang
+  vim.cmd [[
+    python << EOF
+import win32api
+import win32gui
+from win32con import WM_INPUTLANGCHANGEREQUEST
+LANG = {
+  "ZH": 0x0804,
+  "EN": 0x0409
+}
+hwnd = win32gui.GetForegroundWindow()
+language = LANG[vim.eval('g:lang')]
+result = win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, language)
+vim.command(f'let g:res = {result}')
+EOF
+  ]]
+  if vim.g.res ~= 0 then
+    B.notify_error 'change language error'
+  end
+end
 
 B.aucmd({ 'InsertEnter', }, 'my.neuims.InsertEnter', {
   callback = function(ev)
-    -- local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
-    local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
-    if buftype == 'prompt' then
-      return
-    end
-    B.system_run('start silent', '%s 1', win_ims_exe)
-    -- local info = string.format('%s 1 [%s] %s, %s', win_ims_exe, vim.fn.bufname(ev.buf), filetype, buftype)
-    -- B.notify_info_append(info)
+    -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
+    -- if buftype == 'prompt' then
+    --   return
+    -- end
+    M.change_language 'ZH'
   end,
 })
 
 B.aucmd({ 'InsertLeave', }, 'my.neuims.InsertLeave', {
   callback = function(ev)
-    -- local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
-    local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
-    if buftype == 'prompt' then
-      return
-    end
-    B.system_run('start silent', '%s 0', win_ims_exe)
-    -- local info = string.format('%s 0 [%s] %s, %s', win_ims_exe, vim.fn.bufname(ev.buf), filetype, buftype)
-    -- B.notify_info_append(info)
+    -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
+    -- if buftype == 'prompt' then
+    --   return
+    -- end
+    M.change_language 'EN'
   end,
 })
 
