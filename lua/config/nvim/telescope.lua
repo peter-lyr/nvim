@@ -1,7 +1,8 @@
 local M = {}
 
-local action_set = require 'telescope.actions.set'
 local B = require 'base'
+
+M.source = B.getsource(debug.getinfo(1)['source'])
 
 -- telescope
 local telescope = require 'telescope'
@@ -230,7 +231,11 @@ telescope.setup {
         ['<MiddleMouse>'] = actions.close,
       },
     },
-    file_ignore_patterns = {}, -- { '%.svn', 'obj', },
+    file_ignore_patterns = {
+      '%.svn',
+      '%.bak',
+      'obj',
+    },
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -542,6 +547,12 @@ function M.terminal_powershell()
   end)
 end
 
+function M.open_telescope_lua()
+  B.cmd('e %s', M.source)
+  vim.cmd('norm gg')
+  vim.fn.search('file_ignore_patterns')
+end
+
 function M.nop() end
 
 -- mappings
@@ -601,6 +612,8 @@ B.lazy_map {
   { '<leader>sti',       function() M.terminal_ipython() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: ipython', },
   { '<leader>stb',       function() M.terminal_bash() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
   { '<leader>stp',       function() M.terminal_powershell() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
+  -- open telescope.lua
+  { '<leader>sO',       function() M.open_telescope_lua() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: open telescope.lua', },
 }
 
 B.aucmd({ 'BufEnter', }, 'nvim.telescope.BufEnter', {
