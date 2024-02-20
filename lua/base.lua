@@ -289,7 +289,7 @@ function M.notify_qflist()
   local qflist = vim.deepcopy(M.qflist)
   for _, i in ipairs(qflist) do
     if chcp_en then
-      i.text = vim.fn.iconv(i.text, 'utf-8', 'cp936')
+      i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
     end
     lines[#lines + 1] = i.text
   end
