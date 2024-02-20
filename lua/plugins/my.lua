@@ -20,6 +20,7 @@ return {
       { '<leader>wa', '<c-w>h',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window left', },
       { '<leader>wd', '<c-w>l',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window right', },
 
+      { '<leader>we', '<c-w>=',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window equal', },
     },
   },
 
