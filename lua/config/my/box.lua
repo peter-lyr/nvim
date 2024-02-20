@@ -150,9 +150,12 @@ from win32com.client import Dispatch
 lnk_file = vim.eval('g:lnk_file')
 pythoncom.CoInitialize()
 shell = Dispatch("WScript.Shell")
-shortcut = shell.CreateShortCut(lnk_file)
-target_path = shortcut.TargetPath
-vim.command(f"""let g:target_path = '{target_path}'""")
+try:
+  shortcut = shell.CreateShortCut(lnk_file)
+  target_path = shortcut.TargetPath
+  vim.command(f"""let g:target_path = '{target_path}'""")
+except:
+  pass
 EOF
   ]]
   return vim.g.target_path
