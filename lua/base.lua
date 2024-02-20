@@ -284,19 +284,19 @@ function M.qfmakeconv(from, to)
 end
 
 function M.notify_qflist()
-  local lines = {}
-  local chcp_en = M.is_in_str('65001', vim.fn.system 'chcp')
-  local qflist = vim.deepcopy(M.qflist)
-  for _, i in ipairs(qflist) do
-    if chcp_en then
-      i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
-    end
-    lines[#lines + 1] = i.text
-  end
-  if qflist then
-    vim.fn.setqflist(qflist)
-  end
-  M.notify_info(lines)
+  -- local lines = {}
+  -- local chcp_en = M.is_in_str('65001', vim.fn.system 'chcp')
+  -- local qflist = vim.deepcopy(M.qflist)
+  -- for _, i in ipairs(qflist) do
+  --   if chcp_en then
+  --     i.text = vim.fn.iconv(i.text, 'cp936', 'utf-8')
+  --   end
+  --   lines[#lines + 1] = i.text
+  -- end
+  -- if qflist then
+  --   vim.fn.setqflist(qflist)
+  -- end
+  -- M.notify_info(lines)
 end
 
 function M.refresh_fugitive()
