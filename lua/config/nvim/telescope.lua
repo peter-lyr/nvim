@@ -549,8 +549,8 @@ end
 
 function M.open_telescope_lua()
   B.cmd('e %s', M.source)
-  vim.cmd('norm gg')
-  vim.fn.search('file_ignore_patterns')
+  vim.cmd 'norm gg'
+  vim.fn.search 'file_ignore_patterns'
 end
 
 function M.nop() end
@@ -613,7 +613,7 @@ B.lazy_map {
   { '<leader>stb',       function() M.terminal_bash() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
   { '<leader>stp',       function() M.terminal_powershell() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
   -- open telescope.lua
-  { '<leader>sO',       function() M.open_telescope_lua() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: open telescope.lua', },
+  { '<leader>sO',        function() M.open_telescope_lua() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: open telescope.lua', },
 }
 
 B.aucmd({ 'BufEnter', }, 'nvim.telescope.BufEnter', {
