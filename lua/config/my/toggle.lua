@@ -14,39 +14,47 @@ M.diff = function()
 end
 
 M.wrap = function()
+  local winid = vim.fn.win_getid()
   if vim.o.wrap == true then
-    vim.cmd 'set nowrap'
+    vim.cmd 'windo set nowrap'
   else
-    vim.cmd 'set wrap'
+    vim.cmd 'windo set wrap'
   end
   print('vim.o.wrap:', vim.o.wrap)
+  vim.fn.win_gotoid(winid)
 end
 
 M.renu = function()
+  local winid = vim.fn.win_getid()
   if vim.o.relativenumber == true then
-    vim.cmd 'set norelativenumber'
+    vim.cmd 'windo set norelativenumber'
   else
-    vim.cmd 'set relativenumber'
+    vim.cmd 'windo set relativenumber'
   end
   print('vim.o.relativenumber:', vim.o.relativenumber)
+  vim.fn.win_gotoid(winid)
 end
 
 M.signcolumn = function()
+  local winid = vim.fn.win_getid()
   if vim.o.signcolumn == 'no' then
-    vim.cmd 'set signcolumn=auto:1'
+    vim.cmd 'windo set signcolumn=auto:1'
   else
-    vim.cmd 'set signcolumn=no'
+    vim.cmd 'windo set signcolumn=no'
   end
   print('vim.o.signcolumn:', vim.o.signcolumn)
+  vim.fn.win_gotoid(winid)
 end
 
 M.conceallevel = function()
+  local winid = vim.fn.win_getid()
   if vim.o.conceallevel == 0 then
-    vim.cmd 'set conceallevel=3'
+    vim.cmd 'windo set conceallevel=3'
   else
-    vim.cmd 'set conceallevel=0'
+    vim.cmd 'windo set conceallevel=0'
   end
   print('vim.o.conceallevel:', vim.o.conceallevel)
+  vim.fn.win_gotoid(winid)
 end
 
 M.iskeyword_bak = nil
