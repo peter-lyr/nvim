@@ -97,7 +97,7 @@ function M._get_buffer_files(buffers)
       ok = 1
     end
   end
-  if ok then B.system_run('start', 'chcp 65001 && %s && python "%s" "%s" "%s"', B.system_cd(vim.loop.cwd()), M.operate_files_py, temp_path.filename, M.copy_or_move) end
+  if ok then B.system_run('start silent', 'chcp 65001 && %s && python "%s" "%s" "%s"', B.system_cd(vim.loop.cwd()), M.operate_files_py, temp_path.filename, M.copy_or_move) end
 end
 
 function M._wait_close_buffer(buffers)
