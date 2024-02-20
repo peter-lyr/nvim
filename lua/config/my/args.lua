@@ -153,11 +153,11 @@ function M._operate_files_do()
 end
 
 function M._operate_files()
-  if #M.files == 0 then
-    for _, v in ipairs(require 'nvim-tree.marks'.get_marks()) do
-      M.files[#M.files + 1] = v['absolute_path']
-    end
+  M.files = {}
+  for _, v in ipairs(require 'nvim-tree.marks'.get_marks()) do
+    M.files[#M.files + 1] = v['absolute_path']
   end
+  require 'nvim-tree.marks'.clear_marks()
   if #M.files == 0 then
     M._stack_files_from_qflist()
   end
