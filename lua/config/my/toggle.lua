@@ -27,9 +27,9 @@ end
 M.renu = function()
   local winid = vim.fn.win_getid()
   if vim.o.relativenumber == true then
-    vim.cmd 'windo set norelativenumber'
+    vim.cmd 'windo if &number == 1 | set norelativenumber | endif'
   else
-    vim.cmd 'windo set relativenumber'
+    vim.cmd 'windo if &number == 1 | set relativenumber | endif'
   end
   print('vim.o.relativenumber:', vim.o.relativenumber)
   vim.fn.win_gotoid(winid)
