@@ -278,9 +278,9 @@ function M.qfmakeconv(from, to)
   for _, i in ipairs(qflist) do
     i.text = vim.fn.iconv(i.text, from, to)
   end
-  if qflist then
-    vim.fn.setqflist(qflist)
-  end
+  -- if qflist then
+  --   vim.fn.setqflist(qflist)
+  -- end
 end
 
 function M.notify_qflist()
@@ -293,9 +293,9 @@ function M.notify_qflist()
     end
     lines[#lines + 1] = i.text
   end
-  if qflist then
-    vim.fn.setqflist(qflist)
-  end
+  -- if qflist then
+  --   vim.fn.setqflist(qflist)
+  -- end
   M.notify_info(lines)
 end
 
