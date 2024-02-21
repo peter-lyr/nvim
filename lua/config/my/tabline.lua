@@ -377,6 +377,7 @@ function SwitchTab(tabnr, mouseclicks, mousebutton, modifiers)
     pcall(vim.call, 'ProjectRootCD')
     M.update_bufs_and_refresh_tabline()
   elseif mousebutton == 'r' and mouseclicks == 1 then
+    M.restore_hidden_tabs()
   end
 end
 
@@ -398,6 +399,7 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
     pcall(vim.call, 'ProjectRootCD')
     M.update_bufs_and_refresh_tabline()
   elseif mousebutton == 'r' and mouseclicks == 1 then
+    M.restore_hidden_tabs()
   end
 end
 
