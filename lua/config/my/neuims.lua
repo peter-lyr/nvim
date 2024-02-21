@@ -22,8 +22,8 @@ try:
   language = LANG[vim.eval('g:lang')]
   result = win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, language)
   vim.command(f'let g:res = {result}')
-except:
-  pass
+except Exception as e:
+  print('change_language - Exception:', e)
 EOF
   ]]
   if vim.g.res ~= 0 then
