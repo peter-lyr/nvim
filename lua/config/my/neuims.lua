@@ -7,6 +7,7 @@ local B = require 'base'
 
 function M.change_language(lang)
   vim.g.lang = lang
+  vim.g.res = 1
   vim.cmd [[
     python << EOF
 import win32api
@@ -16,10 +17,13 @@ LANG = {
   "ZH": 0x0804,
   "EN": 0x0409
 }
-hwnd = win32gui.GetForegroundWindow()
-language = LANG[vim.eval('g:lang')]
-result = win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, language)
-vim.command(f'let g:res = {result}')
+try:
+  hwnd = win32gui.GetForegroundWindow()
+  language = LANG[vim.eval('g:lang')]
+  result = win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, language)
+  vim.command(f'let g:res = {result}')
+except:
+  pass
 EOF
   ]]
   if vim.g.res ~= 0 then
