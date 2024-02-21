@@ -31,7 +31,7 @@ EOF
   end
 end
 
-B.aucmd({ 'InsertEnter', }, 'my.neuims.InsertEnter', {
+B.aucmd({ 'InsertEnter', 'CmdlineEnter', 'TermEnter', }, 'my.neuims.InsertEnter', {
   callback = function()
     -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
     -- if buftype == 'prompt' then
@@ -41,7 +41,7 @@ B.aucmd({ 'InsertEnter', }, 'my.neuims.InsertEnter', {
   end,
 })
 
-B.aucmd({ 'InsertLeave', }, 'my.neuims.InsertLeave', {
+B.aucmd({ 'InsertLeave', 'CmdlineLeave', 'TermLeave', }, 'my.neuims.InsertLeave', {
   callback = function()
     -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
     -- if buftype == 'prompt' then
