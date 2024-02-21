@@ -124,7 +124,8 @@ B.lazy_map {
 
   -- cr
   { '<c-;>',   '<cr>',                                 mode = { 'c', },           desc = 'my.insertenter: cr', },
-  { '<c-;>',   '<esc>o',                               mode = { 'i', },           desc = 'my.insertenter: cr', },
+  -- 见`neuims.lua`:
+  -- { '<c-;>',   '<esc>o',                               mode = { 'i', },           desc = 'my.insertenter: cr', },
 }
 
 B.lazy_map {

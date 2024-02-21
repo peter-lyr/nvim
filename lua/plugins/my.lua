@@ -483,6 +483,9 @@ return {
     name = 'my.neuims',
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
+    keys = {
+      { '<c-;>', require 'config.my.neuims'.i_enter, mode = { 'i', }, desc = 'my.insertenter: cr', },
+    },
     config = function()
       require 'config.my.neuims'
     end,

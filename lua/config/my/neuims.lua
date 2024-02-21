@@ -31,13 +31,17 @@ EOF
   end
 end
 
+M.en = 1
+
 B.aucmd({ 'InsertEnter', 'CmdlineEnter', 'TermEnter', }, 'my.neuims.InsertEnter', {
   callback = function()
     -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
     -- if buftype == 'prompt' then
     --   return
     -- end
-    M.change_language 'ZH'
+    if M.en then
+      M.change_language 'ZH'
+    end
   end,
 })
 
@@ -47,8 +51,16 @@ B.aucmd({ 'InsertLeave', 'CmdlineLeave', 'TermLeave', }, 'my.neuims.InsertLeave'
     -- if buftype == 'prompt' then
     --   return
     -- end
-    M.change_language 'EN'
+    if M.en then
+      M.change_language 'EN'
+    end
   end,
 })
+
+function M.i_enter()
+  M.en = nil
+  vim.cmd [[call feedkeys("\<esc>o")]]
+  B.set_timeout(10, function() M.en = 1 end)
+end
 
 return M
