@@ -95,6 +95,44 @@ return {
     end,
   },
 
+  -- my.recordingleave
+  {
+    name = 'my.recordingleave',
+    dir = '',
+    event = { 'RecordingLeave', },
+    config = function()
+      local function recordingleave()
+        vim.fn.timer_start(10, function()
+          local record = vim.fn.reg_recorded()
+          require 'base'.notify_info(record .. ' ' .. vim.fn.getreg(record))
+        end)
+      end
+      vim.api.nvim_create_autocmd('RecordingLeave', {
+        callback = recordingleave,
+      })
+      recordingleave()
+    end,
+  },
+
+  -- my.recordingenter
+  {
+    name = 'my.recordingenter',
+    dir = '',
+    event = { 'RecordingEnter', },
+    config = function()
+      local function recordingenter()
+        vim.fn.timer_start(10, function()
+          local record = vim.fn.reg_recording()
+          require 'base'.notify_info('recording: ' .. record)
+        end)
+      end
+      vim.api.nvim_create_autocmd('RecordingEnter', {
+        callback = recordingenter,
+      })
+      recordingenter()
+    end,
+  },
+
   -- my.vimleavepre
   {
     name = 'my.vimleavepre',
