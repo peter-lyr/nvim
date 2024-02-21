@@ -39,22 +39,24 @@ M.nu = function()
   local winid = vim.fn.win_getid()
   if vim.o.number == true then
     vim.cmd [[
-    windo if &relativenumber == 1
-      \ |   set norelativenumber
-      \ |   let g:relativenumber = 1
-      \ | else
-      \ |   let g:relativenumber = 0
-      \ | endif
-    windo set nonumber
+      windo
+        \ | if &relativenumber == 1
+        \ |   set norelativenumber
+        \ |   let g:relativenumber = 1
+        \ | else
+        \ |   let g:relativenumber = 0
+        \ | endif
+        \ | set nonumber
     ]]
   else
     vim.cmd [[
-      windo if g:relativenumber == 1
+      windo
+        \ | if g:relativenumber == 1
         \ |   set relativenumber
         \ | else
         \ |   set norelativenumber
         \ | endif
-      windo set number
+        \ | set number
       ]]
   end
   print('vim.o.number:', vim.o.number)
