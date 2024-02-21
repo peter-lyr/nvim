@@ -35,6 +35,32 @@ M.renu = function()
   vim.fn.win_gotoid(winid)
 end
 
+M.nu = function()
+  local winid = vim.fn.win_getid()
+  if vim.o.number == true then
+    vim.cmd [[
+    windo if &relativenumber == 1
+      \ |   set norelativenumber
+      \ |   let g:relativenumber = 1
+      \ | else
+      \ |   let g:relativenumber = 0
+      \ | endif
+    windo set nonumber
+    ]]
+  else
+    vim.cmd [[
+      windo if g:relativenumber == 1
+        \ |   set relativenumber
+        \ | else
+        \ |   set norelativenumber
+        \ | endif
+      windo set number
+      ]]
+  end
+  print('vim.o.number:', vim.o.number)
+  vim.fn.win_gotoid(winid)
+end
+
 M.signcolumn = function()
   local winid = vim.fn.win_getid()
   if vim.o.signcolumn == 'no' then
@@ -77,6 +103,7 @@ require 'which-key'.register { ['<leader>t'] = { name = 'my.toggle', }, }
 B.lazy_map {
   { '<leader>td', function() M.diff() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: diff', },
   { '<leader>tw', function() M.wrap() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: wrap', },
+  { '<leader>tn', function() M.nu() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: nu', },
   { '<leader>tr', function() M.renu() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: renu', },
   { '<leader>ts', function() M.signcolumn() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: signcolumn', },
   { '<leader>tc', function() M.conceallevel() end, mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: conceallevel', },
