@@ -22,6 +22,9 @@ try:
   language = LANG[vim.eval('g:lang')]
   result = win32api.SendMessage(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, language)
   vim.command(f'let g:res = {result}')
+  # import time
+  # with open(r'D:\Desktop\neuims.txt', 'ab') as f:
+  #   f.write((f"{vim.eval('g:lang')}: {time.time()}\n").encode('utf-8'))
 except Exception as e:
   print('change_language - Exception:', e)
 EOF

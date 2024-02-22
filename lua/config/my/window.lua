@@ -89,7 +89,7 @@ end
 function M.bdelete_cur()
   vim.cmd [[
     try
-      Bdelete!
+      bdelete!
       e!
     catch
     endtry
@@ -99,7 +99,7 @@ end
 function M.Bdelete_cur()
   vim.cmd [[
     try
-      bdelete!
+      Bdelete!
       e!
     catch
     endtry
