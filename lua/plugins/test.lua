@@ -377,7 +377,7 @@ return {
         silent = true,
         desc = 'test.minimap: toggle',
       },
-      { '<a-\\>',       function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
+      { '<a-bs>',       function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
     },
     config = function()
       local minimap = require 'mini.map'
