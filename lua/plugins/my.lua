@@ -210,6 +210,7 @@ return {
       -- git.signs
       { '<leader>gm',   function() require 'config.my.git' end,                       mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
       { '<leader>gmt',  function() require 'config.my.git' end,                       mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
+      { '<leader>ge',   function() require 'config.my.git'.toggle_deleted() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_deleted', },
       { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                             mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
       { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                             mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
       { '<leader>j',    desc = 'my.git.signs next_hunk', },
