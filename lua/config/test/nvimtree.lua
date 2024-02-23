@@ -157,6 +157,14 @@ function M._system_run_and_close()
   M._close()
 end
 
+function M._explorer_dtarget(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  B.system_run('start silent', 'start "" %s', dtarget)
+end
+
 function M._delete(node)
   B.cmd('Bdelete %s', node.absolute_path)
   require 'config.my.tabline'.update_bufs_and_refresh_tabline()
@@ -657,6 +665,7 @@ function M._on_attach(bufnr)
     { '<c-u>',         api.node.navigate.parent_close,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Close Directory', },
 
     { 'x',             api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
+    { '<a-x>',         M._wrap_node(M._explorer_dtarget),  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
     -- { '<MiddleMouse>', api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
     { '<c-x>',         M._system_run_and_close,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
     { 'gx',            api.node.run.cmd,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run Command', },
