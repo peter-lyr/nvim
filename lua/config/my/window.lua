@@ -2,12 +2,26 @@ local M = {}
 
 local B = require 'base'
 
+M.donot_change_fts = {
+  'NvimTree',
+  'aerial',
+  'qf',
+  'fugitive',
+}
+
 function M.change_around(dir)
   local winid1, bufnr1, winid2, bufnr2
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+    return
+  end
   winid1 = vim.fn.win_getid()
   bufnr1 = vim.fn.bufnr()
   vim.cmd('wincmd ' .. dir)
   winid2 = vim.fn.win_getid()
+  if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+    vim.fn.win_gotoid(winid1)
+    return
+  end
   if winid1 ~= winid2 then
     bufnr2 = vim.fn.bufnr()
     vim.cmd('b' .. tostring(bufnr1))
@@ -264,10 +278,15 @@ function M.reopen_deleted()
 end
 
 B.lazy_map {
-  { '<leader>wh',      function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wj',      function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wk',      function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wl',      function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wa',      function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>ws',      function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>ww',      function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wd',      function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+
+  { '<leader>wh',      '<c-w>h',                               mode = { 'n', 'v', }, desc = 'my.window: go window up', },
+  { '<leader>wj',      '<c-w>j',                               mode = { 'n', 'v', }, desc = 'my.window: go window down', },
+  { '<leader>wk',      '<c-w>k',                               mode = { 'n', 'v', }, desc = 'my.window: go window left', },
+  { '<leader>wl',      '<c-w>l',                               mode = { 'n', 'v', }, desc = 'my.window: go window right', },
 
   { '<leader>xh',      function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
   { '<leader>xj',      function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },

@@ -15,11 +15,6 @@ return {
       { '<a-s-j>',    function() vim.cmd '10wincmd -' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_less_10', },
       { '<a-s-k>',    function() vim.cmd '10wincmd +' end, mode = { 'n', 'v', }, silent = true, desc = 'my.window: height_more_10', },
 
-      { '<leader>ww', '<c-w>k',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window up', },
-      { '<leader>ws', '<c-w>j',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window down', },
-      { '<leader>wa', '<c-w>h',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window left', },
-      { '<leader>wd', '<c-w>l',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window right', },
-
       { '<leader>we', '<c-w>=',                            mode = { 'n', 'v', }, silent = true, desc = 'my.window: go window equal', },
     },
   },
