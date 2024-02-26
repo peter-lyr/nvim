@@ -288,10 +288,10 @@ B.lazy_map {
   { '<leader>wk',      '<c-w>k',                               mode = { 'n', 'v', }, desc = 'my.window: go window left', },
   { '<leader>wl',      '<c-w>l',                               mode = { 'n', 'v', }, desc = 'my.window: go window right', },
 
-  { '<leader>wH',      '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
-  { '<leader>wJ',      '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
-  { '<leader>wK',      '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
-  { '<leader>wL',      '<c-w>L',                               mode = { 'n', 'v', }, desc = 'my.window: be most right window', },
+  { '<leader>wc',      '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
+  { '<leader>wv',      '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
+  { '<leader>wf',      '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
+  { '<leader>wb',      '<c-w>L',                               mode = { 'n', 'v', }, desc = 'my.window: be most right window', },
 
   { '<leader>xh',      function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
   { '<leader>xj',      function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
