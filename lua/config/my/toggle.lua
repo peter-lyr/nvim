@@ -24,40 +24,74 @@ M.wrap = function()
   vim.fn.win_gotoid(winid)
 end
 
+M.donot_change_fts = {
+  'NvimTree',
+  'aerial',
+  'qf',
+  'fugitive',
+}
+
+M._renu_en = function()
+  if B.is_in_tbl(vim.o.ft, M.donot_change_fts) then
+    return
+  end
+  if B.is(vim.o.number) then
+    vim.o.relativenumber = 1
+  end
+end
+
+M._renu_dis = function()
+  if B.is_in_tbl(vim.o.ft, M.donot_change_fts) then
+    return
+  end
+  if B.is(vim.o.number) then
+    vim.o.relativenumber = 0
+  end
+end
+
 M.renu = function()
   local winid = vim.fn.win_getid()
-  if vim.o.relativenumber == true then
-    vim.cmd 'windo if &number == 1 | set norelativenumber | endif'
+  if B.is(vim.o.relativenumber) then
+    vim.cmd "windo lua require 'config.my.toggle'._renu_dis()"
   else
-    vim.cmd 'windo if &number == 1 | set relativenumber | endif'
+    vim.cmd "windo lua require 'config.my.toggle'._renu_en()"
   end
   print('vim.o.relativenumber:', vim.o.relativenumber)
   vim.fn.win_gotoid(winid)
 end
 
+function M._nu_dis()
+  if B.is_in_tbl(vim.o.ft, M.donot_change_fts) then
+    return
+  end
+  if B.is(vim.o.relativenumber) then
+    vim.o.relativenumber = 0
+    vim.g.relativenumber = 1
+  else
+    vim.g.relativenumber = 0
+  end
+  vim.o.number = 0
+end
+
+function M._nu_en()
+  if B.is_in_tbl(vim.o.ft, M.donot_change_fts) then
+    return
+  end
+  if B.is(vim.o.relativenumber) then
+    vim.o.relativenumber = 1
+    vim.g.relativenumber = 0
+  else
+    vim.g.relativenumber = 1
+  end
+  vim.o.number = 1
+end
+
 M.nu = function()
   local winid = vim.fn.win_getid()
-  if vim.o.number == true then
-    vim.cmd [[
-      windo
-        \ | if &relativenumber == 1
-        \ |   set norelativenumber
-        \ |   let g:relativenumber = 1
-        \ | else
-        \ |   let g:relativenumber = 0
-        \ | endif
-        \ | set nonumber
-    ]]
+  if B.is(vim.o.number) then
+    vim.cmd "windo lua require 'config.my.toggle'._nu_dis()"
   else
-    vim.cmd [[
-      windo
-        \ | if g:relativenumber == 1
-        \ |   set relativenumber
-        \ | else
-        \ |   set norelativenumber
-        \ | endif
-        \ | set number
-      ]]
+    vim.cmd "windo lua require 'config.my.toggle'._nu_en()"
   end
   print('vim.o.number:', vim.o.number)
   vim.fn.win_gotoid(winid)
