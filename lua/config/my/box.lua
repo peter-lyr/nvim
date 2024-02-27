@@ -13,9 +13,9 @@ function M.source(file)
 end
 
 function M.restart_new_nvim_qt()
-  local _restart_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
+  local _restart_nvim_qt_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
-  _restart_nvim_qt_bat_path:write(string.format([[
+  _restart_nvim_qt_py_path:write(string.format([[
 import os
 try:
   import psutil
@@ -33,7 +33,7 @@ for cmd in cmds:
   os.system(cmd)
 ]],
     B.get_nvim_qt_exe_pid(), rtp, vim.loop.cwd()), 'w')
-  B.system_run('start silent', '%s', _restart_nvim_qt_bat_path.filename)
+  B.system_run('start silent', '%s', _restart_nvim_qt_py_path.filename)
 end
 
 function M.start_new_nvim_qt()
