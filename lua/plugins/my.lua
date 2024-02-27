@@ -67,6 +67,7 @@ return {
       -- vim.opt.spell         = true
       -- vim.opt.spelllang     = 'en_us,cjk'
       vim.opt.linebreak     = true
+      vim.opt.updatetime    = 500
     end,
   },
 
@@ -280,7 +281,6 @@ return {
       { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function()
-      vim.o.updatetime = 100
       require 'config.my.drag'
     end,
   },
@@ -353,7 +353,6 @@ return {
       { '<c-s-9>', function() require 'config.my.hili'.rehili() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.hili: rehili', },
     },
     config = function()
-      vim.o.updatetime = 100
       require 'config.my.hili'
     end,
   },
