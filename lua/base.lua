@@ -1159,4 +1159,13 @@ function M.get_nvim_qt_exe_pid()
   return vim.loop.os_getppid(vim.fn.getpid())
 end
 
+function M.get_shada_file()
+  local shada_file = vim.fn.stdpath("state") .. '\\shada\\main.shada'
+  return shada_file
+end
+
+function M.get_shada_file_new()
+  return vim.fn.stdpath("state") .. '\\shada\\main.shada.new'
+end
+
 return M

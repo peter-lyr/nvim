@@ -320,6 +320,38 @@ function M.qfmakeconv2cp936()
   B.qfmakeconv('utf-8', 'cp936')
 end
 
+if not B.file_exists(B.get_shada_file_new()) then
+  vim.fn.writefile({}, B.get_shada_file_new())
+end
+
+function M.rshada_from_shada_file_new()
+  B.cmd('rshada! %s', B.get_shada_file_new())
+  B.set_timeout(500, function() vim.cmd 'wshada!' end)
+end
+
+function M.move_shada_file_new()
+  vim.cmd 'wshada!'
+  local _move_shada_file_new_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'shada'.filename, 'move_shada_file_new.py')
+  _move_shada_file_new_py_path:write(string.format([[
+import os
+try:
+  import psutil
+except:
+  os.system("pip install psutil -i http://pypi.douban.com/simple --trusted-host pypi.douban.com")
+  import psutil
+while 1:
+  if %d not in psutil.pids():
+    break
+cmds = [
+  r'move /y "%s" "%s"'
+]
+for cmd in cmds:
+  os.system(cmd)
+]],
+    B.get_nvim_qt_exe_pid(), B.rep_slash(B.get_shada_file()), B.rep_slash(B.get_shada_file_new())), 'w')
+  vim.cmd(string.format([[silent !start /b /min %s]], _move_shada_file_new_py_path.filename))
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
 

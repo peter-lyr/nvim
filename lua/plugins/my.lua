@@ -144,6 +144,7 @@ return {
       -- if vim.g.GuiWindowFrameless == 1 then
       vim.fn['GuiWindowFrameless'](0)
       -- end
+      require 'config.my.box'.move_shada_file_new()
     end,
   },
 
@@ -154,6 +155,16 @@ return {
     event = { 'BufReadPre', 'BufReadPost', },
     config = function()
       require 'config.my.bufreadpost'
+    end,
+  },
+
+  -- my.shada
+  {
+    name = 'my.shada',
+    dir = '',
+    event = { 'BufReadPre', 'BufReadPost', 'CmdlineEnter', },
+    config = function()
+      require 'config.my.box'.rshada_from_shada_file_new()
     end,
   },
 
