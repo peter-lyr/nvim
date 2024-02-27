@@ -2,6 +2,18 @@ local M = {}
 
 local B = require 'base'
 
+vim.cmd [[
+cab xpx sort
+cab xqc g/^\(.*\)$\n\1$/d
+cab xpq sort\|g/^\(.*\)$\n\1$/d
+iab xt <c-r>=strftime('%Hh%Mm')<cr>
+iab xd <c-r>=strftime('%y%m%d')<cr>
+iab xa <c-r>=strftime('%y%m%d %Hh%Mm')<cr>
+cab xt <c-r>=strftime('%H%M%S')<cr>
+cab xd <c-r>=strftime('%Y%m%d')<cr>
+cab xa <c-r>=strftime('%Y%m%d-%H%M%S')<cr>
+]]
+
 vim.fn.setreg('e', 'reg e empty')
 vim.fn.setreg('4', 'reg 4 empty')
 
