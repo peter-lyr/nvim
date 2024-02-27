@@ -324,12 +324,19 @@ if not B.file_exists(B.get_shada_file_new()) then
   vim.fn.writefile({}, B.get_shada_file_new())
 end
 
+M.rshada_flag = nil
+
 function M.rshada_from_shada_file_new()
+  M.rshada_flag = 1
   B.cmd('rshada! %s', B.get_shada_file_new())
   B.set_timeout(500, function() vim.cmd 'wshada!' end)
 end
 
 function M.move_shada_file_new()
+  if not M.rshada_flag then
+    M.rshada_flag = 1
+    B.cmd('rshada! %s', B.get_shada_file_new())
+  end
   vim.cmd 'wshada!'
   local _move_shada_file_new_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'shada'.filename, 'move_shada_file_new.py')
   _move_shada_file_new_py_path:write(string.format([[
