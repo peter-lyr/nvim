@@ -1155,4 +1155,8 @@ EOF
   return vim.g.res
 end
 
+function M.get_nvim_qt_exe_pid()
+  return vim.loop.os_getppid(vim.fn.getpid())
+end
+
 return M

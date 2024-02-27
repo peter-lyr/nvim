@@ -12,10 +12,6 @@ function M.source(file)
   B.cmd('source %s', file)
 end
 
-function M.get_nvim_qt_exe_pid()
-  return vim.loop.os_getppid(vim.fn.getpid())
-end
-
 function M.restart_new_nvim_qt()
   local _restart_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
@@ -36,7 +32,7 @@ cmds = [
 for cmd in cmds:
   os.system(cmd)
 ]],
-    M.get_nvim_qt_exe_pid(), rtp, vim.loop.cwd()), 'w')
+    B.get_nvim_qt_exe_pid(), rtp, vim.loop.cwd()), 'w')
   B.system_run('start silent', '%s', _restart_nvim_qt_bat_path.filename)
 end
 
