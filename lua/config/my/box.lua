@@ -287,7 +287,7 @@ function M.show_info()
     { 'fileformat',   vim.bo.fileformat, },
     { 'gitbranch',    vim.fn['gitbranch#name'](), },
     { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
-    { 'commit_count', vim.fn.system('git rev-list --count HEAD'), },
+    { 'commit_count', vim.fn.system 'git rev-list --count HEAD', },
   }
   local items = {}
   local width = 0
@@ -376,7 +376,7 @@ B.lazy_map {
   { '<leader>asr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
   { '<leader>as<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
   { '<leader>asq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
-  { '<leader>a<c-s>',     function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
+  { '<leader>aa',         function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader>ae',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
   { '<leader>a<c-e>',     function() M.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
   { '<leader>a<c-w>',     function() M.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
