@@ -166,8 +166,10 @@ M.programs_files_txt_path = M.programs_files_dir_path:joinpath 'programs-files.t
 
 function M.get_programs_files_uniq()
   local programs_files = B.get_programs_files()
-  local programs_files_uniq = vim.deepcopy(programs_files)
-  for _, programs_file in pairs(programs_files) do
+  local path_programs_files = B.get_path_files()
+  local programs_files_uniq = B.merge_tables(vim.deepcopy(programs_files), vim.deepcopy(path_programs_files))
+  local programs_files_uniq_temp = vim.deepcopy(programs_files_uniq)
+  for _, programs_file in pairs(programs_files_uniq_temp) do
     programs_file = M.get_target_path(programs_file)
     if not B.is_in_tbl(programs_file, programs_files_uniq) then
       programs_files_uniq[#programs_files_uniq + 1] = programs_file

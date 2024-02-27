@@ -1046,6 +1046,16 @@ function M.get_startup_files()
   return {}
 end
 
+function M.get_path_files()
+  local files = {}
+  for programs in string.gmatch(vim.fn.system('echo %path%'), '([^;]+);') do
+    local a = M.scan_files_deep(programs, { filetypes = { 'lnk', }, })
+    a = M.filter_exclude(a, { '卸载', 'uninst', 'Uninst', })
+    files = M.merge_tables(files, a)
+  end
+  return files
+end
+
 function M.get_programs_files()
   local all_programs = M.get_SHGetFolderPath 'all_programs'
   if M.is(all_programs) then
