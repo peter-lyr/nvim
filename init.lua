@@ -1,3 +1,4 @@
+vim.g.start_time = vim.fn.reltime()
 vim.g.mapleader = ' '
 
 local vimruntime = vim.fn.expand '$VIMRUNTIME'
