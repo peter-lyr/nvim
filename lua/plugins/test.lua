@@ -267,7 +267,8 @@ return {
   -- sessions
   {
     'natecraddock/sessions.nvim',
-    lazy = false,
+    event = { 'VimLeavePre', },
+    cmd = { 'SessionsSave', 'SessionsLoad', 'SessionsStop', },
     config = function()
       require 'sessions'.setup {
         events = { 'VimLeavePre', },
