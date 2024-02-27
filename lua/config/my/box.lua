@@ -287,6 +287,7 @@ function M.show_info()
     { 'fileformat',   vim.bo.fileformat, },
     { 'gitbranch',    vim.fn['gitbranch#name'](), },
     { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
+    { 'commit_count', vim.fn.system('git rev-list --count HEAD'), },
   }
   local items = {}
   local width = 0
@@ -295,7 +296,7 @@ function M.show_info()
       width = #v[1]
     end
   end
-  local str = '# %d. [%' .. width .. 's]: %s'
+  local str = '# %2d. [%' .. width .. 's]: %s'
   for k, v in ipairs(temp) do
     items[#items + 1] = string.format(str, k, unpack(v))
   end
