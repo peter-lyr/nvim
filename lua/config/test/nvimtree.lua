@@ -171,7 +171,7 @@ function M._delete(node)
   vim.cmd 'norm j'
 end
 
-M.ausize_en = 0
+M.ausize_en = 1
 
 function M._ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
