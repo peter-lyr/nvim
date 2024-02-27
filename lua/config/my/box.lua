@@ -278,16 +278,18 @@ end
 
 function M.show_info()
   local temp = {
-    { 'cwd',          vim.loop.cwd(), },
-    { 'fname',        vim.fn.bufname(), },
-    { 'mem',          string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
-    { 'fsize',        M._filesize(), },
-    { 'datetime',     vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
-    { 'fileencoding', vim.opt.fileencoding:get(), },
-    { 'fileformat',   vim.bo.fileformat, },
-    { 'gitbranch',    vim.fn['gitbranch#name'](), },
-    { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
-    { 'commit_count', vim.fn.system 'git rev-list --count HEAD', },
+    { 'cwd',              vim.loop.cwd(), },
+    { 'datetime',         vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
+    { 'fileencoding',     vim.opt.fileencoding:get(), },
+    { 'fileformat',       vim.bo.fileformat, },
+    { 'fname',            vim.fn.bufname(), },
+    { 'fsize',            M._filesize(), },
+    { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
+    { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
+    { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
+    { 'gitbranch',        vim.fn['gitbranch#name'](), },
+    { 'mem',              string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
+    { 'startuptime',      string.format('%.3f ms', vim.g.end_time * 1000), },
   }
   local items = {}
   local width = 0
@@ -296,9 +298,11 @@ function M.show_info()
       width = #v[1]
     end
   end
-  local str = '# %2d. [%' .. width .. 's]: %s'
+  local str = '# %2d. [%-' .. width .. 's]: %s'
   for k, v in ipairs(temp) do
-    items[#items + 1] = string.format(str, k, unpack(v))
+    local k2, v2 = unpack(v)
+    v2 = vim.fn.trim(v2)
+    items[#items + 1] = string.format(str, k, k2, v2)
   end
   B.notify_info(vim.fn.join(items, '\n'))
 end
