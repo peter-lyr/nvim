@@ -12,12 +12,39 @@ function M.source(file)
   B.cmd('source %s', file)
 end
 
+function M.get_nvim_qt_exe_pid()
+  return vim.loop.os_getppid(vim.fn.getpid())
+end
+
+function M.restart_new_nvim_qt()
+  local _restart_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
+  local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
+  _restart_nvim_qt_bat_path:write(string.format([[
+import os
+try:
+  import psutil
+except:
+  os.system("pip install psutil -i http://pypi.douban.com/simple --trusted-host pypi.douban.com")
+  import psutil
+while 1:
+  if %d not in psutil.pids():
+    break
+cmds = [
+  r'cd %s\bin',
+  r'start /d %s nvim-qt.exe'
+]
+for cmd in cmds:
+  os.system(cmd)
+]],
+    M.get_nvim_qt_exe_pid(), rtp, vim.loop.cwd()), 'w')
+  B.system_run('start silent', '%s', _restart_nvim_qt_bat_path.filename)
+end
+
 function M.start_new_nvim_qt()
   local _restart_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.bat')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
   _restart_nvim_qt_bat_path:write(string.format([[
 @echo off
-REM sleep 1
 cd %s\bin
 start /d %s nvim-qt.exe
 exit
@@ -28,7 +55,7 @@ end
 
 function M.restart_nvim_qt()
   vim.cmd 'SessionsSave'
-  M.start_new_nvim_qt()
+  M.restart_new_nvim_qt()
   vim.cmd 'qall!'
 end
 
