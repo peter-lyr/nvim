@@ -248,7 +248,7 @@ return {
     config = function()
       require 'auto-save'.setup {
         execution_message = { message = function() return '' end, },
-        trigger_events = { 'InsertLeave', 'TextChanged', 'CursorHold', 'CursorHoldI', },
+        trigger_events = { 'InsertLeave', 'TextChanged', 'TextChangedI', },
       }
       require 'auto-save'.on()
     end,
