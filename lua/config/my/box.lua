@@ -286,6 +286,7 @@ function M.show_info()
     { 'fileencoding', vim.opt.fileencoding:get(), },
     { 'fileformat',   vim.bo.fileformat, },
     { 'gitbranch',    vim.fn['gitbranch#name'](), },
+    { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
   }
   local items = {}
   local width = 0

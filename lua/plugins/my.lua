@@ -88,9 +88,9 @@ return {
       vim.fn['GuiWindowFrameless'](1)
       -- vim.cmd 'GuiAdaptiveFont 1'
       -- vim.cmd 'GuiAdaptiveStyle Fusion'
-      local end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
+      vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
       vim.fn.timer_start(100, function()
-        print(string.format('Startup time: %.3f ms', end_time * 1000))
+        print(string.format('Startup time: %.3f ms', vim.g.end_time * 1000))
       end)
     end,
   },
