@@ -276,7 +276,21 @@ function M._filesize()
   return string.format(format, size, suffixes[i])
 end
 
+M.show_info_en = 1
+
+function M.show_info_allow()
+  M.show_info_en = 1
+end
+
 function M.show_info()
+  if not M.show_info_en then
+    print(1)
+    return
+  end
+  M.show_info_en = nil
+  B.set_timeout(1000, function()
+    M.show_info_en = 1
+  end)
   local temp = {
     { 'cwd',              vim.loop.cwd(), },
     { 'datetime',         vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },

@@ -325,7 +325,16 @@ return {
   {
     'rcarriga/nvim-notify',
     keys = {
-      { '<esc>', function() require 'notify'.dismiss() end, mode = { 'n', }, silent = true, desc = 'notify dismiss notification', },
+      {
+        '<esc>',
+        function()
+          require 'config.my.box'.show_info_allow()
+          require 'notify'.dismiss()
+        end,
+        mode = { 'n', },
+        silent = true,
+        desc = 'notify dismiss notification',
+      },
     },
     config = function()
       require 'notify'.setup {
