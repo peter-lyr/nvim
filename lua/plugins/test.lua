@@ -244,12 +244,13 @@ return {
   -- autosave
   {
     'Pocco81/auto-save.nvim',
-    lazy = true,
     event = { 'BufReadPre', 'BufNewFile', },
     config = function()
       require 'auto-save'.setup {
         execution_message = { message = function() return '' end, },
+        trigger_events = { 'InsertLeave', 'TextChanged', 'CursorHold', 'CursorHoldI', },
       }
+      require 'auto-save'.on()
     end,
   },
 
