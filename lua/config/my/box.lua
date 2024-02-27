@@ -298,40 +298,40 @@ function M.qfmakeconv2cp936()
 end
 
 -- mapping
-B.del_map({ 'n', 'v', }, '<leader><c-3>')
+B.del_map({ 'n', 'v', }, '<leader>a')
 
-require 'which-key'.register { ['<leader><c-3>'] = { name = 'my.box', }, }
+require 'which-key'.register { ['<leader>a'] = { name = 'my.box', }, }
 
-require 'which-key'.register { ['<leader><c-3>o'] = { name = 'my.box.open', }, }
-require 'which-key'.register { ['<leader><c-3>m'] = { name = 'my.box.monitor', }, }
-require 'which-key'.register { ['<leader><c-3>p'] = { name = 'my.box.proxy', }, }
-require 'which-key'.register { ['<leader><c-3>s'] = { name = 'my.box.sel/nvim-qt', }, }
-require 'which-key'.register { ['<leader><c-3>g'] = { name = 'my.box.git', }, }
+require 'which-key'.register { ['<leader>ao'] = { name = 'my.box.open', }, }
+require 'which-key'.register { ['<leader>am'] = { name = 'my.box.monitor', }, }
+require 'which-key'.register { ['<leader>ap'] = { name = 'my.box.proxy', }, }
+require 'which-key'.register { ['<leader>as'] = { name = 'my.box.sel/nvim-qt', }, }
+require 'which-key'.register { ['<leader>ag'] = { name = 'my.box.git', }, }
 
 B.lazy_map {
-  { '<leader><c-3>sr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
-  { '<leader><c-3>s<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
-  { '<leader><c-3>sq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
-  { '<leader><c-3><c-s>',     function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
-  { '<leader><c-3>e',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader><c-3><c-e>',     function() M.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
-  { '<leader><c-3><c-w>',     function() M.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
-  { '<leader><c-3><c-s-e>',   function() M.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
-  { '<leader><c-3>op',        function() M.open_path() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
-  { '<leader><c-3>os',        function() M.open_sound() end,                   mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
-  { '<leader><c-3>m1',        function() M.monitor_1min() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
-  { '<leader><c-3>m3',        function() M.monitor_30min() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
-  { '<leader><c-3>m5',        function() M.monitor_5hours() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_5hours', },
-  { '<leader><c-3>po',        function() M.proxy_on() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
-  { '<leader><c-3>pf',        function() M.proxy_off() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
-  { '<leader><c-3>sp',        function() M.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
-  { '<leader><c-3>sP',        function() M.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file_force', },
-  { '<leader><c-3>s[',        function() M.sel_kill_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
-  { '<leader><c-3>s{',        function() M.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file_force', },
-  { '<leader><c-3>ss',        function() M.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
-  { '<leader><c-3>gm',        function() M.git_init_and_cmake() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
-  { '<leader><c-3>q8',        function() M.qfmakeconv2utf8() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
-  { '<leader><c-3>q9',        function() M.qfmakeconv2cp936() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
+  { '<leader>asr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
+  { '<leader>as<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
+  { '<leader>asq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
+  { '<leader>a<c-s>',     function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
+  { '<leader>ae',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
+  { '<leader>a<c-e>',     function() M.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
+  { '<leader>a<c-w>',     function() M.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
+  { '<leader>a<c-s-e>',   function() M.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
+  { '<leader>aop',        function() M.open_path() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
+  { '<leader>aos',        function() M.open_sound() end,                   mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
+  { '<leader>am1',        function() M.monitor_1min() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
+  { '<leader>am3',        function() M.monitor_30min() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
+  { '<leader>am5',        function() M.monitor_5hours() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_5hours', },
+  { '<leader>apo',        function() M.proxy_on() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
+  { '<leader>apf',        function() M.proxy_off() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
+  { '<leader>asp',        function() M.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
+  { '<leader>asP',        function() M.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file_force', },
+  { '<leader>as[',        function() M.sel_kill_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
+  { '<leader>as{',        function() M.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file_force', },
+  { '<leader>ass',        function() M.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
+  { '<leader>agm',        function() M.git_init_and_cmake() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
+  { '<leader>aq8',        function() M.qfmakeconv2utf8() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
+  { '<leader>aq9',        function() M.qfmakeconv2cp936() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
 }
 
 return M
