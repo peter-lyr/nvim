@@ -419,6 +419,11 @@ function M.print(str_format, ...)
   print(string.format(str_format, ...))
 end
 
+function M.echo(str_format, ...)
+  str_format = string.gsub(str_format, "'", '"')
+  M.cmd(string.format("ec '" .. str_format .. "'", ...))
+end
+
 function M.system_cd(file)
   vim.cmd 'Lazy load plenary.nvim'
   if require 'plenary.path'.new(file):is_dir() then
