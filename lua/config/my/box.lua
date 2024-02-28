@@ -277,7 +277,7 @@ function M._filesize()
   if size <= 0 then
     return ''
   end
-  return M.get_human_fsize(size) .. ', ' .. size .. ' Bytes'
+  return string.format('Bytes: %-8s %5s', size, M.get_human_fsize(size))
 end
 
 function M.get_git_all_file_total_fsize()
@@ -285,7 +285,7 @@ function M.get_git_all_file_total_fsize()
   for fname in string.gmatch(vim.fn.system 'git ls-files', '([^\n]+)') do
     total_fsize = total_fsize + vim.fn.getfsize(fname)
   end
-  return M.get_human_fsize(total_fsize) .. ', ' .. total_fsize .. ' Bytes'
+  return string.format('Bytes: %-8s %5s', total_fsize, M.get_human_fsize(total_fsize))
 end
 
 M.show_info_en = 1
