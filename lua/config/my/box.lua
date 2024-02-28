@@ -277,7 +277,15 @@ function M._filesize()
   if size <= 0 then
     return ''
   end
-  return M.get_human_fsize(size)
+  return M.get_human_fsize(size) .. ', ' .. size .. ' Bytes'
+end
+
+function M.get_git_all_file_total_fsize()
+  local total_fsize = 0
+  for fname in string.gmatch(vim.fn.system 'git ls-files', '([^\n]+)') do
+    total_fsize = total_fsize + vim.fn.getfsize(fname)
+  end
+  return M.get_human_fsize(total_fsize) .. ', ' .. total_fsize .. ' Bytes'
 end
 
 M.show_info_en = 1
@@ -344,6 +352,7 @@ function M.show_info()
   len = len + M.show_info_one({
     { 'fsize',            function() return M._filesize() end, },
     { 'git added  files', function() return vim.fn.system 'git ls-files | wc -l' end, },
+    { 'git total fsize',  function() return M.get_git_all_file_total_fsize() end, },
     { 'git branch name',  function() return vim.fn['gitbranch#name']() end, },
     { 'git commit count', function() return vim.fn.system 'git rev-list --count HEAD' end, },
     { 'git ignore files', function() return vim.fn.system 'git ls-files -o | wc -l' end, },
