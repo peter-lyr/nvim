@@ -282,29 +282,10 @@ function M.show_info_allow()
   M.show_info_en = 1
 end
 
-function M.show_info()
-  if not M.show_info_en then
-    B.echo('please wait')
-    return
+function M.show_info_do(temp, start_index)
+  if not start_index then
+    start_index = 0
   end
-  M.show_info_en = nil
-  B.set_timeout(1000, function()
-    M.show_info_en = 1
-  end)
-  local temp = {
-    { 'cwd',              vim.loop.cwd(), },
-    { 'datetime',         vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
-    { 'fileencoding',     vim.opt.fileencoding:get(), },
-    { 'fileformat',       vim.bo.fileformat, },
-    { 'fname',            vim.fn.bufname(), },
-    { 'fsize',            M._filesize(), },
-    { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
-    { 'git branch name',  vim.fn['gitbranch#name'](), },
-    { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
-    { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
-    { 'mem',              string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
-    { 'startuptime',      string.format('%.3f ms', vim.g.end_time * 1000), },
-  }
   local items = {}
   local width = 0
   for _, v in ipairs(temp) do
@@ -316,9 +297,44 @@ function M.show_info()
   for k, v in ipairs(temp) do
     local k2, v2 = unpack(v)
     v2 = vim.fn.trim(v2)
-    items[#items + 1] = string.format(str, k, k2, v2)
+    items[#items + 1] = string.format(str, k + start_index, k2, v2)
   end
-  B.notify_info(vim.fn.join(items, '\n'))
+  return items
+end
+
+function M.show_info()
+  if not M.show_info_en then
+    B.echo 'please wait'
+    return
+  end
+  M.show_info_en = nil
+  B.set_timeout(1000, function()
+    M.show_info_en = 1
+  end)
+  local start_time1 = vim.fn.reltime()
+  local items = M.show_info_do {
+    { 'cwd',          vim.loop.cwd(), },
+    { 'datetime',     vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
+    { 'fileencoding', vim.opt.fileencoding:get(), },
+    { 'fileformat',   vim.bo.fileformat, },
+    { 'fname',        vim.fn.bufname(), },
+    { 'mem',          string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
+    { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
+  }
+  local end_time1 = vim.fn.reltimefloat(vim.fn.reltime(start_time1))
+  local timing = string.format('timing: %.3f ms', end_time1 * 1000)
+  B.notify_info { timing, vim.fn.join(items, '\n'), }
+  local start_time2 = vim.fn.reltime()
+  items = M.show_info_do({
+    { 'fsize',            M._filesize(), },
+    { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
+    { 'git branch name',  vim.fn['gitbranch#name'](), },
+    { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
+    { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
+  }, #items)
+  local end_time2 = vim.fn.reltimefloat(vim.fn.reltime(start_time2))
+  timing = string.format('timing: %.3f ms', end_time2 * 1000)
+  B.notify_info_append { timing, vim.fn.join(items, '\n'), }
 end
 
 function M.git_init_and_cmake()
