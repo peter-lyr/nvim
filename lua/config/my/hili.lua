@@ -359,6 +359,7 @@ function M.windocursorword()
     M.windo = 1
     B.notify_info 'windo match'
   end
+  M.on_cursorhold { buf = vim.fn.bufnr(), }
 end
 
 function M.cursorword()
@@ -369,24 +370,10 @@ function M.cursorword()
     M.hicurword = 1
     B.notify_info 'cursorword'
   end
+  M.on_cursorhold { buf = vim.fn.bufnr(), }
 end
 
-B.aucmd('InsertEnter', 'my.hili.InsertEnter', {
-  callback = function()
-    M.hicurword_bak = M.hicurword
-    M.hicurword = nil
-  end,
-})
-
-B.aucmd('InsertLeave', 'my.hili.InsertLeave', {
-  callback = function()
-    if M.hicurword_bak then
-      M.hicurword = 1
-    end
-  end,
-})
-
-B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'my.hili.CursorHold', {
+B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.hili.CursorMoved', {
   callback = function(ev)
     M.on_cursorhold(ev)
   end,
