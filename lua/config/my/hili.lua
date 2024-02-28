@@ -308,7 +308,7 @@ M.ignore_fts = { 'minimap', }
 
 M.iskeyword_pattern = '^[%w_一-龥]+$'
 
-function M.on_cursorhold(ev)
+function M.on_cursormoved(ev)
   local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
   if vim.tbl_contains(M.ignore_fts, filetype) == true then
     return
@@ -359,7 +359,7 @@ function M.windocursorword()
     M.windo = 1
     B.notify_info 'windo match'
   end
-  M.on_cursorhold { buf = vim.fn.bufnr(), }
+  M.on_cursormoved { buf = vim.fn.bufnr(), }
 end
 
 function M.cursorword()
@@ -370,12 +370,12 @@ function M.cursorword()
     M.hicurword = 1
     B.notify_info 'cursorword'
   end
-  M.on_cursorhold { buf = vim.fn.bufnr(), }
+  M.on_cursormoved { buf = vim.fn.bufnr(), }
 end
 
 B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.hili.CursorMoved', {
   callback = function(ev)
-    M.on_cursorhold(ev)
+    M.on_cursormoved(ev)
   end,
 })
 
