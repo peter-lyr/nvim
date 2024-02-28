@@ -160,7 +160,7 @@ end
 function M.rmhili_do(content)
   local hiname = M.gethiname(content)
   pcall(vim.fn.matchdelete, vim.api.nvim_get_hl_id_by_name(hiname))
-  vim.api.nvim_set_hl(0, hiname, { bg = nil, fg = nil, })
+  vim.api.nvim_set_hl(0, hiname, { bg = nil, fg = nil, bold = nil, })
 end
 
 function M.rmhili_v()
@@ -174,9 +174,7 @@ function M.rmhili_v()
           B.cmd('let @0 = %s', M.getvisualcontent())
           local content = M.getescape(vim.fn.getreg '0')
           if vim.tbl_contains(vim.tbl_keys(HiLi), content) then
-            local hiname = M.gethiname(content)
-            pcall(vim.fn.matchdelete, vim.api.nvim_get_hl_id_by_name(hiname))
-            vim.api.nvim_set_hl(0, hiname, { bg = nil, })
+            M.rmhili_do(content)
             M.savehili(content, nil)
           end
         end)
@@ -190,9 +188,9 @@ function M.rmhili_n()
   M.rmhili_v()
 end
 
-function M.hili_do(content, bg, fg)
+function M.hili_do(content, val)
   local hiname = M.gethiname(content)
-  vim.api.nvim_set_hl(0, hiname, { bg = bg, fg = fg, })
+  vim.api.nvim_set_hl(0, hiname, val)
   vim.fn.matchadd(hiname, content)
 end
 
@@ -200,7 +198,7 @@ function M.rehili()
   HiLi = M.gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     for content, bg in pairs(HiLi) do
-      M.hili_do(content, bg)
+      M.hili_do(content, { bg = bg, })
     end
   end
 end
@@ -325,7 +323,7 @@ function M.hili_lastcursorword(word)
   if lastcursorword and #lastcursorword > 0 then
     M.rmhili_do(lastcursorword[1])
   end
-  M.hili_do(M.two_cwords[1], '#632866')
+  M.hili_do(M.two_cwords[1], { bg = '#666666', fg = nil, bold = false, })
 end
 
 function M.on_cursormoved(ev)
