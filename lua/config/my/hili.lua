@@ -209,6 +209,11 @@ end
 
 M.curcontent = ''
 
+function M.print_cword(cword)
+  local searchcount = vim.fn.searchcount { pattern = cword, maxcount = 999999, }
+  B.echo('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], string.gsub(cword, "'", '"'))
+end
+
 function M.prevhili()
   HiLi = M.gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
@@ -233,11 +238,6 @@ function M.nexthili()
     M.curcontent = M.getescape(vim.fn.getreg '0')
     M.print_cword(content)
   end
-end
-
-function M.print_cword(cword)
-  local searchcount = vim.fn.searchcount { pattern = cword, maxcount = 999999, }
-  B.echo('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], string.gsub(cword, "'", '"'))
 end
 
 function M.prevcword()
