@@ -221,20 +221,33 @@ function M.nexthili()
   end
 end
 
+function M.print_cword(cword)
+  local searchcount = vim.fn.searchcount { pattern = cword, maxcount = 999999, }
+  B.print('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], cword)
+end
+
 function M.prevcword()
-  vim.fn.search(vim.fn.expand('<cword>'), 'b')
+  local cword = vim.fn.expand '<cword>'
+  vim.fn.search(cword, 'b')
+  M.print_cword(cword)
 end
 
 function M.nextcword()
-  vim.fn.search(vim.fn.expand('<cword>'))
+  local cword = vim.fn.expand '<cword>'
+  vim.fn.search(cword)
+  M.print_cword(cword)
 end
 
 function M.prevcWORD()
-  vim.fn.search(vim.fn.expand('<cWORD>'), 'b')
+  local cword = vim.fn.expand '<cWORD>'
+  vim.fn.search(cword, 'b')
+  M.print_cword(cword)
 end
 
 function M.nextcWORD()
-  vim.fn.search(vim.fn.expand('<cWORD>'))
+  local cword = vim.fn.expand '<cWORD>'
+  vim.fn.search(cword)
+  M.print_cword(cword)
 end
 
 function M.prevcurhili()
