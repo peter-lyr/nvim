@@ -269,6 +269,7 @@ function M.prevcurhili()
   if #M.curcontent > 0 then
     vim.cmd [[call feedkeys("\<esc>")]]
     vim.fn.searchpos(M.curcontent, 'be')
+    M.print_cword(M.curcontent)
   end
 end
 
@@ -277,6 +278,7 @@ function M.nextcurhili()
   if #M.curcontent > 0 then
     vim.cmd [[call feedkeys("\<esc>")]]
     vim.fn.searchpos(M.curcontent)
+    M.print_cword(M.curcontent)
   end
 end
 
@@ -335,7 +337,7 @@ function M.hili_lastcursorword(word)
   end
   local w = '\\<' .. M.two_cwords[1] .. '\\>'
   M.hili_do(w, M.hl_lastcursorword)
-  M.last_hls[#M.last_hls+1] = w
+  M.last_hls[#M.last_hls + 1] = w
 end
 
 function M.on_cursormoved(ev)
