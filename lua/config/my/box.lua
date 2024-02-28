@@ -284,7 +284,7 @@ end
 
 function M.show_info()
   if not M.show_info_en then
-    print(1)
+    B.echo('please wait')
     return
   end
   M.show_info_en = nil
