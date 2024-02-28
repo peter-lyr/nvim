@@ -89,7 +89,7 @@ return {
       -- vim.cmd 'GuiAdaptiveFont 1'
       -- vim.cmd 'GuiAdaptiveStyle Fusion'
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
-      vim.fn.timer_start(100, function()
+      vim.fn.timer_start(380, function()
         print(string.format('Startup time: %.3f ms', vim.g.end_time * 1000))
       end)
     end,
