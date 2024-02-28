@@ -3,8 +3,8 @@ local M = {}
 local B = require 'base'
 
 M.hl_cursorword = { bg = 'green', fg = 'yellow', reverse = false, bold = true, }
--- M.hl_lastcursorword = { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, }
-M.hl_lastcursorword = { fg = nil, bg = nil, reverse = true, bold = true, }
+M.hl_lastcursorword = { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, }
+-- M.hl_lastcursorword = { fg = nil, bg = nil, reverse = true, bold = true, }
 
 function M.gethiname(content)
   local sha256 = require 'sha2'
@@ -322,12 +322,18 @@ M.iskeyword_pattern = '^[%w_一-龥]+$'
 
 M.two_cwords = {}
 
+if not M.last_hls then
+  M.last_hls = {}
+end
+
 function M.hili_lastcursorword(word)
-  local lastcursorword = B.stack_item(M.two_cwords, word, 2, nil)
-  if lastcursorword and #lastcursorword > 0 then
-    M.rmhili_do('\\<' .. lastcursorword[1] .. '\\>')
+  B.stack_item(M.two_cwords, word, 2)
+  for _, i in ipairs(M.last_hls) do
+    M.rmhili_do(i)
   end
-  M.hili_do('\\<' .. M.two_cwords[1] .. '\\>', M.hl_lastcursorword)
+  local w = '\\<' .. M.two_cwords[1] .. '\\>'
+  M.hili_do(w, M.hl_lastcursorword)
+  M.last_hls[#M.last_hls+1] = w
 end
 
 function M.on_cursormoved(ev)
