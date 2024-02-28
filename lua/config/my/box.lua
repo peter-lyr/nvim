@@ -257,6 +257,17 @@ function M.sel_open_startup_file()
   end)
 end
 
+function M.get_human_fsize(fsize)
+  local suffixes = { 'B', 'K', 'M', 'G', }
+  local i = 1
+  while fsize > 1024 and i < #suffixes do
+    fsize = fsize / 1024
+    i = i + 1
+  end
+  local format = i == 1 and '%d%s' or '%.1f%s'
+  return string.format(format, fsize, suffixes[i])
+end
+
 function M._filesize()
   local file = vim.fn.expand '%:p'
   if file == nil or #file == 0 then
@@ -266,14 +277,7 @@ function M._filesize()
   if size <= 0 then
     return ''
   end
-  local suffixes = { 'B', 'K', 'M', 'G', }
-  local i = 1
-  while size > 1024 and i < #suffixes do
-    size = size / 1024
-    i = i + 1
-  end
-  local format = i == 1 and '%d%s' or '%.1f%s'
-  return string.format(format, size, suffixes[i])
+  return M.get_human_fsize(size)
 end
 
 M.show_info_en = 1
