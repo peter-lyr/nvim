@@ -2,6 +2,9 @@ local M = {}
 
 local B = require 'base'
 
+M.hl_cursorword = { bg = 'green', fg = 'yellow', reverse = false, bold = true, }
+M.hl_lastcursorword = { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, }
+
 function M.gethiname(content)
   local sha256 = require 'sha2'
   local res = tostring(sha256.sha256(content))
@@ -323,7 +326,7 @@ function M.hili_lastcursorword(word)
   if lastcursorword and #lastcursorword > 0 then
     M.rmhili_do('\\<' .. lastcursorword[1] .. '\\>')
   end
-  M.hili_do('\\<' .. M.two_cwords[1] .. '\\>', { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, })
+  M.hili_do('\\<' .. M.two_cwords[1] .. '\\>', M.hl_lastcursorword)
 end
 
 function M.on_cursormoved(ev)
@@ -365,7 +368,7 @@ end
 
 function M.on_colorscheme()
   M.rehili()
-  vim.api.nvim_set_hl(0, 'CursorWord', { bg = '#a1f12e', fg = '#d646c3', bold = true, })
+  vim.api.nvim_set_hl(0, 'CursorWord', M.hl_cursorword)
 end
 
 M.on_colorscheme()

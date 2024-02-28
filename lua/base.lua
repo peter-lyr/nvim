@@ -1173,10 +1173,7 @@ function M.get_shada_file_new()
   return vim.fn.stdpath 'state' .. '\\shada\\main.shada.new'
 end
 
-function M.stack_item(tbl, item, len, uniq)
-  if uniq and M.is_in_tbl(item, tbl) then
-    return
-  end
+function M.stack_item(tbl, item, len)
   local res = {}
   if #tbl >= len then
     for _ = 1, #tbl - len + 1 do
