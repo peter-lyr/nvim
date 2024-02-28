@@ -319,11 +319,11 @@ M.iskeyword_pattern = '^[%w_一-龥]+$'
 M.two_cwords = {}
 
 function M.hili_lastcursorword(word)
-  local lastcursorword = B.stack_item(M.two_cwords, word, 2, true)
+  local lastcursorword = B.stack_item(M.two_cwords, word, 2, nil)
   if lastcursorword and #lastcursorword > 0 then
-    M.rmhili_do(lastcursorword[1])
+    M.rmhili_do('\\<' .. lastcursorword[1] .. '\\>')
   end
-  M.hili_do(M.two_cwords[1], { bg = '#666666', fg = nil, bold = false, })
+  M.hili_do('\\<' .. M.two_cwords[1] .. '\\>', { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, })
 end
 
 function M.on_cursormoved(ev)
@@ -338,8 +338,8 @@ function M.on_cursormoved(ev)
       if vim.fn.getbufvar(ev.buf, '&buftype') ~= 'nofile' then
         local winid = vim.fn.win_getid()
         if string.match(word, M.iskeyword_pattern) then
-          B.cmd([[keepj windo match CursorWord /\V\<%s\>/]], word)
           M.hili_lastcursorword(word)
+          B.cmd([[keepj windo match CursorWord /\V\<%s\>/]], word)
         else
           vim.cmd [[keepj windo match CursorWord //]]
         end
@@ -355,8 +355,8 @@ function M.on_cursormoved(ev)
   end
   if just_hicword then
     if string.match(word, M.iskeyword_pattern) then
-      B.cmd([[match CursorWord /\V\<%s\>/]], word)
       M.hili_lastcursorword(word)
+      B.cmd([[match CursorWord /\V\<%s\>/]], word)
     else
       vim.cmd [[match CursorWord //]]
     end
@@ -365,7 +365,7 @@ end
 
 function M.on_colorscheme()
   M.rehili()
-  vim.api.nvim_set_hl(0, 'CursorWord', { fg = 'yellow', bg = 'green', reverse = false, bold = true, })
+  vim.api.nvim_set_hl(0, 'CursorWord', { bg = '#a1f12e', fg = '#d646c3', bold = true, })
 end
 
 M.on_colorscheme()
