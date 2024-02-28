@@ -157,6 +157,12 @@ function M.hili_n()
   M.hili_v()
 end
 
+function M.rmhili_do(content)
+  local hiname = M.gethiname(content)
+  pcall(vim.fn.matchdelete, vim.api.nvim_get_hl_id_by_name(hiname))
+  vim.api.nvim_set_hl(0, hiname, { bg = nil, fg = nil, })
+end
+
 function M.rmhili_v()
   HiLi = M.gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
@@ -184,13 +190,17 @@ function M.rmhili_n()
   M.rmhili_v()
 end
 
+function M.hili_do(content, bg, fg)
+  local hiname = M.gethiname(content)
+  vim.api.nvim_set_hl(0, hiname, { bg = bg, fg = fg, })
+  vim.fn.matchadd(hiname, content)
+end
+
 function M.rehili()
   HiLi = M.gethili()
   if HiLi and #vim.tbl_keys(HiLi) > 0 then
     for content, bg in pairs(HiLi) do
-      local hiname = M.gethiname(content)
-      vim.api.nvim_set_hl(0, hiname, { bg = bg, })
-      vim.fn.matchadd(hiname, content)
+      M.hili_do(content, bg)
     end
   end
 end
@@ -308,20 +318,30 @@ M.ignore_fts = { 'minimap', }
 
 M.iskeyword_pattern = '^[%w_一-龥]+$'
 
+M.two_cwords = {}
+
+function M.hili_lastcursorword(word)
+  local lastcursorword = B.stack_item(M.two_cwords, word, 2, true)
+  if lastcursorword and #lastcursorword > 0 then
+    M.rmhili_do(lastcursorword[1])
+  end
+  M.hili_do(M.two_cwords[1], '#632866')
+end
+
 function M.on_cursormoved(ev)
   local filetype = vim.api.nvim_buf_get_option(ev.buf, 'filetype')
   if vim.tbl_contains(M.ignore_fts, filetype) == true then
     return
   end
   local just_hicword = nil
-  local word
+  local word = vim.fn.expand '<cword>'
   if M.hicurword then
-    word = vim.fn.expand '<cword>'
     if M.windo then
       if vim.fn.getbufvar(ev.buf, '&buftype') ~= 'nofile' then
         local winid = vim.fn.win_getid()
         if string.match(word, M.iskeyword_pattern) then
           B.cmd([[keepj windo match CursorWord /\V\<%s\>/]], word)
+          M.hili_lastcursorword(word)
         else
           vim.cmd [[keepj windo match CursorWord //]]
         end
@@ -338,6 +358,7 @@ function M.on_cursormoved(ev)
   if just_hicword then
     if string.match(word, M.iskeyword_pattern) then
       B.cmd([[match CursorWord /\V\<%s\>/]], word)
+      M.hili_lastcursorword(word)
     else
       vim.cmd [[match CursorWord //]]
     end

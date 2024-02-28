@@ -1048,7 +1048,7 @@ end
 
 function M.get_path_files()
   local files = {}
-  for programs in string.gmatch(vim.fn.system('echo %path%'), '([^;]+);') do
+  for programs in string.gmatch(vim.fn.system 'echo %path%', '([^;]+);') do
     local a = M.scan_files_deep(programs, { filetypes = { 'lnk', }, })
     a = M.filter_exclude(a, { '卸载', 'uninst', 'Uninst', })
     files = M.merge_tables(files, a)
@@ -1160,12 +1160,26 @@ function M.get_nvim_qt_exe_pid()
 end
 
 function M.get_shada_file()
-  local shada_file = vim.fn.stdpath("state") .. '\\shada\\main.shada'
+  local shada_file = vim.fn.stdpath 'state' .. '\\shada\\main.shada'
   return shada_file
 end
 
 function M.get_shada_file_new()
-  return vim.fn.stdpath("state") .. '\\shada\\main.shada.new'
+  return vim.fn.stdpath 'state' .. '\\shada\\main.shada.new'
+end
+
+function M.stack_item(tbl, item, len, uniq)
+  if uniq and M.is_in_tbl(item, tbl) then
+    return
+  end
+  local res = {}
+  if #tbl >= len then
+    for _ = 1, #tbl - len + 1 do
+      res[#res+1] = table.remove(tbl, 1)
+    end
+  end
+  tbl[#tbl + 1] = item
+  return res
 end
 
 return M
