@@ -290,7 +290,7 @@ return {
     dir = '',
     ft = { 'markdown', },
     cmd = { 'Drag', },
-    event = { 'FocusLost', },
+    -- event = { 'FocusLost', },
     dependencies = { 'peter-lyr/vim-bbye', },
     keys = {
       { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
@@ -402,7 +402,6 @@ return {
       'peter-lyr/vim-bbye',
     },
     keys = {
-      { '<c-l>',   function() require 'config.my.tabline'.b_next_buf() end,                      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_next_buf', },
       { '<c-h>',   function() require 'config.my.tabline'.b_prev_buf() end,                      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_prev_buf', },
       { '<c-s-l>', function() require 'config.my.tabline'.bd_next_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_next_buf', },
       { '<c-s-h>', function() require 'config.my.tabline'.bd_prev_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_prev_buf', },
@@ -418,6 +417,22 @@ return {
     init = function()
       vim.opt.tabline = vim.loop.cwd()
       vim.opt.showtabline = 2
+      local function lazy_map(tbls)
+        for _, tbl in ipairs(tbls) do
+          local opt = {}
+          for k, v in pairs(tbl) do
+            if type(k) == 'string' and k ~= 'mode' then
+              opt[k] = v
+            end
+          end
+          vim.keymap.set(tbl['mode'], tbl[1], tbl[2], opt)
+        end
+      end
+      vim.fn.timer_start(1000, function()
+        lazy_map {
+          { '<c-l>', function() require 'config.my.tabline'.b_next_buf() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_next_buf', },
+        }
+      end)
     end,
     config = function() require 'config.my.tabline' end,
   },
