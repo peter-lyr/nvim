@@ -218,6 +218,7 @@ function M.prevhili()
     local ss = vim.fn.searchpos(content, 'bn')
     B.cmd('let @0 = %s', M.getcontent(ss[1], ss[2], ee[1], ee[2]))
     M.curcontent = M.getescape(vim.fn.getreg '0')
+    M.print_cword(content)
   end
 end
 
@@ -230,6 +231,7 @@ function M.nexthili()
     local ee = vim.fn.searchpos(content, 'ne')
     B.cmd('let @0 = %s', M.getcontent(ss[1], ss[2], ee[1], ee[2]))
     M.curcontent = M.getescape(vim.fn.getreg '0')
+    M.print_cword(content)
   end
 end
 
