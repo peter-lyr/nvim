@@ -1180,7 +1180,7 @@ function M.stack_item(tbl, item, len, uniq)
   local res = {}
   if #tbl >= len then
     for _ = 1, #tbl - len + 1 do
-      res[#res+1] = table.remove(tbl, 1)
+      res[#res + 1] = table.remove(tbl, 1)
     end
   end
   tbl[#tbl + 1] = item

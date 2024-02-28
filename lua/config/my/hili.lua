@@ -231,7 +231,7 @@ end
 
 function M.print_cword(cword)
   local searchcount = vim.fn.searchcount { pattern = cword, maxcount = 999999, }
-  B.echo('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], cword)
+  B.echo('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], string.gsub(cword, "'", '"'))
 end
 
 function M.prevcword()
