@@ -309,7 +309,7 @@ function M.show_info_do(temp, start_index)
   for k, v in ipairs(temp) do
     local k2, v2 = unpack(v)
     v2 = vim.fn.trim(v2())
-    items[#items + 1] = string.format(str, k + start_index, k2, v2)
+    table.insert(items, 1, string.format(str, k + start_index, k2, v2))
   end
   return items
 end
