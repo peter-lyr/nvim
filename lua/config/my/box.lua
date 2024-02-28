@@ -299,9 +299,9 @@ function M.show_info()
     { 'fname',            vim.fn.bufname(), },
     { 'fsize',            M._filesize(), },
     { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
+    { 'git branch name',  vim.fn['gitbranch#name'](), },
     { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
     { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
-    { 'gitbranch',        vim.fn['gitbranch#name'](), },
     { 'mem',              string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
     { 'startuptime',      string.format('%.3f ms', vim.g.end_time * 1000), },
   }
