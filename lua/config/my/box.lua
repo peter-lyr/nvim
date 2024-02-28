@@ -296,7 +296,7 @@ function M.show_info_do(temp, start_index)
   local str = '# %2d. [%-' .. width .. 's]: %s'
   for k, v in ipairs(temp) do
     local k2, v2 = unpack(v)
-    v2 = vim.fn.trim(v2)
+    v2 = vim.fn.trim(v2())
     items[#items + 1] = string.format(str, k + start_index, k2, v2)
   end
   return items
@@ -329,20 +329,20 @@ function M.show_info()
   end)
   local len = 0
   len = len + M.show_info_one({
-    { 'cwd',          vim.loop.cwd(), },
-    { 'datetime',     vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
-    { 'fileencoding', vim.opt.fileencoding:get(), },
-    { 'fileformat',   vim.bo.fileformat, },
-    { 'fname',        vim.fn.bufname(), },
-    { 'mem',          string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
-    { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
+    { 'cwd',          function() return vim.loop.cwd() end, },
+    { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S %A' end, },
+    { 'fileencoding', function() return vim.opt.fileencoding:get() end, },
+    { 'fileformat',   function() return vim.bo.fileformat end, },
+    { 'fname',        function() return vim.fn.bufname() end, },
+    { 'mem',          function() return string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024) end, },
+    { 'startuptime',  function() return string.format('%.3f ms', vim.g.end_time * 1000) end, },
   }, len)
   len = len + M.show_info_one({
-    { 'fsize',            M._filesize(), },
-    { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
-    { 'git branch name',  vim.fn['gitbranch#name'](), },
-    { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
-    { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
+    { 'fsize',            function() return M._filesize() end, },
+    { 'git added  files', function() return vim.fn.system 'git ls-files | wc -l' end, },
+    { 'git branch name',  function() return vim.fn['gitbranch#name']() end, },
+    { 'git commit count', function() return vim.fn.system 'git rev-list --count HEAD' end, },
+    { 'git ignore files', function() return vim.fn.system 'git ls-files -o | wc -l' end, },
   }, len)
 end
 
