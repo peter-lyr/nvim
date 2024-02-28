@@ -302,6 +302,22 @@ function M.show_info_do(temp, start_index)
   return items
 end
 
+function M.show_info_one(temp, start_index)
+  if not start_index then
+    start_index = 0
+  end
+  local start_time = vim.fn.reltime()
+  local items = M.show_info_do(temp, start_index)
+  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
+  local timing = string.format('timing: %.3f ms', end_time * 1000)
+  if start_index == 0 then
+    B.notify_info { timing, vim.fn.join(items, '\n'), }
+  else
+    B.notify_info_append { timing, vim.fn.join(items, '\n'), }
+  end
+  return #items
+end
+
 function M.show_info()
   if not M.show_info_en then
     B.echo 'please wait'
@@ -311,8 +327,8 @@ function M.show_info()
   B.set_timeout(1000, function()
     M.show_info_en = 1
   end)
-  local start_time1 = vim.fn.reltime()
-  local items = M.show_info_do {
+  local len = 0
+  len = len + M.show_info_one({
     { 'cwd',          vim.loop.cwd(), },
     { 'datetime',     vim.fn.strftime '%Y-%m-%d %H:%M:%S %A', },
     { 'fileencoding', vim.opt.fileencoding:get(), },
@@ -320,21 +336,14 @@ function M.show_info()
     { 'fname',        vim.fn.bufname(), },
     { 'mem',          string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024), },
     { 'startuptime',  string.format('%.3f ms', vim.g.end_time * 1000), },
-  }
-  local end_time1 = vim.fn.reltimefloat(vim.fn.reltime(start_time1))
-  local timing = string.format('timing: %.3f ms', end_time1 * 1000)
-  B.notify_info { timing, vim.fn.join(items, '\n'), }
-  local start_time2 = vim.fn.reltime()
-  items = M.show_info_do({
+  }, len)
+  len = len + M.show_info_one({
     { 'fsize',            M._filesize(), },
     { 'git added  files', vim.fn.system 'git ls-files | wc -l', },
     { 'git branch name',  vim.fn['gitbranch#name'](), },
     { 'git commit count', vim.fn.system 'git rev-list --count HEAD', },
     { 'git ignore files', vim.fn.system 'git ls-files -o | wc -l', },
-  }, #items)
-  local end_time2 = vim.fn.reltimefloat(vim.fn.reltime(start_time2))
-  timing = string.format('timing: %.3f ms', end_time2 * 1000)
-  B.notify_info_append { timing, vim.fn.join(items, '\n'), }
+  }, len)
 end
 
 function M.git_init_and_cmake()
