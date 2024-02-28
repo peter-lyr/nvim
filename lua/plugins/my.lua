@@ -366,6 +366,11 @@ return {
       { '<c-s-m>', function() require 'config.my.hili'.nextcurhili() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.hili: go cur next', },
       -- rehili
       { '<c-s-9>', function() require 'config.my.hili'.rehili() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.hili: rehili', },
+      -- search cword
+      { "<c-,>",   function() require 'config.my.hili'.prevcword() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.hili: prevcword', },
+      { '<c-.>',   function() require 'config.my.hili'.nextcword() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.hili: nextcword', },
+      { "<c-'>",   function() require 'config.my.hili'.prevcWORD() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.hili: prevcword', },
+      { '<c-/>',   function() require 'config.my.hili'.nextcWORD() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.hili: nextcword', },
     },
     config = function()
       require 'config.my.hili'

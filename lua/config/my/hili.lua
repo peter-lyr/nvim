@@ -221,6 +221,22 @@ function M.nexthili()
   end
 end
 
+function M.prevcword()
+  vim.fn.search(vim.fn.expand('<cword>'), 'b')
+end
+
+function M.nextcword()
+  vim.fn.search(vim.fn.expand('<cword>'))
+end
+
+function M.prevcWORD()
+  vim.fn.search(vim.fn.expand('<cWORD>'), 'b')
+end
+
+function M.nextcWORD()
+  vim.fn.search(vim.fn.expand('<cWORD>'))
+end
+
 function M.prevcurhili()
   HiLi = M.gethili()
   if #M.curcontent > 0 then
