@@ -90,7 +90,9 @@ return {
       -- vim.cmd 'GuiAdaptiveStyle Fusion'
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
       vim.fn.timer_start(380, function()
-        print(string.format('Startup time: %.3f ms', vim.g.end_time * 1000))
+        local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
+        print(startup_time)
+        vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
       end)
     end,
   },
