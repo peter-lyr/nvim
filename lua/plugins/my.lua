@@ -245,7 +245,7 @@ return {
       { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: quickfix_toggle', },
 
       --
-      { '<c-;>',        require 'base'.all_commands,                                  mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-;>',        function() require 'base'.all_commands() end,                 mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
 
     },
     dependencies = {
@@ -267,7 +267,7 @@ return {
     cmd = { 'C', },
     ft = { 'c', 'cpp', },
     keys = {
-      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function() require 'config.my.c' end,
   },
@@ -279,7 +279,7 @@ return {
     cmd = { 'Args', },
     event = { 'BufReadPre', 'BufNewFile', },
     keys = {
-      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function() require 'config.my.args' end,
   },
@@ -293,7 +293,7 @@ return {
     event = { 'FocusLost', },
     dependencies = { 'peter-lyr/vim-bbye', },
     keys = {
-      { '<c-;>', require 'base'.all_commands, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
     },
     config = function()
       require 'config.my.drag'
@@ -499,7 +499,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<c-;>', require 'config.my.neuims'.i_enter, mode = { 'i', }, desc = 'my.insertenter: cr', },
+      { '<c-;>', function() require 'config.my.neuims'.i_enter() end, mode = { 'i', }, desc = 'my.insertenter: cr', },
     },
     config = function()
       require 'config.my.neuims'
