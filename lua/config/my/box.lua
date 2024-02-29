@@ -43,16 +43,16 @@ for cmd in cmds:
 end
 
 function M.start_new_nvim_qt()
-  local _restart_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.bat')
+  local _start_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'start_nvim_qt'.filename, 'start_nvim_qt.bat')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
-  _restart_nvim_qt_bat_path:write(string.format([[
+  _start_nvim_qt_bat_path:write(string.format([[
 @echo off
 cd %s\bin
 start /d %s nvim-qt.exe
 exit
 ]],
     rtp, vim.loop.cwd()), 'w')
-  vim.cmd(string.format([[silent !start /b /min %s]], _restart_nvim_qt_bat_path.filename))
+  vim.cmd(string.format([[silent !start /b /min %s]], _start_nvim_qt_bat_path.filename))
 end
 
 function M.restart_nvim_qt()
