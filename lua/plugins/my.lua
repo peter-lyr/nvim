@@ -48,7 +48,7 @@ return {
       vim.opt.fileformats    = 'dos'
       vim.opt.foldmethod     = 'indent'
       vim.opt.foldlevel      = 99
-      vim.opt.titlestring    = 'Neovim-094'
+      vim.opt.titlestring    = 'Neovim-095'
       vim.opt.fileencodings  = 'utf-8,gbk,default,ucs-bom,latin'
       vim.opt.shortmess:append { W = true, I = true, c = true, }
       vim.opt.showmode       = true -- Dont show mode since we have a statusline
