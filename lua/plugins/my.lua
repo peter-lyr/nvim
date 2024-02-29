@@ -90,8 +90,10 @@ return {
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
       if '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
-        vim.fn.timer_start(100, function()
+        vim.fn.timer_start(10, function()
           vim.cmd 'SessionsLoad'
+          vim.fn['GuiWindowFullScreen'](1)
+          vim.fn['GuiWindowFullScreen'](0)
         end)
       end
       vim.fn.writefile({ '0', }, nvim_qt_start_flag_socket_txt)
