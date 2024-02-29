@@ -88,6 +88,9 @@ return {
     config = function()
       vim.fn['GuiWindowFrameless'](1)
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
+      if vim.fn.isdirectory(vim.fn.expand [[$HOME]] .. '\\DEPEI') ~= 1 then
+        vim.fn.mkdir(vim.fn.expand [[$HOME]] .. '\\DEPEI')
+      end
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
       if '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
         vim.fn.timer_start(10, function()
