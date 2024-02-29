@@ -91,6 +91,7 @@ return {
         local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
         print(startup_time)
         vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
+        vim.fn.writefile({'0'}, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
       end)
     end,
   },
@@ -139,6 +140,7 @@ return {
     dir = '',
     event = 'VimLeavePre',
     config = function()
+      require 'config.my.box'.move_shada_file_new()
       -- if vim.g.GuiWindowFullScreen == 1 then
       vim.fn['GuiWindowFullScreen'](0)
       -- end
@@ -148,7 +150,6 @@ return {
       -- if vim.g.GuiWindowFrameless == 1 then
       vim.fn['GuiWindowFrameless'](0)
       -- end
-      require 'config.my.box'.move_shada_file_new()
     end,
   },
 

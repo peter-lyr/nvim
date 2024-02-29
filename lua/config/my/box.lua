@@ -12,6 +12,8 @@ function M.source(file)
   B.cmd('source %s', file)
 end
 
+M.nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
+
 function M.restart_new_nvim_qt()
   local _restart_nvim_qt_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
@@ -23,8 +25,11 @@ except:
   os.system("pip install psutil -i http://pypi.douban.com/simple --trusted-host pypi.douban.com")
   import psutil
 while 1:
-  if %d not in psutil.pids():
-    break
+  # if `require 'base'.get_nvim_qt_exe_pid()` not in psutil.pids():
+  #   break
+  with open(r'%s', 'rb') as f:
+    if f.read().strip() == b'1':
+      break
 cmds = [
   r'cd %s\bin',
   r'start /d %s nvim-qt.exe'
@@ -32,7 +37,7 @@ cmds = [
 for cmd in cmds:
   os.system(cmd)
 ]],
-    B.get_nvim_qt_exe_pid(), rtp, vim.loop.cwd()), 'w')
+    M.nvim_qt_start_flag_socket_txt, rtp, vim.loop.cwd()), 'w')
   B.system_run('start silent', '%s', _restart_nvim_qt_py_path.filename)
 end
 
@@ -407,24 +412,17 @@ function M.move_shada_file_new()
     B.cmd('rshada! %s', B.get_shada_file_new())
   end
   vim.cmd 'wshada!'
+  vim.fn.writefile({'1'}, M.nvim_qt_start_flag_socket_txt)
   local _move_shada_file_new_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'shada'.filename, 'move_shada_file_new.py')
   _move_shada_file_new_py_path:write(string.format([[
 import os
-try:
-  import psutil
-except:
-  os.system("pip install psutil -i http://pypi.douban.com/simple --trusted-host pypi.douban.com")
-  import psutil
-while 1:
-  if %d not in psutil.pids():
-    break
 cmds = [
   r'move /y "%s" "%s"'
 ]
 for cmd in cmds:
   os.system(cmd)
 ]],
-    B.get_nvim_qt_exe_pid(), B.rep_slash(B.get_shada_file()), B.rep_slash(B.get_shada_file_new())), 'w')
+    B.rep_slash(B.get_shada_file()), B.rep_slash(B.get_shada_file_new())), 'w')
   vim.cmd(string.format([[silent !start /b /min %s]], _move_shada_file_new_py_path.filename))
 end
 
