@@ -284,9 +284,6 @@ return {
     'natecraddock/sessions.nvim',
     event = { 'VimLeavePre', },
     cmd = { 'SessionsSave', 'SessionsLoad', 'SessionsStop', },
-    init = function()
-      vim.opt.sessionoptions = 'buffers,sesdir,folds,help,tabpages,winsize,terminal'
-    end,
     config = function()
       require 'sessions'.setup {
         events = { 'VimLeavePre', },

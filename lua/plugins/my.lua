@@ -51,23 +51,24 @@ return {
       vim.opt.titlestring    = 'Neovim-094'
       vim.opt.fileencodings  = 'utf-8,gbk,default,ucs-bom,latin'
       vim.opt.shortmess:append { W = true, I = true, c = true, }
-      vim.opt.showmode      = true -- Dont show mode since we have a statusline
-      vim.opt.undofile      = true
-      vim.opt.undolevels    = 10000
-      vim.opt.sidescrolloff = 0      -- Columns of context
-      vim.opt.scrolloff     = 0      -- Lines of context
-      vim.opt.scrollback    = 100000 -- Lines of context
-      vim.opt.completeopt   = 'menu,menuone,noselect'
-      vim.opt.conceallevel  = 0      -- Hide * markup for bold and italic
-      vim.opt.list          = true
-      vim.opt.shada         = [[!,'1000,<500,s10000,h]]
-      vim.opt.laststatus    = 3
-      vim.opt.statusline    = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
-      vim.opt.equalalways   = false
+      vim.opt.showmode       = true -- Dont show mode since we have a statusline
+      vim.opt.undofile       = true
+      vim.opt.undolevels     = 10000
+      vim.opt.sidescrolloff  = 0     -- Columns of context
+      vim.opt.scrolloff      = 0     -- Lines of context
+      vim.opt.scrollback     = 100000 -- Lines of context
+      vim.opt.completeopt    = 'menu,menuone,noselect'
+      vim.opt.conceallevel   = 0     -- Hide * markup for bold and italic
+      vim.opt.list           = true
+      vim.opt.shada          = [[!,'1000,<500,s10000,h]]
+      vim.opt.laststatus     = 3
+      vim.opt.statusline     = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
+      vim.opt.equalalways    = false
       -- vim.opt.spell         = true
       -- vim.opt.spelllang     = 'en_us,cjk'
-      vim.opt.linebreak     = true
-      vim.opt.updatetime    = 500
+      vim.opt.linebreak      = true
+      vim.opt.updatetime     = 500
+      vim.opt.sessionoptions = 'buffers,sesdir,folds,help,tabpages,winsize,terminal'
     end,
   },
 
@@ -87,7 +88,7 @@ return {
     config = function()
       vim.fn['GuiWindowFrameless'](1)
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
-      vim.fn.writefile({'0'}, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
+      vim.fn.writefile({ '0', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
       vim.fn.timer_start(380, function()
         local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
         print(startup_time)
