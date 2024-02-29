@@ -287,7 +287,7 @@ return {
     config = function()
       require 'sessions'.setup {
         events = { 'VimLeavePre', },
-        session_filepath = vim.fn.stdpath 'data' .. '\\sessions',
+        session_filepath = vim.fn.stdpath 'data' .. '\\sessions.vim',
         absolute = nil,
       }
     end,
