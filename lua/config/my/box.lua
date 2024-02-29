@@ -15,6 +15,7 @@ end
 M.nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
 
 function M.restart_new_nvim_qt()
+  vim.fn.writefile({ '1', }, M.nvim_qt_start_flag_socket_txt)
   local _restart_nvim_qt_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'restart_nvim_qt'.filename, 'restart_nvim_qt.py')
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
   _restart_nvim_qt_py_path:write(string.format([[
@@ -412,7 +413,9 @@ function M.move_shada_file_new()
     B.cmd('rshada! %s', B.get_shada_file_new())
   end
   vim.cmd 'wshada!'
-  vim.fn.writefile({'1'}, M.nvim_qt_start_flag_socket_txt)
+  if '1' == vim.fn.trim(vim.fn.join(vim.fn.readfile(M.nvim_qt_start_flag_socket_txt), '')) then
+    vim.fn.writefile({ '2', }, M.nvim_qt_start_flag_socket_txt)
+  end
   local _move_shada_file_new_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'shada'.filename, 'move_shada_file_new.py')
   _move_shada_file_new_py_path:write(string.format([[
 import os

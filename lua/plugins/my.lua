@@ -54,11 +54,11 @@ return {
       vim.opt.showmode       = true -- Dont show mode since we have a statusline
       vim.opt.undofile       = true
       vim.opt.undolevels     = 10000
-      vim.opt.sidescrolloff  = 0     -- Columns of context
-      vim.opt.scrolloff      = 0     -- Lines of context
-      vim.opt.scrollback     = 100000 -- Lines of context
+      vim.opt.sidescrolloff  = 0       -- Columns of context
+      vim.opt.scrolloff      = 0       -- Lines of context
+      vim.opt.scrollback     = 1000000 -- Lines of context
       vim.opt.completeopt    = 'menu,menuone,noselect'
-      vim.opt.conceallevel   = 0     -- Hide * markup for bold and italic
+      vim.opt.conceallevel   = 0       -- Hide * markup for bold and italic
       vim.opt.list           = true
       vim.opt.shada          = [[!,'1000,<500,s10000,h]]
       vim.opt.laststatus     = 3
@@ -88,7 +88,13 @@ return {
     config = function()
       vim.fn['GuiWindowFrameless'](1)
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
-      vim.fn.writefile({ '0', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
+      local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
+      if '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
+        vim.fn.timer_start(100, function()
+          vim.cmd 'SessionsLoad'
+        end)
+      end
+      vim.fn.writefile({ '0', }, nvim_qt_start_flag_socket_txt)
       vim.fn.timer_start(380, function()
         local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
         print(startup_time)
