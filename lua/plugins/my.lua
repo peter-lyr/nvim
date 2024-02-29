@@ -140,6 +140,7 @@ return {
     dir = '',
     event = 'VimLeavePre',
     config = function()
+      vim.cmd 'SessionsSave'
       require 'config.my.box'.move_shada_file_new()
       -- if vim.g.GuiWindowFullScreen == 1 then
       vim.fn['GuiWindowFullScreen'](0)
