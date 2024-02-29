@@ -99,7 +99,7 @@ return {
           vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
         end)
       end
-      if '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
+      if vim.fn.filereadable(nvim_qt_start_flag_socket_txt) == 1 and '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
         vim.fn.timer_start(10, function()
           vim.cmd 'SessionsLoad'
           vim.fn['GuiWindowFullScreen'](1)
