@@ -33,7 +33,8 @@ while 1:
       break
 cmds = [
   r'cd %s\bin',
-  r'start /d %s nvim-qt.exe'
+  r'start /d %s nvim-qt.exe',
+  # r'start nvim-qt.exe.lnk,
 ]
 for cmd in cmds:
   os.system(cmd)
@@ -49,6 +50,7 @@ function M.start_new_nvim_qt()
 @echo off
 cd %s\bin
 start /d %s nvim-qt.exe
+# start nvim-qt.exe.lnk
 exit
 ]],
     rtp, vim.loop.cwd()), 'w')
