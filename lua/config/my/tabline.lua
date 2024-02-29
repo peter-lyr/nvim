@@ -372,10 +372,12 @@ function SwitchTab(tabnr, mouseclicks, mousebutton, modifiers)
   elseif mousebutton == 'l' and string.sub(modifiers, 2, 2) == 'c' then
     M.bwipeout_tab(tabnr)
     pcall(vim.cmd, tabnr .. 'tabclose')
-  elseif mousebutton == 'l' then -- and mouseclicks == 1 then
+  elseif mousebutton == 'l' and mouseclicks == 1 then
     vim.cmd(tabnr .. 'tabnext')
     pcall(vim.call, 'ProjectRootCD')
     M.update_bufs_and_refresh_tabline()
+  elseif mousebutton == 'l' and mouseclicks == 2 then
+    vim.cmd 'NvimTreeOpen'
   elseif mousebutton == 'r' and mouseclicks == 1 then
     M.restore_hidden_tabs()
   end
@@ -388,7 +390,7 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
   elseif mousebutton == 'l' and string.sub(modifiers, 2, 2) == 'c' then
     M.bwipeout_tab(tabnr)
     pcall(vim.cmd, tabnr .. 'tabclose')
-  elseif mousebutton == 'l' then -- and mouseclicks == 1 then
+  elseif mousebutton == 'l' and mouseclicks == 1 then
     local max_tabnr = vim.fn.tabpagenr '$'
     if tabnr < max_tabnr then
       tabnr = tabnr + 1
@@ -398,6 +400,8 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
     vim.cmd(tabnr .. 'tabnext')
     pcall(vim.call, 'ProjectRootCD')
     M.update_bufs_and_refresh_tabline()
+  elseif mousebutton == 'l' and mouseclicks == 2 then
+    vim.cmd 'NvimTreeOpen'
   elseif mousebutton == 'r' and mouseclicks == 1 then
     M.restore_hidden_tabs()
   end
