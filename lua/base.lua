@@ -1175,6 +1175,9 @@ end
 
 function M.stack_item(tbl, item, len)
   local res = {}
+  if M.is(tbl) and tbl[#tbl] == item then
+    return res
+  end
   if #tbl >= len then
     for _ = 1, #tbl - len + 1 do
       res[#res + 1] = table.remove(tbl, 1)
