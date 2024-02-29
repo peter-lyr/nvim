@@ -294,7 +294,8 @@ function M.selnexthili()
       vim.cmd [[call feedkeys("\<c-v>v")]]
     else
       vim.fn.searchpos(content)
-      B.cmd([[call feedkeys("v%dgg%d|")]], ne[1], ne[2])
+      local width = vim.fn.strdisplaywidth(string.sub(vim.fn.getline(ne[1]), 1, ne[2]))
+      B.cmd([[call feedkeys("v%dgg%d|")]], ne[1], width)
     end
   end
 end
@@ -312,7 +313,8 @@ function M.selprevhili()
     else
       vim.fn.searchpos(content, 'be')
       local ne = vim.fn.searchpos(content, 'nb')
-      B.cmd([[call feedkeys("v%dgg%d|")]], ne[1], ne[2])
+      local width = vim.fn.strdisplaywidth(string.sub(vim.fn.getline(ne[1]), 1, ne[2]))
+      B.cmd([[call feedkeys("v%dgg%d|")]], ne[1], width)
     end
   end
 end
