@@ -87,11 +87,11 @@ return {
     config = function()
       vim.fn['GuiWindowFrameless'](1)
       vim.g.end_time = vim.fn.reltimefloat(vim.fn.reltime(vim.g.start_time))
+      vim.fn.writefile({'0'}, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
       vim.fn.timer_start(380, function()
         local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
         print(startup_time)
         vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
-        vim.fn.writefile({'0'}, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt')
       end)
     end,
   },
