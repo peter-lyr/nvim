@@ -92,19 +92,24 @@ return {
         vim.fn.mkdir(vim.fn.expand [[$HOME]] .. '\\DEPEI')
       end
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
+      local function print_startup_time()
+        vim.fn.timer_start(380, function()
+          local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
+          print(startup_time)
+          vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
+        end)
+      end
       if '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
         vim.fn.timer_start(10, function()
           vim.cmd 'SessionsLoad'
           vim.fn['GuiWindowFullScreen'](1)
           vim.fn['GuiWindowFullScreen'](0)
+          print_startup_time()
         end)
+      else
+        print_startup_time()
       end
       vim.fn.writefile({ '0', }, nvim_qt_start_flag_socket_txt)
-      vim.fn.timer_start(380, function()
-        local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
-        print(startup_time)
-        vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
-      end)
     end,
   },
 
