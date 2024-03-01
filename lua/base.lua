@@ -1187,4 +1187,23 @@ function M.stack_item(tbl, item, len)
   return res
 end
 
+function M.get_running_executables()
+  local exes = {}
+  for exe in string.gmatch(vim.fn.system 'tasklist', '([^\n]+.exe)') do
+    if not M.is_in_tbl(exe, exes) then
+      exes[#exes + 1] = vim.fn.tolower(exe)
+    end
+  end
+  return exes
+end
+
+function M.is_sure(str_format, ...)
+  local prompt = string.format(str_format, ...)
+  local res = vim.fn.input(string.format('%s ? [Y/n]: ', prompt), 'y')
+  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == false then
+    return nil
+  end
+  return 1
+end
+
 return M

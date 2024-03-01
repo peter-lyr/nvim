@@ -213,7 +213,7 @@ end
 function M.sel_open_programs_file()
   local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
   if not B.is(programs_files_uniq) then
-    M.sel_open_programs_file_force()
+    M.sel_open_programs_file_force(1)
     return
   end
   B.ui_sel(programs_files_uniq, 'sel_open_programs_file', function(programs_file)
@@ -223,8 +223,20 @@ function M.sel_open_programs_file()
   end)
 end
 
-function M.sel_open_programs_file_force()
-  local programs_files_uniq = M.get_programs_files_uniq()
+function M.sel_open_programs_file_force(force)
+  local programs_files_uniq = {}
+  if force then
+    programs_files_uniq = M.get_programs_files_uniq()
+  else
+    local temp = B.read_table_from_file(M.programs_files_txt_path)
+    if temp then
+      if B.is_sure('%s has %d items, Sure to re run scanning all? It maybe timing a lot', M.programs_files_txt_path, #temp) then
+        programs_files_uniq = M.get_programs_files_uniq()
+      else
+        programs_files_uniq = temp
+      end
+    end
+  end
   B.ui_sel(programs_files_uniq, 'sel_open_programs_file_force', function(programs_file)
     if programs_file then
       B.system_open_file_silent(programs_file)
@@ -234,24 +246,54 @@ end
 
 function M.sel_kill_programs_file()
   local programs_files_uniq = B.read_table_from_file(M.programs_files_txt_path)
-  if not B.is(programs_files_uniq) then
-    M.sel_kill_programs_file_force()
+  if not programs_files_uniq or not B.is(programs_files_uniq) then
+    M.sel_kill_programs_file_force(1)
     return
   end
-  B.ui_sel(programs_files_uniq, 'sel_kill_programs_file', function(programs_file)
-    if programs_file then
-      local target_temp = M.get_target_path(programs_file)
-      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(target_temp and target_temp or programs_file, ':p:t:r'))
+  local running_executables = B.get_running_executables()
+  local exes = {}
+  for _, file in ipairs(programs_files_uniq) do
+    for _, temp in ipairs(running_executables) do
+      if B.is_in_str(temp, vim.fn.tolower(file)) then
+        exes[#exes + 1] = temp
+        break
+      end
+    end
+  end
+  B.ui_sel(exes, 'sel_kill_programs_file', function(exe)
+    if exe then
+      B.system_run('start silent', 'taskkill /f /im %s', exe)
     end
   end)
 end
 
-function M.sel_kill_programs_file_force()
-  local programs_files_uniq = M.get_programs_files_uniq()
-  B.ui_sel(programs_files_uniq, 'sel_kill_programs_file_force', function(programs_file)
-    if programs_file then
-      local target_temp = M.get_target_path(programs_file)
-      B.system_run('start silent', 'taskkill /f /im %s.exe', vim.fn.fnamemodify(target_temp and target_temp or programs_file, ':p:t:r'))
+function M.sel_kill_programs_file_force(force)
+  local programs_files_uniq = {}
+  if force then
+    programs_files_uniq = M.get_programs_files_uniq()
+  else
+    local temp = B.read_table_from_file(M.programs_files_txt_path)
+    if temp then
+      if B.is_sure('%s has %d items, Sure to re run scanning all? It maybe timing a lot', M.programs_files_txt_path, #temp) then
+        programs_files_uniq = M.get_programs_files_uniq()
+      else
+        programs_files_uniq = temp
+      end
+    end
+  end
+  local running_executables = B.get_running_executables()
+  local exes = {}
+  for _, file in ipairs(programs_files_uniq) do
+    for _, temp in ipairs(running_executables) do
+      if B.is_in_str(temp, vim.fn.tolower(file)) then
+        exes[#exes + 1] = temp
+        break
+      end
+    end
+  end
+  B.ui_sel(exes, 'sel_kill_programs_file_force', function(exe)
+    if exe then
+      B.system_run('start silent', 'taskkill /f /im %s', exe)
     end
   end)
 end
