@@ -34,7 +34,14 @@ function M.lazy_map(tbls)
         opt[k] = v
       end
     end
-    vim.keymap.set(tbl['mode'], tbl[1], tbl[2], opt)
+    local lhs = tbl[1]
+    if type(lhs) == 'table' then
+      for _, l in ipairs(lhs) do
+        vim.keymap.set(tbl['mode'], l, tbl[2], opt)
+      end
+    else
+      vim.keymap.set(tbl['mode'], lhs, tbl[2], opt)
+    end
   end
 end
 
