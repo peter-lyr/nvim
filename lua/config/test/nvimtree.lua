@@ -257,8 +257,7 @@ end
 
 function M._delete_sel()
   local marks = require 'nvim-tree.marks'.get_marks()
-  local res = vim.fn.input('Confirm deletion ' .. #marks .. ' [N/y] ', 'y')
-  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+  if B.is_sure('Confirm deletion %d', #marks) then
     for _, v in ipairs(marks) do
       local absolute_path = v['absolute_path']
       absolute_path = absolute_path:match '^(.-)\\*$'
@@ -301,8 +300,7 @@ function M._move_sel(node)
     return
   end
   local marks = require 'nvim-tree.marks'.get_marks()
-  local res = vim.fn.input(dtarget .. '\nConfirm movment ' .. #marks .. ' [N/y] ', 'y')
-  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+  if B.is_sure('%s\nConfirm movment %d', dtarget, #marks) then
     for _, v in ipairs(marks) do
       local absolute_path = v['absolute_path']
       if require 'plenary.path':new(absolute_path):is_dir() then
@@ -360,8 +358,7 @@ function M._copy_sel(node)
     return
   end
   local marks = require 'nvim-tree.marks'.get_marks()
-  local res = vim.fn.input(dtarget .. '\nConfirm copy ' .. #marks .. ' [N/y] ', 'y')
-  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+  if B.is_sure('%s\nConfirm copy %d', dtarget, #marks) then
     for _, v in ipairs(marks) do
       local absolute_path = v['absolute_path']
       if require 'plenary.path':new(absolute_path):is_dir() then

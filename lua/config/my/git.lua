@@ -293,15 +293,13 @@ function M.pull_all()
 end
 
 function M.reset_hard()
-  local res = vim.fn.input('git reset --hard [N/y]: ', 'y')
-  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+  if B.is_sure 'git reset --hard' then
     B.system_run('asyncrun', 'git reset --hard')
   end
 end
 
 function M.reset_hard_clean()
-  local res = vim.fn.input('git reset --hard && git clean -fd [N/y]: ', 'y')
-  if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == true then
+  if B.is_sure 'git reset --hard && git clean -fd' then
     B.system_run('asyncrun', 'git reset --hard && git clean -fd')
   end
 end
@@ -310,8 +308,7 @@ function M.clean_ignored_files_and_folders()
   local result = vim.fn.systemlist { 'git', 'clean', '-xdn', }
   if #result > 0 then
     B.notify_info { 'git clean -xdn', vim.loop.cwd(), table.concat(result, '\n'), }
-    local res = vim.fn.input('Sure to del all of them? [Y/n]: ', 'y')
-    if vim.tbl_contains({ 'y', 'Y', 'yes', 'Yes', 'YES', }, res) == false then
+    if B.is_sure 'Sure to del all of them' then
       return
     end
   else
@@ -351,7 +348,7 @@ if not stderr:
         else:
           os.remove(file)
   vim.command(f"""lua require'base'.notify_info('del {c} Done!')""")
-EOF
+    EOF
 ]]
 end
 
