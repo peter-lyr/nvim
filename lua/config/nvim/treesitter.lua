@@ -70,6 +70,10 @@ require 'treesitter-context'.setup {
   end,
 }
 
+vim.keymap.set("n", "[c", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+end, { silent = true })
+
 require 'match-up'.setup {}
 
 B.aucmd({ 'TabClosed', 'TabEnter', }, 'nvim.treesitter.TabClosed', {
