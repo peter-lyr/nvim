@@ -264,6 +264,18 @@ function M.nextcWORD()
   M.print_cword(cword)
 end
 
+function M.prevlastcword()
+  local cword = M.lastcword
+  vim.fn.search(cword, 'b')
+  M.print_cword(cword)
+end
+
+function M.nextlastcword()
+  local cword = M.lastcword
+  vim.fn.search(cword)
+  M.print_cword(cword)
+end
+
 function M.prevcurhili()
   HiLi = M.gethili()
   if #M.curcontent > 0 then
@@ -337,7 +349,8 @@ function M.hili_lastcursorword(word)
   for _, i in ipairs(M.last_hls) do
     M.rmhili_do(i)
   end
-  local w = '\\<' .. M.two_cwords[1] .. '\\>'
+  M.lastcword = M.two_cwords[1]
+  local w = '\\<' .. M.lastcword .. '\\>'
   M.hili_do(w, M.hl_lastcursorword)
   M.last_hls[#M.last_hls + 1] = w
 end
