@@ -416,12 +416,12 @@ function M.show_info()
     { 'startuptime',  function() return string.format('`%.3f` ms', vim.g.end_time * 1000) end, },
   }
   M.show_info_one {
-    { 'fsize',            function() return M._filesize() end, },
-    { 'git added fsize',  function() return M.get_git_added_file_total_fsize() end, },
-    { 'git ignore fsize', function() return M.get_git_ignore_file_total_fsize() end, },
+    { 'fsize',            M._filesize, },
+    { 'git added fsize',  M.get_git_added_file_total_fsize, },
+    { 'git ignore fsize', M.get_git_ignore_file_total_fsize, },
   }
   M.show_info_one {
-    { 'git branch name',  function() return vim.fn['gitbranch#name']() end, },
+    { 'git branch name',  vim.fn['gitbranch#name'], },
     { 'git commit count', function() return '`' .. vim.fn.trim(vim.fn.system 'git rev-list --count HEAD') .. '` commits' end, },
     { 'git added  files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files | wc -l') .. '` files added' end, },
     { 'git ignore files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files -o | wc -l') .. '` files ignored' end, },
