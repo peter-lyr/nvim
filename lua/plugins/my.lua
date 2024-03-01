@@ -104,7 +104,10 @@ return {
           vim.cmd 'SessionsLoad'
           vim.fn['GuiWindowFullScreen'](1)
           vim.fn['GuiWindowFullScreen'](0)
-          print_startup_time()
+          vim.fn.timer_start(10, function()
+            require 'config.test.nvimtree'._reopen()
+            print_startup_time()
+          end)
         end)
       else
         print_startup_time()
