@@ -376,7 +376,7 @@ function M.show_info_do(temp, start_index)
   return items
 end
 
-function M.show_info_one(temp, start_index)
+function M.show_info_one_do(temp, start_index)
   if not start_index then
     start_index = 0
   end
@@ -392,6 +392,10 @@ function M.show_info_one(temp, start_index)
   return #items
 end
 
+function M.show_info_one(temp)
+  M.len = M.len + M.show_info_one_do(temp, M.len)
+end
+
 function M.show_info()
   if not M.show_info_en then
     B.echo 'please wait'
@@ -401,8 +405,8 @@ function M.show_info()
   B.set_timeout(1000, function()
     M.show_info_en = 1
   end)
-  local len = 0
-  len = len + M.show_info_one({
+  M.len = 0
+  M.show_info_one {
     { 'cwd',          function() return string.format('`%s`', vim.loop.cwd()) end, },
     { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S `%a`' end, },
     { 'fileencoding', function() return string.format('`%s`', vim.opt.fileencoding:get()) end, },
@@ -410,18 +414,18 @@ function M.show_info()
     { 'fname',        function() return string.format('`%s`', vim.fn.bufname()) end, },
     { 'mem',          function() return string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024) end, },
     { 'startuptime',  function() return string.format('`%.3f` ms', vim.g.end_time * 1000) end, },
-  }, len)
-  len = len + M.show_info_one({
+  }
+  M.show_info_one {
     { 'fsize',            function() return M._filesize() end, },
     { 'git added fsize',  function() return M.get_git_added_file_total_fsize() end, },
     { 'git ignore fsize', function() return M.get_git_ignore_file_total_fsize() end, },
-  }, len)
-  len = len + M.show_info_one({
+  }
+  M.show_info_one {
     { 'git branch name',  function() return vim.fn['gitbranch#name']() end, },
     { 'git commit count', function() return '`' .. vim.fn.trim(vim.fn.system 'git rev-list --count HEAD') .. '` commits' end, },
     { 'git added  files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files | wc -l') .. '` files added' end, },
     { 'git ignore files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files -o | wc -l') .. '` files ignored' end, },
-  }, len)
+  }
 end
 
 function M.git_init_and_cmake()
