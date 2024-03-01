@@ -404,7 +404,7 @@ function M.show_info()
   local len = 0
   len = len + M.show_info_one({
     { 'cwd',          function() return string.format('`%s`', vim.loop.cwd()) end, },
-    { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S %a' end, },
+    { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S `%a`' end, },
     { 'fileencoding', function() return string.format('`%s`', vim.opt.fileencoding:get()) end, },
     { 'fileformat',   function() return string.format('%s', vim.bo.fileformat) end, },
     { 'fname',        function() return string.format('`%s`', vim.fn.bufname()) end, },
