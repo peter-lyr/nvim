@@ -14,7 +14,12 @@ return {
     },
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'andymass/vim-matchup',
+      {
+        'andymass/vim-matchup',
+        init = function()
+          vim.g.matchup_matchparen_offscreen = {}
+        end,
+      },
       'nvim-treesitter/nvim-treesitter-context',
       'p00f/nvim-ts-rainbow',
     },
