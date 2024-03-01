@@ -318,6 +318,10 @@ function M.get_human_fsize(fsize)
   return string.format(format, fsize, suffixes[i])
 end
 
+function M.format_(size, human)
+  return string.format('%-10s %6s', string.format('%s', size), string.format('`%s`', human))
+end
+
 function M._filesize()
   local file = vim.fn.expand '%:p'
   if file == nil or #file == 0 then
@@ -327,7 +331,7 @@ function M._filesize()
   if size <= 0 then
     return ''
   end
-  return string.format('%-10s %6s', size, M.get_human_fsize(size))
+  return M.format_(size, M.get_human_fsize(size))
 end
 
 function M.get_git_added_file_total_fsize()
@@ -335,7 +339,7 @@ function M.get_git_added_file_total_fsize()
   for fname in string.gmatch(vim.fn.system 'git ls-files', '([^\n]+)') do
     total_fsize = total_fsize + vim.fn.getfsize(fname)
   end
-  return string.format('%-10s %6s', total_fsize, M.get_human_fsize(total_fsize))
+  return M.format_(total_fsize, M.get_human_fsize(total_fsize))
 end
 
 function M.get_git_ignore_file_total_fsize()
@@ -343,7 +347,7 @@ function M.get_git_ignore_file_total_fsize()
   for fname in string.gmatch(vim.fn.system 'git ls-files -o', '([^\n]+)') do
     total_fsize = total_fsize + vim.fn.getfsize(fname)
   end
-  return string.format('%-10s %6s', total_fsize, M.get_human_fsize(total_fsize))
+  return M.format_(total_fsize, M.get_human_fsize(total_fsize))
 end
 
 M.show_info_en = 1
@@ -399,13 +403,13 @@ function M.show_info()
   end)
   local len = 0
   len = len + M.show_info_one({
-    { 'cwd',          function() return vim.loop.cwd() end, },
-    { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S %A' end, },
-    { 'fileencoding', function() return vim.opt.fileencoding:get() end, },
-    { 'fileformat',   function() return vim.bo.fileformat end, },
-    { 'fname',        function() return vim.fn.bufname() end, },
+    { 'cwd',          function() return string.format('`%s`', vim.loop.cwd()) end, },
+    { 'datetime',     function() return vim.fn.strftime '%Y-%m-%d %H:%M:%S %a' end, },
+    { 'fileencoding', function() return string.format('`%s`', vim.opt.fileencoding:get()) end, },
+    { 'fileformat',   function() return string.format('%s', vim.bo.fileformat) end, },
+    { 'fname',        function() return string.format('`%s`', vim.fn.bufname()) end, },
     { 'mem',          function() return string.format('%dM', vim.loop.resident_set_memory() / 1024 / 1024) end, },
-    { 'startuptime',  function() return string.format('%.3f ms', vim.g.end_time * 1000) end, },
+    { 'startuptime',  function() return string.format('`%.3f` ms', vim.g.end_time * 1000) end, },
   }, len)
   len = len + M.show_info_one({
     { 'fsize',            function() return M._filesize() end, },
@@ -414,9 +418,9 @@ function M.show_info()
   }, len)
   len = len + M.show_info_one({
     { 'git branch name',  function() return vim.fn['gitbranch#name']() end, },
-    { 'git commit count', function() return vim.fn.system 'git rev-list --count HEAD' end, },
-    { 'git added  files', function() return vim.fn.system 'git ls-files | wc -l' end, },
-    { 'git ignore files', function() return vim.fn.system 'git ls-files -o | wc -l' end, },
+    { 'git commit count', function() return '`' .. vim.fn.trim(vim.fn.system 'git rev-list --count HEAD') .. '` commits' end, },
+    { 'git added  files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files | wc -l') .. '` files added' end, },
+    { 'git ignore files', function() return '`' .. vim.fn.trim(vim.fn.system 'git ls-files -o | wc -l') .. '` files ignored' end, },
   }, len)
 end
 
