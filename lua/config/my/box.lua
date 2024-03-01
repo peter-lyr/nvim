@@ -254,7 +254,7 @@ function M.sel_kill_programs_file()
   local exes = {}
   for _, file in ipairs(programs_files_uniq) do
     for _, temp in ipairs(running_executables) do
-      if B.is_in_str(temp, vim.fn.tolower(file)) then
+      if B.is_in_str(temp, vim.fn.tolower(file)) and not B.is_in_tbl(temp, exes) then
         exes[#exes + 1] = temp
         break
       end
@@ -285,7 +285,7 @@ function M.sel_kill_programs_file_force(force)
   local exes = {}
   for _, file in ipairs(programs_files_uniq) do
     for _, temp in ipairs(running_executables) do
-      if B.is_in_str(temp, vim.fn.tolower(file)) then
+      if B.is_in_str(temp, vim.fn.tolower(file)) and not B.is_in_tbl(temp, exes) then
         exes[#exes + 1] = temp
         break
       end
