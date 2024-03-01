@@ -33,6 +33,7 @@ function M._run_what(what)
   local node = require 'nvim-tree.lib'.get_node_at_cursor()
   local file = node.absolute_path
   local run_what_keys = vim.tbl_keys(M._run_what_dict)
+  table.sort(run_what_keys)
   if what then
     if B.is_in_tbl(what, run_what_keys) then
       M._run_what_dict[what](file)
