@@ -70,9 +70,13 @@ require 'treesitter-context'.setup {
   end,
 }
 
-vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context(vim.v.count1)
-end, { silent = true })
+function M.go_to_context()
+  require 'treesitter-context'.go_to_context(vim.v.count1)
+end
+
+B.lazy_map {
+  { '[c', M.go_to_context, mode = { 'n', 'v', }, silent = true, desc = 'nvim.treesitter: go_to_context', },
+}
 
 require 'match-up'.setup {}
 
