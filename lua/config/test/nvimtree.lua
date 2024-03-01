@@ -665,7 +665,7 @@ function M._on_attach(bufnr)
     { '<c-u>',         api.node.navigate.parent_close,     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Close Directory', },
 
     { 'x',             api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
-    { '<a-x>',         M._wrap_node(M._explorer_dtarget),  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
+    { '<a-x>',         M._wrap_node(M._explorer_dtarget),  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: explorer dtarget', },
     -- { '<MiddleMouse>', api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
     { '<c-x>',         M._system_run_and_close,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run System', },
     { 'gx',            api.node.run.cmd,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Run Command', },
