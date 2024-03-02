@@ -188,6 +188,9 @@ M.ausize_en = 1
 function M._ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
   print('ausize_en:', M.ausize_en)
+  if M.ausize_en == 0 then
+    vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
+  end
 end
 
 ---------------------------------------
