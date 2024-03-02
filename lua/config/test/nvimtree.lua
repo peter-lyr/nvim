@@ -167,7 +167,18 @@ function M._explorer_dtarget(node)
 end
 
 function M._delete(node)
-  B.cmd('Bdelete %s', node.absolute_path)
+  if node.type == 'directory' then
+    local files = B.scan_files(node.absolute_path)
+    for _, file in ipairs(files) do
+      if vim.api.nvim_buf_is_loaded(vim.fn.bufnr(file)) == true then
+        B.print('Bdelete %s', file)
+        B.cmd('Bdelete %s', file)
+      end
+    end
+  end
+  if node.type == 'file' then
+    B.cmd('Bdelete %s', node.absolute_path)
+  end
   require 'config.my.tabline'.update_bufs_and_refresh_tabline()
   vim.cmd 'norm j'
 end
