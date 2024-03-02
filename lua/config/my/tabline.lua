@@ -589,7 +589,11 @@ function M.get_tab_to_show()
         local proj = ''
         local temp_file = ''
         for _, bufnr in ipairs(vim.fn.tabpagebuflist(tabnr)) do
-          temp_file = vim.api.nvim_buf_get_name(bufnr)
+          if tabnr == vim.fn.tabpagenr() then
+            temp_file = vim.api.nvim_buf_get_name(0)
+          else
+            temp_file = vim.api.nvim_buf_get_name(bufnr)
+          end
           local temp_proj = B.rep_slash_lower(vim.fn['ProjectRootGet'](temp_file))
           if temp_proj ~= '.' and vim.fn.isdirectory(temp_proj) == 1 and vim.tbl_contains(projs, temp_proj) == false then
             projs[#projs + 1] = temp_proj
