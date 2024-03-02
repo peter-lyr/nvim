@@ -288,9 +288,11 @@ B.lazy_map {
   { '<leader>wd',      function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
 
   { '<leader>wh',      '<c-w>h',                               mode = { 'n', 'v', }, desc = 'my.window: go window up', },
-  { '<leader>wj',      '<c-w>j',                               mode = { 'n', 'v', }, desc = 'my.window: go window down', },
-  { '<leader>wk',      '<c-w>k',                               mode = { 'n', 'v', }, desc = 'my.window: go window left', },
+  { '<leader>wj',      '<c-w>j<c-w>_',                         mode = { 'n', 'v', }, desc = 'my.window: go window down', },
+  { '<leader>wk',      '<c-w>k<c-w>_',                         mode = { 'n', 'v', }, desc = 'my.window: go window left', },
   { '<leader>wl',      '<c-w>l',                               mode = { 'n', 'v', }, desc = 'my.window: go window right', },
+
+  { '<leader>wm',      '<c-w>_',                               mode = { 'n', 'v', }, desc = 'my.window: window highest', },
 
   { '<leader>wu',      ':<c-u>to new<cr>',                     mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
   { '<leader>wi',      ':<c-u>bo new<cr>',                     mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
