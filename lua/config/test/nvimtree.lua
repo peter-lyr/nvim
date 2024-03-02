@@ -615,8 +615,6 @@ end
 function M._on_attach(bufnr)
   local api = require 'nvim-tree.api'
   B.lazy_map {
-    { 'gd',            M._wrap_node(M._delete),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete buf', },
-
     { 'gf',            api.node.show_info_popup,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Info', },
     { 'dk',            api.node.open.tab,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: New Tab', },
     { 'dl',            api.node.open.vertical,             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: Open: Vertical Split', },
@@ -699,6 +697,7 @@ function M._on_attach(bufnr)
 
     { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _ausize_toggle', },
 
+    { 'd;',            M._wrap_node(M._delete),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete buf', },
   }
 
   B.lazy_map {
