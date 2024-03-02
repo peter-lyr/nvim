@@ -549,7 +549,7 @@ local opts = {
     -- ignore_dirs = { '*.git*', },
   },
   filters = {
-    -- dotfiles = false,
+    dotfiles = true,
   },
   diagnostics = {
     enable = true,
