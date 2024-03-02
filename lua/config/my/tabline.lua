@@ -187,10 +187,9 @@ function M.append_one_proj_right_down()
           return
         end
         vim.cmd 'wincmd b'
-        if B.file_exists(vim.api.nvim_buf_get_name(0)) then
-          vim.cmd 'wincmd W'
-        end
+        vim.cmd 'wincmd ='
         vim.cmd 'wincmd s'
+        vim.cmd 'wincmd ='
         vim.cmd('b' .. M.proj_buf[proj])
         vim.cmd 'e!'
       end)
