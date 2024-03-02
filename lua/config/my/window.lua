@@ -108,6 +108,7 @@ function M.bdelete_cur()
     catch
     endtry
   ]]
+  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
 end
 
 function M.Bdelete_cur()
@@ -118,6 +119,7 @@ function M.Bdelete_cur()
     catch
     endtry
   ]]
+  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
 end
 
 function M.bwipeout_cur()
@@ -127,6 +129,7 @@ function M.bwipeout_cur()
     catch
     endtry
   ]]
+  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
 end
 
 function M.Bwipeout_cur()
@@ -136,6 +139,7 @@ function M.Bwipeout_cur()
     catch
     endtry
   ]]
+  require 'config.my.tabline'.update_bufs_and_refresh_tabline()
 end
 
 function M.refresh()
