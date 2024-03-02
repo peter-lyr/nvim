@@ -29,8 +29,8 @@ return {
       vim.opt.numberwidth    = 1
       vim.opt.relativenumber = true
       vim.opt.title          = true
-      vim.opt.winminheight   = 1
-      vim.opt.winminwidth    = 1
+      vim.opt.winminheight   = 0
+      vim.opt.winminwidth    = 0
       vim.opt.expandtab      = true
       vim.opt.cindent        = true
       vim.opt.smartindent    = true
