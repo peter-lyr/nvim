@@ -307,7 +307,8 @@ return {
   {
     'phaazon/hop.nvim',
     keys = {
-      { 's', ':HopChar1<cr>', mode = { 'n', }, silent = true, desc = 'HopChar1', },
+      { 'f', ':HopChar1<cr>', mode = { 'n', }, silent = true, desc = 'HopChar1', },
+      { 's', ':HopChar2<cr>', mode = { 'n', }, silent = true, desc = 'HopChar2', },
     },
     config = function()
       require 'hop'.setup {
