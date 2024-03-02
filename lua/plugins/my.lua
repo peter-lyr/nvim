@@ -235,8 +235,9 @@ return {
       { '<leader>gg',   function() require 'config.my.git' end,                       mode = { 'n', 'v', }, silent = true, desc = '---my.git.push---', },
       { '<leader>ga',   function() require 'config.my.git'.addcommitpush() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush', },
       { '<leader>gga',  function() require 'config.my.git'.addcommitpush(nil, 1) end, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush commit_history_en', },
-      { '<leader>gb',   function() require 'config.my.git'.commit_push() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
-      { '<leader>ggb',  function() require 'config.my.git'.commit_push(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push commit_history_en', },
+      { '<leader>gc',   function() require 'config.my.git'.commit_push() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
+      { '<leader>ggc',  function() require 'config.my.git'.commit_push(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push commit_history_en', },
+      { '<leader>gb',   function() require 'config.my.git'.git_browser() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit_push', },
       { '<leader>gp',   function() require 'config.my.git'.pull() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull', },
       { '<leader>ggp',  function() require 'config.my.git'.pull_all() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: pull_all', },
 

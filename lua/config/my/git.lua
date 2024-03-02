@@ -194,6 +194,31 @@ function M.graph_start()
   B.system_run('start', 'git log --all --graph --decorate --oneline && pause')
 end
 
+function M.git_browser()
+  local remote = vim.fn.system 'git remote -v'
+  local res = B.findall('.*git@([^:]+):([^/]+)/(.+)\\.git.*', remote)
+  local urls = {}
+  if #res == 0 then
+    res = B.findall('https://([^ ]+)', remote)
+    for _, r in ipairs(res) do
+      local url = r
+      if not B.is_in_tbl(url, urls) then
+        urls[#urls + 1] = url
+      end
+    end
+  else
+    for _, r in ipairs(res) do
+      local url = string.format('%s/%s/%s', unpack(r))
+      if not B.is_in_tbl(url, urls) then
+        urls[#urls + 1] = url
+      end
+    end
+  end
+  if #urls > 0 then
+    B.system_run('start', 'start https://%s', urls[1])
+  end
+end
+
 function M.push()
   pcall(vim.call, 'ProjectRootCD')
   local result = vim.fn.systemlist { 'git', 'cherry', '-v', }
@@ -376,8 +401,8 @@ require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
 require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
 
 B.lazy_map {
-  { '<leader>gc',        M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
-  { '<leader>ggc',       function() M.commit(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit commit_history_en', },
+  -- { '<leader>gc',        M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
+  -- { '<leader>ggc',       function() M.commit(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit commit_history_en', },
   { '<leader>ggs',       M.push,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: push', },
   { '<leader>ggg',       M.graph_asyncrun,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_asyncrun', },
   { '<leader>gg<c-g>',   M.graph_start,                     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_start', },
