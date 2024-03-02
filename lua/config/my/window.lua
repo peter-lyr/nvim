@@ -288,6 +288,11 @@ B.lazy_map {
   { '<leader>wk',      '<c-w>k',                               mode = { 'n', 'v', }, desc = 'my.window: go window left', },
   { '<leader>wl',      '<c-w>l',                               mode = { 'n', 'v', }, desc = 'my.window: go window right', },
 
+  { '<leader>wu',      ':<c-u>to new<cr>',                     mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
+  { '<leader>wi',      ':<c-u>bo new<cr>',                     mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
+  { '<leader>wo',      ':<c-u>to vnew<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
+  { '<leader>wp',      ':<c-u>bo vnew<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
+
   { '<leader>wc',      '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
   { '<leader>wv',      '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
   { '<leader>wf',      '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
