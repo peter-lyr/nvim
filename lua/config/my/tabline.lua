@@ -251,6 +251,10 @@ function M.append_one_proj_new_tab_no_dupl()
   end
 end
 
+function WinbarProjRoot(fname)
+  return vim.fn['ProjectRootGet'](fname)
+end
+
 function M.simple_statusline_toggle()
   if M.simple_statusline then
     M.simple_statusline = nil
@@ -262,7 +266,7 @@ function M.simple_statusline_toggle()
     M.simple_statusline = 1
     vim.opt.showtabline = 0
     vim.opt.laststatus  = 2
-    vim.opt.winbar      = '%f'
+    vim.opt.winbar      = "%f %= %{v:lua.WinbarProjRoot(expand('%'))}"
     vim.opt.statusline  = '%{getcwd()}'
   end
 end
