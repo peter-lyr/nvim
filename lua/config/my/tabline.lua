@@ -7,7 +7,7 @@ M.proj_buf = {}
 M.cur_proj = ''
 M.cur_buf = 0
 
-M.simple_statusline = nil
+M.flexible_statusline = nil
 
 function M.is_cuf_buf_readable()
   if vim.fn.filewritable(vim.api.nvim_buf_get_name(0)) == 1 then
@@ -273,12 +273,12 @@ function WinbarProjRoot(fname)
 end
 
 function M.simple_statusline_toggle()
-  if M.simple_statusline then
-    M.simple_statusline = nil
+  if M.flexible_statusline then
+    M.flexible_statusline = nil
     vim.opt.winbar      = ''
     vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
   else
-    M.simple_statusline = 1
+    M.flexible_statusline = 1
     vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
     vim.opt.statusline  = '%{getcwd()}'
   end
