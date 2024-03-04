@@ -306,7 +306,7 @@ B.lazy_map {
   { '<leader>wd',       function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
 
   { '<leader>w;',       function() M.toggle_max_height() end,   mode = { 'n', 'v', }, desc = 'my.window: go window up', },
-  { '<leader>wh',       function() M.go_window 'l' end,         mode = { 'n', 'v', }, desc = 'my.window: go window up', },
+  { '<leader>wh',       function() M.go_window 'h' end,         mode = { 'n', 'v', }, desc = 'my.window: go window up', },
   { '<leader>wj',       function() M.go_window 'j' end,         mode = { 'n', 'v', }, desc = 'my.window: go window down', },
   { '<leader>wk',       function() M.go_window 'k' end,         mode = { 'n', 'v', }, desc = 'my.window: go window left', },
   { '<leader>wl',       function() M.go_window 'l' end,         mode = { 'n', 'v', }, desc = 'my.window: go window right', },
