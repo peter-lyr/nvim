@@ -304,6 +304,9 @@ B.lazy_map {
   { '<leader>wf',       '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
   { '<leader>wb',       '<c-w>L',                               mode = { 'n', 'v', }, desc = 'my.window: be most right window', },
 
+  { '<leader>wn',       '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
+  { '<leader>wg',       '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
+
   { '<leader>w<left>',  ':<c-u>to vsplit<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
   { '<leader>w<down>',  ':<c-u>bo split<cr>',                   mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
   { '<leader>w<up>',    ':<c-u>to split<cr>',                   mode = { 'n', 'v', }, desc = 'my.window: split to left window', },
