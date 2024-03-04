@@ -12,8 +12,8 @@ vim.cmd [[
   hi TabLine     guibg=NONE guifg=#a4a4a4
   hi TabLineSel  guibg=NONE guifg=#a4a4a4
   hi TabLineFill guibg=NONE guifg=#a4a4a4
-  hi WinBar      guibg=NONE guifg=#dddddd gui=bold
-  hi WinBarNC    guibg=NONE guifg=#808080 gui=bold
+  hi WinBar      guibg=#442288 guifg=yellow gui=bold
+  hi WinBarNC    guibg=#333333 guifg=gray gui=bold
 ]]
 
 require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
