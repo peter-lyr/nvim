@@ -185,15 +185,57 @@ end
 
 M.ausize_en = 1
 
+---------------------------------------
+
+function M.ausize_do(winid)
+  local max = 0
+  local min_nr = vim.fn.line 'w0'
+  if min_nr == 1 then
+    min_nr = 2
+  end
+  local max_nr = vim.fn.line 'w$'
+  for line = min_nr, max_nr do
+    local cnt = vim.fn.strdisplaywidth(vim.fn.getline(line))
+    if max < cnt then
+      max = cnt
+    end
+  end
+  if max + 1 + 1 + #tostring(vim.fn.line 'w$') + 1 + 2 > require 'nvim-tree.view'.View.width then
+    vim.api.nvim_win_set_width(winid, max + 5 + #tostring(vim.fn.line '$'))
+  end
+end
+
 function M._ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
   print('ausize_en:', M.ausize_en)
   if M.ausize_en == 0 then
-    vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
+    if B.is_buf_fts('NvimTree', vim.fn.bufnr()) then
+      vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
+    else
+      for winnr = 1, vim.fn.winnr '$' do
+        if B.is_buf_fts('NvimTree', vim.fn.winbufnr(winnr)) then
+          vim.api.nvim_win_set_width(vim.fn.win_getid(winnr), require 'nvim-tree.view'.View.width)
+        end
+      end
+    end
+  else
+    if not B.is_buf_fts('NvimTree', vim.fn.bufnr()) then
+      local old_winid = vim.fn.win_getid()
+      local nvt_winid = nil
+      for winnr = 1, vim.fn.winnr '$' do
+        if B.is_buf_fts('NvimTree', vim.fn.winbufnr(winnr)) then
+          nvt_winid = vim.fn.win_getid(winnr)
+          vim.fn.win_gotoid(nvt_winid)
+          break
+        end
+      end
+      if nvt_winid then
+        M.ausize_do(nvt_winid)
+        vim.fn.win_gotoid(old_winid)
+      end
+    end
   end
 end
-
----------------------------------------
 
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
@@ -201,21 +243,7 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
       local winid = vim.fn.win_getid(vim.fn.bufwinnr(ev.buf))
       vim.fn.timer_start(10, function()
         if B.is_buf_fts('NvimTree', ev.buf) then
-          local max = 0
-          local min_nr = vim.fn.line 'w0'
-          if min_nr == 1 then
-            min_nr = 2
-          end
-          local max_nr = vim.fn.line 'w$'
-          for line = min_nr, max_nr do
-            local cnt = vim.fn.strdisplaywidth(vim.fn.getline(line))
-            if max < cnt then
-              max = cnt
-            end
-          end
-          if max + 1 + 1 + #tostring(vim.fn.line 'w$') + 1 + 2 > require 'nvim-tree.view'.View.width then
-            vim.api.nvim_win_set_width(winid, max + 5 + #tostring(vim.fn.line '$'))
-          end
+          M.ausize_do(winid)
         end
       end)
     end
