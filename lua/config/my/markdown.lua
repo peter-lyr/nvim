@@ -38,7 +38,7 @@ function M.system_open_cfile() B.system_open_file_silent('%s', B.get_cfile()) en
 function M.buffer_open_cfile()
   local cfile = B.get_cfile()
   if B.is(cfile) and B.file_exists(cfile) then
-    B.cmd('e %s', cfile)
+    B.jump_or_edit(cfile)
   end
 end
 
