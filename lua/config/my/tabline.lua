@@ -7,7 +7,7 @@ M.proj_buf = {}
 M.cur_proj = ''
 M.cur_buf = 0
 
-M.simple_statusline = nil
+M.simple_statusline = 1
 
 function M.is_cuf_buf_readable()
   if vim.fn.filewritable(vim.api.nvim_buf_get_name(0)) == 1 then
@@ -285,21 +285,27 @@ function WinbarProjRoot(fname)
   end
   local projroot = vim.fn['ProjectRootGet'](fname)
   if B.is(projroot) then
-    return string.format('[ %s ]', projroot)
+    return string.format('%s ', projroot)
   end
   return '[not a proj]'
 end
 
 function M.simple_statusline_toggle()
-  if M.simple_statusline then
-    M.simple_statusline = nil
+  if M.simple_statusline == 1 then
+    M.simple_statusline = 2
     vim.opt.showtabline = 2
     vim.opt.winbar      = ''
     vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
-  else
+  elseif M.simple_statusline == 2 then
+    HL()
+    M.simple_statusline = 3
+    vim.opt.showtabline = 0
+    vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
+    vim.opt.statusline  = '%{getcwd()}'
+  elseif M.simple_statusline == 3 then
     HL()
     M.simple_statusline = 1
-    vim.opt.showtabline = 0
+    vim.opt.showtabline = 2
     vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
     vim.opt.statusline  = '%{getcwd()}'
   end
