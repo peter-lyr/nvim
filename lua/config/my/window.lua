@@ -46,8 +46,10 @@ end
 
 function M.toggle_max_height()
   if M.max_height_en then
+    vim.cmd 'wincmd ='
     M.max_height_en = nil
   else
+    vim.cmd 'wincmd _'
     M.max_height_en = 1
   end
   B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
