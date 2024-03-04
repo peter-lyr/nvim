@@ -3,18 +3,22 @@
 
 local M = {}
 
-vim.cmd [[
-  "hi CursorLine   guifg=NONE guibg=#64704a
-  "hi CursorColumn guifg=NONE guibg=#64704a
-  hi Comment      guifg=#6c7086 gui=NONE
-  hi @comment     guifg=#6c7086 gui=NONE
-  hi @lsp.type.comment guifg=#6c7086  gui=NONE
-  hi TabLine     guibg=NONE guifg=#a4a4a4
-  hi TabLineSel  guibg=NONE guifg=#a4a4a4
-  hi TabLineFill guibg=NONE guifg=#a4a4a4
-  hi WinBar      guibg=#442288 guifg=yellow gui=bold
-  hi WinBarNC    guibg=#333333 guifg=gray gui=bold
-]]
+function HL()
+  vim.cmd [[
+    "hi CursorLine   guifg=NONE guibg=#64704a
+    "hi CursorColumn guifg=NONE guibg=#64704a
+    hi Comment      guifg=#6c7086 gui=NONE
+    hi @comment     guifg=#6c7086 gui=NONE
+    hi @lsp.type.comment guifg=#6c7086  gui=NONE
+    hi TabLine     guibg=NONE guifg=#a4a4a4
+    hi TabLineSel  guibg=NONE guifg=#a4a4a4
+    hi TabLineFill guibg=NONE guifg=#a4a4a4
+    hi WinBar      guibg=#442288 guifg=yellow gui=bold
+    hi WinBarNC    guibg=#333333 guifg=gray gui=bold
+  ]]
+end
+
+HL()
 
 require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
   callback = function()

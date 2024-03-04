@@ -183,6 +183,24 @@ function M.restore_hidden_stack()
   end
 end
 
+function M.restore_hidden_stack_main()
+  pcall(vim.cmd, 'tabo')
+  pcall(vim.cmd, 'wincmd o')
+  if #vim.tbl_keys(M.proj_bufs) > 1 then
+    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+    for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
+      if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
+        vim.cmd 'wincmd ='
+        vim.cmd 'wincmd s'
+        vim.cmd('b' .. M.proj_buf[project])
+      end
+    end
+    vim.cmd 'wincmd t'
+    vim.cmd 'wincmd H'
+    vim.cmd 'wincmd ='
+  end
+end
+
 function M.append_one_proj_right_down()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local projs = {}
@@ -279,6 +297,7 @@ function M.simple_statusline_toggle()
     vim.opt.winbar      = ''
     vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
   else
+    HL()
     M.simple_statusline = 1
     vim.opt.showtabline = 0
     vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
