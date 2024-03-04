@@ -263,14 +263,12 @@ function M.simple_statusline_toggle()
   if M.simple_statusline then
     M.simple_statusline = nil
     vim.opt.showtabline = 2
-    vim.opt.laststatus  = 3
     vim.opt.winbar      = ''
     vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
   else
     M.simple_statusline = 1
     vim.opt.showtabline = 0
-    vim.opt.laststatus  = 2
-    vim.opt.winbar      = "%f %= %{v:lua.WinbarProjRoot(expand('%'))}"
+    vim.opt.winbar      = "%f %= [ %{v:lua.WinbarProjRoot(expand('%'))} ]"
     vim.opt.statusline  = '%{getcwd()}'
   end
 end
