@@ -205,7 +205,7 @@ function M.ausize_do(winid)
   end
 end
 
-function M._ausize_toggle()
+function M.ausize_toggle()
   M.ausize_en = 1 - M.ausize_en
   print('ausize_en:', M.ausize_en)
   if M.ausize_en == 0 then
@@ -723,7 +723,7 @@ function M._on_attach(bufnr)
     { 'dy',            M._wrap_node(M._copy_2_clip),       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _copy_2_clip', },
     { 'dp',            M._wrap_node(M._paste_from_clip),   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _paste_from_clip', },
 
-    { 'da',            M._ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _ausize_toggle', },
+    { 'da',            M.ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: ausize_toggle', },
 
     { 'd;',            M._wrap_node(M._delete),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete buf', },
   }
