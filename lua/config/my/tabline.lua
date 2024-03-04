@@ -252,12 +252,13 @@ function M.append_one_proj_new_tab_no_dupl()
 end
 
 function WinbarFname(fname)
+  local temp = vim.fn.deepcopy(fname)
   fname = B.rep_backslash_lower(vim.fn.expand(fname))
   local projroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname))
   if B.is(projroot) and B.is_in_str(projroot, fname) then
     return string.sub(fname, #projroot+2, #fname)
   end
-  return fname
+  return temp
 end
 
 function WinbarProjRoot(fname)
