@@ -252,7 +252,11 @@ function M.append_one_proj_new_tab_no_dupl()
 end
 
 function WinbarProjRoot(fname)
-  return vim.fn['ProjectRootGet'](fname)
+  local projroot = vim.fn['ProjectRootGet'](fname)
+  if B.is(projroot) then
+    return projroot
+  end
+  return '[not a proj]'
 end
 
 function M.simple_statusline_toggle()
