@@ -166,6 +166,23 @@ function M.restore_hidden_tabs()
   end
 end
 
+function M.restore_hidden_stack()
+  pcall(vim.cmd, 'tabo')
+  pcall(vim.cmd, 'wincmd o')
+  if #vim.tbl_keys(M.proj_bufs) > 1 then
+    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+    for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
+      if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
+        vim.cmd 'wincmd ='
+        vim.cmd 'wincmd s'
+        vim.cmd('b' .. M.proj_buf[project])
+      end
+    end
+    vim.cmd 'wincmd t'
+    vim.cmd 'wincmd ='
+  end
+end
+
 function M.append_one_proj_right_down()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local projs = {}
