@@ -251,6 +251,15 @@ function M.append_one_proj_new_tab_no_dupl()
   end
 end
 
+function WinbarFname(fname)
+  fname = B.rep_backslash_lower(vim.fn.expand(fname))
+  local projroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname))
+  if B.is(projroot) and B.is_in_str(projroot, fname) then
+    return string.sub(fname, #projroot+2, #fname)
+  end
+  return fname
+end
+
 function WinbarProjRoot(fname)
   if not B.file_exists(fname) then
     return ''
@@ -271,7 +280,7 @@ function M.simple_statusline_toggle()
   else
     M.simple_statusline = 1
     vim.opt.showtabline = 0
-    vim.opt.winbar      = "%f %= %{v:lua.WinbarProjRoot(expand('%'))}"
+    vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
     vim.opt.statusline  = '%{getcwd()}'
   end
 end
