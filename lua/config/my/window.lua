@@ -35,6 +35,24 @@ function M.change_around(dir)
   end
 end
 
+M.max_height_en = nil
+
+function M.go_window(dir)
+  B.cmd('wincmd %s', dir)
+  if B.is_in_tbl(dir, { 'j', 'k', }) and M.max_height_en then
+    vim.cmd 'wincmd _'
+  end
+end
+
+function M.toggle_max_height()
+  if M.max_height_en then
+    M.max_height_en = nil
+  else
+    M.max_height_en = 1
+  end
+  B.echo('M.max_height_en: ' .. tostring(M.max_height_en))
+end
+
 function M.close_win_up()
   local winid = vim.fn.win_getid()
   vim.cmd 'wincmd k'
@@ -282,68 +300,69 @@ function M.reopen_deleted()
 end
 
 B.lazy_map {
-  { '<leader>wa',       function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>ws',       function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>ww',       function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
-  { '<leader>wd',       function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wa',        function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>ws',        function() M.change_around 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>ww',        function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
+  { '<leader>wd',        function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
 
-  { '<leader>wh',       '<c-w>h',                               mode = { 'n', 'v', }, desc = 'my.window: go window up', },
-  { '<leader>wj',       '<c-w>j<c-w>_',                         mode = { 'n', 'v', }, desc = 'my.window: go window down', },
-  { '<leader>wk',       '<c-w>k<c-w>_',                         mode = { 'n', 'v', }, desc = 'my.window: go window left', },
-  { '<leader>wl',       '<c-w>l',                               mode = { 'n', 'v', }, desc = 'my.window: go window right', },
+  { '<leader>w<leader>', function() M.toggle_max_height() end,   mode = { 'n', 'v', }, desc = 'my.window: go window up', },
+  { '<leader>wh',        function() M.go_window 'l' end,         mode = { 'n', 'v', }, desc = 'my.window: go window up', },
+  { '<leader>wj',        function() M.go_window 'j' end,         mode = { 'n', 'v', }, desc = 'my.window: go window down', },
+  { '<leader>wk',        function() M.go_window 'k' end,         mode = { 'n', 'v', }, desc = 'my.window: go window left', },
+  { '<leader>wl',        function() M.go_window 'l' end,         mode = { 'n', 'v', }, desc = 'my.window: go window right', },
 
-  { '<leader>wm',       '<c-w>_',                               mode = { 'n', 'v', }, desc = 'my.window: window highest', },
+  { '<leader>wm',        '<c-w>_',                               mode = { 'n', 'v', }, desc = 'my.window: window highest', },
 
-  { '<leader>wu',       ':<c-u>new  to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
-  { '<leader>wi',       ':<c-u>new  bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
-  { '<leader>wo',       ':<c-u>vnew to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
-  { '<leader>wp',       ':<c-u>vnew bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
+  { '<leader>wu',        ':<c-u>new  to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
+  { '<leader>wi',        ':<c-u>new  bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
+  { '<leader>wo',        ':<c-u>vnew to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
+  { '<leader>wp',        ':<c-u>vnew bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
 
-  { '<leader>wc',       '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
-  { '<leader>wv',       '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
-  { '<leader>wf',       '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
-  { '<leader>wb',       '<c-w>L',                               mode = { 'n', 'v', }, desc = 'my.window: be most right window', },
+  { '<leader>wc',        '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
+  { '<leader>wv',        '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
+  { '<leader>wf',        '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
+  { '<leader>wb',        '<c-w>L',                               mode = { 'n', 'v', }, desc = 'my.window: be most right window', },
 
-  { '<leader>wn',       '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
-  { '<leader>wg',       '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
+  { '<leader>wn',        '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
+  { '<leader>wg',        '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
 
-  { '<leader>w<left>',  ':<c-u>vsplit to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
-  { '<leader>w<down>',  ':<c-u>split  bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
-  { '<leader>w<up>',    ':<c-u>split  to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to left window', },
-  { '<leader>w<right>', ':<c-u>vsplit bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to right window', },
+  { '<leader>w<left>',   ':<c-u>vsplit to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
+  { '<leader>w<down>',   ':<c-u>split  bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
+  { '<leader>w<up>',     ':<c-u>split  to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to left window', },
+  { '<leader>w<right>',  ':<c-u>vsplit bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to right window', },
 
-  { '<leader>xh',       function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
-  { '<leader>xj',       function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
-  { '<leader>xk',       function() M.close_win_up() end,        mode = { 'n', 'v', }, desc = 'my.window: close_win_up', },
-  { '<leader>xl',       function() M.close_win_right() end,     mode = { 'n', 'v', }, desc = 'my.window: close_win_right', },
-  { '<leader>xt',       function() M.close_cur_tab() end,       mode = { 'n', 'v', }, desc = 'my.window: close_cur_tab', },
+  { '<leader>xh',        function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
+  { '<leader>xj',        function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
+  { '<leader>xk',        function() M.close_win_up() end,        mode = { 'n', 'v', }, desc = 'my.window: close_win_up', },
+  { '<leader>xl',        function() M.close_win_right() end,     mode = { 'n', 'v', }, desc = 'my.window: close_win_right', },
+  { '<leader>xt',        function() M.close_cur_tab() end,       mode = { 'n', 'v', }, desc = 'my.window: close_cur_tab', },
 
-  { '<leader>xw',       function() M.Bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_cur', },
-  { '<leader>x<c-w>',   function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
-  { '<leader>xW',       function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
-  { '<leader>xd',       function() M.Bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: Bdelete_cur', },
-  { '<leader>x<c-d>',   function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
-  { '<leader>xD',       function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
+  { '<leader>xw',        function() M.Bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_cur', },
+  { '<leader>x<c-w>',    function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
+  { '<leader>xW',        function() M.bwipeout_cur() end,        mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur', },
+  { '<leader>xd',        function() M.Bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: Bdelete_cur', },
+  { '<leader>x<c-d>',    function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
+  { '<leader>xD',        function() M.bdelete_cur() end,         mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur', },
 
-  { '<leader>xow',      function() M.Bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_other', },
-  { '<leader>xo<c-w>',  function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
-  { '<leader>xoW',      function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
-  { '<leader>xod',      function() M.Bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: Bdelete_other', },
-  { '<leader>xo<c-d>',  function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
-  { '<leader>xoD',      function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
+  { '<leader>xow',       function() M.Bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: Bwipeout_other', },
+  { '<leader>xo<c-w>',   function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
+  { '<leader>xoW',       function() M.bwipeout_other() end,      mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other', },
+  { '<leader>xod',       function() M.Bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: Bdelete_other', },
+  { '<leader>xo<c-d>',   function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
+  { '<leader>xoD',       function() M.bdelete_other() end,       mode = { 'n', 'v', }, desc = 'my.window: bdelete_other', },
 
-  { '<leader>xc',       function() M.close_cur() end,           mode = { 'n', 'v', }, desc = 'my.window: close_cur', },
+  { '<leader>xc',        function() M.close_cur() end,           mode = { 'n', 'v', }, desc = 'my.window: close_cur', },
 
-  { '<leader>xp',       function() M.bdelete_cur_proj() end,    mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur_proj', },
-  { '<leader>x<c-p>',   function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
-  { '<leader>xP',       function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
+  { '<leader>xp',        function() M.bdelete_cur_proj() end,    mode = { 'n', 'v', }, desc = 'my.window: bdelete_cur_proj', },
+  { '<leader>x<c-p>',    function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
+  { '<leader>xP',        function() M.bwipeout_cur_proj() end,   mode = { 'n', 'v', }, desc = 'my.window: bwipeout_cur_proj', },
 
-  { '<leader>xop',      function() M.bdelete_other_proj() end,  mode = { 'n', 'v', }, desc = 'my.window: bdelete_other_proj', },
-  { '<leader>xo<c-p>',  function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
-  { '<leader>xoP',      function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
+  { '<leader>xop',       function() M.bdelete_other_proj() end,  mode = { 'n', 'v', }, desc = 'my.window: bdelete_other_proj', },
+  { '<leader>xo<c-p>',   function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
+  { '<leader>xoP',       function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
 
-  { '<leader>x<del>',   function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
-  { '<leader>x<cr>',    function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
+  { '<leader>x<del>',    function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
+  { '<leader>x<cr>',     function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
 }
 
 return M
