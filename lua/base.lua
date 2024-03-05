@@ -881,18 +881,18 @@ end
 
 function M.get_fname_short(fname)
   local temp__ = vim.fn.tolower(vim.fn.fnamemodify(fname, ':t'))
-  if #temp__ >= 15 then
+  if #temp__ >= 17 then
     local s1 = ''
     local s2 = ''
-    for i = 15, 3, -1 do
+    for i = 17, 3, -1 do
       s2 = string.sub(temp__, #temp__ - i, #temp__)
-      if vim.fn.strdisplaywidth(s2) <= 7 then
+      if vim.fn.strdisplaywidth(s2) <= 8 then
         break
       end
     end
-    for i = 15, 3, -1 do
+    for i = 17, 3, -1 do
       s1 = string.sub(temp__, 1, i)
-      if vim.fn.strdisplaywidth(s1) <= 7 then
+      if vim.fn.strdisplaywidth(s1) <= 8 then
         break
       end
     end
