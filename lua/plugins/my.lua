@@ -439,8 +439,8 @@ return {
       { 'qh',      function() require 'config.my.tabline'.restore_hidden_tabs() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
       { 'qj',      function() require 'config.my.tabline'.append_one_proj_right_down() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down', },
       { 'qk',      function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', },
-      { 'qp',      function() require 'config.my.tabline'.restore_hidden_stack() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
-      { 'qm',      function() require 'config.my.tabline'.restore_hidden_stack_main() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
+      { 'qp',      function() require 'config.my.tabline'.restore_hidden_stack() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
+      { 'qm',      function() require 'config.my.tabline'.restore_hidden_stack_main() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
     },
     init = function()
       vim.opt.tabline = vim.loop.cwd()
@@ -476,6 +476,8 @@ return {
       { '<a-o>',   function() require 'config.my.markdown'.system_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-i>',   function() require 'config.my.markdown'.buffer_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-u>',   function() require 'config.my.markdown'.make_url() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url', },
+      { '<a-r>',   function() require 'config.my.markdown'.run_in_cmd() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd', },
+      { '<a-e>',   function() require 'config.my.markdown'.run_in_cmd 'silent' end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd silent', },
       { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_path_clip', },
       { '<c-s-y>', function() require 'config.my.markdown'.copy_cfile_clip() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_clip', },
     },

@@ -1287,4 +1287,12 @@ function M.get_git_remote_url(proj)
   return type, ''
 end
 
+function M.get_head_dir()
+  local fname = M.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  if M.is(fname) and M.file_exists(fname) then
+    return M.file_parent(fname)
+  end
+  return vim.loop.cwd()
+end
+
 return M
