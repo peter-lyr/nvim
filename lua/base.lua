@@ -879,6 +879,28 @@ function M.get_root_short(project_root_path)
   return updir .. '/' .. temp__
 end
 
+function M.get_fname_short(fname)
+  local temp__ = vim.fn.tolower(vim.fn.fnamemodify(fname, ':t'))
+  if #temp__ >= 15 then
+    local s1 = ''
+    local s2 = ''
+    for i = 15, 3, -1 do
+      s2 = string.sub(temp__, #temp__ - i, #temp__)
+      if vim.fn.strdisplaywidth(s2) <= 7 then
+        break
+      end
+    end
+    for i = 15, 3, -1 do
+      s1 = string.sub(temp__, 1, i)
+      if vim.fn.strdisplaywidth(s1) <= 7 then
+        break
+      end
+    end
+    return s1 .. '…' .. s2
+  end
+  return temp__
+end
+
 function M.count_char(str, char)
   local count = 0
   for i = 1, #str do

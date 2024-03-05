@@ -550,9 +550,9 @@ end
 function M.get_buf_name(only_name)
   local ext = string.match(only_name, '%.([^.]+)$')
   if vim.tbl_contains(vim.tbl_keys(M.light), ext) == true and M.light[ext]['icon'] ~= '' then
-    return vim.fn.fnamemodify(only_name, ':r') .. ' ' .. M.light[ext]['icon']
+    return B.get_fname_short(vim.fn.fnamemodify(only_name, ':r')) .. ' ' .. M.light[ext]['icon']
   end
-  return only_name
+  return B.get_fname_short(only_name)
 end
 
 function M.get_buf_to_show(bufs, cur_buf, tab_len)
@@ -713,12 +713,12 @@ function M.one_buf(buf_index_first, index, cur_buf, buf)
     icon = M.light[ext]['icon']
     hiname = 'tbl' .. M.light[ext]['name']
   end
-  local name = only_name
+  local name = B.get_fname_short(only_name)
   if cur_buf == buf then
     M.tabhiname = hiname
     if B.is(icon) then
       icon = ' ' .. icon
-      name = only_name_no_ext
+      name = B.get_fname_short(only_name_no_ext)
     end
     if M.proj_bufs[M.cur_proj] then
       bufs[#bufs + 1] = string.format('%%#%s#%%%d@SwitchBuffer@ %d/%d %s%s ', hiname, buf, buf_index_first + index - 1, #M.proj_bufs[M.cur_proj], name, icon)
@@ -728,7 +728,7 @@ function M.one_buf(buf_index_first, index, cur_buf, buf)
   else
     if B.is(icon) then
       icon = string.format(' %%#%s_#%s%%#tblfil#', hiname, icon)
-      name = only_name_no_ext
+      name = B.get_fname_short(only_name_no_ext)
     end
     bufs[#bufs + 1] = string.format('%%#tblfil#%%%d@SwitchBuffer@ %d %s%s ', buf, buf_index_first + index - 1, name, icon)
   end
