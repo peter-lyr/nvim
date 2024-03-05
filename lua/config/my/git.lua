@@ -197,7 +197,7 @@ end
 function M.git_browser()
   local _, url = B.get_git_remote_url()
   if B.is(url) then
-    B.system_run('start', 'start https://%s', url)
+    B.system_run('start silent', 'start https://%s', url)
   end
 end
 
