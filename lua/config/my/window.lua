@@ -307,6 +307,8 @@ B.lazy_map {
   { '<leader>ww',       function() M.change_around 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
   { '<leader>wd',       function() M.change_around 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
 
+  { '<leader>wq',       '<c-w>p',                               mode = { 'n', 'v', }, desc = 'my.window: go toggle last window', },
+
   { '<leader>w;',       function() M.toggle_max_height() end,   mode = { 'n', 'v', }, desc = 'my.window: go window up', },
   { '<leader>wh',       function() M.go_window 'h' end,         mode = { 'n', 'v', }, desc = 'my.window: go window up', },
   { '<leader>wj',       function() M.go_window 'j' end,         mode = { 'n', 'v', }, desc = 'my.window: go window down', },
@@ -320,6 +322,11 @@ B.lazy_map {
   { '<leader>wo',       ':<c-u>vnew to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
   { '<leader>wp',       ':<c-u>vnew bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
 
+  { '<leader>w<left>',  '<c-w>v<c-w>h',                         mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
+  { '<leader>w<down>',  '<c-w>s',                               mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
+  { '<leader>w<up>',    '<c-w>s<c-w>k',                         mode = { 'n', 'v', }, desc = 'my.window: split to left window', },
+  { '<leader>w<right>', '<c-w>v',                               mode = { 'n', 'v', }, desc = 'my.window: split to right window', },
+
   { '<leader>wc',       '<c-w>H',                               mode = { 'n', 'v', }, desc = 'my.window: be most up window', },
   { '<leader>wv',       '<c-w>J',                               mode = { 'n', 'v', }, desc = 'my.window: be most down window', },
   { '<leader>wf',       '<c-w>K',                               mode = { 'n', 'v', }, desc = 'my.window: be most left window', },
@@ -327,11 +334,6 @@ B.lazy_map {
 
   { '<leader>wn',       '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
   { '<leader>wg',       '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
-
-  { '<leader>w<left>',  ':<c-u>vsplit to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
-  { '<leader>w<down>',  ':<c-u>split  bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
-  { '<leader>w<up>',    ':<c-u>split  to<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to left window', },
-  { '<leader>w<right>', ':<c-u>vsplit bo<cr>',                  mode = { 'n', 'v', }, desc = 'my.window: split to right window', },
 
   { '<leader>xh',       function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
   { '<leader>xj',       function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
