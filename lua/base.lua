@@ -1219,12 +1219,15 @@ function M.jump_or_edit(file)
   for winnr = 1, vim.fn.winnr '$' do
     local bufnr = vim.fn.winbufnr(winnr)
     local fname = M.rep_slash_lower(vim.api.nvim_buf_get_name(bufnr))
-    local proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](fname))
-    if M.is(proj) and M.is_in_str(proj, file) then
-      vim.fn.win_gotoid(vim.fn.win_getid(winnr))
-      break
+    if M.file_exists(fname) then
+      local proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](fname))
+      if M.is(proj) and M.is_in_str(proj, file) then
+        vim.fn.win_gotoid(vim.fn.win_getid(winnr))
+        break
+      end
     end
   end
+  M.print('e %s', file)
   M.cmd('e %s', file)
 end
 

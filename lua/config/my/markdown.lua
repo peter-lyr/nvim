@@ -37,8 +37,10 @@ function M.system_open_cfile() B.system_open_file_silent('%s', B.get_cfile()) en
 
 function M.buffer_open_cfile()
   local cfile = B.get_cfile()
-  if B.is(cfile) and B.file_exists(cfile) then
+  if B.is(cfile) and B.file_exists(cfile) and vim.fn.filereadable(cfile) == 1 then
     B.jump_or_edit(cfile)
+  else
+    B.echo('not a file: %s', cfile)
   end
 end
 
@@ -56,7 +58,7 @@ function M.copy_cfile_path_clip()
       end
     end
   end
-  if B.is(cfile) and B.file_exists(cfile) then
+  if B.is(cfile) and B.file_exists(cfile) and vim.fn.filereadable(cfile) == 1 then
     if not B.is(name) then
       name = string.match(vim.fn.getline '.', '%[(.+)%]%(')
     end
@@ -70,6 +72,8 @@ function M.copy_cfile_path_clip()
       vim.fn.setreg('+', cfile)
       B.notify_info(cfile .. ' path copied as text')
     end
+  else
+    B.echo('not a file: %s', cfile)
   end
 end
 
@@ -87,7 +91,7 @@ function M.copy_cfile_clip()
       end
     end
   end
-  if B.is(cfile) and B.file_exists(cfile) then
+  if B.is(cfile) and B.file_exists(cfile) and vim.fn.filereadable(cfile) == 1 then
     if not B.is(name) then
       name = string.match(vim.fn.getline '.', '%[(.+)%]%(')
     end
@@ -102,6 +106,8 @@ function M.copy_cfile_clip()
       B.system_run('start silent', '%s "%s"', copy2clip_exe, cfile)
       B.notify_info(cfile .. ' copied')
     end
+  else
+    B.echo('not a file: %s', cfile)
   end
 end
 
