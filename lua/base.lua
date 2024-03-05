@@ -1231,4 +1231,38 @@ function M.jump_or_edit(file)
   M.cmd('e %s', file)
 end
 
+function M.get_git_remote_url(proj)
+  local remote = ''
+  if proj then
+    remote = vim.fn.system(string.format('cd %s && git remote -v', proj))
+  else
+    remote = vim.fn.system 'git remote -v'
+  end
+  local res = M.findall('.*git@([^:]+):([^/]+)/(.+)\\.git.*', remote)
+  local urls = {}
+  local type = nil
+  if #res == 0 then
+    res = M.findall('https://([^ ]+)', remote)
+    for _, r in ipairs(res) do
+      local url = r
+      if not M.is_in_tbl(url, urls) then
+        urls[#urls + 1] = url
+        type = 'https'
+      end
+    end
+  else
+    for _, r in ipairs(res) do
+      local url = string.format('%s/%s/%s', unpack(r))
+      if not M.is_in_tbl(url, urls) then
+        urls[#urls + 1] = url
+        type = 'ssh'
+      end
+    end
+  end
+  if #urls > 0 then
+    return type, string.format('%s', urls[1])
+  end
+  return type, ''
+end
+
 return M
