@@ -133,9 +133,9 @@ function M.run_in_cmd(silent)
   local line = vim.fn.trim(vim.fn.getline('.'))
   if B.is(head) and B.is(line) then
     if silent then
-      B.system_run('start', '%s && %s', B.system_cd(head), line)
-    else
       B.system_run('start silent', '%s && %s', B.system_cd(head), line)
+    else
+      B.system_run('start', '%s && %s', B.system_cd(head), line)
     end
   end
 end
