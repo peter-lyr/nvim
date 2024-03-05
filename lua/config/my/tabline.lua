@@ -7,7 +7,7 @@ M.proj_buf = {}
 M.cur_proj = ''
 M.cur_buf = 0
 
-M.simple_statusline = 1
+M.simple_statusline = 3
 
 function M.is_cuf_buf_readable()
   if vim.fn.filewritable(vim.api.nvim_buf_get_name(0)) == 1 then
@@ -309,6 +309,21 @@ function M.simple_statusline_toggle()
     vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
     vim.opt.statusline  = '%{getcwd()}'
   end
+end
+
+if M.simple_statusline == 1 then
+  vim.opt.showtabline = 2
+  vim.opt.winbar      = ''
+  vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
+elseif M.simple_statusline == 2 then
+  HL()
+  vim.opt.showtabline = 0
+  vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
+  vim.opt.statusline  = '%{getcwd()}'
+elseif M.simple_statusline == 3 then
+  vim.opt.showtabline = 2
+  vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
+  vim.opt.statusline  = '%{getcwd()}'
 end
 
 function M.is_buf_deleted(buf)
@@ -621,9 +636,9 @@ function M.one_tab()
   local curtab = vim.fn.tabpagenr()
   local tabs_prefix = '%#tbltab#%' .. tostring(curtab) .. '@SwitchTabNext@'
   if vim.fn.tabpagenr '$' == 1 then
-    tabs = tabs_prefix .. string.format(' %s ', vim.loop.cwd())
+    tabs = tabs_prefix .. string.format(' %s ', B.get_root_short(vim.loop.cwd()))
   else
-    tabs = tabs_prefix .. string.format(' %d/%d %s ', curtab, vim.fn.tabpagenr '$', vim.loop.cwd())
+    tabs = tabs_prefix .. string.format(' %d/%d %s ', curtab, vim.fn.tabpagenr '$', B.get_root_short(vim.loop.cwd()))
   end
   tab_len = vim.fn.strdisplaywidth(tabs_prefix)
   return tabs, tab_len
