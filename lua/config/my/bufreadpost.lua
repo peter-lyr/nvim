@@ -5,6 +5,10 @@ local M = {}
 
 HL()
 
+vim.cmd [[
+  nnoremap <silent> f :<c-u>silent! exe "normal! ". substitute(matchstr(getline('.')[col('.') :], '\v\c(.{-}'.nr2char(getchar()).'){'.v:count1.'}'), '.', "l", "g")<cr>
+]]
+
 require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
