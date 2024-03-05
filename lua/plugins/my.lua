@@ -69,6 +69,7 @@ return {
       vim.opt.linebreak      = true
       vim.opt.updatetime     = 500
       vim.opt.sessionoptions = 'buffers,sesdir,folds,help,tabpages,winsize,terminal'
+      require 'config.my.options'
     end,
   },
 
