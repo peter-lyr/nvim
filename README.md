@@ -3,7 +3,6 @@
 <!-- toc -->
 
 - [TODO](#todo)
-- [NOTE](#note)
 
 <!-- tocstop -->
 
@@ -92,21 +91,3 @@
 38. [ ] TODO: add start explorer to session
 39. [x] TODO: system cd, cd /d
 40. [x] TODO: git repos pulls all
-
-# NOTE
-
-1. ssh: connect to host github.com port 22: Connection timed out
-
-```~\.ssh\config
-Host github.com
-  HostName ssh.github.com
-  User git
-  IdentityFile ~/.ssh/id_ed25519
-```
-
-> `ssh -T git@github.com`
-
-> 1. `ssh-keygen -t ed25519 -C "llydrp.ldp@gmail.com"`
-> 2. copy id_ed25519.pub to `https://github.com/settings/keys`
-
-1. [x] NOTE: git search *.clang-format: `path:*.clang-format`, no space in it
