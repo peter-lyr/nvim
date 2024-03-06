@@ -106,7 +106,7 @@ function M.close_win_right()
 end
 
 function M.go_last_window()
-  local winid = vim.fn.win_getid(vim.fn.winnr'$')
+  local winid = vim.fn.win_getid(vim.fn.winnr '$')
   vim.fn.win_gotoid(winid)
 end
 
@@ -355,10 +355,10 @@ B.lazy_map {
 
   { '<leader>wm',       '<c-w>_',                               mode = { 'n', 'v', }, desc = 'my.window: window highest', },
 
-  { '<leader>wu',       ':<c-u>new  to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
-  { '<leader>wi',       ':<c-u>new  bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
-  { '<leader>wo',       ':<c-u>vnew to<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
-  { '<leader>wp',       ':<c-u>vnew bo<cr>',                    mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
+  { '<leader>wu',       ':<c-u>leftabove new<cr>',              mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
+  { '<leader>wi',       ':<c-u>new<cr>',                        mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
+  { '<leader>wo',       ':<c-u>leftabove vnew<cr>',             mode = { 'n', 'v', }, desc = 'my.window: create new left window', },
+  { '<leader>wp',       ':<c-u>vnew<cr>',                       mode = { 'n', 'v', }, desc = 'my.window: create new right window', },
 
   { '<leader>w<left>',  '<c-w>v<c-w>h',                         mode = { 'n', 'v', }, desc = 'my.window: split to up window', },
   { '<leader>w<down>',  '<c-w>s',                               mode = { 'n', 'v', }, desc = 'my.window: split to down window', },
@@ -372,7 +372,7 @@ B.lazy_map {
 
   { '<leader>wn',       '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
   { '<leader>wg',       '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
-  { '<leader>wz',       function() M.go_last_window() end,        mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
+  { '<leader>wz',       function() M.go_last_window() end,      mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
 
   { '<leader>xh',       function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
   { '<leader>xj',       function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
