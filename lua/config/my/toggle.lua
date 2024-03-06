@@ -13,12 +13,19 @@ M.diff = function()
   print('vim.o.diff:', vim.o.diff)
 end
 
+function M._wrap_en()
+  if B.is_in_tbl(vim.o.ft, M.donot_change_fts) then
+    return
+  end
+  vim.o.wrap = 1
+end
+
 M.wrap = function()
   local winid = vim.fn.win_getid()
   if vim.o.wrap == true then
     vim.cmd 'windo set nowrap'
   else
-    vim.cmd 'windo set wrap'
+    vim.cmd "windo lua require 'config.my.toggle'._wrap_en()"
   end
   print('vim.o.wrap:', vim.o.wrap)
   vim.fn.win_gotoid(winid)
