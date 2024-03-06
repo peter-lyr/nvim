@@ -207,6 +207,7 @@ function M.restore_hidden_stack()
     end
     vim.cmd 'wincmd t'
     if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+      vim.api.nvim_win_set_width(0, require 'nvim-tree.view'.View.width)
       vim.cmd 'wincmd w'
     end
     vim.cmd 'wincmd ='
