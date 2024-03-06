@@ -211,7 +211,7 @@ M.curcontent = ''
 
 function M.print_cword(cword)
   local searchcount = vim.fn.searchcount { pattern = cword, maxcount = 999999, }
-  B.echo('[%d/%d] \\<%s\\>', searchcount['current'], searchcount['total'], string.gsub(cword, "'", '"'))
+  B.echo('[%d/%d] %s', searchcount['current'], searchcount['total'], string.gsub(cword, "'", '"'))
 end
 
 function M.prevhili()
@@ -241,37 +241,37 @@ function M.nexthili()
 end
 
 function M.prevcword()
-  local cword = vim.fn.expand '<cword>'
+  local cword = '\\<' .. vim.fn.expand '<cword>' .. '\\>'
   vim.fn.search(cword, 'b')
   M.print_cword(cword)
 end
 
 function M.nextcword()
-  local cword = vim.fn.expand '<cword>'
+  local cword = '\\<' .. vim.fn.expand '<cword>' .. '\\>'
   vim.fn.search(cword)
   M.print_cword(cword)
 end
 
 function M.prevcWORD()
-  local cword = vim.fn.expand '<cWORD>'
+  local cword = '\\<' .. vim.fn.expand '<cWORD>' .. '\\>'
   vim.fn.search(cword, 'b')
   M.print_cword(cword)
 end
 
 function M.nextcWORD()
-  local cword = vim.fn.expand '<cWORD>'
+  local cword = '\\<' .. vim.fn.expand '<cWORD>' .. '\\>'
   vim.fn.search(cword)
   M.print_cword(cword)
 end
 
 function M.prevlastcword()
-  local cword = M.lastcword
+  local cword = '\\<' .. M.lastcword .. '\\>'
   vim.fn.search(cword, 'b')
   M.print_cword(cword)
 end
 
 function M.nextlastcword()
-  local cword = M.lastcword
+  local cword = '\\<' .. M.lastcword .. '\\>'
   vim.fn.search(cword)
   M.print_cword(cword)
 end
