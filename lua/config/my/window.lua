@@ -305,10 +305,13 @@ function M.get_deleted_bufnrs()
 end
 
 function M.bwipeout_deleted()
+  local info = {}
   for _, bufnr in ipairs(M.get_deleted_bufnrs()) do
-    pcall(vim.cmd, 'Bwipeout! ' .. tostring(bufnr))
-    print('Bwipeout! -> ' .. vim.fn.bufname(bufnr))
+    info[#info+1] = 'bwipeout -> ' .. vim.fn.bufname(bufnr)
+    pcall(vim.cmd, 'bwipeout ' .. tostring(bufnr))
   end
+  table.insert(info, 1, string.format('%d buffer(s) deleted', #info))
+  B.notify_info(info)
 end
 
 function M.reopen_deleted()
