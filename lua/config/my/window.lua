@@ -39,14 +39,18 @@ M.max_height_en = nil
 
 function M.go_window(dir)
   B.cmd('wincmd %s', dir)
-  if B.is_in_tbl(dir, { 'j', 'k', }) then
-    if M.max_height_en then
-      vim.cmd 'wincmd _'
-    elseif vim.api.nvim_win_get_height(0) == 1 and B.is(vim.o.winbar) then
-      vim.api.nvim_win_set_height(0, 2)
-    end
+  if B.is_in_tbl(dir, { 'j', 'k', }) and M.max_height_en then
+    vim.cmd 'wincmd _'
   end
 end
+
+B.aucmd({ 'BufEnter', }, 'my.window.BufEnter', {
+  callback = function(ev)
+    if vim.api.nvim_win_get_height(0) == 1 and B.is(vim.o.winbar) then
+      vim.api.nvim_win_set_height(vim.fn.win_getid(vim.fn.bufwinnr(ev.buf)), 2)
+    end
+  end,
+})
 
 function M.toggle_max_height()
   if M.max_height_en then
@@ -307,7 +311,7 @@ end
 function M.bwipeout_deleted()
   local info = {}
   for _, bufnr in ipairs(M.get_deleted_bufnrs()) do
-    info[#info+1] = 'bwipeout -> ' .. vim.fn.bufname(bufnr)
+    info[#info + 1] = 'bwipeout -> ' .. vim.fn.bufname(bufnr)
     pcall(vim.cmd, 'bwipeout ' .. tostring(bufnr))
   end
   table.insert(info, 1, string.format('%d buffer(s) deleted', #info))
