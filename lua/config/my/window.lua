@@ -39,8 +39,12 @@ M.max_height_en = nil
 
 function M.go_window(dir)
   B.cmd('wincmd %s', dir)
-  if B.is_in_tbl(dir, { 'j', 'k', }) and M.max_height_en then
-    vim.cmd 'wincmd _'
+  if B.is_in_tbl(dir, { 'j', 'k', }) then
+    if M.max_height_en then
+      vim.cmd 'wincmd _'
+    elseif vim.api.nvim_win_get_height(0) == 1 and B.is(vim.o.winbar) then
+      vim.api.nvim_win_set_height(0, 2)
+    end
   end
 end
 
