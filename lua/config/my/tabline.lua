@@ -144,15 +144,42 @@ function M.bd_all_prev_buf()
   end
 end
 
+M.donot_change_fts = {
+  'NvimTree',
+  'aerial',
+  'qf',
+  'fugitive',
+}
+
+function M.close_except_fts()
+  local to_close_winnr = {}
+  local cur_winnr = vim.fn.winnr()
+  for winnr = vim.fn.winnr '$', 1, -1 do
+    if cur_winnr ~= winnr then
+      local bufnr = vim.fn.winbufnr(winnr)
+      if not B.is_in_tbl(vim.api.nvim_buf_get_option(bufnr, 'filetype'), M.donot_change_fts) then
+        to_close_winnr[#to_close_winnr + 1] = winnr
+      end
+    end
+  end
+  if not B.file_exists(vim.api.nvim_buf_get_name(0)) then
+    local temp = table.remove(to_close_winnr, 1)
+    vim.fn.win_gotoid(vim.fn.win_getid(temp))
+  end
+  for _, winnr in ipairs(to_close_winnr) do
+    vim.api.nvim_win_close(vim.fn.win_getid(winnr), false)
+  end
+end
+
 function M.only_cur_buffer()
   pcall(vim.cmd, 'tabo')
-  pcall(vim.cmd, 'wincmd o')
+  M.close_except_fts()
   pcall(vim.cmd, 'e!')
 end
 
 function M.restore_hidden_tabs()
   pcall(vim.cmd, 'tabo')
-  pcall(vim.cmd, 'wincmd o')
+  M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
@@ -168,7 +195,7 @@ end
 
 function M.restore_hidden_stack()
   pcall(vim.cmd, 'tabo')
-  pcall(vim.cmd, 'wincmd o')
+  M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
@@ -179,13 +206,16 @@ function M.restore_hidden_stack()
       end
     end
     vim.cmd 'wincmd t'
+    if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+      vim.cmd 'wincmd w'
+    end
     vim.cmd 'wincmd ='
   end
 end
 
 function M.restore_hidden_stack_main()
   pcall(vim.cmd, 'tabo')
-  pcall(vim.cmd, 'wincmd o')
+  M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
     local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
@@ -196,7 +226,14 @@ function M.restore_hidden_stack_main()
       end
     end
     vim.cmd 'wincmd t'
-    vim.cmd 'wincmd H'
+    if B.is_in_tbl(vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype'), M.donot_change_fts) then
+      vim.cmd 'wincmd w'
+      vim.cmd 'wincmd H'
+      vim.cmd 'wincmd w'
+      vim.cmd 'wincmd H'
+    else
+      vim.cmd 'wincmd H'
+    end
     vim.cmd 'wincmd ='
   end
 end
@@ -274,7 +311,7 @@ function WinbarFname(fname)
   fname = B.rep_backslash_lower(vim.fn.expand(fname))
   local projroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname))
   if B.is(projroot) and B.is_in_str(projroot, fname) then
-    return string.sub(fname, #projroot+2, #fname)
+    return string.sub(fname, #projroot + 2, #fname)
   end
   return temp
 end
