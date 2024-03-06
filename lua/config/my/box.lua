@@ -448,7 +448,7 @@ function M.qfmakeconv2cp936()
 end
 
 function M.open_file()
-  B.cmd('e %s', vim.fn.getreg('+'))
+  B.cmd('e %s', vim.fn.getreg '+')
 end
 
 if not B.file_exists(B.get_shada_file_new()) then
@@ -520,7 +520,7 @@ B.lazy_map {
   { '<leader>agm',        function() M.git_init_and_cmake() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
   { '<leader>aq8',        function() M.qfmakeconv2utf8() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
   { '<leader>aq9',        function() M.qfmakeconv2cp936() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
-  { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
+  { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: open_file', },
 }
 
 return M
