@@ -105,6 +105,11 @@ function M.close_win_right()
   end
 end
 
+function M.go_last_window()
+  local winid = vim.fn.win_getid(vim.fn.winnr'$')
+  vim.fn.win_gotoid(winid)
+end
+
 function M.close_win_left()
   local winid = vim.fn.win_getid()
   vim.cmd 'wincmd h'
@@ -367,6 +372,7 @@ B.lazy_map {
 
   { '<leader>wn',       '<c-w>w',                               mode = { 'n', 'v', }, desc = 'my.window: go next window', },
   { '<leader>wg',       '<c-w>W',                               mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
+  { '<leader>wz',       function() M.go_last_window() end,        mode = { 'n', 'v', }, desc = 'my.window: go prev window', },
 
   { '<leader>xh',       function() M.close_win_left() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_left', },
   { '<leader>xj',       function() M.close_win_down() end,      mode = { 'n', 'v', }, desc = 'my.window: close_win_down', },
