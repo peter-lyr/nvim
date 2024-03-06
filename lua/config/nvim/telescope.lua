@@ -11,12 +11,26 @@ local telescope = require 'telescope'
 local actions = require 'telescope.actions'
 local actions_layout = require 'telescope.actions.layout'
 
+function M.toggle_result_wrap()
+  for winnr = 1, vim.fn.winnr '$' do
+    local bufnr = vim.fn.winbufnr(winnr)
+    local wrap = B.toggle_value(vim.api.nvim_win_get_option(vim.fn.win_getid(winnr), 'wrap'))
+    if vim.api.nvim_buf_get_option(bufnr, 'filetype') == 'TelescopeResults' then
+      vim.api.nvim_win_set_option(vim.fn.win_getid(winnr), 'wrap', wrap)
+    end
+  end
+end
+
 vim.api.nvim_create_autocmd({ 'User', }, {
   pattern = 'TelescopePreviewerLoaded',
   callback = function()
     vim.opt.number         = true
     vim.opt.relativenumber = true
     vim.opt.wrap           = true
+    B.lazy_map {
+      { '<bs>',   M.toggle_result_wrap, mode = { 'n', }, silent = true, desc = 'nvim.telescope: toggle_result_wrap', },
+      { '<c-bs>', M.toggle_result_wrap, mode = { 'i', }, silent = true, desc = 'nvim.telescope: toggle_result_wrap', },
+    }
   end,
 })
 

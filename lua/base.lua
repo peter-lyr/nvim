@@ -1295,4 +1295,16 @@ function M.get_head_dir()
   return vim.loop.cwd()
 end
 
+function M.toggle_value(val)
+  if val == true then
+    return false
+  elseif val == false then
+    return true
+  elseif val == 1 then
+    return 0
+  elseif val == 0 then
+    return 1
+  end
+end
+
 return M
