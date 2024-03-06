@@ -231,6 +231,7 @@ function M.restore_hidden_stack_main()
       vim.cmd 'wincmd H'
       vim.cmd 'wincmd w'
       vim.cmd 'wincmd H'
+      vim.cmd 'wincmd w'
     else
       vim.cmd 'wincmd H'
     end
