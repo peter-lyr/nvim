@@ -166,6 +166,28 @@ function M.Bwipeout_cur()
   require 'config.my.tabline'.update_bufs_and_refresh_tabline()
 end
 
+function M.bdelete_proj(dir)
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local winid = vim.fn.win_getid()
+  B.cmd('wincmd %s', dir)
+  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0))) then
+    vim.fn.win_gotoid(winid)
+    return
+  end
+  M.bdelete_cur_proj()
+end
+
+function M.bwipeout_proj(dir)
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local winid = vim.fn.win_getid()
+  B.cmd('wincmd %s', dir)
+  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0))) then
+    vim.fn.win_gotoid(winid)
+    return
+  end
+  M.bwipeout_cur_proj()
+end
+
 function M.refresh()
   vim.cmd 'e!'
   vim.cmd 'ProjectRootCD'
@@ -368,6 +390,21 @@ B.lazy_map {
   { '<leader>xop',      function() M.bdelete_other_proj() end,  mode = { 'n', 'v', }, desc = 'my.window: bdelete_other_proj', },
   { '<leader>xo<c-p>',  function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
   { '<leader>xoP',      function() M.bwipeout_other_proj() end, mode = { 'n', 'v', }, desc = 'my.window: bwipeout_other_proj', },
+
+  { '<leader>xoh',      function() M.bdelete_proj 'h' end,      mode = { 'n', 'v', }, desc = 'my.window: bdelete_proj up', },
+  { '<leader>xoj',      function() M.bdelete_proj 'j' end,      mode = { 'n', 'v', }, desc = 'my.window: bdelete_proj down', },
+  { '<leader>xok',      function() M.bdelete_proj 'k' end,      mode = { 'n', 'v', }, desc = 'my.window: bdelete_proj left', },
+  { '<leader>xol',      function() M.bdelete_proj 'l' end,      mode = { 'n', 'v', }, desc = 'my.window: bdelete_proj right', },
+
+  { '<leader>xo<c-h>',  function() M.bwipeout_proj 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj up', },
+  { '<leader>xo<c-j>',  function() M.bwipeout_proj 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj down', },
+  { '<leader>xo<c-k>',  function() M.bwipeout_proj 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj left', },
+  { '<leader>xo<c-l>',  function() M.bwipeout_proj 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj right', },
+
+  { '<leader>xoH',      function() M.bwipeout_proj 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj up', },
+  { '<leader>xoJ',      function() M.bwipeout_proj 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj down', },
+  { '<leader>xoK',      function() M.bwipeout_proj 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj left', },
+  { '<leader>xoL',      function() M.bwipeout_proj 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj right', },
 
   { '<leader>x<del>',   function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
   { '<leader>x<cr>',    function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
