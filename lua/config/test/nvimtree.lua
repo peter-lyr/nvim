@@ -21,6 +21,7 @@ M._run_what_dict = {}
 
 function M._wrap_run_what(exe)
   return function(file)
+    B.histadd_en = 1
     B.system_run('start silent', '%s \"%s\"', exe, file)
   end
 end
@@ -723,7 +724,7 @@ function M._on_attach(bufnr)
     { 'dy',            M._wrap_node(M._copy_2_clip),       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _copy_2_clip', },
     { 'dp',            M._wrap_node(M._paste_from_clip),   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: _paste_from_clip', },
 
-    { 'da',            M.ausize_toggle,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: ausize_toggle', },
+    { 'da',            M.ausize_toggle,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: ausize_toggle', },
 
     { 'd;',            M._wrap_node(M._delete),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvim: delete buf', },
   }
