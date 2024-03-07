@@ -531,7 +531,7 @@ return {
   {
     name = 'my.neuims',
     dir = '',
-    event = { 'BufReadPost', 'BufNewFile', },
+    event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
       { '<c-;>', function() require 'config.my.neuims'.i_enter() end, mode = { 'i', }, desc = 'my.insertenter: cr', },
     },
