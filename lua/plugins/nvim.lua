@@ -38,7 +38,8 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'paopaol/telescope-git-diffs.nvim',
-      'nvim-telescope/telescope-ui-select.nvim',
+      -- 'nvim-telescope/telescope-ui-select.nvim',
+      'peter-lyr/telescope-ui-select.nvim',
       'ahmedkhalf/project.nvim',
       'nvim-tree/nvim-web-devicons',
       'dbakker/vim-projectroot',
