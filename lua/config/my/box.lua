@@ -451,40 +451,6 @@ function M.open_file()
   B.cmd('e %s', vim.fn.getreg '+')
 end
 
-if not B.file_exists(B.get_shada_file_new()) then
-  vim.fn.writefile({}, B.get_shada_file_new())
-end
-
-M.rshada_flag = nil
-
-function M.rshada_from_shada_file_new()
-  M.rshada_flag = 1
-  B.cmd('rshada! %s', B.get_shada_file_new())
-  B.set_timeout(500, function() vim.cmd 'wshada!' end)
-end
-
-function M.move_shada_file_new()
-  if not M.rshada_flag then
-    M.rshada_flag = 1
-    B.cmd('rshada! %s', B.get_shada_file_new())
-  end
-  vim.cmd 'wshada!'
-  if '1' == vim.fn.trim(vim.fn.join(vim.fn.readfile(M.nvim_qt_start_flag_socket_txt), '')) then
-    vim.fn.writefile({ '2', }, M.nvim_qt_start_flag_socket_txt)
-  end
-  local _move_shada_file_new_py_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'shada'.filename, 'move_shada_file_new.py')
-  _move_shada_file_new_py_path:write(string.format([[
-import os
-cmds = [
-  r'move /y "%s" "%s"'
-]
-for cmd in cmds:
-  os.system(cmd)
-]],
-    B.rep_slash(B.get_shada_file()), B.rep_slash(B.get_shada_file_new())), 'w')
-  vim.cmd(string.format([[silent !start /b /min %s]], _move_shada_file_new_py_path.filename))
-end
-
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
 

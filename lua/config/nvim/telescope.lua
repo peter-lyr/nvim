@@ -4,8 +4,6 @@ local B = require 'base'
 
 M.source = B.getsource(debug.getinfo(1)['source'])
 
-require 'config.my.box'.rshada_from_shada_file_new()
-
 -- telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'

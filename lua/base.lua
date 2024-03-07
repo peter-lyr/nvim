@@ -417,10 +417,12 @@ function M.format(str_format, ...)
 end
 
 function M.cmd(str_format, ...)
-  if type(str_format) == 'table' then
-    str_format = vim.fn.join(str_format, ' && ')
+  local cmd = string.format(str_format, ...)
+  vim.cmd(cmd)
+  if M.histadd_en then
+    vim.fn.histadd(':', cmd)
   end
-  vim.cmd(string.format(str_format, ...))
+  M.histadd_en = nil
 end
 
 function M.print(str_format, ...)
@@ -1192,15 +1194,6 @@ end
 
 function M.get_nvim_qt_exe_pid()
   return vim.loop.os_getppid(vim.fn.getpid())
-end
-
-function M.get_shada_file()
-  local shada_file = vim.fn.stdpath 'state' .. '\\shada\\main.shada'
-  return shada_file
-end
-
-function M.get_shada_file_new()
-  return vim.fn.stdpath 'state' .. '\\shada\\main.shada.new'
 end
 
 function M.stack_item(tbl, item, len)

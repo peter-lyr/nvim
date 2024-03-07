@@ -3,34 +3,9 @@ return {
   -- startuptime
   {
     'dstein64/vim-startuptime',
-    cmd = 'STARTUPTIME',
+    cmd = 'StartupTime',
     config = function()
       vim.g.startuptime_tries = 10
-      vim.api.nvim_create_user_command('STARTUPTIME', function(params)
-        require 'base'.cmd('StartupTime %s', vim.fn.join(params.fargs, ' '))
-        require 'config.my.box'.rshada_from_shada_file_new()
-        require 'base'.set_timeout(1000 * vim.g.startuptime_tries, function()
-          require 'config.my.box'.rshada_from_shada_file_new()
-        end)
-        require 'base'.set_timeout(2000 * vim.g.startuptime_tries, function()
-          require 'config.my.box'.rshada_from_shada_file_new()
-        end)
-      end, {
-        nargs = '*',
-        complete = function()
-          return {
-            '--hidden',
-            '--sort', '--no-sort',
-            '--sourcing-events', '--no-sourcing-events',
-            '--other-events', '--no-other-events',
-            '--save',
-            '--sourced', '--no-sourced',
-            '--tries',
-            '--',
-            '--help',
-          }
-        end,
-      })
     end,
   },
 

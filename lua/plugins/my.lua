@@ -162,7 +162,6 @@ return {
     event = 'VimLeavePre',
     config = function()
       vim.cmd 'SessionsSave'
-      require 'config.my.box'.move_shada_file_new()
       -- if vim.g.GuiWindowFullScreen == 1 then
       vim.fn['GuiWindowFullScreen'](0)
       -- end
@@ -182,16 +181,6 @@ return {
     event = { 'BufReadPre', 'BufReadPost', },
     config = function()
       require 'config.my.bufreadpost'
-    end,
-  },
-
-  -- my.shada
-  {
-    name = 'my.shada',
-    dir = '',
-    event = { 'BufReadPre', 'BufReadPost', 'CmdlineEnter', },
-    config = function()
-      require 'config.my.box'.rshada_from_shada_file_new()
     end,
   },
 
