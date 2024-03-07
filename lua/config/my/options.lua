@@ -14,11 +14,11 @@ function HL()
     hi TabLineSel  guibg=NONE guifg=#a4a4a4
     hi TabLineFill guibg=NONE guifg=#a4a4a4
     hi WinBar      guibg=#442288 guifg=yellow gui=bold
-    hi WinBarNC    guibg=#333333 guifg=gray gui=bold
-    hi StatusLine  guibg=#daa765 guifg=brown gui=bold
-    hi WinSeparator guibg=#daa765 guifg=brown
-    hi NvimTreeWinSeparator guibg=#daa765 guifg=brown
-    hi DiffviewWinSeparator guibg=#daa765 guifg=brown
+    hi WinBarNC    guibg=#1a1a1a guifg=#999999 gui=bold
+    hi StatusLine  guibg=#333333 guifg=brown gui=bold
+    hi WinSeparator guibg=#333333 guifg=brown
+    hi NvimTreeWinSeparator guibg=#333333 guifg=brown
+    hi DiffviewWinSeparator guibg=#333333 guifg=brown
   ]]
 end
 
