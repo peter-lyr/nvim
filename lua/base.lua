@@ -958,7 +958,6 @@ function M.wingoto_file_or_open(file)
     return 1
   end
   vim.cmd 'wincmd s'
-  M.histadd_en = 1
   M.cmd('e %s', file)
   return nil
 end
@@ -1244,7 +1243,6 @@ function M.jump_or_edit(file)
       end
     end
   end
-  M.histadd_en = 1
   M.cmd('e %s', file)
 end
 
