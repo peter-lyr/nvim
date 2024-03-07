@@ -451,6 +451,12 @@ function M.open_file()
   B.cmd('e %s', vim.fn.getreg '+')
 end
 
+function M.prepare_sessions()
+  if '1' == vim.fn.trim(vim.fn.join(vim.fn.readfile(M.nvim_qt_start_flag_socket_txt), '')) then
+    vim.fn.writefile({ '2', }, M.nvim_qt_start_flag_socket_txt)
+  end
+end
+
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
 

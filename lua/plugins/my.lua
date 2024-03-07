@@ -164,6 +164,7 @@ return {
     event = 'VimLeavePre',
     config = function()
       vim.cmd 'SessionsSave'
+      require 'config.my.box'.prepare_sessions()
       -- if vim.g.GuiWindowFullScreen == 1 then
       vim.fn['GuiWindowFullScreen'](0)
       -- end
