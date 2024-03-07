@@ -2,12 +2,6 @@ local M = {}
 
 local B = require 'base'
 
-vim.cmd [[
-  "set fillchars=horiz:█,horizup:█,horizdown:█,vert:█,vertleft:█,vertright:█,verthoriz:█,
-  set fillchars=horiz:\ ,horizup:\ ,horizdown:\ ,vert:\ ,vertleft:\ ,vertright:\ ,verthoriz:\ ,
-  hi WinSeparator guibg=#daa765 guifg=none
-]]
-
 M.donot_change_fts = {
   'NvimTree',
   'aerial',

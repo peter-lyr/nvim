@@ -16,6 +16,9 @@ function HL()
     hi WinBar      guibg=#442288 guifg=yellow gui=bold
     hi WinBarNC    guibg=#333333 guifg=gray gui=bold
     hi StatusLine  guibg=#daa765 guifg=brown gui=bold
+    hi WinSeparator guibg=#daa765 guifg=brown
+    hi NvimTreeWinSeparator guibg=#daa765 guifg=brown
+    hi DiffviewWinSeparator guibg=#daa765 guifg=brown
   ]]
 end
 
