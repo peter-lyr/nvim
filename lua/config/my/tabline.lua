@@ -330,41 +330,32 @@ function WinbarProjRoot(fname)
   return '[not a proj]'
 end
 
-function M.simple_statusline_toggle()
+M.winbar = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
+
+function M.simple_statusline_do()
   if M.simple_statusline == 1 then
-    M.simple_statusline = 2
     vim.opt.showtabline = 2
     vim.opt.winbar      = ''
-    vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
   elseif M.simple_statusline == 2 then
     HL()
-    M.simple_statusline = 3
     vim.opt.showtabline = 0
-    vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
-    vim.opt.statusline  = '%{getcwd()}'
+    vim.opt.winbar      = M.winbar
   elseif M.simple_statusline == 3 then
     HL()
-    M.simple_statusline = 1
     vim.opt.showtabline = 2
-    vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
-    vim.opt.statusline  = '%{getcwd()}'
+    vim.opt.winbar      = M.winbar
   end
 end
 
-if M.simple_statusline == 1 then
-  vim.opt.showtabline = 2
-  vim.opt.winbar      = ''
-  vim.opt.statusline  = [[%f %h%m%r%=%<%-14.(%l,%c%V%) %P]]
-elseif M.simple_statusline == 2 then
-  HL()
-  vim.opt.showtabline = 0
-  vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
-  vim.opt.statusline  = '%{getcwd()}'
-elseif M.simple_statusline == 3 then
-  vim.opt.showtabline = 2
-  vim.opt.winbar      = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
-  vim.opt.statusline  = '%{getcwd()}'
+function M.simple_statusline_toggle()
+  M.simple_statusline_do()
+  M.simple_statusline = M.simple_statusline + 1
+  if M.simple_statusline > 3 then
+    M.simple_statusline = 1
+  end
 end
+
+M.simple_statusline_do()
 
 function M.is_buf_deleted(buf)
   local file = B.rep_slash_lower(vim.api.nvim_buf_get_name(buf))
