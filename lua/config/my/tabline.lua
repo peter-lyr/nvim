@@ -355,7 +355,13 @@ function M.simple_statusline_toggle()
   end
 end
 
-M.simple_statusline_do()
+M.timer = B.set_interval(100, function()
+  local hl = vim.api.nvim_get_hl(0, { name = 'WinBar', })
+  if hl['bg'] == 4465288 and hl['bold'] == true and hl['fg'] == 16776960 then
+    B.clear_interval(M.timer)
+  end
+  M.simple_statusline_do()
+end)
 
 function M.is_buf_deleted(buf)
   local file = B.rep_slash_lower(vim.api.nvim_buf_get_name(buf))
