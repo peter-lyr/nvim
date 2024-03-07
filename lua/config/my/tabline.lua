@@ -330,7 +330,7 @@ function WinbarProjRoot(fname)
   return '[not a proj]'
 end
 
-M.winbar = "%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
+M.winbar = "%1@SwitchWindow@%{v:lua.WinbarFname(expand('%'))} %= %{v:lua.WinbarProjRoot(expand('%'))}"
 
 function M.simple_statusline_do()
   if M.simple_statusline == 1 then
@@ -519,12 +519,19 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
   end
 end
 
--- function SwitchWindow(win_number, mouseclicks, mousebutton, modifiers)
---   if mousebutton == 'm' and mouseclicks == 1 then
---   elseif mousebutton == 'l' and mouseclicks == 1 then
---   elseif mousebutton == 'r' and mouseclicks == 1 then
---   end
--- end
+function SwitchWindow(win_number, mouseclicks, mousebutton, modifiers)
+  if mousebutton == 'm' and mouseclicks == 1 then
+  elseif mousebutton == 'l' and mouseclicks == 1 then
+    local click_winid = vim.fn.getmousepos()['winid']
+    local cur_winid = vim.fn.win_getid()
+    if cur_winid ~= click_winid then
+      vim.fn.win_gotoid(click_winid)
+    else
+      vim.cmd 'wincmd _'
+    end
+  elseif mousebutton == 'r' and mouseclicks == 1 then
+  end
+end
 
 ---------------------
 
