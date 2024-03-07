@@ -135,11 +135,8 @@ telescope.setup {
         ['<C-q>'] = actions.close,
 
         ['<leader><leader>'] = actions.select_default,
-        ['<C-a>'] = actions.select_default,
-        ['<C-;>'] = actions.select_default,
         ['<C-1>'] = actions.select_default,
         ['<C-2>'] = actions.select_default,
-        ['<C-,>'] = actions.select_default,
         ['<CR>'] = actions.select_default,
         ['<C-x>'] = actions.select_horizontal,
         ['<C-v>'] = actions.select_vertical,
@@ -277,7 +274,7 @@ telescope.load_extension 'git_diffs'
 telescope.load_extension 'ui-select'
 
 -- projects
-telescope.load_extension 'projects'
+telescope.load_extension 'my_projects'
 
 require 'project_nvim'.setup {
   manual_mode = false,
@@ -286,7 +283,20 @@ require 'project_nvim'.setup {
 }
 
 -- sel root
-M.cur_root = {}
+M.telescope_cur_root_dir_path = B.getcreate_stddata_dirpath 'telescope-cur-root'
+M.telescope_cur_root_txt_path = M.telescope_cur_root_dir_path:joinpath 'telescope-cur-root.txt'
+
+if not M.telescope_cur_root_txt_path:exists() then
+  M.telescope_cur_root_txt_path:write(vim.inspect {}, 'w')
+end
+
+M.cur_root = B.read_table_from_file(M.telescope_cur_root_txt_path.filename)
+
+B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
+  callback = function(ev)
+    M.telescope_cur_root_txt_path:write(vim.inspect(M.cur_root), 'w')
+  end,
+})
 
 function M.cur_root_sel_do(dir)
   M.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](dir))] = B.rep_backslash_lower(dir)
@@ -333,17 +343,17 @@ end
 
 function M.projects_do()
   M.setreg()
-  vim.cmd 'Telescope projects'
+  vim.cmd 'Telescope my_projects'
 end
 
 function M.projects()
   M.projects_do()
   vim.cmd [[call feedkeys("\<esc>\<esc>")]]
   B.lazy_map {
-    { '<leader>sk', M.projects_do, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
+    { '<leader>sk', M.projects_do, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: my_projects', },
   }
   vim.fn.timer_start(20, function()
-    vim.cmd [[call feedkeys(":Telescope projects\<cr>")]]
+    vim.cmd [[call feedkeys(":Telescope my_projects\<cr>")]]
   end)
 end
 
