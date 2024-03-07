@@ -1301,12 +1301,10 @@ function M.toggle_value(val)
 end
 
 function M.try_close_cur_buffer()
-  local readable_winids = {}
   local cur_winnr = vim.fn.winnr()
   for winnr = vim.fn.winnr '$', 1, -1 do
     if cur_winnr ~= winnr then
       if M.file_exists(vim.api.nvim_buf_get_name(vim.fn.winbufnr(winnr))) then
-        readable_winids[#readable_winids + 1] = vim.fn.win_getid(winnr)
         vim.cmd 'close'
         break
       end
