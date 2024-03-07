@@ -184,6 +184,7 @@ function M.bdelete_proj(dir)
     return
   end
   M.bdelete_cur_proj()
+  B.try_close_cur_buffer()
 end
 
 function M.bwipeout_proj(dir)
@@ -195,6 +196,7 @@ function M.bwipeout_proj(dir)
     return
   end
   M.bwipeout_cur_proj()
+  B.try_close_cur_buffer()
 end
 
 function M.refresh()
