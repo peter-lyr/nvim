@@ -15,7 +15,7 @@ function HL()
     hi TabLineFill guibg=NONE guifg=#a4a4a4
     hi WinBar      guibg=#442288 guifg=yellow gui=bold
     hi WinBarNC    guibg=#333333 guifg=gray gui=bold
-    hi StatusLine  guibg=none guifg=brown gui=bold
+    hi StatusLine  guibg=#daa765 guifg=brown gui=bold
   ]]
 end
 
