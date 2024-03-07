@@ -2,6 +2,12 @@ local M = {}
 
 local B = require 'base'
 
+vim.cmd [[
+  "set fillchars=horiz:█,horizup:█,horizdown:█,vert:█,vertleft:█,vertright:█,verthoriz:█,
+  set fillchars=horiz:\ ,horizup:\ ,horizdown:\ ,vert:\ ,vertleft:\ ,vertright:\ ,verthoriz:\ ,
+  hi WinSeparator guibg=#daa765 guifg=none
+]]
+
 M.donot_change_fts = {
   'NvimTree',
   'aerial',
@@ -338,6 +344,13 @@ function M.reopen_deleted()
     vim.cmd('e ' .. choice)
   end)
 end
+
+-- mappings
+B.del_map({ 'n', 'v', }, '<leader>w')
+B.del_map({ 'n', 'v', }, '<leader>x')
+
+require 'which-key'.register { ['<leader>w'] = { name = 'my.window', }, }
+require 'which-key'.register { ['<leader>x'] = { name = 'my.window.close', }, }
 
 B.lazy_map {
   { '<leader>wa',       function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },
