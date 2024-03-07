@@ -91,3 +91,4 @@
 38. [ ] TODO: add start explorer to session
 39. [x] TODO: system cd, cd /d
 40. [x] TODO: git repos pulls all
+41. [ ] TODO: ui_sel to qf list
