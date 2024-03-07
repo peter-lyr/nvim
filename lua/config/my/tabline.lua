@@ -325,7 +325,7 @@ function WinbarProjRoot(fname)
   end
   local projroot = vim.fn['ProjectRootGet'](fname)
   if B.is(projroot) then
-    return string.format('%s ', projroot)
+    return string.format('%s ', B.rep_backslash_lower(projroot))
   end
   return '[not a proj]'
 end
