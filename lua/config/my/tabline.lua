@@ -311,9 +311,9 @@ end
 
 function WinbarFname(fname)
   local temp = vim.fn.deepcopy(fname)
-  fname = B.rep_backslash_lower(vim.fn.expand(fname))
+  fname = B.rep_backslash_lower(vim.fn.fnamemodify(vim.fn.expand(fname), ':p'))
   local projroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname))
-  if B.is(projroot) and B.is_in_str(projroot, fname) then
+  if B.is(projroot) and string.sub(fname, 1, #projroot) == projroot then
     return string.sub(fname, #projroot + 2, #fname)
   end
   return temp
