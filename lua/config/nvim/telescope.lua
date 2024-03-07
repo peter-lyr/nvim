@@ -294,7 +294,7 @@ end
 M.cur_root = B.read_table_from_file(M.telescope_cur_root_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
-  callback = function(ev)
+  callback = function()
     M.telescope_cur_root_txt_path:write(vim.inspect(M.cur_root), 'w')
   end,
 })
