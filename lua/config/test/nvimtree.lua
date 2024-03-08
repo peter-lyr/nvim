@@ -164,7 +164,7 @@ function M._explorer_dtarget(node)
   if not dtarget then
     return
   end
-  B.system_run('start silent', 'start "" %s', dtarget)
+  B.system_run('start silent', 'start "" "%s"', dtarget)
 end
 
 function M._delete(node)

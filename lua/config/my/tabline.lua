@@ -472,7 +472,7 @@ function SwitchBuffer(bufnr, mouseclicks, mousebutton, modifiers)
       M.update_bufs_and_refresh_tabline()
     end
   elseif mousebutton == 'r' and mouseclicks == 1 then
-    B.system_run('start silent', 'cmd /c start "" %s', vim.api.nvim_buf_get_name(bufnr))
+    B.system_run('start silent', 'cmd /c start "" "%s"', vim.api.nvim_buf_get_name(bufnr))
   end
 end
 
