@@ -427,6 +427,13 @@ function M.find_files_pardir_4()
   B.notify_info(cmd)
 end
 
+function M.find_files_pardir_5()
+  M.setreg()
+  local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h:h'))
+  B.cmd((cmd))
+  B.notify_info(cmd)
+end
+
 function M.oldfiles()
   M.setreg()
   vim.cmd 'Telescope oldfiles'
@@ -444,9 +451,23 @@ function M.live_grep()
   end
 end
 
+function M.live_grep_curdir()
+  M.setreg()
+  local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h'))
+  B.cmd((cmd))
+  B.notify_info(cmd)
+end
+
+function M.live_grep_pardir()
+  M.setreg()
+  local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h'))
+  B.cmd((cmd))
+  B.notify_info(cmd)
+end
+
 function M.everything()
   M.setreg()
-  local search = vim.fn.input 'Everything: '
+  local search = vim.fn.input 'Everything -noregex: '
   if B.is(search) then
     B.system_run('start silent', 'Everything.exe -noregex -search %s', search)
   end
@@ -454,7 +475,7 @@ end
 
 function M.everything_regex()
   M.setreg()
-  local search = vim.fn.input 'Everything: '
+  local search = vim.fn.input 'Everything -regex: '
   if B.is(search) then
     B.system_run('start silent', 'Everything.exe -regex -search %s', search)
   end
@@ -648,6 +669,7 @@ B.lazy_map {
   { '<leader>sq',        function() M.quickfix() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfix', },
   { '<leader>svq',       function() M.quickfixhistory() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfixhistory', },
   { '<leader>ss',        function() M.grep_string() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
+  { '<leader>s<c-s>',    function() M.grep_string_curdir() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
   { '<leader>svvc',      function() M.colorscheme() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: colorscheme', },
   { '<leader>svh',       function() M.help_tags() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: help_tags', },
   { '<leader>sva',       function() M.autocommands() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: autocommands', },
