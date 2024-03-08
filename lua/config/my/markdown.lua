@@ -111,8 +111,10 @@ function M.copy_cfile_clip()
   end
 end
 
-function M.make_url()
-  local file = vim.fn.getreg '+'
+function M.make_url(file, patt)
+  if not file then
+    file = vim.fn.getreg '+'
+  end
   if not B.file_exists(file) then
     return
   end
@@ -120,11 +122,45 @@ function M.make_url()
   if not B.is(cur_file) then
     return
   end
+  if not patt then
+    patt = '`%s`'
+  end
   local rel = B.relpath(file, cur_file)
   if B.is(rel) then
-    vim.fn.append('.', string.format('`%s`', rel))
+    vim.fn.append('.', string.format(patt, rel))
   else
     B.notify_info_append(string.format('not making rel: %s, %s', file, cur_file))
+  end
+end
+
+function M.make_url_sel()
+  local markdown_files = B.scan_files_deep(vim.loop.cwd(), { filetypes = { 'md', }, })
+  B.ui_sel(markdown_files, 'sel as file to make url', function(file)
+    if file and B.file_exists(file) then
+      M.make_url(file)
+    end
+  end)
+end
+
+function M.create_file_from_target()
+  -- 1. zoom,inner,dac推192K
+  local res = B.findall([[(\d+)\. ([^,]+),([^,]+),(.+)]], vim.fn.trim(vim.fn.getline '.'))
+  if B.is(res) then
+    res = res[1]
+    if #res == 4 then
+      local idx = res[1]
+      local chip = res[2]
+      local client = res[3]
+      local title = res[4]
+      local head_dir = B.file_parent(vim.api.nvim_buf_get_name(0))
+      local fname = B.getcreate_filepath(head_dir, string.format('%s %s_%s %s.md', vim.fn.strftime '%Y%m%d', client, chip, title)).filename
+      M.make_url(fname, string.format('%s. `%%s`', idx))
+      local bufnr = vim.fn.bufnr()
+      B.cmd('e %s', fname)
+      B.cmd('b%d', bufnr)
+      vim.cmd 'norm j0'
+      B.notify_info(string.format('file created: %s', fname))
+    end
   end
 end
 

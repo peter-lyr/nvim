@@ -468,6 +468,8 @@ return {
       { '<a-o>',   function() require 'config.my.markdown'.system_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-i>',   function() require 'config.my.markdown'.buffer_open_cfile() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
       { '<a-u>',   function() require 'config.my.markdown'.make_url() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url', },
+      { '<c-s-u>', function() require 'config.my.markdown'.make_url_sel() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url_sel', },
+      { '<a-s-u>', function() require 'config.my.markdown'.create_file_from_target() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: create_file', },
       { '<a-r>',   function() require 'config.my.markdown'.run_in_cmd() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd', },
       { '<a-e>',   function() require 'config.my.markdown'.run_in_cmd 'silent' end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd silent', },
       { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_path_clip', },

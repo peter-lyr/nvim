@@ -445,7 +445,7 @@ end
 
 function M.file_parent(file)
   vim.cmd 'Lazy load plenary.nvim'
-  return require 'plenary.path'.new(file):parent().filename
+  return require 'plenary.path'.new(M.rep_slash(file)):parent().filename
 end
 
 -------------------
