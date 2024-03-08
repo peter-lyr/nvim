@@ -519,15 +519,24 @@ function SwitchTabNext(tabnr, mouseclicks, mousebutton, modifiers)
   end
 end
 
+M.window_equal = {}
+
 function SwitchWindow(win_number, mouseclicks, mousebutton, modifiers)
   if mousebutton == 'm' and mouseclicks == 1 then
-  elseif mousebutton == 'l' and mouseclicks == 1 then
+  elseif mousebutton == 'l' then
     local click_winid = vim.fn.getmousepos()['winid']
     local cur_winid = vim.fn.win_getid()
     if cur_winid ~= click_winid then
+      M.window_equal[B.get_proj_root()] = nil
       vim.fn.win_gotoid(click_winid)
     else
-      vim.cmd 'wincmd _'
+      if not M.window_equal[B.get_proj_root()] then
+        vim.cmd 'wincmd _'
+        M.window_equal[B.get_proj_root()] = 1
+      else
+        vim.cmd 'wincmd ='
+        M.window_equal[B.get_proj_root()] = nil
+      end
     end
   elseif mousebutton == 'r' and mouseclicks == 1 then
   end

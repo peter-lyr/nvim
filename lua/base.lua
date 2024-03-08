@@ -1316,4 +1316,11 @@ function M.try_close_cur_buffer()
   end
 end
 
+function M.get_proj_root(file)
+  if not file or not M.file_exists(file) then
+    return vim.fn['ProjectRootGet']()
+  end
+  return vim.fn['ProjectRootGet'](file)
+end
+
 return M
