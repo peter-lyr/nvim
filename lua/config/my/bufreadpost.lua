@@ -23,6 +23,12 @@ local tab_4_fts = {
   'ld',
 }
 
+-- B.aucmd({'CursorHold', 'CursorHoldI'}, 'my.bufreadpost.CursorHold', {
+--   callback = function()
+--     vim.cmd 'SessionsSave'
+--   end,
+-- })
+
 B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
   callback = function(ev)
     if vim.fn.filereadable(ev.file) == 1 and vim.o.modifiable == true then
