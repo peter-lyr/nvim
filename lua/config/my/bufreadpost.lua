@@ -3,9 +3,11 @@
 
 local M = {}
 
+local B = require 'base'
+
 HL()
 
-require 'base'.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
+B.aucmd('BufReadPost', 'my.bufreadpost.BufReadPost', {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)
@@ -21,7 +23,7 @@ local tab_4_fts = {
   'ld',
 }
 
-require 'base'.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
+B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
   callback = function(ev)
     if vim.fn.filereadable(ev.file) == 1 and vim.o.modifiable == true then
       vim.opt.cursorcolumn = true
@@ -75,11 +77,11 @@ M.fs = {
   end,
 }
 
-require 'base'.aucmd({ 'BufReadPre', }, 'my.bufreadpost.BufReadPre', {
+B.aucmd({ 'BufReadPre', }, 'my.bufreadpost.BufReadPre', {
   callback = function(ev)
     local file = vim.api.nvim_buf_get_name(ev.buf)
     if vim.fn.getfsize(file) == 0 then
-      require 'base'.set_timeout(10, function()
+      B.set_timeout(10, function()
         vim.cmd 'norm ggdG'
         vim.fn.setline(1, {
           string.format('Copyright (c) %s %s. All Rights Reserved.', vim.fn.strftime '%Y', 'liudepei'),
