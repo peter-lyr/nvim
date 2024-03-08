@@ -48,6 +48,7 @@ return {
       -- builtins
       { '<leader>s',        function() require 'config.nvim.telescope' end,                        mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope---', },
       { '<leader><leader>', function() require 'config.nvim.telescope'.find_files() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files', },
+      { '<leader>m',        function() require 'config.nvim.telescope'.find_files_curdir() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files_curdir', },
       { '<leader>l',        function() require 'config.nvim.telescope'.live_grep() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep', },
       { '<leader><c-l>',    function() require 'config.nvim.telescope'.everything() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: everything', },
       { '<leader><c-s-l>',  function() require 'config.nvim.telescope'.everything_regex() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: everything', },

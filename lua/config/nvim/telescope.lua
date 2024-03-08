@@ -392,6 +392,13 @@ function M.find_files()
   end
 end
 
+function M.find_files_curdir()
+  M.setreg()
+  local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h'))
+  B.cmd((cmd))
+  B.notify_info(cmd)
+end
+
 function M.oldfiles()
   M.setreg()
   vim.cmd 'Telescope oldfiles'
