@@ -59,8 +59,18 @@ return {
       { '<leader><c-e>',    function() require 'config.nvim.telescope'.everything_regex() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: everything', },
 
       { '<leader>l',        function() require 'config.nvim.telescope'.live_grep() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep', },
-      { '<leader><a-l>',    function() require 'config.nvim.telescope'.live_grep_curdir() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_curdir', },
-      { '<leader><a-s-l>',  function() require 'config.nvim.telescope'.live_grep_pardir() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_pardir', },
+      { '<leader><c-l>',    function() require 'config.nvim.telescope'.live_grep_curdir() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_curdir', },
+      { '<leader>L',        function() require 'config.nvim.telescope'.live_grep_pardir() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_pardir', },
+      { '<leader><c-s-l>',  function() require 'config.nvim.telescope'.live_grep_pardir_2() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_curdir', },
+      { '<leader><a-l>',    function() require 'config.nvim.telescope'.live_grep_pardir_3() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_curdir', },
+      { '<leader><a-s-l>',  function() require 'config.nvim.telescope'.live_grep_pardir_4() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: live_grep_curdir', },
+
+      { '<leader>ss',       function() require 'config.nvim.telescope'.grep_string() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
+      { '<leader>s<c-s>',   function() require 'config.nvim.telescope'.grep_string_curdir() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string_curdir', },
+      { '<leader>sS',       function() require 'config.nvim.telescope'.grep_string_pardir() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string_pardir', },
+      { '<leader>s<c-s-s>', function() require 'config.nvim.telescope'.grep_string_pardir_2() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string_pardir_2', },
+      { '<leader>s<a-s>',   function() require 'config.nvim.telescope'.grep_string_pardir_3() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string_pardir_3', },
+      { '<leader>s<a-s-s>', function() require 'config.nvim.telescope'.grep_string_pardir_4() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string_pardir_4', },
 
       { '<leader>h',        function() require 'config.nvim.telescope'.command_history() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: command_history', },
       { '<leader>n',        function() require 'config.nvim.telescope'.commands() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: commands', },

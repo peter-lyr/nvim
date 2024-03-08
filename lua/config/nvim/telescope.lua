@@ -364,7 +364,7 @@ function M.buffers_all()
   local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
   if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
     local cmd = B.format('Telescope buffers cwd=%s', M.cur_root[root_dir])
-    B.cmd((cmd))
+    B.cmd(cmd)
     B.notify_info(cmd)
   else
     vim.cmd 'Telescope buffers'
@@ -385,7 +385,7 @@ function M.find_files()
   local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
   if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
     local cmd = B.format('Telescope find_files cwd=%s', M.cur_root[root_dir])
-    B.cmd((cmd))
+    B.cmd(cmd)
     B.notify_info(cmd)
   else
     vim.cmd 'Telescope find_files'
@@ -395,42 +395,42 @@ end
 function M.find_files_curdir()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.find_files_pardir()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.find_files_pardir_2()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.find_files_pardir_3()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.find_files_pardir_4()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.find_files_pardir_5()
   M.setreg()
   local cmd = B.format('Telescope find_files cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
@@ -444,7 +444,7 @@ function M.live_grep()
   local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
   if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
     local cmd = B.format('Telescope live_grep cwd=%s', M.cur_root[root_dir])
-    B.cmd((cmd))
+    B.cmd(cmd)
     B.notify_info(cmd)
   else
     vim.cmd 'Telescope live_grep'
@@ -454,14 +454,35 @@ end
 function M.live_grep_curdir()
   M.setreg()
   local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
 function M.live_grep_pardir()
   M.setreg()
   local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h'))
-  B.cmd((cmd))
+  B.cmd(cmd)
+  B.notify_info(cmd)
+end
+
+function M.live_grep_pardir_2()
+  M.setreg()
+  local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h'))
+  B.cmd(cmd)
+  B.notify_info(cmd)
+end
+
+function M.live_grep_pardir_3()
+  M.setreg()
+  local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h'))
+  B.cmd(cmd)
+  B.notify_info(cmd)
+end
+
+function M.live_grep_pardir_4()
+  M.setreg()
+  local cmd = B.format('Telescope live_grep cwd=%s', vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h'))
+  B.cmd(cmd)
   B.notify_info(cmd)
 end
 
@@ -575,12 +596,57 @@ function M.grep_string()
   M.setreg()
   local root_dir = B.rep_backslash_lower(vim.fn['ProjectRootGet']())
   if B.is(vim.tbl_contains(vim.tbl_keys(M.cur_root), root_dir)) then
-    local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true cwd=%s', M.cur_root[root_dir])
-    B.cmd((cmd))
+    local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s', M.cur_root[root_dir])
+    B.cmd(cmd)
     B.notify_info(cmd)
   else
-    vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= grep_open_files=true'
+    vim.cmd 'Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search='
   end
+end
+
+function M.grep_string_curdir()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h')
+  local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s',
+    dir)
+  B.cmd(cmd)
+  B.notify_info('Telescope grep_string cwd=' .. dir)
+end
+
+function M.grep_string_pardir()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h')
+  local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s',
+    dir)
+  B.cmd(cmd)
+  B.notify_info('Telescope grep_string cwd=' .. dir)
+end
+
+function M.grep_string_pardir_2()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h')
+  local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s',
+    dir)
+  B.cmd(cmd)
+  B.notify_info('Telescope grep_string cwd=' .. dir)
+end
+
+function M.grep_string_pardir_3()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h')
+  local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s',
+    dir)
+  B.cmd(cmd)
+  B.notify_info('Telescope grep_string cwd=' .. dir)
+end
+
+function M.grep_string_pardir_4()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h')
+  local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s',
+    dir)
+  B.cmd(cmd)
+  B.notify_info('Telescope grep_string cwd=' .. dir)
 end
 
 function M.keymaps()
@@ -668,8 +734,6 @@ B.lazy_map {
   { '<leader>s<c-r>',    function() M.root_sel() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel', },
   { '<leader>sq',        function() M.quickfix() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfix', },
   { '<leader>svq',       function() M.quickfixhistory() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfixhistory', },
-  { '<leader>ss',        function() M.grep_string() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
-  { '<leader>s<c-s>',    function() M.grep_string_curdir() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: grep_string', },
   { '<leader>svvc',      function() M.colorscheme() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: colorscheme', },
   { '<leader>svh',       function() M.help_tags() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: help_tags', },
   { '<leader>sva',       function() M.autocommands() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: autocommands', },
