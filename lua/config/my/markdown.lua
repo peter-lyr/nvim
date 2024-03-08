@@ -122,7 +122,7 @@ function M.make_url()
   end
   local rel = B.relpath(file, cur_file)
   if B.is(rel) then
-    vim.fn.append('.', rel)
+    vim.fn.append('.', string.format('`%s`', rel))
   else
     B.notify_info_append(string.format('not making rel: %s, %s', file, cur_file))
   end
@@ -130,7 +130,7 @@ end
 
 function M.run_in_cmd(silent)
   local head = B.get_head_dir()
-  local line = vim.fn.trim(vim.fn.getline('.'))
+  local line = vim.fn.trim(vim.fn.getline '.')
   if B.is(head) and B.is(line) then
     B.histadd_en = 1
     if silent then
