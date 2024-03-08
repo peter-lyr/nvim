@@ -743,7 +743,7 @@ function M._on_attach(bufnr)
 end
 
 B.lazy_map {
-  { '<a-s-cr>', M._reopen, mode = { 'n', }, silent = true, desc = 'test.nvim: _reopen', },
+  { '<leader>dr', M._reopen, mode = { 'n', }, silent = true, desc = 'test.nvim: _reopen', },
 }
 
 B.del_map({ 'n', 'v', }, '<RightMouse>')
