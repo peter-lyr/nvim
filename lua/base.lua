@@ -819,6 +819,10 @@ function M.get_full_name(file)
   return vim.fn.fnamemodify(file, ':p')
 end
 
+function M.buf_get_name_0()
+  return M.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+end
+
 function M.is_file_in_extensions(extensions, file)
   extensions = M.totable(extensions)
   return M.is(vim.tbl_contains(extensions, string.match(file, '%.([^.]+)$'))) and 1 or nil
@@ -1120,7 +1124,7 @@ normpath = os.path.normpath(vim.eval('g:normpath')).replace('\\', '/')
 vim.command(f'let g:normpath = "{normpath}"')
 EOF
 ]]
-  return vim.g.normpath
+  return M.rep_slash_lower(vim.g.normpath)
 end
 
 function M.relpath(file, start)

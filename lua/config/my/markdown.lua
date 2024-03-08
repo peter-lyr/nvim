@@ -12,7 +12,7 @@ vim.g.mkdp_highlight_css = B.get_filepath(B.getcreate_dir(M.source .. '.preview'
 M.markdown_export_py = B.get_filepath(B.getcreate_dir(M.source .. '.export'), 'markdown_export.py').filename
 
 vim.api.nvim_create_user_command('MarkdownExportCreate', function()
-  B.system_run('asyncrun', 'python %s %s & pause', M.markdown_export_py, vim.api.nvim_buf_get_name(0))
+  B.system_run('asyncrun', 'python %s %s & pause', M.markdown_export_py, B.buf_get_name_0())
 end, {
   nargs = 0,
   desc = 'MarkdownExportCreate',
@@ -35,12 +35,31 @@ end, {
 
 function M.system_open_cfile() B.system_open_file_silent('%s', B.get_cfile()) end
 
+M.file_stack = {}
+
 function M.buffer_open_cfile()
   local cfile = B.get_cfile()
   if B.is(cfile) and B.file_exists(cfile) and vim.fn.filereadable(cfile) == 1 then
+    local cur_file = B.buf_get_name_0()
+    if not B.is_in_tbl(cur_file, M.file_stack) then
+      M.file_stack[#M.file_stack + 1] = cur_file
+    end
     B.jump_or_edit(cfile)
+    M.file_stack[#M.file_stack + 1] = cfile
   else
     B.echo('not a file: %s', cfile)
+  end
+end
+
+function M.pop_file_stack()
+  while #M.file_stack > 0 do
+    local file = table.remove(M.file_stack)
+    if file ~= B.buf_get_name_0() then
+      if B.is(file) and B.file_exists(file) and vim.fn.filereadable(file) == 1 then
+        B.jump_or_edit(file)
+        break
+      end
+    end
   end
 end
 
@@ -152,7 +171,7 @@ function M.create_file_from_target()
       local chip = res[2]
       local client = res[3]
       local title = res[4]
-      local head_dir = B.file_parent(vim.api.nvim_buf_get_name(0))
+      local head_dir = B.file_parent(B.buf_get_name_0())
       local fname = B.getcreate_filepath(head_dir, string.format('%s %s_%s %s.md', vim.fn.strftime '%Y%m%d', client, chip, title)).filename
       M.make_url(fname, string.format('%s. `%%s`', idx))
       local bufnr = vim.fn.bufnr()
