@@ -150,12 +150,12 @@ end
 
 function M.proxy_on()
   B.system_run('start silent', [[reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f]])
-  B.notify_info 'proxy_on'
+  B.notify_info 'prx_on'
 end
 
 function M.proxy_off()
   B.system_run('start silent', [[reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f]])
-  B.notify_info 'proxy_off'
+  B.notify_info 'prx_off'
 end
 
 function M.open_path() B.system_run('start silent', 'start rundll32 sysdm.cpl,EditEnvironmentVariables') end
