@@ -547,4 +547,13 @@ return {
     end,
   },
 
+  -- my.py
+  {
+    name = 'my.py',
+    dir = '',
+    keys = {
+      { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
+    },
+  },
+
 }
