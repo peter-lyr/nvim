@@ -21,7 +21,7 @@ function M._cmdline_enter(py_file)
   local tail = vim.fn.fnamemodify(py_file, ':t')
   local args = vim.fn.input(string.format('python %s ', tail))
   B.histadd_en = 1
-  B.system_run('start', '%s && python %s %s', B.system_cd(head), tail, args)
+  B.system_run('asyncrun', '%s && python %s %s', B.system_cd(head), tail, args)
 end
 
 function M.sel_run_py()

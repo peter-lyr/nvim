@@ -431,9 +431,20 @@ function M.system_run(way, str_format, ...)
     vim.cmd(cmd)
   elseif way == 'asyncrun' then
     vim.cmd 'Lazy load asyncrun.vim'
+    vim.cmd 'AsyncStop'
     cmd = string.format('AsyncRun %s', cmd)
-    M.asyncrun_prepare_default()
-    vim.cmd(cmd)
+    if vim.g.asyncrun_status == 'running' then
+      M.timer_temp = M.set_interval(10, function()
+        if vim.g.asyncrun_status ~= 'running' then
+          M.clear_interval(M.timer_temp)
+          M.asyncrun_prepare_default()
+          vim.cmd(cmd)
+        end
+      end)
+    else
+      vim.cmd(cmd)
+      M.asyncrun_prepare_default()
+    end
   elseif way == 'term' then
     cmd = string.format('wincmd s|term %s', cmd)
     vim.cmd(cmd)
