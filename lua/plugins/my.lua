@@ -540,7 +540,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
       { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                mode = { 'i', },                          silent = true, desc = 'my.insertenter: cr', },
-      { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, desc = 'my.neuims: cmd_toggle', },
+      { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, desc = 'my.neuims: toggle_lang_in_cmdline', },
     },
     config = function()
       require 'config.my.neuims'
