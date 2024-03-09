@@ -34,9 +34,15 @@ EOF
   if vim.g.res ~= 0 then
     B.notify_error 'change language error'
   end
+  if lang == 'EN' then
+    M.lang = 'EN'
+  else
+    M.lang = 'ZH'
+  end
 end
 
-M.en = 1
+M.enable = 1
+M.lang = nil
 
 B.aucmd({ 'InsertEnter', 'CmdlineEnter', 'TermEnter', }, 'my.neuims.InsertEnter', {
   callback = function()
@@ -44,7 +50,7 @@ B.aucmd({ 'InsertEnter', 'CmdlineEnter', 'TermEnter', }, 'my.neuims.InsertEnter'
     -- if buftype == 'prompt' then
     --   return
     -- end
-    if M.en then
+    if M.enable then
       M.change_language 'ZH'
     end
   end,
@@ -56,16 +62,24 @@ B.aucmd({ 'InsertLeave', 'CmdlineLeave', 'TermLeave', }, 'my.neuims.InsertLeave'
     -- if buftype == 'prompt' then
     --   return
     -- end
-    if M.en then
+    if M.enable then
       M.change_language 'EN'
     end
   end,
 })
 
 function M.i_enter()
-  M.en = nil
+  M.enable = nil
   vim.cmd [[call feedkeys("\<esc>o")]]
-  B.set_timeout(10, function() M.en = 1 end)
+  B.set_timeout(10, function() M.enable = 1 end)
+end
+
+function M.toggle_lang_in_cmdline()
+  if M.lang == 'EN' then
+    M.change_language 'ZH'
+  else
+    M.change_language 'EN'
+  end
 end
 
 return M

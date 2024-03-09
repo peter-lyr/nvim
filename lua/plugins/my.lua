@@ -539,7 +539,8 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
-      { '<c-;>', function() require 'config.my.neuims'.i_enter() end, mode = { 'i', }, desc = 'my.insertenter: cr', },
+      { '<c-;>', function() require 'config.my.neuims'.i_enter() end,    mode = { 'i', }, silent = true, desc = 'my.insertenter: cr', },
+      { '<F1>',  function() require 'config.my.neuims'.cmd_toggle() end, mode = { 'c', }, silent = true, desc = 'my.neuims: cmd_toggle', },
     },
     config = function()
       require 'config.my.neuims'
