@@ -15,6 +15,7 @@ function M.cmdline_enter(py_file)
   local head = vim.fn.fnamemodify(py_file, ':h')
   local tail = vim.fn.fnamemodify(py_file, ':t')
   local args = vim.fn.input(string.format('python %s ', tail))
+  B.histadd_en = 1
   B.system_run('start', '%s && python %s %s', B.system_cd(head), py_file, args)
 end
 
