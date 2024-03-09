@@ -11,6 +11,10 @@ B.lazy_map {
   { 'xpq', function() return [[sort\|g/^\(.*\)$\n\1$/d]] end,     mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xa', },
 }
 
+B.lazy_map {
+  { '<c-/>', '-', mode = { 'c', }, silent = false, desc = 'test.nvim: <c-/> to -', },
+}
+
 vim.fn.setreg('e', 'reg e empty')
 vim.fn.setreg('4', 'reg 4 empty')
 
