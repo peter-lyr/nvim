@@ -53,8 +53,8 @@ local function create_finder()
   for _, result in ipairs(results) do
     local file = B.rep_backslash_lower(result)
     if not B.is_in_tbl(file, temp_) then
-      results_new[#results_new+1] = result
-      temp_[#temp_+1] = file
+      results_new[#results_new + 1] = result
+      temp_[#temp_ + 1] = file
     end
   end
   results = results_new
@@ -255,23 +255,23 @@ local function my_projects(opts)
       map('n', 'b', git_status, { nowait = true, })
       map('n', '<c-b>', git_status_all, { nowait = true, })
 
-      map('n', '<c-cr>', find_files_all)
+      map('n', '<c-cr>', find_files_all, { nowait = true, })
 
       -- map("n", "f", find_project_files)
       -- map('n', 'r', browse_project_files, { nowait = true, })
       -- map("n", "r", recent_project_files)
       -- map("n", "w", change_working_directory)
 
-      map('i', '<F2>', delete_project)
+      map('i', '<F2>', delete_project, { nowait = true, })
 
-      map('i', '<f1>', live_grep_cur)
-      map('i', '<c-f1>', live_grep_root)
+      map('i', '<f1>', live_grep_cur, { nowait = true, })
+      map('i', '<c-f1>', live_grep_root, { nowait = true, })
 
       map('i', '<F6>', git_status, { nowait = true, })
       map('i', '<C-F6>', git_status_all, { nowait = true, })
 
-      map('i', '<cr>', find_files_cur)
-      map('i', '<c-cr>', find_files_all)
+      map('i', '<cr>', find_files_cur, { nowait = true, })
+      map('i', '<c-cr>', find_files_all, { nowait = true, })
 
       -- map("i", "<c-f>", find_project_files)
       -- map("i", "<c-b>", browse_project_files)
