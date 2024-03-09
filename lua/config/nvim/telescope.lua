@@ -486,6 +486,72 @@ function M.live_grep_pardir_4()
   B.notify_info(cmd)
 end
 
+function M.pure_curdir()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
+function M.pure_pardir()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
+function M.pure_pardir_2()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
+function M.pure_pardir_3()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
+function M.pure_pardir_4()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
+function M.pure_pardir_5()
+  M.setreg()
+  local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h:h')
+  local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
+  B.ui_sel(entries, 'sel one', function(d)
+    local cmd = B.format('Telescope find_files cwd=%s', d)
+    B.cmd(cmd)
+    B.notify_info(cmd)
+  end)
+end
+
 function M.everything()
   M.setreg()
   local search = vim.fn.input 'Everything -noregex: '
