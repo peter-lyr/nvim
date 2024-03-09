@@ -348,11 +348,7 @@ return {
       { '<leader>rw',     function() require 'spectre'.open_visual { select_word = true, } end,      mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd cword', },
       { '<leader>r<c-w>', function() require 'spectre'.open() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd', },
     },
-    config = function()
-      require 'base'.del_map({ 'n', 'v', }, '<leader>r')
-      require 'which-key'.register { ['<leader>r'] = { name = 'test.spectre', }, }
-      require 'spectre'.setup()
-    end,
+    config = function() require 'config.test.spectre' end,
   },
 
   -- bqf
