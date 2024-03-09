@@ -44,26 +44,14 @@ end
 M.enable = 1
 M.lang = nil
 
-B.aucmd({ 'InsertEnter', 'CmdlineEnter', 'TermEnter', }, 'my.neuims.InsertEnter', {
+B.aucmd('ModeChanged', 'my.neuims.ModeChanged', {
   callback = function()
-    -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
-    -- if buftype == 'prompt' then
-    --   return
-    -- end
     if M.enable then
-      M.change_language 'ZH'
-    end
-  end,
-})
-
-B.aucmd({ 'InsertLeave', 'CmdlineLeave', 'TermLeave', }, 'my.neuims.InsertLeave', {
-  callback = function()
-    -- local buftype = vim.api.nvim_buf_get_option(ev.buf, 'buftype')
-    -- if buftype == 'prompt' then
-    --   return
-    -- end
-    if M.enable then
-      M.change_language 'EN'
+      if B.is_in_tbl(vim.fn.mode(), { 'c', 'i', 't', }) then
+        M.change_language 'ZH'
+      else
+        M.change_language 'EN'
+      end
     end
   end,
 })
