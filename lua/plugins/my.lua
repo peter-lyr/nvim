@@ -108,7 +108,7 @@ return {
           vim.fn['GuiWindowFullScreen'](1)
           vim.fn['GuiWindowFullScreen'](0)
           vim.fn.timer_start(10, function()
-            require 'config.test.nvimtree'._reopen()
+            require 'config.test.nvimtree'.reset_nvimtree()
             print_startup_time()
           end)
         end)
