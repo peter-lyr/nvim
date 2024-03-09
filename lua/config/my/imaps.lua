@@ -149,8 +149,4 @@ B.lazy_map {
   { '<ScrollWheelDown>', '<DOWN>', mode = { 't', }, desc = 'my.insertenter: down', },
 }
 
-B.lazy_map {
-  { '<leader>', '-', mode = { 'c', }, desc = 'my.cmdlineenter: space to -', },
-}
-
 return M
