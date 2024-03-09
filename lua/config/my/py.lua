@@ -6,12 +6,17 @@ local M = {}
 local B = require 'base'
 
 M.source = B.getsource(debug.getinfo(1)['source'])
+M.lua = B.getlua(M.source)
+
+-- mapping
+B.del_map({ 'n', 'v', }, '<leader>r')
+
+B.whichkey_register({ 'n', 'v', }, '<leader>r', 'my.py')
 
 M.py_dir = B.getcreate_dir(M.source .. '.py')
-
 M.py_files = require 'plenary.scandir'.scan_dir(M.py_dir, { hidden = true, depth = 64, add_dirs = false, })
 
-function M.cmdline_enter(py_file)
+function M._cmdline_enter(py_file)
   local head = vim.fn.fnamemodify(py_file, ':h')
   local tail = vim.fn.fnamemodify(py_file, ':t')
   local args = vim.fn.input(string.format('python %s ', tail))
@@ -23,16 +28,14 @@ function M.sel_run_py()
   if #M.py_files == 0 then
     return
   elseif #M.py_files == 1 then
-    M.cmdline_enter(M.py_files[1])
+    M._cmdline_enter(M.py_files[1])
   else
     B.ui_sel(M.py_files, 'sel run py', function(py_file)
-      M.cmdline_enter(py_file)
+      M._cmdline_enter(py_file)
     end)
   end
 end
 
-B.del_map({ 'n', 'v', }, '<leader>r')
-
-B.whichkey_register({ 'n', 'v', }, '<leader>r', 'my.py')
+B.create_user_command_with_M(M, 'Py') -- M.source,M.lua is needed
 
 return M

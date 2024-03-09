@@ -551,10 +551,13 @@ return {
   {
     name = 'my.py',
     dir = '',
+    ft = { 'python', },
     keys = {
-      { '<leader>r', function() end, mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
+      { '<c-;>',      function() require 'base'.all_commands() end,       mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
+      { '<leader>r',  function() end,                                     mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
     },
+    config = function() require 'config.my.py' end,
   },
 
 }
