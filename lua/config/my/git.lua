@@ -811,9 +811,60 @@ function M.quickfix_toggle()
   end
 end
 
+M.line = 1
+M.col = 1
+
+function M.open_prev_item()
+  vim.cmd 'copen'
+  M.timer = B.set_interval(50, function()
+    if not M.just_entered then
+      B.clear_interval(M.timer)
+      vim.cmd 'norm k'
+      vim.cmd [[call feedkeys("\<cr>")]]
+    end
+  end)
+end
+
+function M.open_next_item()
+  vim.cmd 'copen'
+  M.timer = B.set_interval(50, function()
+    if not M.just_entered then
+      B.clear_interval(M.timer)
+      vim.cmd 'norm j'
+      vim.cmd [[call feedkeys("\<cr>")]]
+    end
+  end)
+end
+
+B.aucmd({ 'BufEnter', }, 'test.nvimtree.BufEnter', {
+  callback = function()
+    if vim.bo.ft == 'qf' then
+      M.just_entered = 1
+      B.set_timeout(50, function()
+        B.cmd('norm %dgg%d|', M.line, M.col)
+        M.just_entered = nil
+      end)
+    end
+  end,
+})
+
+B.aucmd({ 'BufLeave', }, 'test.nvimtree.BufLeave', {
+  callback = function()
+    if vim.bo.ft == 'qf' then
+      M.line = vim.fn.line '.'
+      M.col = vim.fn.col '.'
+    end
+  end,
+})
+
 B.lazy_map {
-  -- { '<a-cr>', M.quickfix_toggle, mode = { 'n', 'v', }, silent = true, desc = 'quickfix_toggle', },
+  { '<leader>dw', M.open_prev_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: prev item', },
+  { '<leader>ds', M.open_next_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: next item', },
 }
+
+B.del_map({ 'n', 'v', }, '<leader>d')
+
+B.whichkey_register({ 'n', 'v', }, '<leader>d', 'my.qf')
 
 B.del_map({ 'n', 'v', }, '<RightMouse>')
 
