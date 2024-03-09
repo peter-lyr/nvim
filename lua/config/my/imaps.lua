@@ -3,12 +3,12 @@ local M = {}
 local B = require 'base'
 
 B.lazy_map {
-  { 'xxt',  function() return vim.fn.strftime '%H%M%S' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxt', },
-  { 'xxd',  function() return vim.fn.strftime '%y%m%d' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxd', },
-  { 'xxa',  function() return vim.fn.strftime '%y%m%d-%Hh%Mm' end, mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxa', },
-  { 'xxpx', function() return 'sort' end,                          mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxt', },
-  { 'xxqc', function() return [[g/^\(.*\)$\n\1$/d]] end,           mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxd', },
-  { 'xxpq', function() return [[sort\|g/^\(.*\)$\n\1$/d]] end,     mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxa', },
+  { 'xxt',  function() return vim.fn.strftime '%H%M%S-' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxt', },
+  { 'xxd',  function() return vim.fn.strftime '%y%m%d-' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxd', },
+  { 'xxa',  function() return vim.fn.strftime '%y%m%d-%Hh%Mm-' end, mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxa', },
+  { 'xxpx', function() return 'sort' end,                           mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxt', },
+  { 'xxqc', function() return [[g/^\(.*\)$\n\1$/d]] end,            mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxd', },
+  { 'xxpq', function() return [[sort\|g/^\(.*\)$\n\1$/d]] end,      mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xxa', },
 }
 
 B.lazy_map {
