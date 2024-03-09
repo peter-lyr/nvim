@@ -5,6 +5,8 @@ local M = {}
 
 local B = require 'base'
 
+M.source = B.getsource(debug.getinfo(1)['source'])
+
 B.del_map({ 'n', 'v', }, '<leader>r')
 
 require 'which-key'.register { ['<leader>r'] = { name = 'test.spectre', }, }
@@ -17,6 +19,29 @@ require 'spectre'.setup {
   replace_engine = {
     ['sed'] = {
       cmd = M.sed_exe,
+      args = {
+        '-i',
+        '-E',
+      },
+      options = {
+        ['ignore-case'] = {
+          value = '--ignore-case',
+          icon = '[I]',
+          desc = 'ignore case',
+        },
+      },
+    },
+    -- call rust code by nvim-oxi to replace
+    ['oxi'] = {
+      cmd = 'oxi',
+      args = {},
+      options = {
+        ['ignore-case'] = {
+          value = 'i',
+          icon = '[I]',
+          desc = 'ignore case',
+        },
+      },
     },
   },
 }
