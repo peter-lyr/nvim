@@ -48,6 +48,16 @@ local function create_finder()
       maxwidth = width
     end
   end
+  local temp_ = {}
+  local results_new = {}
+  for _, result in ipairs(results) do
+    local file = B.rep_backslash_lower(result)
+    if not B.is_in_tbl(file, temp_) then
+      results_new[#results_new+1] = result
+      temp_[#temp_+1] = file
+    end
+  end
+  results = results_new
   local displayer = entry_display.create {
     separator = ' ',
     items = {
