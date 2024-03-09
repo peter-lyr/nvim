@@ -491,6 +491,9 @@ function M.pure_curdir()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
@@ -502,6 +505,9 @@ function M.pure_pardir()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
@@ -513,6 +519,9 @@ function M.pure_pardir_2()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
@@ -524,6 +533,9 @@ function M.pure_pardir_3()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
@@ -535,6 +547,9 @@ function M.pure_pardir_4()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
@@ -546,6 +561,9 @@ function M.pure_pardir_5()
   local dir = vim.fn.fnamemodify(B.buf_get_name_0(), ':h:h:h:h:h:h')
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   B.ui_sel(entries, 'sel one', function(d)
+    if not d or not B.file_exists(d) then
+      return
+    end
     local cmd = B.format('Telescope find_files cwd=%s', d)
     B.cmd(cmd)
     B.notify_info(cmd)
