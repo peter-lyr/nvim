@@ -31,4 +31,8 @@ function M.sel_run_py()
   end
 end
 
+B.del_map({ 'n', 'v', }, '<leader>r')
+
+B.whichkey_register({ 'n', 'v', }, '<leader>r', 'my.py')
+
 return M

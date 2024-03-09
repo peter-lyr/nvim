@@ -141,7 +141,7 @@ end
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>t')
 
-require 'which-key'.register { ['<leader>t'] = { name = 'my.toggle', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>t', 'my.toggle')
 
 B.lazy_map {
   { '<leader>td', function() M.diff() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: diff', },

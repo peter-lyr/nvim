@@ -9,7 +9,7 @@ M.source = B.getsource(debug.getinfo(1)['source'])
 
 B.del_map({ 'n', 'v', }, '<leader>r')
 
-require 'which-key'.register { ['<leader>r'] = { name = 'test.spectre/my.py', }, }
+B.whichkey_register({ 'n', 'v', }, '<leader>r', 'test.spectre')
 
 M.spectre_dir = B.getcreate_dir(M.source .. '.exe')
 

@@ -404,7 +404,7 @@ return {
     },
     config = function()
       require 'base'.del_map({ 'n', 'v', }, '<leader>t')
-      require 'which-key'.register { ['<leader>t'] = { name = 'my.toggle', }, }
+      require 'base'.whichkey_register({ 'n', 'v', }, '<leader>t', 'my.toggle')
       require 'config.my.toggle'
     end,
   },
@@ -552,6 +552,7 @@ return {
     name = 'my.py',
     dir = '',
     keys = {
+      { '<leader>r', function() end, mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
     },
   },

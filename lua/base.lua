@@ -49,6 +49,57 @@ function M.del_map(mode, lhs)
   pcall(vim.keymap.del, mode, lhs)
 end
 
+function M.whichkey_register_do(lhs, new_name)
+  require 'which-key'.register { [lhs] = { name = new_name, }, }
+end
+
+function M.whichkey_register(mode, lhs, new_name)
+  -- vim.print(require 'which-key.keys'['mappings']['n']['tree']['nodes'][' r']['mapping']['name'])
+  mode = M.totable(mode)
+  local temp = nil
+  local mappings = require 'which-key.keys'.mappings
+  if not mappings then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  for _, m in ipairs(mode) do
+    temp = mappings[m]
+    if temp then
+      break
+    end
+  end
+  local tree = temp.tree
+  if not tree then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  local nodes = tree.nodes
+  if not nodes then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  local lhs_temp = string.gsub(lhs, '<leader>', ' ')
+  lhs_temp = nodes[lhs_temp]
+  if not lhs_temp then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  local mapping = lhs_temp.mapping
+  if not mapping then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  local name = mapping.name
+  if not name then
+    M.whichkey_register_do(lhs, new_name)
+    return
+  end
+  if M.is_in_str(new_name, name) then
+    return
+  end
+  require 'which-key'.register { [lhs] = { name = name .. '/' .. new_name, }, }
+end
+
 function M._get_functions_of_M(m)
   local functions = {}
   for k, v in pairs(m) do

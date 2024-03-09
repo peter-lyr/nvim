@@ -206,7 +206,7 @@ return {
     },
     config = function()
       require 'base'.del_map({ 'n', 'v', }, '<leader>c')
-      require 'which-key'.register { ['<leader>c'] = { name = 'test.commenter', }, }
+      require 'base'.whichkey_register({ 'n', 'v', }, '<leader>c', 'test.commenter')
       -- nerdcommenter
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
@@ -342,7 +342,7 @@ return {
   {
     'nvim-pack/nvim-spectre',
     keys = {
-      { '<leader>r',      function() end,                                                            mode = { 'n', 'v', }, silent = true, desc = '---test.spectre---', },
+      { '<leader>r',      function() end,                                                            mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rf',     function() require 'spectre'.open_file_search { select_word = true, } end, mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur cword', },
       { '<leader>r<c-f>', function() require 'spectre'.open_file_search() end,                       mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur', },
       { '<leader>rw',     function() require 'spectre'.open_visual { select_word = true, } end,      mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd cword', },
@@ -503,6 +503,8 @@ return {
 
       { '<c-4>',        function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
       { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
+
+      { '<leader>d',    function() end,                                                      mode = { 'n', 'v', }, silent = true, desc = '---test.nvimtree---', },
 
       { '<leader>dj',   function() require 'config.test.nvimtree'.open_next_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_next_tree_node', },
       { '<leader>dk',   function() require 'config.test.nvimtree'.open_prev_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_prev_tree_node', },

@@ -34,7 +34,7 @@ end, { nargs = '*', })
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>v')
 
-require 'which-key'.register { ['<leader>v'] = { name = 'my.svn', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>v', 'my.svn')
 
 B.lazy_map {
   { '<leader>vo', '<cmd>TortoiseSVN settings cur yes<cr>',     mode = { 'n', 'v', }, silent = true, desc = 'TortoiseSVN settings cur yes<cr>', },

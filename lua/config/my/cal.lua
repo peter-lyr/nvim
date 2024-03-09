@@ -91,9 +91,9 @@ end
 -- mapping
 B.del_map({ 'n', 'v', }, 'c/')
 
-require 'which-key'.register { ['c/'] = { name = 'my.cal', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, 'c/', 'my.cal')
 
-require 'which-key'.register { ['c/b'] = { name = 'my.cal.count_bin', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, 'c/b', 'my.cal.count_bin')
 
 B.lazy_map {
   { 'c/bn',     function() M.count_bin '<cword>' end,          mode = { 'n', 'v', }, silent = true, desc = 'notify', },

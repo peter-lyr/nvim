@@ -448,7 +448,10 @@ function M.qfmakeconv2cp936()
 end
 
 function M.open_file()
-  B.cmd('e %s', vim.fn.getreg '+')
+  local file = vim.fn.getreg '+'
+  if B.is_file(file) then
+    B.jump_or_edit(file)
+  end
 end
 
 function M.prepare_sessions()
@@ -460,13 +463,14 @@ end
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
 
-require 'which-key'.register { ['<leader>a'] = { name = 'my.box', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>a', 'my.box')
 
-require 'which-key'.register { ['<leader>ao'] = { name = 'my.box.open', }, }
-require 'which-key'.register { ['<leader>am'] = { name = 'my.box.monitor', }, }
-require 'which-key'.register { ['<leader>ap'] = { name = 'my.box.proxy', }, }
-require 'which-key'.register { ['<leader>as'] = { name = 'my.box.sel/nvim-qt', }, }
-require 'which-key'.register { ['<leader>ag'] = { name = 'my.box.git', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ao', 'my.box.open')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>am', 'my.box.monitor')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ap', 'my.box.proxy')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>as', 'my.box.sel/nvim-qt')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ag', 'my.box.git')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>aq', 'my.box.qf')
 
 B.lazy_map {
   { '<leader>asr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },

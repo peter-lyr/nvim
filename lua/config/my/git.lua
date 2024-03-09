@@ -384,8 +384,8 @@ end
 B.del_map({ 'n', 'v', }, '<leader>g')
 B.del_map({ 'n', 'v', }, '<leader>gg')
 
-require 'which-key'.register { ['<leader>g'] = { name = 'my.git', }, }
-require 'which-key'.register { ['<leader>gg'] = { name = 'my.git.push', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>g', 'my.git')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gg', 'my.git.push')
 
 B.lazy_map {
   -- { '<leader>gc',        M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
@@ -553,8 +553,8 @@ function M.gitsigns_opt(desc) return { silent = true, desc = 'my.git.signs: ' ..
 B.del_map({ 'n', 'v', }, '<leader>gm')
 B.del_map({ 'n', 'v', }, '<leader>gmt')
 
-require 'which-key'.register { ['<leader>gm'] = { name = 'my.git.signs', }, }
-require 'which-key'.register { ['<leader>gmt'] = { name = 'my.git.signs.toggle', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gm', 'my.git.signs')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gmt', 'my.git.signs.toggle')
 
 B.lazy_map {
   { '<leader>k',    M.leader_k,                  mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk',                 expr = true, },
@@ -718,7 +718,7 @@ require 'diffview'.setup {
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>gv')
 
-require 'which-key'.register { ['<leader>gv'] = { name = 'my.git.diffview', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gv', 'my.git.diffview')
 
 B.lazy_map {
   { '<leader>gv1', function() M.diffview_filehistory(1) end,     mode = { 'n', 'v', }, silent = true, desc = 'Diffview filehistory 16', },

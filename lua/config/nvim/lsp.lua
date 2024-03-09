@@ -265,8 +265,8 @@ end
 B.del_map({ 'n', 'v', }, '<leader>f')
 B.del_map({ 'n', 'v', }, '<leader>fv')
 
-require 'which-key'.register { ['<leader>f'] = { name = 'nvim.lsp', }, }
-require 'which-key'.register { ['<leader>fv'] = { name = 'nvim.lsp.more', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>f', 'nvim.lsp')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>fv', 'nvim.lsp.more')
 
 B.lazy_map {
   { '<leader>fn',     function() M.rename() end,                      mode = { 'n', 'v', }, desc = 'config.nvim.lsp: rename', },

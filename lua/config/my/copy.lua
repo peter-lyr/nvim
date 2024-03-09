@@ -45,9 +45,9 @@ end
 -- mappings
 B.del_map({ 'n', 'v', }, '<leader>y')
 
-require 'which-key'.register { ['<leader>y'] = { name = 'my.yank', }, }
-require 'which-key'.register { ['<leader>yf'] = { name = 'my.yank.full', }, }
-require 'which-key'.register { ['<leader>yr'] = { name = 'my.yank.rela', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>y', 'my.yank')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>yf', 'my.yank.full')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>yr', 'my.yank.rela')
 
 B.lazy_map {
   { '<leader>yff', M.full_name, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: full_name', },

@@ -344,9 +344,11 @@ end
 -- mappings
 B.del_map({ 'n', 'v', }, '<leader>w')
 B.del_map({ 'n', 'v', }, '<leader>x')
+B.del_map({ 'n', 'v', }, '<leader>xo')
 
-require 'which-key'.register { ['<leader>w'] = { name = 'my.window', }, }
-require 'which-key'.register { ['<leader>x'] = { name = 'my.window.close', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>w', 'my.window')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>x', 'my.window.close')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>xo', 'my.window.close.other')
 
 B.lazy_map {
   { '<leader>wa',       function() M.change_around 'h' end,     mode = { 'n', 'v', }, desc = 'my.window: change_around', },

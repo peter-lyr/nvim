@@ -798,12 +798,12 @@ B.del_map({ 'n', 'v', }, '<leader>gt')
 B.del_map({ 'n', 'v', }, '<leader>sv')
 B.del_map({ 'n', 'v', }, '<leader>svv')
 
-require 'which-key'.register { ['<leader>s'] = { name = 'nvim.telescope', }, }
-require 'which-key'.register { ['<leader>f'] = { name = 'nvim.telescope.lsp', }, }
-require 'which-key'.register { ['<leader>g'] = { name = 'nvim.telescope.git', }, }
-require 'which-key'.register { ['<leader>gt'] = { name = 'nvim.telescope.git.more', }, }
-require 'which-key'.register { ['<leader>sv'] = { name = 'nvim.telescope.more', }, }
-require 'which-key'.register { ['<leader>svv'] = { name = 'nvim.telescope.more', }, }
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>s', 'nvim.telescope')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>f', 'nvim.telescope.lsp')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>g', 'nvim.telescope.git')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gt', 'nvim.telescope.git.more')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>sv', 'nvim.telescope.more')
+require 'base'.whichkey_register({ 'n', 'v', }, '<leader>svv', 'nvim.telescope.more')
 
 B.lazy_map {
   -- builtins
