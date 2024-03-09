@@ -33,7 +33,7 @@ try:
   from webdriver_manager.chrome import ChromeDriverManager
 except:
   os.system(
-    "pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com -r "
+    "pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host mirrors.aliyun.com -r "
     + os.path.join(absdir, "requirements.txt")
   )
   import base64

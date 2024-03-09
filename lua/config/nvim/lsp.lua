@@ -13,7 +13,7 @@ require 'mason'.setup {
   install_root_dir = B.getcreate_stddata_dirpath 'mason'.filename,
   pip = {
     upgrade_pip = true,
-    install_args = { '-i', 'http://pypi.douban.com/simple', '--trusted-host', 'pypi.douban.com', },
+    install_args = { '-i', 'https://pypi.tuna.tsinghua.edu.cn/simple', '--trusted-host', 'mirrors.aliyun.com', },
   },
 }
 

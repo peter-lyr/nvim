@@ -468,7 +468,7 @@ try:
   from PIL import ImageGrab, Image
 except:
   import os
-  cmd = "pip install pillow -i http://pypi.douban.com/simple --trusted-host pypi.douban.com"
+  cmd = "pip install pillow -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host mirrors.aliyun.com"
   print(cmd)
   os.system(cmd)
   from PIL import ImageGrab, Image

@@ -23,7 +23,7 @@ import os
 try:
   import psutil
 except:
-  os.system("pip install psutil -i http://pypi.douban.com/simple --trusted-host pypi.douban.com")
+  os.system("pip install psutil -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host mirrors.aliyun.com")
   import psutil
 while 1:
   # if `require 'base'.get_nvim_qt_exe_pid()` not in psutil.pids():
@@ -175,7 +175,7 @@ try:
   import pythoncom
 except:
   import os
-  os.system('pip install -i http://pypi.douban.com/simple --trusted-host pypi.douban.com pywin32')
+  os.system('pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host mirrors.aliyun.com pywin32')
   import pythoncom
 from win32com.client import Dispatch
 lnk_file = vim.eval('g:lnk_file')
