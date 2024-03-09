@@ -48,7 +48,7 @@
   "sha2": { "branch": "main", "commit": "556ef68fb9aafdeb77386933f434156382f5b102" },
   "statuscol.nvim": { "branch": "main", "commit": "7d593a285d83c1a865219e4e7e1e5aedf4e0dd9c" },
   "telescope-git-diffs.nvim": { "branch": "main", "commit": "366df26227e6d478d5c55e04771d61875c4f22ac" },
-  "telescope-ui-select.nvim": { "branch": "master", "commit": "6e51d7da30bd139a6950adf2a47fda6df9fa06d2" },
+  "telescope-ui-select.nvim": { "branch": "master", "commit": "e3002f46f66c378abf09a3f9ddd3bb8ffd99b7f1" },
   "telescope.nvim": { "branch": "0.1.x", "commit": "7f085082c5fe296aa77a4e7e80ffa62a355cfcd9" },
   "todo-comments.nvim": { "branch": "main", "commit": "b685b22ca5face6d050d91d95393b6fa2805b910" },
   "vim-bbye": { "branch": "master", "commit": "84a9e25bbd4e03bbd1fddd0c249345ba0ac87c5a" },
