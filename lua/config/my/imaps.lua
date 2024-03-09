@@ -2,17 +2,14 @@ local M = {}
 
 local B = require 'base'
 
-vim.cmd [[
-cab xpx sort
-cab xqc g/^\(.*\)$\n\1$/d
-cab xpq sort\|g/^\(.*\)$\n\1$/d
-iab xt <c-r>=strftime('%Hh%Mm')<cr>
-iab xd <c-r>=strftime('%y%m%d')<cr>
-iab xa <c-r>=strftime('%y%m%d %Hh%Mm')<cr>
-cab xt <c-r>=strftime('%H%M%S')<cr>
-cab xd <c-r>=strftime('%Y%m%d')<cr>
-cab xa <c-r>=strftime('%Y%m%d-%H%M%S')<cr>
-]]
+B.lazy_map {
+  { 'xt',  function() return vim.fn.strftime '%H%M%S' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xt', },
+  { 'xd',  function() return vim.fn.strftime '%y%m%d' end,        mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xd', },
+  { 'xa',  function() return vim.fn.strftime '%y%m%d-%Hh%Mm' end, mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xa', },
+  { 'xpx', function() return 'sort' end,                          mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xt', },
+  { 'xqc', function() return [[g/^\(.*\)$\n\1$/d]] end,           mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xd', },
+  { 'xpq', function() return [[sort\|g/^\(.*\)$\n\1$/d]] end,     mode = { 'c', 'i', }, expr = true, silent = false, desc = 'my.imaps: xa', },
+}
 
 vim.fn.setreg('e', 'reg e empty')
 vim.fn.setreg('4', 'reg 4 empty')
