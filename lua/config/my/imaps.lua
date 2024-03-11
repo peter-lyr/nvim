@@ -18,6 +18,10 @@ B.lazy_map {
 }
 
 B.lazy_map {
+  { 'x<leader>', function() return 'x' end, mode = { 'i', 'c', }, expr = true, silent = false, desc = 'my.imaps: x', },
+}
+
+B.lazy_map {
   { '<c-/>', '-', mode = { 'c', }, silent = false, desc = 'test.nvim: <c-/> to -', },
 }
 
