@@ -72,14 +72,18 @@ function M.replace_do()
   end)
 end
 
-function M.replace(root, substitute_string)
-  if not B.is_dir(root) then
-    return
+function M.replace(substitute_string, root)
+  if not root then
+    root = vim.loop.cwd()
+  else
+    if not B.is_dir(root) then
+      return
+    end
   end
   B.lazy_map {
     { '<F7>', function() M._replace_cnt = #M._replace_files + 1 end, mode = { 'n', 'v', }, silent = true, desc = 'test_replace_without_spectre stop', },
   }
-  B.notify_info('Press <F7> to stop replacing.')
+  B.notify_info 'Press <F7> to stop replacing.'
   M._replace_files = B.scan_files_deep(root)
   M._replace_cnt = 1
   B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
@@ -93,9 +97,11 @@ function M.replace(root, substitute_string)
   M.replace_do()
 end
 
--- require 'confit.test.spectre'.require([[c:\Users\depei_liu\appdata\local\repos\2024s]], [[%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g]])
+-- require 'confit.test.spectre'.require([[%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
 --
--- :Replace c:\Users\depei_liu\appdata\local\repos\2024s %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g
+-- :Replace %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g
+--
+-- :Replace %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g c:\Users\depei_liu\appdata\local\repos\2024s
 
 vim.api.nvim_create_user_command('Replace', function(params)
   M.replace(unpack(params['fargs']))
