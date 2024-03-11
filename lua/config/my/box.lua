@@ -504,7 +504,7 @@ function M.replace_two_words(mode)
     vim.cmd [[call feedkeys("viw")]]
   end
   vim.cmd [[call feedkeys('"2y')]]
-  B.set_timeout(100, function()
+  B.set_timeout(20, function()
     M.bufnr = vim.fn.bufnr()
     local temp
     temp = vim.fn.getpos "'<"
@@ -519,14 +519,13 @@ function M.replace_two_words_2(mode)
     vim.cmd [[call feedkeys("viw")]]
   end
   vim.cmd [[call feedkeys('"3y')]]
-  B.set_timeout(100, function()
+  B.set_timeout(20, function()
     vim.cmd [[call feedkeys('gv"2p')]]
-    B.cmd('b%d', M.bufnr)
+    if vim.fn.bufnr() ~= M.bufnr then
+      B.cmd('b%d', M.bufnr)
+    end
     B.cmd([[call feedkeys('%dgg%d|v%dgg%d|"3p')]], M.line_1, M.col_1, M.line_2, M.col_2)
   end)
 end
-
-B.lazy_map {
-}
 
 return M
