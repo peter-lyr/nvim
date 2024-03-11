@@ -50,6 +50,10 @@ lazy_map {
   { 'qs', function() vim.cmd 'silent !start "" "%:p"' end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
 }
 
+lazy_map {
+  { 'vw', 'viw', mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
+}
+
 vim.cmd [[
   aunmenu PopUp
   vnoremenu PopUp.Cut             "+x
