@@ -51,7 +51,10 @@ lazy_map {
 }
 
 lazy_map {
-  { 'vw', 'viw', mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
+  { 'vw',     'viw', mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
+  { 'v<c-w>', 'viW', mode = { 'n', }, silent = true, desc = 'my.maps: viW', },
+  { 'yw',     'yiw', mode = { 'n', }, silent = true, desc = 'my.maps: yiw', },
+  { 'y<c-w>', 'yiW', mode = { 'n', }, silent = true, desc = 'my.maps: yiW', },
 }
 
 vim.cmd [[
