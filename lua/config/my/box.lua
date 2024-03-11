@@ -501,9 +501,9 @@ B.lazy_map {
 
 function M.replace_two_words(mode)
   if mode == 'n' then
-    vim.cmd [[norm viw]]
+    vim.cmd 'norm viw'
   end
-  vim.cmd [[norm "by]]
+  vim.cmd 'norm "by'
   B.set_timeout(20, function()
     M.bufnr = vim.fn.bufnr()
     local temp
@@ -516,15 +516,15 @@ end
 
 function M.replace_two_words_2(mode)
   if mode == 'n' then
-    vim.cmd [[norm viw]]
+    vim.cmd 'norm viw'
   end
-  vim.cmd [[norm "vy]]
+  vim.cmd 'norm "vy'
   B.set_timeout(20, function()
-    vim.cmd [[norm gv"bp]]
+    vim.cmd 'norm gv"bp'
     if vim.fn.bufnr() ~= M.bufnr then
       B.cmd('b%d', M.bufnr)
     end
-    B.cmd([[norm %dgg%d|v%dgg%d|"vp]], M.line_1, M.col_1, M.line_2, M.col_2)
+    B.cmd('norm %dgg%d|v%dgg%d|"vp', M.line_1, M.col_1, M.line_2, M.col_2)
   end)
 end
 
