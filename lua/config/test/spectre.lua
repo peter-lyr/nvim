@@ -60,6 +60,9 @@ function M.replace_do()
     if M._replace_cnt <= #M._replace_files then
       M.replace_do()
     else
+      B.del_map {
+        { 'n', 'v', }, '<esc>',
+      }
       B.print('replace %d done', #M._replace_files)
       B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
         callback = function()
@@ -73,6 +76,10 @@ function M.replace(root, substitute_string)
   if not B.is_dir(root) then
     return
   end
+  B.lazy_map {
+    { '<esc>', function() M._replace_cnt = #M._replace_files + 1 end, mode = { 'n', 'v', }, silent = true, desc = 'test_replace_without_spectre stop', },
+  }
+  B.notify_info('Press <Esc> to stop replacing.')
   M._replace_files = B.scan_files_deep(root)
   M._replace_cnt = 1
   B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
