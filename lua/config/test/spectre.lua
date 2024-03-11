@@ -69,18 +69,29 @@ function M.replace_do()
   end)
 end
 
-function M.replace()
-  M._replace_files = B.scan_files_deep [[c:\Users\depei_liu\appdata\local\repos\2024s]]
+function M.replace(root, substitute_string)
+  if not B.is_dir(root) then
+    return
+  end
+  M._replace_files = B.scan_files_deep(root)
   M._replace_cnt = 1
   B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
     callback = function()
       vim.schedule(function()
-        -- vim.print [[try|%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g|catch|endtry]]
-        vim.cmd [[try|%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g|catch|endtry]]
+        -- B.print([[try|%s|catch|endtry]], substitute_string)
+        B.cmd([[try|%s|catch|endtry]], substitute_string)
       end)
     end,
   })
   M.replace_do()
 end
+
+-- require 'confit.test.spectre'.require([[c:\Users\depei_liu\appdata\local\repos\2024s]], [[%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g]])
+--
+-- :Replace c:\Users\depei_liu\appdata\local\repos\2024s %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g
+
+vim.api.nvim_create_user_command('Replace', function(params)
+  M.replace(unpack(params['fargs']))
+end, { nargs = '*', })
 
 return M
