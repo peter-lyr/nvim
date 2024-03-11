@@ -11,7 +11,7 @@ B.lazy_map {
   { 'xxa',  function() return vim.fn.strftime '%y%m%d-%Hh%Mm' end,  mode = { 'i', }, expr = true, silent = false, desc = 'my.imaps: xxa', },
   { 'xxpx', function() return 'sort' end,                           mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: xxpx', },
   { 'xxqc', function() return [[g/^\(.*\)$\n\1$/d]] end,            mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: xxqc', },
-  { 'xxpq', function() return [[sort\|g/^\(.*\)$\n\1$/d]] end,      mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: xxpq', },
+  { 'xxpq', function() return [[sort|g/^\(.*\)$\n\1$/d]] end,       mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: xxpq', },
 }
 
 B.lazy_map {
