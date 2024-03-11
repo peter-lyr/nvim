@@ -499,4 +499,34 @@ B.lazy_map {
   { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: open_file', },
 }
 
+function M.replace_two_words(mode)
+  if mode == 'n' then
+    vim.cmd [[call feedkeys("viw")]]
+  end
+  vim.cmd [[call feedkeys('"2y')]]
+  B.set_timeout(100, function()
+    M.bufnr = vim.fn.bufnr()
+    local temp
+    temp = vim.fn.getpos "'<"
+    _, M.line_1, M.col_1, _ = unpack(temp)
+    temp = vim.fn.getpos "'>"
+    _, M.line_2, M.col_2, _ = unpack(temp)
+  end)
+end
+
+function M.replace_two_words_2(mode)
+  if mode == 'n' then
+    vim.cmd [[call feedkeys("viw")]]
+  end
+  vim.cmd [[call feedkeys('"3y')]]
+  B.set_timeout(100, function()
+    vim.cmd [[call feedkeys('gv"2p')]]
+    B.cmd('b%d', M.bufnr)
+    B.cmd([[call feedkeys('%dgg%d|v%dgg%d|"3p')]], M.line_1, M.col_1, M.line_2, M.col_2)
+  end)
+end
+
+B.lazy_map {
+}
+
 return M
