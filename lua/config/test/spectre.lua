@@ -46,4 +46,40 @@ require 'spectre'.setup {
   },
 }
 
+function M.replace_do()
+  local file = M._replace_files[M._replace_cnt]
+  local ext = string.match(file, '%.([^.]+)$')
+  while ext ~= 'md' do
+    M._replace_cnt = M._replace_cnt + 1
+    file = M._replace_files[M._replace_cnt]
+    ext = string.match(file, '%.([^.]+)$')
+  end
+  B.cmd('e %s', file)
+  B.set_timeout(100, function()
+    M._replace_cnt = M._replace_cnt + 1
+    if M._replace_cnt <= #M._replace_files then
+      M.replace_do()
+    else
+      B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
+        callback = function()
+        end,
+      })
+    end
+  end)
+end
+
+function M.replace()
+  M._replace_files = B.scan_files_deep [[c:\Users\depei_liu\appdata\local\repos\2024s]]
+  M._replace_cnt = 1
+  B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
+    callback = function()
+      vim.schedule(function()
+        -- vim.print [[try|%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g|catch|endtry]]
+        vim.cmd [[try|%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g|catch|endtry]]
+      end)
+    end,
+  })
+  M.replace_do()
+end
+
 return M
