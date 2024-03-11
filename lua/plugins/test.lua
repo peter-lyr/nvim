@@ -341,6 +341,7 @@ return {
   -- spectre
   {
     'nvim-pack/nvim-spectre',
+    cmd = { 'Replace', },
     keys = {
       { '<leader>r',      function() end,                                                            mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rf',     function() require 'spectre'.open_file_search { select_word = true, } end, mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur cword', },
