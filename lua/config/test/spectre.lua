@@ -60,6 +60,7 @@ function M.replace_do()
     if M._replace_cnt <= #M._replace_files then
       M.replace_do()
     else
+      B.print('replace %d done', #M._replace_files)
       B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
         callback = function()
         end,
