@@ -4,8 +4,8 @@ local B = require 'base'
 
 B.lazy_map {
   { 'xxt', function() return vim.fn.strftime '%H%M%S-' end,        mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: time', },
-  { 'xxd', function() return vim.fn.strftime '%y%m%d-' end,        mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: date', },
-  { 'xxa', function() return vim.fn.strftime '%y%m%d-%Hh%Mm-' end, mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: datetime', },
+  { 'xxd', function() return vim.fn.strftime '%Y%m%d-' end,        mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: date', },
+  { 'xxa', function() return vim.fn.strftime '%Y%m%d-%Hh%Mm-' end, mode = { 'c', }, expr = true, silent = false, desc = 'my.imaps: datetime', },
   { 'xxt', function() return vim.fn.strftime '%H%M%S' end,         mode = { 'i', }, expr = true, silent = false, desc = 'my.imaps: time', },
   { 'xxd', function() return vim.fn.strftime '%y%m%d' end,         mode = { 'i', }, expr = true, silent = false, desc = 'my.imaps: date', },
   { 'xxa', function() return vim.fn.strftime '%y%m%d-%Hh%Mm' end,  mode = { 'i', }, expr = true, silent = false, desc = 'my.imaps: datetime', },
