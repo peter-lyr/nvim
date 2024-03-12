@@ -501,6 +501,34 @@ B.lazy_map {
   { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: open_file', },
 }
 
+if not M.reg then
+  M.reg = {}
+end
+
+function M.yank(reg, mode, word)
+  if mode == 'n' then
+    B.cmd('norm vi%s', word)
+  end
+  vim.cmd 'norm y'
+  M.reg[reg] = vim.fn.getreg '"'
+  print('vim.inspect(M.reg):', vim.inspect(M.reg))
+end
+
+B.lazy_map {
+  { '<F4>a',     function() M.yank('a', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to a', },
+  { '<F4><c-a>', function() M.yank('a', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to a', },
+  { '<F4>a',     function() M.yank('a', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to a', },
+  { '<F4>b',     function() M.yank('b', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to b', },
+  { '<F4><c-b>', function() M.yank('b', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to b', },
+  { '<F4>b',     function() M.yank('b', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to b', },
+  { '<F4>c',     function() M.yank('c', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to c', },
+  { '<F4><c-c>', function() M.yank('c', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to c', },
+  { '<F4>c',     function() M.yank('c', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to c', },
+  { '<F4>d',     function() M.yank('d', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to d', },
+  { '<F4><c-d>', function() M.yank('d', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to d', },
+  { '<F4>d',     function() M.yank('d', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to d', },
+}
+
 function M.replace_two_words(mode)
   if mode == 'n' then
     vim.cmd 'norm viw'
