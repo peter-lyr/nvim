@@ -1,5 +1,7 @@
 local M = {}
 
+vim.cmd 'Lazy load vim-projectroot'
+
 function M.aucmd(event, desc, opts)
   opts = vim.tbl_deep_extend(
     'force',
