@@ -1314,6 +1314,22 @@ function M.jump_or_edit(file)
   M.cmd('e %s', file)
 end
 
+function M.find_its_place_to_open(file)
+  file = M.rep_slash_lower(file)
+  local file_proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](file))
+  for winnr = 1, vim.fn.winnr '$' do
+    local bufnr = vim.fn.winbufnr(winnr)
+    local fname = M.rep_slash_lower(vim.api.nvim_buf_get_name(bufnr))
+    if M.file_exists(fname) then
+      local proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](fname))
+      if M.is(proj) and file_proj == proj then
+        return vim.fn.win_getid(winnr)
+      end
+    end
+  end
+  return nil
+end
+
 function M.get_git_remote_url(proj)
   local remote = ''
   if proj then
