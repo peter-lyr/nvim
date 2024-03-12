@@ -836,6 +836,12 @@ function M.open_next_item()
   end)
 end
 
+-- B.aucmd({ 'TextChanged', }, 'test.nvimtree.TextChanged', {
+--   callback = function()
+--     vim.fn['fugitive#ReloadStatus']()
+--   end,
+-- })
+
 B.aucmd({ 'BufEnter', }, 'test.nvimtree.BufEnter', {
   callback = function()
     if vim.bo.ft == 'qf' then
