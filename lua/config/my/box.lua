@@ -462,8 +462,10 @@ end
 
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
+B.del_map({ 'n', 'v', }, '<F4>')
 
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>a', 'my.box')
+require 'base'.whichkey_register({ 'n', 'v', }, '<F4>', 'my.box')
 
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ao', 'my.box.open')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>am', 'my.box.monitor')
@@ -504,7 +506,7 @@ function M.replace_two_words(mode)
     vim.cmd 'norm viw'
   end
   vim.cmd 'norm "by'
-  vim.fn.setreg('b', vim.fn.trim(vim.fn.getreg('b')))
+  vim.fn.setreg('b', vim.fn.trim(vim.fn.getreg 'b'))
   B.set_timeout(20, function()
     M.bufnr = vim.fn.bufnr()
     local temp
@@ -520,7 +522,7 @@ function M.replace_two_words_2(mode)
     vim.cmd 'norm viw'
   end
   vim.cmd 'norm "vy'
-  vim.fn.setreg('v', vim.fn.trim(vim.fn.getreg('v')))
+  vim.fn.setreg('v', vim.fn.trim(vim.fn.getreg 'v'))
   B.set_timeout(20, function()
     if vim.fn.bufnr() == M.bufnr then
       M.bufnr_2 = vim.fn.bufnr()

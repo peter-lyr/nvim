@@ -494,6 +494,7 @@ return {
     dependencies = { 'itchyny/vim-gitbranch', },
     keys = {
       { '<leader>a', function() require 'config.my.box' end,                         mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
+      { '<F4>',      function() require 'config.my.box' end,                         mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
       { '<F1>',      function() require 'config.my.box'.show_info() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box: show info', },
       { '<F2>',      function() require 'config.my.box'.replace_two_words 'n' end,   mode = { 'n', },      silent = true, desc = 'my.box.sel: replace_two_words', },
       { '<F2>',      function() require 'config.my.box'.replace_two_words 'v' end,   mode = { 'v', },      silent = true, desc = 'my.box.sel: replace_two_words', },
