@@ -1,3 +1,5 @@
+local M = {}
+
 local function lazy_map(tbls)
   for _, tbl in ipairs(tbls) do
     local opt = {}
