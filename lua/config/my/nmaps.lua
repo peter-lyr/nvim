@@ -52,6 +52,17 @@ lazy_map {
   { 'qs', function() vim.cmd 'silent !start "" "%:p"' end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
 }
 
+lazy_map {
+  { 'qr', function()
+    local B = require 'base'
+    local telescope = require 'config.nvim.telescope'
+    local dir = telescope.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))]
+    if dir then
+      B.cmd('silent !start "" "%s"', dir)
+    end
+  end, mode = { 'n', 'v', }, silent = true, desc = 'my.maps: explorer cur_root', },
+}
+
 function M.yank(feedkeys)
   local B = require 'base'
   local save_cursor = vim.fn.getcurpos()
