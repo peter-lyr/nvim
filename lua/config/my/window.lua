@@ -333,12 +333,31 @@ function M.reopen_deleted()
   if #deleted_bufnames == 0 then
     return
   end
-  vim.ui.select(deleted_bufnames, { prompt = 'reopen deleted buffers', }, function(choice, _)
+  vim.ui.select(deleted_bufnames, { prompt = 'reopen bwipeout buffers', }, function(choice, _)
     if not choice then
       return
     end
     vim.cmd('e ' .. choice)
   end)
+end
+
+function M.get_unloaded_bufnrs()
+  return vim.tbl_filter(function(bufnr)
+    if 1 ~= vim.fn.bufloaded(bufnr) then
+      return true
+    end
+    return false
+  end, vim.api.nvim_list_bufs())
+end
+
+function M.bwipeout_unloaded()
+  local info = {}
+  for _, bufnr in ipairs(M.get_unloaded_bufnrs()) do
+    info[#info + 1] = 'bwipeout -> ' .. vim.fn.bufname(bufnr)
+    pcall(vim.cmd, 'bwipeout ' .. tostring(bufnr))
+  end
+  table.insert(info, 1, string.format('%d buffer(s) bwipeout', #info))
+  B.notify_info(info)
 end
 
 -- mappings
@@ -432,6 +451,7 @@ B.lazy_map {
   { '<leader>xoL',      function() M.bwipeout_proj 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj right', },
 
   { '<leader>x<del>',   function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
+  { '<leader>xu',       function() M.bwipeout_unloaded() end,   mode = { 'n', 'v', }, desc = 'my.window: bdelete_unloaded', },
   { '<leader>x<cr>',    function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
 }
 
