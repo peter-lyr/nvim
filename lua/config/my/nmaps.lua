@@ -50,13 +50,32 @@ lazy_map {
   { 'qs', function() vim.cmd 'silent !start "" "%:p"' end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.maps: start %:h', },
 }
 
+function M.yank(feedkeys)
+  local B = require 'base'
+  local save_cursor = vim.fn.getcurpos()
+  B.cmd('norm %s', feedkeys)
+  vim.fn.setpos('.', save_cursor)
+  local temp = ''
+  if B.is_in_str('y', feedkeys) then
+    local head = 'yank to '
+    if B.is_in_str('+', feedkeys) then
+      temp = vim.fn.getreg '+'
+      head = head .. '+'
+    else
+      temp = vim.fn.getreg '"'
+      head = head .. '"'
+    end
+    B.notify_info_append { head, temp, }
+  end
+end
+
 lazy_map {
-  { 'vw',     'viw',   mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
-  { 'v<c-w>', 'viW',   mode = { 'n', }, silent = true, desc = 'my.maps: viW', },
-  { 'yw',     'yiw',   mode = { 'n', }, silent = true, desc = 'my.maps: yiw', },
-  { 'vw',     'viw',   mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
-  { 'y<a-w>', '"+yiw', mode = { 'n', }, silent = true, desc = 'my.maps: "+yiw', },
-  { 'yW',     '"+yiW', mode = { 'n', }, silent = true, desc = 'my.maps: "+yiW', },
+  { 'vw',     function() M.yank 'viw' end,   mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
+  { 'v<c-w>', function() M.yank 'viW' end,   mode = { 'n', }, silent = true, desc = 'my.maps: viW', },
+  { 'yw',     function() M.yank 'yiw' end,   mode = { 'n', }, silent = true, desc = 'my.maps: yiw', },
+  { 'y<c-w>', function() M.yank 'yiW' end,   mode = { 'n', }, silent = true, desc = 'my.maps: yiW', },
+  { 'y<a-w>', function() M.yank '"+yiw' end, mode = { 'n', }, silent = true, desc = 'my.maps: "+yiw', },
+  { 'yW',     function() M.yank '"+yiW' end, mode = { 'n', }, silent = true, desc = 'my.maps: "+yiW', },
 }
 
 vim.cmd [[
