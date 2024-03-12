@@ -9,21 +9,21 @@
 # TODO
 
 1. [ ] TODO: yank pool
-2. [ ] TODO: call stuff in desktop tools
-3. [ ] TODO: telescope handle sels for more usage
+~~2. [ ] TODO: call stuff in desktop tools~~
+3. [x] TODO: telescope handle sels for more usage
 4. [x] TODO: qf get all files
 5. [x] TODO: multi files operate: copy move del rename
 6. [x] TODO: oil sel dirs
 7. [x] TODO: drag file(s) or folder(s)
-8. [ ] TODO: api to get any files conveniently
+8. [x] TODO: api to get any files conveniently
 9. [x] TODO: command sel arg in telescope
 10. [x] TODO: insert mode no hili
-11. [ ] TODO: Github Desktop
+~~11. [ ] TODO: Github Desktop~~
 12. [x] TODO: drag data file to markdown file, check them
 13. [x] TODO: oil a: ~ z:
-14. [ ] TODO: folder do not be music type
+~~14. [ ] TODO: folder do not be music type~~
 15. [ ] TODO: focuslost long time restart and load session
-16. [ ] TODO: fork sessions.nvim save path
+~~16. [ ] TODO: fork sessions.nvim save path~~
 17. [x] TODO: nvim-tree gx sel in telescope
 
 > - `<c-1>` `<c-2>` `<c-3>` `<c-4>`
@@ -42,7 +42,7 @@
 
 > - `markdownlint`
 
-21. [ ] TODO: do anything at dir
+21. [x] TODO: do anything at dir
 22. [x] FIX: `B.scan_temp` do not ignore `.git/*`
 23. [x] TODO: `<a-o>` open under
 24. [x] TODO: sel add to hist
@@ -50,7 +50,7 @@
 > - system_open_file_silent
 
 25. [x] TODO: git sel commit history
-26. [ ] TODO: markdown url link to other markdown
+26. [x] TODO: markdown url link to other markdown
 27. [x] TODO: nvimtree dp paste folder not working
 
 > - `B.powershell_run('Get-Clipboard -Format FileDropList | ForEach-Object { Copy-Item -Path $_.FullName -Recurse -Destination "%s" }', dtarget)`
@@ -72,14 +72,14 @@
 > > 1. empty: write copyright
 > > 2. not: nop
 
-32. [ ] TODO: telescope projects git files
+32. [x] TODO: telescope projects git files
 33. [x] TODO: gui font diff from different tab
 
 > 1. [x] TODO: add session
 
 34. [x] TODO: tabs_way diff from different tab
 
-> 1. [ ] TODO: add session
+> 1. [x] TODO: add session
 
 35. [x] TODO: 40% lalt, fn2 uncomfortable
 36. [ ] TODO: new markdown lsp format wait
@@ -88,7 +88,7 @@
 > 1. C:\Users\depei_liu\AppData\Local\nvim
 > 2. C:\Users\depei_liu\AppData\Local\repos
 
-38. [ ] TODO: add start explorer to session
+38. [x] TODO: add start explorer to session
 39. [x] TODO: system cd, cd /d
 40. [x] TODO: git repos pulls all
 41. [x] TODO: ui_sel to qf list
