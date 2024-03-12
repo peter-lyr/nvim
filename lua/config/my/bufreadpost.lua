@@ -37,6 +37,10 @@ B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
       vim.opt.softtabstop = 2
       vim.opt.shiftwidth = 2
     end
+    local ext = string.match(B.buf_get_name_0(), '%.([^.]+)$')
+    if ext == 'xxd' then
+      vim.cmd 'setlocal ft=xxd'
+    end
   end,
 })
 
