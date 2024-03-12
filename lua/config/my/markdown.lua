@@ -170,7 +170,7 @@ function M.create_file_from_target()
       local idx = res[1]
       local chip = res[2]
       local client = res[3]
-      local title = res[4]
+      local title = vim.fn.trim(vim.fn.split(res[4], '->')[1])
       local head_dir = B.file_parent(B.buf_get_name_0())
       local fname = B.getcreate_filepath(head_dir, string.format('%s-%s_%s-%s.md', vim.fn.strftime '%y%m%d', client, chip, title)).filename
       M.make_url(fname, string.format('%s. `%%s`', idx))
