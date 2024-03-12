@@ -1,20 +1,20 @@
 local B = require 'base'
 
-local pickers = require "telescope.pickers"
-local finders = require "telescope.finders"
-local conf = require("telescope.config").values
-local actions = require "telescope.actions"
-local action_state = require "telescope.actions.state"
-local strings = require "plenary.strings"
-local entry_display = require "telescope.pickers.entry_display"
-local utils = require "telescope.utils"
+local pickers = require 'telescope.pickers'
+local finders = require 'telescope.finders'
+local conf = require 'telescope.config'.values
+local actions = require 'telescope.actions'
+local action_state = require 'telescope.actions.state'
+local strings = require 'plenary.strings'
+local entry_display = require 'telescope.pickers.entry_display'
+local utils = require 'telescope.utils'
 
 local function send_open_to_qflist(prompt_bufnr)
   local picker = action_state.get_current_picker(prompt_bufnr)
   local manager = picker.manager
   local qf_entries = {}
   for entry in manager:iter() do
-    table.insert(qf_entries, {text = entry['ordinal']})
+    table.insert(qf_entries, { text = entry['ordinal'], })
   end
   actions.close(prompt_bufnr)
   vim.fn.setqflist(qf_entries, 'r')
@@ -28,6 +28,9 @@ local function grep_string(prompt_bufnr)
   if not B.file_exists(project_path) then
     return
   end
+  if B.is_file(project_path) then
+    project_path = B.file_parent(project_path)
+  end
   local cmd = B.format('Telescope grep_string shorten_path=true word_match=-w only_sort_text=true search= cwd=%s', project_path)
   B.cmd(cmd)
   B.notify_info('Telescope grep_string cwd=' .. project_path)
@@ -39,6 +42,9 @@ local function live_grep(prompt_bufnr)
   local project_path = selected_entry.ordinal
   if not B.file_exists(project_path) then
     return
+  end
+  if B.is_file(project_path) then
+    project_path = B.file_parent(project_path)
   end
   local cmd = B.format('Telescope live_grep cwd=%s', project_path)
   B.cmd(cmd)
@@ -56,8 +62,8 @@ return require 'telescope'.register_extension {
 
     __TelescopeUISelectSpecificOpts = vim.F.if_nil(
       __TelescopeUISelectSpecificOpts,
-      vim.tbl_extend("keep", specific_opts, {
-        ["codeaction"] = {
+      vim.tbl_extend('keep', specific_opts, {
+        ['codeaction'] = {
           make_indexed = function(items)
             local indexed_items = {}
             local widths = {
@@ -67,7 +73,7 @@ return require 'telescope'.register_extension {
             }
             for idx, item in ipairs(items) do
               local client_id, title
-              if vim.version and vim.version.cmp(vim.version(), vim.version.parse "0.10-dev") >= 0 then
+              if vim.version and vim.version.cmp(vim.version(), vim.version.parse '0.10-dev') >= 0 then
                 client_id = item.ctx.client_id
                 title = item.action.title
               else
@@ -79,9 +85,9 @@ return require 'telescope'.register_extension {
 
               local entry = {
                 idx = idx,
-                ["add"] = {
-                  command_title = title:gsub("\r\n", "\\r\\n"):gsub("\n", "\\n"),
-                  client_name = client and client.name or "",
+                ['add'] = {
+                  command_title = title:gsub('\r\n', '\\r\\n'):gsub('\n', '\\n'),
+                  client_name = client and client.name or '',
                 },
                 text = item,
               }
@@ -94,25 +100,25 @@ return require 'telescope'.register_extension {
           end,
           make_displayer = function(widths)
             return entry_display.create {
-              separator = " ",
+              separator = ' ',
               items = {
-                { width = widths.idx + 1 }, -- +1 for ":" suffix
-                { width = widths.command_title },
-                { width = widths.client_name },
+                { width = widths.idx + 1, }, -- +1 for ":" suffix
+                { width = widths.command_title, },
+                { width = widths.client_name, },
               },
             }
           end,
           make_display = function(displayer)
             return function(e)
               return displayer {
-                { e.value.idx .. ":", "TelescopePromptPrefix" },
-                { e.value.add.command_title },
-                { e.value.add.client_name, "TelescopeResultsComment" },
+                { e.value.idx .. ':',       'TelescopePromptPrefix', },
+                { e.value.add.command_title, },
+                { e.value.add.client_name,  'TelescopeResultsComment', },
               }
             end
           end,
           make_ordinal = function(e)
-            return e.idx .. e.add["command_title"]
+            return e.idx .. e.add['command_title']
           end,
         },
       })
@@ -120,8 +126,8 @@ return require 'telescope'.register_extension {
 
     vim.ui.select = function(items, opts, on_choice)
       opts = opts or {}
-      local prompt = vim.F.if_nil(opts.prompt, "Select one of")
-      if prompt:sub(-1, -1) == ":" then
+      local prompt = vim.F.if_nil(opts.prompt, 'Select one of')
+      if prompt:sub(-1, -1) == ':' then
         prompt = prompt:sub(1, -2)
       end
       opts.format_item = vim.F.if_nil(opts.format_item, function(e)
@@ -134,11 +140,11 @@ return require 'telescope'.register_extension {
       on_choice = vim.schedule_wrap(on_choice)
 
       -- We want or here because __TelescopeUISelectSpecificOpts[x] can be either nil or even false -> {}
-      local sopts = __TelescopeUISelectSpecificOpts[vim.F.if_nil(opts.kind, "")] or {}
+      local sopts = __TelescopeUISelectSpecificOpts[vim.F.if_nil(opts.kind, '')] or {}
       local indexed_items, widths = vim.F.if_nil(sopts.make_indexed, function(items_)
         local indexed_items = {}
         for idx, item in ipairs(items_) do
-          table.insert(indexed_items, { idx = idx, text = item })
+          table.insert(indexed_items, { idx = idx, text = item, })
         end
         return indexed_items
       end)(items)
@@ -153,50 +159,50 @@ return require 'telescope'.register_extension {
         return opts.format_item(e.text)
       end)
       pickers
-        .new(topts, {
-          prompt_title = string.gsub(prompt, "\n", " "),
-          finder = finders.new_table {
-            results = indexed_items,
-            entry_maker = function(e)
-              return {
-                value = e,
-                display = make_display,
-                ordinal = make_ordinal(e),
-              }
-            end,
-          },
-          attach_mappings = function(prompt_bufnr, map)
-            map('n', '<C-Tab>', send_open_to_qflist, { nowait = true, })
-            map('i', '<C-Tab>', send_open_to_qflist, { nowait = true, })
-
-            map('n', ';', live_grep, { nowait = true, })
-            map('i', '<f1>', live_grep, { nowait = true, })
-
-            map('n', 'c', grep_string, { nowait = true, })
-            map('i', '<F4>', grep_string, { nowait = true, })
-
-            actions.select_default:replace(function()
-              local selection = action_state.get_selected_entry()
-              local cb = on_choice
-              on_choice = function(_, _) end
-              actions.close(prompt_bufnr)
-              if selection == nil then
-                utils.__warn_no_selection "ui-select"
-                cb(nil, nil)
-                return
-              end
-              cb(selection.value.text, selection.value.idx)
-            end)
-            actions.close:enhance {
-              post = function()
-                on_choice(nil, nil)
+          .new(topts, {
+            prompt_title = string.gsub(prompt, '\n', ' '),
+            finder = finders.new_table {
+              results = indexed_items,
+              entry_maker = function(e)
+                return {
+                  value = e,
+                  display = make_display,
+                  ordinal = make_ordinal(e),
+                }
               end,
-            }
-            return true
-          end,
-          sorter = conf.generic_sorter(topts),
-        })
-        :find()
+            },
+            attach_mappings = function(prompt_bufnr, map)
+              map('n', '<C-Tab>', send_open_to_qflist, { nowait = true, })
+              map('i', '<C-Tab>', send_open_to_qflist, { nowait = true, })
+
+              map('n', ';', live_grep, { nowait = true, })
+              map('i', '<f1>', live_grep, { nowait = true, })
+
+              map('n', 'c', grep_string, { nowait = true, })
+              map('i', '<F4>', grep_string, { nowait = true, })
+
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                local cb = on_choice
+                on_choice = function(_, _) end
+                actions.close(prompt_bufnr)
+                if selection == nil then
+                  utils.__warn_no_selection 'ui-select'
+                  cb(nil, nil)
+                  return
+                end
+                cb(selection.value.text, selection.value.idx)
+              end)
+              actions.close:enhance {
+                post = function()
+                  on_choice(nil, nil)
+                end,
+              }
+              return true
+            end,
+            sorter = conf.generic_sorter(topts),
+          })
+          :find()
     end
   end,
 }
