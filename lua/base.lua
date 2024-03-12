@@ -359,7 +359,7 @@ end
 
 function M.refresh_fugitive()
   vim.cmd 'Lazy load vim-fugitive'
-  vim.call 'fugitive#ReloadStatus'
+  vim.fn['fugitive#ReloadStatus']()
 end
 
 M.asyncrun_done_changed = nil
