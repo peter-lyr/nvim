@@ -451,8 +451,8 @@ B.lazy_map {
   { '<leader>xoL',      function() M.bwipeout_proj 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj right', },
 
   { '<leader>x<del>',   function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
-  { '<leader>xu',       function() M.bwipeout_unloaded() end,   mode = { 'n', 'v', }, desc = 'my.window: bdelete_unloaded', },
   { '<leader>x<cr>',    function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },
+  { '<leader>xu',       function() M.bwipeout_unloaded() end,   mode = { 'n', 'v', }, desc = 'my.window: bdelete_unloaded', },
 }
 
 return M
