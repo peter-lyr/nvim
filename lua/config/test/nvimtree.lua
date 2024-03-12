@@ -578,6 +578,7 @@ function M._open_or_expand_or_dir_up()
       local winid = B.find_its_place_to_open(path)
       if winid then
         vim.fn.win_gotoid(winid)
+        B.cmd('e %s', path)
       else
         require 'nvim-tree.actions.node.open-file'.fn('edit_no_picker', path)
       end
