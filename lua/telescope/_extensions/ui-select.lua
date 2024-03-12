@@ -111,9 +111,9 @@ return require 'telescope'.register_extension {
           make_display = function(displayer)
             return function(e)
               return displayer {
-                { e.value.idx .. ':',       'TelescopePromptPrefix', },
+                { e.value.idx .. ':',        'TelescopePromptPrefix', },
                 { e.value.add.command_title, },
-                { e.value.add.client_name,  'TelescopeResultsComment', },
+                { e.value.add.client_name,   'TelescopeResultsComment', },
               }
             end
           end,
