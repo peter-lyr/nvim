@@ -783,7 +783,7 @@ function M.terminal_powershell()
 end
 
 function M.open_telescope_lua()
-  B.cmd('e %s', M.source)
+  B.jump_or_edit(M.source)
   vim.cmd 'norm gg'
   vim.fn.search 'file_ignore_patterns'
 end
