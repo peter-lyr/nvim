@@ -429,7 +429,7 @@ B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.hili.CursorMoved', {
       return
     end
     M.cursorword_lock = 1
-    B.set_timeout(300, function()
+    B.set_timeout(50, function()
       M.cursorword_lock = nil
     end)
     M.on_cursormoved(ev)
