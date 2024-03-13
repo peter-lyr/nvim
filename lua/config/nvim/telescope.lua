@@ -310,12 +310,13 @@ B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
 })
 
 function M.cur_root_sel_do(dir)
-  local cwd = vim.fn['ProjectRootGet'](dir)
+  local cwd = B.rep_backslash_lower(vim.fn['ProjectRootGet'](dir))
   dir = B.rep_backslash_lower(dir)
   M.cur_root[B.rep_backslash_lower(cwd)] = dir
   if not M.cur_roots[B.rep_backslash_lower(cwd)] then
     M.cur_roots[B.rep_backslash_lower(cwd)] = {}
   end
+  B.stack_item_uniq(M.cur_roots[B.rep_backslash_lower(cwd)], cwd)
   B.stack_item_uniq(M.cur_roots[B.rep_backslash_lower(cwd)], dir)
   B.notify_info_append(dir)
 end
