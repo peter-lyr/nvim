@@ -625,6 +625,7 @@ local opts = {
     width = 30,
     -- number = true,
     -- relativenumber = true,
+    signcolumn = "auto",
   },
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
