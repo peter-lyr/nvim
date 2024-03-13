@@ -242,7 +242,9 @@ function M.ausize_toggle()
   end
 end
 
-M.dirs = {}
+if not M.dirs then
+  M.dirs = {}
+end
 
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
