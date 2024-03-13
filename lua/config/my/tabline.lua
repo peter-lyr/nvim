@@ -60,7 +60,7 @@ function M.b_next_buf()
   end
 end
 
-function M.bd_prev_buf()
+function M.bd_prev_buf(bwipeout)
   if not M.is_cuf_buf_readable() then
     return
   end
@@ -72,13 +72,17 @@ function M.bd_prev_buf()
     index = index - 1
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
-      B.cmd('Bdelete! %d', buf)
+      if bwipeout then
+        B.cmd('Bdelete! %d', buf)
+      else
+        B.cmd('Bwipeout! %d', buf)
+      end
     end
     M.update_bufs_and_refresh_tabline()
   end
 end
 
-function M.bd_next_buf()
+function M.bd_next_buf(bwipeout)
   if not M.is_cuf_buf_readable() then
     return
   end
@@ -90,13 +94,17 @@ function M.bd_next_buf()
     index = index + 1
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
-      B.cmd('Bdelete! %d', buf)
+      if bwipeout then
+        B.cmd('Bdelete! %d', buf)
+      else
+        B.cmd('Bdelete! %d', buf)
+      end
     end
     M.update_bufs_and_refresh_tabline()
   end
 end
 
-function M.bd_all_next_buf()
+function M.bd_all_next_buf(bwipeout)
   if not M.is_cuf_buf_readable() then
     return
   end
@@ -114,13 +122,17 @@ function M.bd_all_next_buf()
       end
     end
     for _, buf in ipairs(bufs) do
-      B.cmd('Bdelete! %d', buf)
+      if bwipeout then
+        B.cmd('Bdelete! %d', buf)
+      else
+        B.cmd('Bdelete! %d', buf)
+      end
     end
     M.update_bufs_and_refresh_tabline()
   end
 end
 
-function M.bd_all_prev_buf()
+function M.bd_all_prev_buf(bwipeout)
   if not M.is_cuf_buf_readable() then
     return
   end
@@ -138,7 +150,11 @@ function M.bd_all_prev_buf()
       end
     end
     for _, buf in ipairs(bufs) do
-      B.cmd('Bdelete! %d', buf)
+      if bwipeout then
+        B.cmd('Bdelete! %d', buf)
+      else
+        B.cmd('Bdelete! %d', buf)
+      end
     end
     M.update_bufs_and_refresh_tabline()
   end
