@@ -255,7 +255,7 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
       end)
     end
     if ev.event == 'DirChanged' then
-      B.stack_item_uniq(M.dirs, B.rep_slash_lower(vim.loop.cwd()), 1000)
+      B.stack_item_uniq(M.dirs, B.rep_slash_lower(vim.loop.cwd()))
     end
   end,
 })
