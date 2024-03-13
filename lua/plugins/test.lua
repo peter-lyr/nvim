@@ -35,7 +35,13 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
-    keys = { { '<a-w>', '<cmd>WhichKey<cr>', mode = { 'n', 'v', 'i', 'c', 't', }, desc = 'WhichKey', }, },
+    keys = {
+      { '<a-w>', '<cmd>WhichKey "" n<cr>', mode = { 'n', }, desc = 'WhichKey n', },
+      { '<a-w>', '<cmd>WhichKey "" v<cr>', mode = { 'v', }, desc = 'WhichKey v', },
+      { '<a-w>', '<cmd>WhichKey "" i<cr>', mode = { 'i', }, desc = 'WhichKey i', },
+      { '<a-w>', '<cmd>WhichKey "" c<cr>', mode = { 'c', }, desc = 'WhichKey c', },
+      { '<a-w>', '<cmd>WhichKey "" t<cr>', mode = { 't', }, desc = 'WhichKey t', },
+    },
     config = function()
       require 'which-key'.setup {
         window = {
