@@ -232,7 +232,9 @@ function M.ausize_toggle()
       end
     end
   else
-    if not B.is_buf_fts('NvimTree', vim.fn.bufnr()) then
+    if B.is_buf_fts('NvimTree', vim.fn.bufnr()) then
+      M.ausize_do(vim.fn.win_getid())
+    else
       local old_winid = vim.fn.win_getid()
       local nvt_winid = nil
       for winnr = 1, vim.fn.winnr '$' do
@@ -625,7 +627,7 @@ local opts = {
     width = 30,
     -- number = true,
     -- relativenumber = true,
-    signcolumn = "auto",
+    signcolumn = 'auto',
   },
   sync_root_with_cwd = true,
   reload_on_bufenter = true,
