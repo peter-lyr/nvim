@@ -1278,6 +1278,14 @@ function M.stack_item(tbl, item, len)
   return res
 end
 
+function M.stack_item_uniq(tbl, item)
+  local index = M.index_of(tbl, item)
+  if index ~= -1 then
+    table.remove(tbl, index)
+  end
+  tbl[#tbl + 1] = item
+end
+
 function M.get_running_executables()
   local exes = {}
   for exe in string.gmatch(vim.fn.system 'tasklist', '([^\n]+.exe)') do

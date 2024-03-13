@@ -505,6 +505,8 @@ return {
       { '<c-4>',        function() require 'config.test.nvimtree'.sel_all_git_repos() end,   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_all_git_repos', },
       { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
 
+      { '<c-5>',        function() require 'config.test.nvimtree'.sel_dirs() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_dirs', },
+
       { '<leader>d',    function() end,                                                      mode = { 'n', 'v', }, silent = true, desc = '---test.nvimtree---', },
 
       { '<leader>dj',   function() require 'config.test.nvimtree'.open_next_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_next_tree_node', },

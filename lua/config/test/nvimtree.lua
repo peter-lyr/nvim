@@ -242,6 +242,8 @@ function M.ausize_toggle()
   end
 end
 
+M.dirs = {}
+
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
     if vim.bo.ft == 'NvimTree' and B.is(M.ausize_en) then
@@ -252,8 +254,13 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
         end
       end)
     end
+    if ev.event == 'DirChanged' then
+      B.stack_item_uniq(M.dirs, B.rep_slash_lower(vim.loop.cwd()), 1000)
+    end
   end,
 })
+
+function M.sel_dirs() M._sel_dirs_do(M.dirs, 'dirs') end
 
 function M.is_nvim_tree_opened()
   for winnr = 1, vim.fn.winnr '$' do
