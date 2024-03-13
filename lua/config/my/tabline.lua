@@ -73,9 +73,9 @@ function M.bd_prev_buf(bwipeout)
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
       if bwipeout then
-        B.cmd('Bdelete! %d', buf)
-      else
         B.cmd('Bwipeout! %d', buf)
+      else
+        B.cmd('Bdelete! %d', buf)
       end
     end
     M.update_bufs_and_refresh_tabline()
@@ -95,7 +95,7 @@ function M.bd_next_buf(bwipeout)
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
       if bwipeout then
-        B.cmd('Bdelete! %d', buf)
+        B.cmd('Bwipeout! %d', buf)
       else
         B.cmd('Bdelete! %d', buf)
       end
@@ -123,7 +123,7 @@ function M.bd_all_next_buf(bwipeout)
     end
     for _, buf in ipairs(bufs) do
       if bwipeout then
-        B.cmd('Bdelete! %d', buf)
+        B.cmd('Bwipeout! %d', buf)
       else
         B.cmd('Bdelete! %d', buf)
       end
@@ -151,7 +151,7 @@ function M.bd_all_prev_buf(bwipeout)
     end
     for _, buf in ipairs(bufs) do
       if bwipeout then
-        B.cmd('Bdelete! %d', buf)
+        B.cmd('Bwipeout! %d', buf)
       else
         B.cmd('Bdelete! %d', buf)
       end
