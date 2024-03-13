@@ -4,6 +4,8 @@ local B = require 'base'
 
 M.source = B.getsource(debug.getinfo(1)['source'])
 
+vim.cmd 'Lazy load nvim-notify'
+
 -- telescope
 local telescope = require 'telescope'
 local actions = require 'telescope.actions'
@@ -286,24 +288,53 @@ require 'project_nvim'.setup {
 -- sel root
 M.telescope_cur_root_dir_path = B.getcreate_stddata_dirpath 'telescope-cur-root'
 M.telescope_cur_root_txt_path = M.telescope_cur_root_dir_path:joinpath 'telescope-cur-root.txt'
+M.telescope_cur_roots_txt_path = M.telescope_cur_root_dir_path:joinpath 'telescope-cur-roots.txt'
 
 if not M.telescope_cur_root_txt_path:exists() then
   M.telescope_cur_root_txt_path:write(vim.inspect {}, 'w')
 end
 
+if not M.telescope_cur_roots_txt_path:exists() then
+  M.telescope_cur_roots_txt_path:write(vim.inspect {}, 'w')
+end
+
 M.cur_root = B.read_table_from_file(M.telescope_cur_root_txt_path.filename)
+
+M.cur_roots = B.read_table_from_file(M.telescope_cur_roots_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
   callback = function()
     M.telescope_cur_root_txt_path:write(vim.inspect(M.cur_root), 'w')
+    M.telescope_cur_roots_txt_path:write(vim.inspect(M.cur_roots), 'w')
   end,
 })
 
 function M.cur_root_sel_do(dir)
-  M.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](dir))] = B.rep_backslash_lower(dir)
+  local cwd = vim.fn['ProjectRootGet'](dir)
+  dir = B.rep_backslash_lower(dir)
+  M.cur_root[B.rep_backslash_lower(cwd)] = dir
+  if not M.cur_roots[B.rep_backslash_lower(cwd)] then
+    M.cur_roots[B.rep_backslash_lower(cwd)] = {}
+  end
+  B.stack_item_uniq(M.cur_roots[B.rep_backslash_lower(cwd)], dir)
+  B.notify_info_append(dir)
 end
 
-function M.root_sel()
+function M.root_sel_switch()
+  local cwd = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
+  local dirs = M.cur_roots[cwd]
+  if dirs and #dirs == 1 then
+    M.cur_root_sel_do(dirs[1])
+  else
+    B.ui_sel(dirs, 'sel as telescope root', function(dir)
+      if dir then
+        M.cur_root_sel_do(dir)
+      end
+    end)
+  end
+end
+
+function M.root_sel_parennt_dirs()
   local dirs = B.get_file_dirs()
   if dirs and #dirs == 1 then
     M.cur_root_sel_do(dirs[1])
@@ -807,47 +838,48 @@ require 'base'.whichkey_register({ 'n', 'v', }, '<leader>svv', 'nvim.telescope.m
 
 B.lazy_map {
   -- builtins
-  { '<leader>s<leader>', function() M.find_files_all() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files_all', },
-  { '<leader>sd',        function() M.diagnostics() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: diagnostics', },
-  { '<leader>s<c-f>',    function() M.filetypes() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: filetypes', },
-  { '<leader>sh',        function() M.search_history() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: search_history', },
-  { '<leader>sj',        function() M.jumplist() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: jumplist', },
-  { '<leader>sm',        function() M.keymaps() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: keymaps', },
-  { '<leader>sr',        function() M.root_sel_till_git() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_till_git', },
-  { '<leader>sR',        function() M.root_sel_scan_dirs() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_scan_dirs', },
-  { '<leader>s<c-r>',    function() M.root_sel() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel', },
-  { '<leader>sq',        function() M.quickfix() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfix', },
-  { '<leader>svq',       function() M.quickfixhistory() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfixhistory', },
-  { '<leader>svvc',      function() M.colorscheme() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: colorscheme', },
-  { '<leader>svh',       function() M.help_tags() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: help_tags', },
-  { '<leader>sva',       function() M.autocommands() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: autocommands', },
-  { '<leader>svva',      function() M.builtin() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: builtin', },
-  { '<leader>svo',       function() M.vim_options() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: vim_options', },
+  { '<leader>s<leader>', function() M.find_files_all() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files_all', },
+  { '<leader>sd',        function() M.diagnostics() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: diagnostics', },
+  { '<leader>s<c-f>',    function() M.filetypes() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: filetypes', },
+  { '<leader>sh',        function() M.search_history() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: search_history', },
+  { '<leader>sj',        function() M.jumplist() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: jumplist', },
+  { '<leader>sm',        function() M.keymaps() end,               mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: keymaps', },
+  { '<leader>sr',        function() M.root_sel_till_git() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_till_git', },
+  { '<leader>sR',        function() M.root_sel_scan_dirs() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_scan_dirs', },
+  { '<leader>s<a-r>',    function() M.root_sel_parennt_dirs() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_parennt_dirs', },
+  { '<leader>s<c-r>',    function() M.root_sel_switch() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: root_sel_switch', },
+  { '<leader>sq',        function() M.quickfix() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfix', },
+  { '<leader>svq',       function() M.quickfixhistory() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: quickfixhistory', },
+  { '<leader>svvc',      function() M.colorscheme() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: colorscheme', },
+  { '<leader>svh',       function() M.help_tags() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: help_tags', },
+  { '<leader>sva',       function() M.autocommands() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: autocommands', },
+  { '<leader>svva',      function() M.builtin() end,               mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: builtin', },
+  { '<leader>svo',       function() M.vim_options() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: vim_options', },
   -- mouse
-  { '<c-s-f12><f1>',     function() M.git_status() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: git_status', },
-  { '<c-s-f12><f2>',     function() M.buffers_cur() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers_cur', },
-  { '<c-s-f12><f3>',     function() M.find_files() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files', },
-  { '<c-s-f12><f4>',     function() M.jumplist() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: jumplist', },
-  { '<c-s-f12><f6>',     function() M.command_history() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: command_history', },
-  { '<c-s-f12><f7>',     function() M.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: document_symbols', },
-  { '<c-s-f12><f8>',     function() M.buffers() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers', },
-  { '<c-s-f12><f1>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f2>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f3>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f4>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f6>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f7>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
-  { '<c-s-f12><f8>',     function() M.nop() end,                  mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f1>',     function() M.git_status() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: git_status', },
+  { '<c-s-f12><f2>',     function() M.buffers_cur() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers_cur', },
+  { '<c-s-f12><f3>',     function() M.find_files() end,            mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: find_files', },
+  { '<c-s-f12><f4>',     function() M.jumplist() end,              mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: jumplist', },
+  { '<c-s-f12><f6>',     function() M.command_history() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: command_history', },
+  { '<c-s-f12><f7>',     function() M.lsp_document_symbols() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: document_symbols', },
+  { '<c-s-f12><f8>',     function() M.buffers() end,               mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers', },
+  { '<c-s-f12><f1>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f2>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f3>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f4>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f6>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f7>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
+  { '<c-s-f12><f8>',     function() M.nop() end,                   mode = { 'i', },      silent = true, desc = 'nvim.telescope: nop', },
   -- git
-  { '<leader>gtb',       function() M.git_bcommits() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: bcommits', },
-  { '<leader>gtc',       function() M.git_commits() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: commits', },
+  { '<leader>gtb',       function() M.git_bcommits() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: bcommits', },
+  { '<leader>gtc',       function() M.git_commits() end,           mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.git: commits', },
   -- terminal
-  { '<leader>stc',       function() M.terminal_cmd() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: cmd', },
-  { '<leader>sti',       function() M.terminal_ipython() end,     mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: ipython', },
-  { '<leader>stb',       function() M.terminal_bash() end,        mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
-  { '<leader>stp',       function() M.terminal_powershell() end,  mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
+  { '<leader>stc',       function() M.terminal_cmd() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: cmd', },
+  { '<leader>sti',       function() M.terminal_ipython() end,      mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: ipython', },
+  { '<leader>stb',       function() M.terminal_bash() end,         mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: bash', },
+  { '<leader>stp',       function() M.terminal_powershell() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.terminal: powershell', },
   -- open telescope.lua
-  { '<leader>sO',        function() M.open_telescope_lua() end,   mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: open telescope.lua', },
+  { '<leader>sO',        function() M.open_telescope_lua() end,    mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: open telescope.lua', },
 }
 
 B.aucmd({ 'BufEnter', }, 'nvim.telescope.BufEnter', {
