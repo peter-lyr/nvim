@@ -651,6 +651,7 @@ local opts = {
     highlight_opened_files = 'name',
     highlight_modified = 'name',
     special_files = { 'README.md', 'readme.md', },
+    indent_width = 1,
     indent_markers = {
       enable = true,
     },
