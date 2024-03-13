@@ -39,13 +39,12 @@ M.commit_history_en = nil
 
 function GitCompletion()
   local root = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
-  local files = vim.fn.split(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', B.system_cd(root)))))
-  return vim.tbl_filter(function(file)
-    if B.file_exists(B.get_filepath(root, file).filename) then
-      return true
-    end
-    return false
-  end, files)
+  local items = vim.fn.split(string.gsub(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', B.system_cd(root)))), '\r', ''), '\n')
+  local items_new = {}
+  for _, item in ipairs(items) do
+    items_new[#items_new+1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
+  end
+  return items_new
 end
 
 function M.get_commit_and_do(prompt, callback)
