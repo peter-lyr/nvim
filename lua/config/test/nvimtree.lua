@@ -188,6 +188,14 @@ function M._delete(node)
   vim.cmd 'norm j'
 end
 
+function M.cur_root_sel(node)
+  local dtarget = M._get_dtarget(node)
+  if not dtarget then
+    return
+  end
+  require 'config.nvim.telescope'.cur_root_sel_do(dtarget)
+end
+
 M.ausize_en = 1
 
 ---------------------------------------
@@ -762,6 +770,8 @@ function M._on_attach(bufnr)
     { 'da',            M.ausize_toggle,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: ausize_toggle', },
 
     { 'd;',            M._wrap_node(M._delete),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: delete buf', },
+
+    { 'dr',            M._wrap_node(M.cur_root_sel),                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: delete buf', },
   }
 
   B.lazy_map {
