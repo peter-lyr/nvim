@@ -517,7 +517,7 @@ end
 function M.get_file_dirs(file)
   vim.cmd 'Lazy load plenary.nvim'
   if not file then
-    file = B.buf_get_name_0()
+    file = M.buf_get_name_0()
   end
   file = M.rep_slash(file)
   local file_path = require 'plenary.path':new(file)
@@ -539,7 +539,7 @@ end
 function M.get_file_dirs_till_git(file)
   vim.cmd 'Lazy load plenary.nvim'
   if not file then
-    file = B.buf_get_name_0()
+    file = M.buf_get_name_0()
   end
   file = M.rep_slash(file)
   local file_path = require 'plenary.path':new(file)
@@ -830,7 +830,7 @@ end
 
 function M.is_file_in_filetypes(file, filetypes)
   if not file then
-    file = B.buf_get_name_0()
+    file = M.buf_get_name_0()
   end
   filetypes = M.totable(filetypes)
   local ext = string.match(file, '%.([^.]+)$')
@@ -884,7 +884,7 @@ function M.get_full_name(file)
 end
 
 function M.buf_get_name_0()
-  return M.rep_slash_lower(B.buf_get_name_0())
+  return M.rep_slash_lower(M.buf_get_name_0())
 end
 
 function M.is_file_in_extensions(extensions, file)
@@ -1373,7 +1373,7 @@ function M.get_git_remote_url(proj)
 end
 
 function M.get_head_dir()
-  local fname = M.rep_slash_lower(B.buf_get_name_0())
+  local fname = M.rep_slash_lower(M.buf_get_name_0())
   if M.is(fname) and M.file_exists(fname) then
     return M.file_parent(fname)
   end
