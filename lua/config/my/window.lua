@@ -220,7 +220,7 @@ function M.bdelete_ex_cur_root()
     local curbuf = vim.fn.bufnr()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
       local fname = B.rep_backslash_lower(vim.api.nvim_buf_get_name(bufnr))
-      if cwd == B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname)) then
+      if B.is_file(fname) and cwd == B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname)) then
         if string.sub(fname, 1, #cur_root) ~= cur_root or string.sub(fname, #cur_root + 1, #cur_root + 1) ~= '/' then
           if bufnr == curbuf then
             pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
