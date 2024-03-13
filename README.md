@@ -12,3 +12,4 @@
 2. [x] TODO: nvimtree jump and open
 3. [x] TODO: `vim.loop.input()` `completion`, Done in `git.lua`
 4. [ ] TODO: tabline bdelete buffers exclude `cur_root` in telescope
+5. [ ] TODO: `cur_root` sel and switch
