@@ -230,7 +230,7 @@ function M._gcc_do(run_way, cur_file, fname, exe_name)
 end
 
 function M.gcc_start()
-  local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  local cur_file = B.rep_slash_lower(B.buf_get_name_0())
   local fname = B.get_only_name(cur_file)
   local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
   local exe_name = B.get_only_name(exe)
@@ -238,7 +238,7 @@ function M.gcc_start()
 end
 
 function M.gcc_start_silent()
-  local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  local cur_file = B.rep_slash_lower(B.buf_get_name_0())
   local fname = B.get_only_name(cur_file)
   local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
   local exe_name = B.get_only_name(exe)
@@ -246,7 +246,7 @@ function M.gcc_start_silent()
 end
 
 function M.gcc_asyncrun()
-  local cur_file = B.rep_slash_lower(vim.api.nvim_buf_get_name(0))
+  local cur_file = B.rep_slash_lower(B.buf_get_name_0())
   local fname = B.get_only_name(cur_file)
   local exe = string.sub(fname, 1, #fname - 2) .. '.exe'
   local exe_name = B.get_only_name(exe)
@@ -286,7 +286,7 @@ end
 function M._cmake_do(proj, force)
   proj = B.rep_backslash_lower(proj)
   if not force and #proj == 0 then
-    B.notify_info('not in a project: ' .. B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
+    B.notify_info('not in a project: ' .. B.rep_backslash_lower(B.buf_get_name_0()))
     return
   end
   local cbps = M._get_cbps(proj)

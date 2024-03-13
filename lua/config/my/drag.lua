@@ -112,7 +112,7 @@ function M._delete_buffer(file)
 end
 
 function M.system_open_and_delete_buffer(file)
-  if not file then file = vim.api.nvim_buf_get_name(0) end
+  if not file then file = B.buf_get_name_0() end
   B.system_run('start silent', '"%s"', file)
   M._delete_buffer(file)
 end
@@ -205,7 +205,7 @@ end
 
 -- bin
 function M.bin_xxd(file)
-  if not file then file = vim.api.nvim_buf_get_name(0) end
+  if not file then file = B.buf_get_name_0() end
   local bin_fname = B.rep_slash_lower(file)
   local bin_fname_tail = vim.fn.fnamemodify(bin_fname, ':t')
   local bin_fname_full__ = string.gsub(vim.fn.fnamemodify(bin_fname, ':h'), '\\', '_')
@@ -230,7 +230,7 @@ function M._bin_xxd_and_delete_buffer(file)
 end
 
 function M.bin_xxd_and_delete_buffer(file)
-  if not file then file = vim.api.nvim_buf_get_name(0) end
+  if not file then file = B.buf_get_name_0() end
   M._bin_xxd_and_delete_buffer(file)
 end
 
@@ -383,7 +383,7 @@ function M._markdown_url_do(cmd)
   local include_md_ft = vim.fn.join(M.MARKDOWN_EXTS, ',')
   local dir_name = M._not_image_root_dir_name .. ',' .. M._image_root_dir_name
   B.system_run('asyncrun', 'chcp 65001 && %s && python "%s" "%s" "%s" "%s" "%s" "%s" "%s" "%s"',
-    B.system_cd(proj), M.markdown_url_py, cmd, proj, vim.api.nvim_buf_get_name(0), url_name, exclude_md_name, include_md_ft, dir_name
+    B.system_cd(proj), M.markdown_url_py, cmd, proj, B.buf_get_name_0(), url_name, exclude_md_name, include_md_ft, dir_name
   )
 end
 
@@ -446,7 +446,7 @@ EOF
     if not image_type then
       image_type = vim.fn.getfsize(vim.g.temp_image_file_with_ext .. '.jpg') > vim.fn.getfsize(vim.g.temp_image_file_with_ext .. '.png') and 'png' or 'jpg'
     end
-    M._copy_image_2_markdown(vim.g.temp_image_file_with_ext .. '.' .. image_type, vim.api.nvim_buf_get_name(0), vim.fn.line '.')
+    M._copy_image_2_markdown(vim.g.temp_image_file_with_ext .. '.' .. image_type, B.buf_get_name_0(), vim.fn.line '.')
   else
   end
 end
@@ -477,7 +477,7 @@ if isinstance(img, Image.Image):
   vim.command('let g:paste_image_allowed = 1')
 EOF
   ]]
-  local file = vim.api.nvim_buf_get_name(0)
+  local file = B.buf_get_name_0()
   if not M._is_in_markdown_fts(file) then
     B.print('not a markdown file: ' .. file)
     return nil

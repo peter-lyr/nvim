@@ -13,9 +13,9 @@ M.operate_files_py = B.getcreate_filepath(M.source .. '.py', 'operate_files.py')
 M.file1 = ''
 M.file2 = ''
 
-function M.stack_file1() M.file1 = vim.api.nvim_buf_get_name(0) end
+function M.stack_file1() M.file1 = B.buf_get_name_0() end
 
-function M.stack_file2() M.file2 = vim.api.nvim_buf_get_name(0) end
+function M.stack_file2() M.file2 = B.buf_get_name_0() end
 
 function M.start_bcomp_cur()
   M.stack_file2()

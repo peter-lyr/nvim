@@ -269,7 +269,7 @@ function M.init_do(git_root_dir)
 end
 
 function M.init()
-  B.ui_sel(B.get_file_dirs(vim.api.nvim_buf_get_name(0)), 'git init', function(choice)
+  B.ui_sel(B.get_file_dirs(B.buf_get_name_0()), 'git init', function(choice)
     if choice then
       M.init_do(choice)
     end
@@ -379,7 +379,7 @@ end
 function M.clone()
   local dirs = B.merge_tables(
     B.get_my_dirs(),
-    B.get_file_dirs(B.rep_backslash_lower(vim.api.nvim_buf_get_name(0)))
+    B.get_file_dirs(B.rep_backslash_lower(B.buf_get_name_0()))
   )
   B.ui_sel(dirs, 'git clone sel a dir', function(proj)
     if not proj then

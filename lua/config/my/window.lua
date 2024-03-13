@@ -176,10 +176,10 @@ function M.Bwipeout_cur()
 end
 
 function M.bdelete_proj(dir)
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local winid = vim.fn.win_getid()
   B.cmd('wincmd %s', dir)
-  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0))) then
+  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0())) then
     vim.fn.win_gotoid(winid)
     return
   end
@@ -187,14 +187,18 @@ function M.bdelete_proj(dir)
 end
 
 function M.bwipeout_proj(dir)
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local winid = vim.fn.win_getid()
   B.cmd('wincmd %s', dir)
-  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0))) then
+  if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0())) then
     vim.fn.win_gotoid(winid)
     return
   end
   M.bwipeout_cur_proj()
+end
+
+function M.bdelete_ex_cur_root()
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
 end
 
 function M.refresh()
@@ -206,7 +210,7 @@ function M.refresh()
 end
 
 function M.bdelete_other()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local curbuf = vim.fn.bufnr()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if bufnr ~= curbuf and curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
@@ -217,7 +221,7 @@ function M.bdelete_other()
 end
 
 function M.Bdelete_other()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local curbuf = vim.fn.bufnr()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if bufnr ~= curbuf and curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
@@ -228,7 +232,7 @@ function M.Bdelete_other()
 end
 
 function M.bwipeout_other()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local curbuf = vim.fn.bufnr()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if bufnr ~= curbuf and curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
@@ -239,7 +243,7 @@ function M.bwipeout_other()
 end
 
 function M.Bwipeout_other()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local curbuf = vim.fn.bufnr()
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if bufnr ~= curbuf and curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
@@ -259,7 +263,7 @@ function M.close_cur_tab()
 end
 
 function M.bwipeout_cur_proj()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
       pcall(vim.cmd, 'Bwipeout! ' .. tostring(bufnr))
@@ -271,7 +275,7 @@ function M.bwipeout_cur_proj()
 end
 
 function M.bdelete_cur_proj()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if curroot == B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
       pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
@@ -283,7 +287,7 @@ function M.bdelete_cur_proj()
 end
 
 function M.bwipeout_other_proj()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if curroot ~= B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
       pcall(vim.cmd, 'Bwipeout! ' .. tostring(bufnr))
@@ -293,7 +297,7 @@ function M.bwipeout_other_proj()
 end
 
 function M.bdelete_other_proj()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if curroot ~= B.rep_backslash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(bufnr))) then
       pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
@@ -449,6 +453,8 @@ B.lazy_map {
   { '<leader>xoJ',      function() M.bwipeout_proj 'j' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj down', },
   { '<leader>xoK',      function() M.bwipeout_proj 'k' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj left', },
   { '<leader>xoL',      function() M.bwipeout_proj 'l' end,     mode = { 'n', 'v', }, desc = 'my.window: bwipeout_proj right', },
+
+  { '<leader>xor',      function() M.bdelete_ex_cur_root() end, mode = { 'n', 'v', }, desc = 'my.window: bdelete_ex_cur_root', },
 
   { '<leader>x<del>',   function() M.bwipeout_deleted() end,    mode = { 'n', 'v', }, desc = 'my.window: bwipeout_deleted', },
   { '<leader>x<cr>',    function() M.reopen_deleted() end,      mode = { 'n', 'v', }, desc = 'my.window: reopen_deleted', },

@@ -11,7 +11,7 @@ function M._copy(content)
 end
 
 function M._get_full_name()
-  return B.rep_slash(vim.api.nvim_buf_get_name(0))
+  return B.rep_slash(B.buf_get_name_0())
 end
 
 function M._get_rela_name()

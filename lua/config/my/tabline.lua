@@ -10,7 +10,7 @@ M.cur_buf = 0
 M.simple_statusline = 3
 
 function M.is_cuf_buf_readable()
-  if vim.fn.filewritable(vim.api.nvim_buf_get_name(0)) == 1 then
+  if vim.fn.filewritable(B.buf_get_name_0()) == 1 then
     return 1
   end
   return nil
@@ -162,7 +162,7 @@ function M.close_except_fts()
       end
     end
   end
-  if not B.file_exists(vim.api.nvim_buf_get_name(0)) then
+  if not B.file_exists(B.buf_get_name_0()) then
     local temp = table.remove(to_close_winnr, 1)
     vim.fn.win_gotoid(vim.fn.win_getid(temp))
   end
@@ -181,7 +181,7 @@ function M.restore_hidden_tabs()
   pcall(vim.cmd, 'tabo')
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
-    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
       if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
         vim.cmd 'wincmd v'
@@ -197,7 +197,7 @@ function M.restore_hidden_stack()
   pcall(vim.cmd, 'tabo')
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
-    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
       if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
         vim.cmd 'wincmd ='
@@ -218,7 +218,7 @@ function M.restore_hidden_stack_main()
   pcall(vim.cmd, 'tabo')
   M.close_except_fts()
   if #vim.tbl_keys(M.proj_bufs) > 1 then
-    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](vim.api.nvim_buf_get_name(0)))
+    local temp = B.rep_slash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
     for _, project in ipairs(vim.tbl_keys(M.proj_buf)) do
       if project ~= temp and vim.fn.buflisted(M.proj_buf[project]) == 1 then
         vim.cmd 'wincmd ='
@@ -722,7 +722,7 @@ function M.get_tab_to_show()
         local temp_file = ''
         for _, bufnr in ipairs(vim.fn.tabpagebuflist(tabnr)) do
           if tabnr == vim.fn.tabpagenr() then
-            temp_file = vim.api.nvim_buf_get_name(0)
+            temp_file = B.buf_get_name_0()
           else
             temp_file = vim.api.nvim_buf_get_name(bufnr)
           end

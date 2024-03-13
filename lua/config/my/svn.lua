@@ -19,7 +19,7 @@ function M.tortoisesvn(params)
   if not cmd then
     return
   end
-  local abspath = (root == 'root') and vim.fn['projectroot#get'](vim.api.nvim_buf_get_name(0)) or vim.api.nvim_buf_get_name(0)
+  local abspath = (root == 'root') and vim.fn['projectroot#get'](B.buf_get_name_0()) or B.buf_get_name_0()
   if yes == 'yes' or vim.tbl_contains({ 'y', 'Y', }, vim.fn.trim(vim.fn.input('Sure to update? [Y/n]: ', 'Y'))) == true then
     vim.fn.execute(string.format('silent !%s && start tortoiseproc.exe /command:%s /path:\"%s\"',
       B.system_cd(abspath),

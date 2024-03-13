@@ -6,7 +6,7 @@ M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
 function M.source(file)
-  if not file then file = vim.api.nvim_buf_get_name(0) end
+  if not file then file = B.buf_get_name_0() end
   package.loaded[B.getlua(B.rep_backslash(file))] = nil
   B.print('source %s', file)
   B.cmd('source %s', file)
