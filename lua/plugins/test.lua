@@ -290,10 +290,13 @@ return {
     keys = {
       { 's', ':HopChar1<cr>', mode = { 'n', }, silent = true, desc = 'HopChar1', },
       { 't', ':HopChar2<cr>', mode = { 'n', }, silent = true, desc = 'HopChar2', },
+      { '<a-s>', ':HopChar1MW<cr>', mode = { 'n', }, silent = true, desc = 'HopChar1', },
+      { '<a-t>', ':HopChar2MW<cr>', mode = { 'n', }, silent = true, desc = 'HopChar2', },
     },
     config = function()
       require 'hop'.setup {
         keys = 'asdghklqwertyuiopzxcvbnmfj',
+        multi_windows = true,
       }
     end,
   },
