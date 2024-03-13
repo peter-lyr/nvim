@@ -1411,4 +1411,25 @@ function M.get_proj_root(file)
   return vim.fn['ProjectRootGet'](file)
 end
 
+function M.get_same_col_winid()
+  local cur_winnr = vim.fn.winnr()
+  local cur_wininfo = vim.fn.getwininfo(vim.fn.win_getid())[1]
+  local cur_start_col = cur_wininfo['wincol']
+  local cur_end_col = cur_start_col + cur_wininfo['width']
+  for winnr = 1, vim.fn.winnr '$' do
+    local wininfo = vim.fn.getwininfo(vim.fn.win_getid(winnr))[1]
+    local start_col = wininfo['wincol']
+    local end_col = start_col + wininfo['width']
+    if start_col > cur_end_col or end_col < cur_start_col then
+    else
+      if winnr ~= cur_winnr then
+        print(wininfo['winnr'],
+          vim.api.nvim_buf_get_option(wininfo['bufnr'], 'ft'),
+          vim.api.nvim_buf_get_name(wininfo['bufnr']),
+        '')
+      end
+    end
+  end
+end
+
 return M
