@@ -46,16 +46,18 @@ function M.get_commit_and_do(prompt, callback)
       else
         commit = string.match(commit, '.*:::: (.+)')
       end
-      local info = vim.fn.input(prompt, commit)
-      if B.is(info) then
-        callback(info)
-      end
+      vim.ui.input({ prompt = prompt, default = commit, }, function(input)
+        if B.is(input) then
+          callback(input)
+        end
+      end)
     end)
   else
-    local info = vim.fn.input(prompt)
-    if B.is(info) then
-      callback(info)
-    end
+    vim.ui.input({ prompt = prompt, }, function(input)
+      if B.is(input) then
+        callback(input)
+      end
+    end)
   end
   M.commit_history_en = nil
 end
