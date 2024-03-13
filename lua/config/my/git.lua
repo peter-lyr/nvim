@@ -37,6 +37,10 @@ function M.show_commit_history() B.ui_sel(M.get_commit_history(), 'Show Commit H
 
 M.commit_history_en = nil
 
+function GitCompletion()
+  return vim.fn.split(vim.fn.trim(vim.fn.system('git ls-files -m')), '\r\n')
+end
+
 function M.get_commit_and_do(prompt, callback)
   if M.commit_history_en then
     local commits = M.get_commit_history()
@@ -46,14 +50,14 @@ function M.get_commit_and_do(prompt, callback)
       else
         commit = string.match(commit, '.*:::: (.+)')
       end
-      vim.ui.input({ prompt = prompt, default = commit, }, function(input)
+      vim.ui.input({ prompt = prompt, default = commit, completion = 'customlist,v:lua.GitCompletion', }, function(input)
         if B.is(input) then
           callback(input)
         end
       end)
     end)
   else
-    vim.ui.input({ prompt = prompt, }, function(input)
+    vim.ui.input({ prompt = prompt, completion = 'customlist,v:lua.GitCompletion', }, function(input)
       if B.is(input) then
         callback(input)
       end
