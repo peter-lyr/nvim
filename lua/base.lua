@@ -884,7 +884,7 @@ function M.get_full_name(file)
 end
 
 function M.buf_get_name_0()
-  return M.rep_slash_lower(M.buf_get_name_0())
+  return M.rep_slash_lower(vim.api.nvim_buf_get_name(0))
 end
 
 function M.is_file_in_extensions(extensions, file)

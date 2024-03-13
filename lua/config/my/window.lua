@@ -198,7 +198,9 @@ function M.bwipeout_proj(dir)
 end
 
 function M.bdelete_ex_cur_root()
-  local curroot = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
+  local cwd = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
+  local cur_root = require 'config.nvim.telescope'.cur_root[cwd]
+  print("cur_root:", cur_root)
 end
 
 function M.refresh()
