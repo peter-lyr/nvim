@@ -57,6 +57,21 @@ exit
   vim.cmd(string.format([[silent !start /b /min %s]], _start_nvim_qt_bat_path.filename))
 end
 
+function M.start_new_nvim_qt_cfile()
+  vim.fn.writefile({ B.buf_get_name_0(), }, M.nvim_qt_start_flag_socket_txt)
+  local _start_nvim_qt_bat_path = B.getcreate_filepath(B.getcreate_stddata_dirpath 'start_nvim_qt'.filename, 'start_nvim_qt.bat')
+  local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
+  _start_nvim_qt_bat_path:write(string.format([[
+@echo off
+cd %s\bin
+start /d %s nvim-qt.exe
+# start nvim-qt.exe.lnk
+exit
+]],
+    rtp, vim.loop.cwd()), 'w')
+  vim.cmd(string.format([[silent !start /b /min %s]], _start_nvim_qt_bat_path.filename))
+end
+
 function M.restart_nvim_qt()
   vim.cmd 'SessionsSave'
   M.restart_new_nvim_qt()
@@ -477,6 +492,7 @@ require 'base'.whichkey_register({ 'n', 'v', }, '<leader>aq', 'my.box.qf')
 B.lazy_map {
   { '<leader>asr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
   { '<leader>as<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
+  { '<leader>as;',        function() M.start_new_nvim_qt_cfile() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt_cfile', },
   { '<leader>asq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
   { '<leader>aa',         function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
   { '<leader>ax',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },

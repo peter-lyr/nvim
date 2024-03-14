@@ -102,16 +102,34 @@ return {
           vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
         end)
       end
-      if vim.fn.filereadable(nvim_qt_start_flag_socket_txt) == 1 and '2' == vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), '')) then
-        vim.fn.timer_start(10, function()
-          vim.cmd 'SessionsLoad'
-          vim.fn['GuiWindowFullScreen'](1)
-          vim.fn['GuiWindowFullScreen'](0)
+      if vim.fn.filereadable(nvim_qt_start_flag_socket_txt) == 1 then
+        local res = vim.fn.trim(vim.fn.join(vim.fn.readfile(nvim_qt_start_flag_socket_txt), ''))
+        local temp = nil
+        local call = function() end
+        if '2' == res then
+          temp = 1
+          call = function()
+            vim.cmd 'SessionsLoad'
+          end
+        elseif vim.fn.filereadable(res) == 1 then
+          temp = 1
+          call = function()
+            vim.cmd('e ' .. res)
+          end
+        end
+        if temp then
           vim.fn.timer_start(10, function()
-            require 'config.test.nvimtree'.reset_nvimtree()
-            print_startup_time()
+            call()
+            vim.fn['GuiWindowFullScreen'](1)
+            vim.fn['GuiWindowFullScreen'](0)
+            vim.fn.timer_start(10, function()
+              require 'config.test.nvimtree'.reset_nvimtree()
+              print_startup_time()
+            end)
           end)
-        end)
+        else
+          print_startup_time()
+        end
       else
         print_startup_time()
       end
