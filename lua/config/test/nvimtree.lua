@@ -625,6 +625,7 @@ local opts = {
   },
   view = {
     width = 30,
+    winfixheight = false,
     -- number = true,
     -- relativenumber = true,
     signcolumn = 'auto',
