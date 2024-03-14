@@ -47,8 +47,8 @@ B.aucmd('BufEnter', 'my.bufreadpost.BufEnter', {
 M.fs = {
   ['md'] = function()
     vim.fn.append('$', {
-      '<!-- toc -->',
-      '# hi',
+      '',
+      string.format('# %s', vim.fn.strftime '%Y%m%d-%Hh%Mm'),
     })
     vim.lsp.buf.format()
     vim.cmd 'norm Gw'
@@ -57,6 +57,11 @@ M.fs = {
     vim.fn.append('$', {
       '',
       'local M = {}',
+      '',
+      "local B = require 'base'",
+      '',
+      "M.source = B.getsource(debug.getinfo(1)['source'])",
+      "M.lua = B.getlua(M.source)",
       '',
       'return M',
     })
