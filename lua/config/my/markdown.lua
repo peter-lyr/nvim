@@ -166,7 +166,7 @@ function M.create_file_from_target()
   local res = B.findall([[(\d+)\. ([^,]+),([^,]+),(.+)]], vim.fn.trim(vim.fn.getline '.'))
   if B.is(res) then
     res = res[1]
-    if #res == 4 then
+    if res and #res == 4 then
       local idx = res[1]
       local chip = res[2]
       local client = res[3]
