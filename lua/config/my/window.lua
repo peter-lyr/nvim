@@ -422,7 +422,7 @@ B.lazy_map {
   { '<leader>wk',       function() M.go_window 'k' end,           mode = { 'n', 'v', }, desc = 'my.window: go window left', },
   { '<leader>wl',       function() M.go_window 'l' end,           mode = { 'n', 'v', }, desc = 'my.window: go window right', },
 
-  { '<leader>wm',       '<c-w>_',                                 mode = { 'n', 'v', }, desc = 'my.window: window highest', },
+  { '<leader>wm',       function() B.win_max_height() end,        mode = { 'n', 'v', }, desc = 'my.window: window highest', },
 
   { '<leader>wu',       ':<c-u>leftabove new<cr>',                mode = { 'n', 'v', }, desc = 'my.window: create new up window', },
   { '<leader>wi',       ':<c-u>new<cr>',                          mode = { 'n', 'v', }, desc = 'my.window: create new down window', },
