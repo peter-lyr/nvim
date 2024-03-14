@@ -266,6 +266,9 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
         end
       end)
     end
+    if vim.bo.ft == 'NvimTree' then
+      vim.cmd 'set nowinfixheight'
+    end
     if ev.event == 'DirChanged' then
       B.stack_item_uniq(M.dirs, B.rep_slash_lower(vim.loop.cwd()))
     end
