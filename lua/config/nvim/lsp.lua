@@ -22,7 +22,7 @@ require 'mason-lspconfig'.setup {
     'clangd',
     'pyright',
     'lua_ls',
-    'marksman',
+    -- 'marksman',
   },
   automatic_installation = true,
 }
@@ -85,13 +85,13 @@ lspconfig.pyright.setup {
   },
 }
 
--- markdown
-lspconfig.marksman.setup {
-  capabilities = capabilities,
-  root_dir = M.root_dir {
-    '.git',
-  },
-}
+-- -- markdown
+-- lspconfig.marksman.setup {
+--   capabilities = capabilities,
+--   root_dir = M.root_dir {
+--     '.git',
+--   },
+-- }
 
 -- clangd
 lspconfig.clangd.setup {
