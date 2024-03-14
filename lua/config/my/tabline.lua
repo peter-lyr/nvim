@@ -290,7 +290,7 @@ function M.append_one_proj_right_down()
   end
 end
 
-function M.apend_one_proj_right_down_more()
+function M.append_one_proj_right_down_more()
   local roots = {}
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     local fname = B.rep_slash_lower(vim.api.nvim_buf_get_name(bufnr))
