@@ -48,7 +48,7 @@ M.fs = {
   ['md'] = function()
     vim.fn.append('$', {
       '',
-      string.format('# %s', vim.fn.strftime '%Y%m%d-%Hh%Mm'),
+      string.format('# %s', vim.fn.strftime '%y%m%d-%Hh%Mm'),
     })
     vim.lsp.buf.format()
     vim.cmd 'norm Gw'
