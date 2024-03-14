@@ -374,7 +374,7 @@ function M.reopen_deleted()
     if not choice then
       return
     end
-    vim.cmd('e ' .. choice)
+    B.jump_or_split(choice)
   end)
 end
 

@@ -1322,6 +1322,29 @@ function M.jump_or_edit(file)
   M.cmd('e %s', file)
 end
 
+function M.jump_or_split(file)
+  file = M.rep_slash_lower(file)
+  local file_proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](file))
+  local jumped = nil
+  for winnr = 1, vim.fn.winnr '$' do
+    local bufnr = vim.fn.winbufnr(winnr)
+    local fname = M.rep_slash_lower(vim.api.nvim_buf_get_name(bufnr))
+    if M.file_exists(fname) then
+      local proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](fname))
+      if M.is(proj) and file_proj == proj then
+        vim.fn.win_gotoid(vim.fn.win_getid(winnr))
+        jumped = 1
+        break
+      end
+    end
+  end
+  if not jumped then
+    vim.cmd 'wincmd e'
+    vim.cmd 'wincmd s'
+  end
+  M.cmd('e %s', file)
+end
+
 function M.find_its_place_to_open(file)
   file = M.rep_slash_lower(file)
   local file_proj = M.rep_slash_lower(vim.fn['ProjectRootGet'](file))
