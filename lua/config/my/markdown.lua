@@ -44,7 +44,7 @@ function M.buffer_open_cfile()
     if not B.is_in_tbl(cur_file, M.file_stack) then
       M.file_stack[#M.file_stack + 1] = cur_file
     end
-    B.jump_or_edit(cfile)
+    B.jump_or_split(cfile)
     M.file_stack[#M.file_stack + 1] = cfile
   else
     if B.is(cfile) and B.is_dir(cfile) then
@@ -60,7 +60,7 @@ function M.pop_file_stack()
     local file = table.remove(M.file_stack)
     if file ~= B.buf_get_name_0() then
       if B.is(file) and B.file_exists(file) and vim.fn.filereadable(file) == 1 then
-        B.jump_or_edit(file)
+        B.jump_or_split(file)
         break
       end
     end
