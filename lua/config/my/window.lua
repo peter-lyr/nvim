@@ -40,7 +40,8 @@ M.max_height_en = nil
 function M.go_window(dir)
   B.cmd('wincmd %s', dir)
   if B.is_in_tbl(dir, { 'j', 'k', }) and M.max_height_en then
-    vim.cmd 'wincmd _'
+    -- vim.cmd 'wincmd _'
+    B.win_max_height()
   end
 end
 
@@ -57,7 +58,7 @@ function M.toggle_max_height()
     vim.cmd 'wincmd ='
     M.max_height_en = nil
   else
-    vim.cmd 'wincmd _'
+    B.win_max_height()
     M.max_height_en = 1
   end
   B.echo('M.max_height_en: ' .. tostring(M.max_height_en))

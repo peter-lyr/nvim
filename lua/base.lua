@@ -1434,24 +1434,34 @@ function M.get_proj_root(file)
   return vim.fn['ProjectRootGet'](file)
 end
 
-function M.get_same_col_winid()
+function M.win_max_height()
   local cur_winnr = vim.fn.winnr()
   local cur_wininfo = vim.fn.getwininfo(vim.fn.win_getid())[1]
   local cur_start_col = cur_wininfo['wincol']
   local cur_end_col = cur_start_col + cur_wininfo['width']
+  local winids = {}
+  local winids_dict = {}
   for winnr = 1, vim.fn.winnr '$' do
     local wininfo = vim.fn.getwininfo(vim.fn.win_getid(winnr))[1]
     local start_col = wininfo['wincol']
     local end_col = start_col + wininfo['width']
     if start_col > cur_end_col or end_col < cur_start_col then
     else
-      if winnr ~= cur_winnr then
-        print(wininfo['winnr'],
-          vim.api.nvim_buf_get_option(wininfo['bufnr'], 'ft'),
-          vim.api.nvim_buf_get_name(wininfo['bufnr']),
-        '')
+      local winid = vim.fn.win_getid(winnr)
+      if winnr ~= cur_winnr and M.is(vim.api.nvim_win_get_option(winid, 'winfixheight')) then
+        -- print(wininfo['winnr'],
+        --   vim.api.nvim_buf_get_option(wininfo['bufnr'], 'ft'),
+        --   vim.api.nvim_buf_get_name(wininfo['bufnr']),
+        --   wininfo['height'],
+        -- '')
+        winids[#winids+1] = winid
+        winids_dict[winid] = wininfo['height']
       end
     end
+  end
+  vim.cmd 'wincmd _'
+  for _, winid in ipairs(winids) do
+    vim.api.nvim_win_set_height(winid, winids_dict[winid] + (M.is(vim.o.winbar) and 1 or 0))
   end
 end
 

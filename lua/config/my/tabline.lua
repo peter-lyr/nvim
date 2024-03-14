@@ -551,7 +551,7 @@ function SwitchWindow(win_number, mouseclicks, mousebutton, modifiers)
       vim.fn.win_gotoid(click_winid)
     else
       if not M.window_equal[B.get_proj_root()] then
-        vim.cmd 'wincmd _'
+        B.win_max_height()
         M.window_equal[B.get_proj_root()] = 1
       else
         vim.cmd 'wincmd ='
