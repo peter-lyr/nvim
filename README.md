@@ -17,4 +17,5 @@
 7. [x] TODO: M.get_cfile(cfile) add dir too
 8. [x] TODO: markdown file no toc any more
 9. [x] TODO: no markdown lsp
-10. [ ] TODO: restart new nvim-qt.exe and open curfile
+10. [x] TODO: restart new nvim-qt.exe and open curfile
+11. [ ] TODO: box.lua <F4> whichkey register
