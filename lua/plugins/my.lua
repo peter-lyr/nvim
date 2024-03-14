@@ -452,6 +452,7 @@ return {
       { 'ql',              function() require 'config.my.tabline'.only_cur_buffer() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: only_cur_buffer', },
       { 'qh',              function() require 'config.my.tabline'.restore_hidden_tabs() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
       { 'qj',              function() require 'config.my.tabline'.append_one_proj_right_down() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down', },
+      { 'q<c-j>',          function() require 'config.my.tabline'.append_one_proj_right_down_more() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down_more', },
       { 'qk',              function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', },
       { 'qp',              function() require 'config.my.tabline'.restore_hidden_stack() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
       { 'qm',              function() require 'config.my.tabline'.restore_hidden_stack_main() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },

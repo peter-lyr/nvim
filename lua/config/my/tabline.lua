@@ -290,6 +290,26 @@ function M.append_one_proj_right_down()
   end
 end
 
+function M.append_one_proj_right_down_more()
+  local roots = {}
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    local fname = B.rep_slash_lower(vim.api.nvim_buf_get_name(bufnr))
+    if B.is(fname) and B.is_file(fname) then
+      local root = B.rep_slash_lower(vim.fn['ProjectRootGet'](fname))
+      if not roots[root] then
+        roots[root] = {}
+      end
+      B.stack_item_uniq(roots[root], string.sub(fname, #root + 2, #fname))
+    end
+  end
+  B.ui_sel(vim.tbl_keys(roots), 'open which proj file', function (root)
+    if root then
+      local fname = B.get_filepath(root, roots[root][1]).filename
+      B.jump_or_split(fname)
+    end
+  end)
+end
+
 function M.open_proj_in_new_tab(proj)
   if not proj then
     return
