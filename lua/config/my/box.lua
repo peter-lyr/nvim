@@ -450,7 +450,7 @@ end
 function M.open_file()
   local file = vim.fn.getreg '+'
   if B.is_file(file) then
-    B.jump_or_edit(file)
+    B.jump_or_split(file)
   end
 end
 
