@@ -47,7 +47,11 @@ function M.buffer_open_cfile()
     B.jump_or_edit(cfile)
     M.file_stack[#M.file_stack + 1] = cfile
   else
-    B.echo('not a file: %s', cfile)
+    if B.is(cfile) and B.is_dir(cfile) then
+      require 'config.my.nvimtree'.open(cfile)
+    else
+      B.echo('not a file: %s', cfile)
+    end
   end
 end
 

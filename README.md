@@ -14,3 +14,4 @@
 4. [x] TODO: tabline bdelete buffers exclude `cur_root` in telescope
 5. [x] TODO: `cur_root` sel and switch
 6. [x] TODO: `ausize_en` in nvimtree buffer not working
+7. [ ] TODO: M.get_cfile(cfile) add dir too
