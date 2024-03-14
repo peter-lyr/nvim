@@ -1094,26 +1094,26 @@ end
 function M.get_cfile(cfile)
   if not cfile then
     cfile = M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', vim.fn.expand '<cfile>'))
-    if M.is(cfile) and M.is_file(cfile) then
+    if M.is(cfile) and M.file_exists(cfile) then
       return cfile
     else
       cfile = M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', string.match(vim.fn.getline '.', '`([^`]+)`')))
-      if M.is(cfile) and M.is_file(cfile) then
+      if M.is(cfile) and M.file_exists(cfile) then
         return cfile
       end
     end
     cfile = M.normpath(M.format('%s\\%s', vim.loop.cwd(), vim.fn.expand '<cfile>'))
-    if M.is(cfile) and M.is_file(cfile) then
+    if M.is(cfile) and M.file_exists(cfile) then
       return cfile
     else
       cfile = M.normpath(M.format('%s\\%s', vim.loop.cwd(), string.match(vim.fn.getline '.', '`([^`]+)`')))
-      if M.is(cfile) and M.is_file(cfile) then
+      if M.is(cfile) and M.file_exists(cfile) then
         return cfile
       end
     end
   end
   cfile = M.normpath(M.format('%s\\%s', vim.fn.expand '%:p:h', cfile))
-  if M.is(cfile) and M.is_file(cfile) then
+  if M.is(cfile) and M.file_exists(cfile) then
     return cfile
   end
   return M.normpath(M.format('%s\\%s', vim.loop.cwd(), cfile))

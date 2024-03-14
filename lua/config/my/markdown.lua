@@ -48,7 +48,7 @@ function M.buffer_open_cfile()
     M.file_stack[#M.file_stack + 1] = cfile
   else
     if B.is(cfile) and B.is_dir(cfile) then
-      require 'config.my.nvimtree'.open(cfile)
+      require 'config.test.nvimtree'.open(cfile)
     else
       B.echo('not a file: %s', cfile)
     end
