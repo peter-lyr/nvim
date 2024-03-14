@@ -521,7 +521,7 @@ end
 function M.pure_curdir_do(dir)
   local entries = require 'plenary.scandir'.scan_dir(dir, { hidden = true, depth = 1, add_dirs = true, only_dirs = true, })
   if #entries > 0 then
-    B.ui_sel(entries, 'sel one', function(d)
+    B.ui_sel(entries, 'sel one to find_files', function(d)
       if not d or not B.file_exists(d) then
         return
       end
