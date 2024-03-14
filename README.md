@@ -15,3 +15,4 @@
 5. [x] TODO: `cur_root` sel and switch
 6. [x] TODO: `ausize_en` in nvimtree buffer not working
 7. [ ] TODO: M.get_cfile(cfile) add dir too
+8. [ ] TODO: markdown file no toc any more
