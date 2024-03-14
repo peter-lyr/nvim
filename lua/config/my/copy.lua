@@ -55,6 +55,13 @@ B.lazy_map {
   { '<leader>yfh', M.full_head, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: full_head', },
   { '<leader>yrr', M.rela_name, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: rela_name', },
   { '<leader>yrh', M.rela_head, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: rela_head', },
+  { '<leader>yrc', function()
+    local telescope = require 'config.nvim.telescope'
+    local dir = telescope.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))]
+    if dir then
+      M._copy(dir)
+    end
+  end, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: cur_root', },
 }
 
 return M
