@@ -569,6 +569,19 @@ function M.yank(reg, mode, word)
   M.yank_show()
 end
 
+function M.paste(reg, mode)
+  vim.fn.setreg('"', M.reg[reg])
+  if mode == 'i' then
+    vim.cmd [[call feedkeys("\<c-o>p")]]
+  elseif mode == 't' then
+    vim.cmd [[call feedkeys("\<c-\>\<c-n>pi")]]
+  elseif mode == 'c' then
+    vim.cmd [[call feedkeys("\<c-r>")]]
+  else
+    vim.cmd [[call feedkeys("p")]]
+  end
+end
+
 function M.replace_two_words(mode)
   if mode == 'n' then
     vim.cmd 'norm viw'
