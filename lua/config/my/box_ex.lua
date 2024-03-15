@@ -7,8 +7,13 @@ local start_time = vim.fn.reltime()
 
 local wk = require 'which-key'
 
-wk.register {
-  ['<F9>']      = { name = '+my.box.yank', },
+local r = wk.register
+
+r {
+  ['<F9>'] = { name = '+my.box.yank', },
+}
+
+r {
   ['<F9>a']     = { function() require 'config.my.box'.yank('a', 'n', 'w') end, 'my.box.yank: <cword> to a', mode = { 'n', }, silent = true, },
   ['<F9>b']     = { function() require 'config.my.box'.yank('b', 'n', 'w') end, 'my.box.yank: <cword> to b', mode = { 'n', }, silent = true, },
   ['<F9>c']     = { function() require 'config.my.box'.yank('c', 'n', 'w') end, 'my.box.yank: <cword> to c', mode = { 'n', }, silent = true, },
@@ -63,7 +68,7 @@ wk.register {
   ['<F9><c-z>'] = { function() require 'config.my.box'.yank('d', 'n', 'W') end, 'my.box.yank: <cWORD> to z', mode = { 'n', }, silent = true, },
 }
 
-wk.register {
+r {
   ['<F9>a'] = { function() require 'config.my.box'.yank('a', 'v') end, 'my.box.yank: sel to a', mode = { 'v', }, silent = true, },
   ['<F9>b'] = { function() require 'config.my.box'.yank('b', 'v') end, 'my.box.yank: sel to b', mode = { 'v', }, silent = true, },
   ['<F9>c'] = { function() require 'config.my.box'.yank('c', 'v') end, 'my.box.yank: sel to c', mode = { 'v', }, silent = true, },
