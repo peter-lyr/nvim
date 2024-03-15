@@ -98,7 +98,7 @@ return {
       local function print_startup_time()
         vim.fn.timer_start(380, function()
           vim.g.startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
-          print(vim.g.startup_time)
+          vim.cmd('echo "' .. vim.g.startup_time .. '"')
           vim.fn.writefile({ vim.g.startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
         end)
       end
