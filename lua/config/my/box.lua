@@ -515,9 +515,20 @@ B.lazy_map {
   { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: open_file', },
 }
 
-if not M.reg then
-  M.reg = {}
+M.yank_pool_dir_path = B.getcreate_stddata_dirpath 'yank-pool'
+M.yank_pool_txt_path = M.yank_pool_dir_path:joinpath 'yank-pool.txt'
+
+if not M.yank_pool_txt_path:exists() then
+  M.yank_pool_txt_path:write(vim.inspect {}, 'w')
 end
+
+M.reg = B.read_table_from_file(M.yank_pool_txt_path.filename)
+
+B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
+  callback = function()
+    M.yank_pool_txt_path:write(vim.inspect(M.reg), 'w')
+  end,
+})
 
 function M.yank_show()
   local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
