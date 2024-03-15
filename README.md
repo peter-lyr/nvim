@@ -18,5 +18,8 @@
 8. [x] TODO: markdown file no toc any more
 9. [x] TODO: no markdown lsp
 10. [x] TODO: restart new nvim-qt.exe and open curfile
-11. [x] TODO: box.lua <F9> whichkey register
-12. [ ] TODO: use wk.register to map all mappings at once in one lua file
+
+# FIX
+
+1. [ ] FIX: box.lua <F9> whichkey register, cost a lot time
+2. [ ] FIX: use wk.register to map all mappings at once in one lua file, cost a lot time
