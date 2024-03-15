@@ -97,9 +97,9 @@ return {
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
       local function print_startup_time()
         vim.fn.timer_start(380, function()
-          local startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
-          print(startup_time)
-          vim.fn.writefile({ startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
+          vim.g.startup_time = string.format('Startup time: %.3f ms', vim.g.end_time * 1000)
+          print(vim.g.startup_time)
+          vim.fn.writefile({ vim.g.startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
         end)
       end
       if vim.fn.filereadable(nvim_qt_start_flag_socket_txt) == 1 then
