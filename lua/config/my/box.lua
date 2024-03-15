@@ -519,17 +519,21 @@ if not M.reg then
   M.reg = {}
 end
 
+function M.yank_show()
+  local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
+  for r, content in pairs(M.reg) do
+    info[#info + 1] = string.format('%s: %s', r, content)
+  end
+  B.notify_info(info)
+end
+
 function M.yank(reg, mode, word)
   if mode == 'n' then
     B.cmd('norm vi%s', word)
   end
   vim.cmd 'norm y'
   M.reg[reg] = vim.fn.getreg '"'
-  local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
-  for r, content in pairs(M.reg) do
-    info[#info + 1] = string.format('%s: %s', r, content)
-  end
-  B.notify_info(info)
+  M.yank_show()
 end
 
 function M.replace_two_words(mode)

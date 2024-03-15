@@ -14,6 +14,7 @@ r {
 }
 
 r {
+  ['<F9><F9>']  = { function() require 'config.my.box'.yank_show() end, 'my.box.yank: show all', mode = { 'n', 'v', }, silent = true, },
   ['<F9>a']     = { function() require 'config.my.box'.yank('a', 'n', 'w') end, 'my.box.yank: <cword> to a', mode = { 'n', }, silent = true, },
   ['<F9>b']     = { function() require 'config.my.box'.yank('b', 'n', 'w') end, 'my.box.yank: <cword> to b', mode = { 'n', }, silent = true, },
   ['<F9>c']     = { function() require 'config.my.box'.yank('c', 'n', 'w') end, 'my.box.yank: <cword> to c', mode = { 'n', }, silent = true, },
