@@ -530,10 +530,32 @@ B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
   end,
 })
 
+function M.get_short(content)
+  local temp = 50
+  if #content >= (temp * 2 - 1) then
+    local s1 = ''
+    local s2 = ''
+    for i = (temp * 2 - 1), 3, -1 do
+      s2 = string.sub(content, #content - i, #content)
+      if vim.fn.strdisplaywidth(s2) <= temp then
+        break
+      end
+    end
+    for i = (temp * 2 - 1), 3, -1 do
+      s1 = string.sub(content, 1, i)
+      if vim.fn.strdisplaywidth(s1) <= temp then
+        break
+      end
+    end
+    return s1 .. '…' .. s2
+  end
+  return content
+end
+
 function M.yank_show()
   local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
   for r, content in pairs(M.reg) do
-    info[#info + 1] = string.format('%s: %s', r, content)
+    info[#info + 1] = M.get_short(string.format('%s[[%d]]: %s', r, #content, content))
   end
   B.notify_info(info)
 end
