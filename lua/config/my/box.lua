@@ -525,7 +525,11 @@ function M.yank(reg, mode, word)
   end
   vim.cmd 'norm y'
   M.reg[reg] = vim.fn.getreg '"'
-  print('vim.inspect(M.reg):', vim.inspect(M.reg))
+  local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
+  for r, content in pairs(M.reg) do
+    info[#info + 1] = string.format('%s: %s', r, content)
+  end
+  B.notify_info(info)
 end
 
 function M.replace_two_words(mode)
