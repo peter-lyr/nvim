@@ -477,10 +477,8 @@ end
 
 -- mapping
 B.del_map({ 'n', 'v', }, '<leader>a')
-B.del_map({ 'n', 'v', }, '<F4>')
 
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>a', 'my.box')
-require 'base'.whichkey_register({ 'n', 'v', }, '<F4>', 'my.box')
 
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ao', 'my.box.open')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>am', 'my.box.monitor')
@@ -529,21 +527,6 @@ function M.yank(reg, mode, word)
   M.reg[reg] = vim.fn.getreg '"'
   print('vim.inspect(M.reg):', vim.inspect(M.reg))
 end
-
-B.lazy_map {
-  { '<F4>a',     function() M.yank('a', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to a', },
-  { '<F4><c-a>', function() M.yank('a', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to a', },
-  { '<F4>a',     function() M.yank('a', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to a', },
-  { '<F4>b',     function() M.yank('b', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to b', },
-  { '<F4><c-b>', function() M.yank('b', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to b', },
-  { '<F4>b',     function() M.yank('b', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to b', },
-  { '<F4>c',     function() M.yank('c', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to c', },
-  { '<F4><c-c>', function() M.yank('c', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to c', },
-  { '<F4>c',     function() M.yank('c', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to c', },
-  { '<F4>d',     function() M.yank('d', 'n', 'w') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cword> to d', },
-  { '<F4><c-d>', function() M.yank('d', 'n', 'W') end, mode = { 'n', }, silent = true, desc = 'my.box.yank: <cWORD> to d', },
-  { '<F4>d',     function() M.yank('d', 'v') end,      mode = { 'v', }, silent = true, desc = 'my.box.yank: sel to d', },
-}
 
 function M.replace_two_words(mode)
   if mode == 'n' then
