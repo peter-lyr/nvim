@@ -552,7 +552,7 @@ function M.get_short(content)
   return content
 end
 
-function M.yank_show()
+function M.reg_show()
   local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
   for r, content in pairs(M.reg) do
     info[#info + 1] = M.get_short(string.format('%s[[%d]]: %s', r, #content, content))
@@ -566,10 +566,11 @@ function M.yank(reg, mode, word)
   end
   vim.cmd 'norm y'
   M.reg[reg] = vim.fn.getreg '"'
-  M.yank_show()
+  M.reg_show()
 end
 
 function M.paste(reg, mode)
+  local back = vim.fn.getreg('"')
   vim.fn.setreg('"', M.reg[reg])
   if mode == 'i' then
     vim.cmd [[call feedkeys("\<c-o>p")]]
@@ -580,6 +581,11 @@ function M.paste(reg, mode)
   else
     vim.cmd [[call feedkeys("p")]]
   end
+  vim.fn.setreg('"', back)
+end
+
+function M.delete(reg)
+  M.reg[reg] = nil
 end
 
 function M.replace_two_words(mode)

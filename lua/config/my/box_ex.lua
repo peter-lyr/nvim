@@ -14,7 +14,7 @@ r {
 }
 
 r {
-  ['<F9><F9>']  = { function() require 'config.my.box'.yank_show() end, 'my.box.yank: show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F9>']  = { function() require 'config.my.box'.reg_show() end, 'my.box.yank: show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   ['<F9>a']     = { function() require 'config.my.box'.yank('a', 'n', 'w') end, 'my.box.yank: <cword> to a', mode = { 'n', }, silent = true, },
   ['<F9>b']     = { function() require 'config.my.box'.yank('b', 'n', 'w') end, 'my.box.yank: <cword> to b', mode = { 'n', }, silent = true, },
   ['<F9>c']     = { function() require 'config.my.box'.yank('c', 'n', 'w') end, 'my.box.yank: <cword> to c', mode = { 'n', }, silent = true, },
@@ -261,6 +261,42 @@ r {
   ['<F9>"'] = { function() require 'config.my.box'.paste("'", 'n') end, "my.box.paste: paste from '", mode = { 'n', 'v', }, silent = true, },
   ['<F9>{'] = { function() require 'config.my.box'.paste('[', 'n') end, 'my.box.paste: paste from [', mode = { 'n', 'v', }, silent = true, },
   ['<F9>}'] = { function() require 'config.my.box'.paste(']', 'n') end, 'my.box.paste: paste from ]', mode = { 'n', 'v', }, silent = true, },
+}
+
+r {
+  ['<F9><c-s-a>'] = { function() require 'config.my.box'.delete 'a' end, 'my.box.delete: delete from a', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-b>'] = { function() require 'config.my.box'.delete 'b' end, 'my.box.delete: delete from b', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-c>'] = { function() require 'config.my.box'.delete 'c' end, 'my.box.delete: delete from c', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-d>'] = { function() require 'config.my.box'.delete 'd' end, 'my.box.delete: delete from d', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-e>'] = { function() require 'config.my.box'.delete 'e' end, 'my.box.delete: delete from e', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-f>'] = { function() require 'config.my.box'.delete 'f' end, 'my.box.delete: delete from f', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-g>'] = { function() require 'config.my.box'.delete 'g' end, 'my.box.delete: delete from g', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-h>'] = { function() require 'config.my.box'.delete 'h' end, 'my.box.delete: delete from h', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-i>'] = { function() require 'config.my.box'.delete 'i' end, 'my.box.delete: delete from i', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-j>'] = { function() require 'config.my.box'.delete 'j' end, 'my.box.delete: delete from j', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-k>'] = { function() require 'config.my.box'.delete 'k' end, 'my.box.delete: delete from k', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-l>'] = { function() require 'config.my.box'.delete 'l' end, 'my.box.delete: delete from l', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-m>'] = { function() require 'config.my.box'.delete 'm' end, 'my.box.delete: delete from m', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-n>'] = { function() require 'config.my.box'.delete 'n' end, 'my.box.delete: delete from n', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-o>'] = { function() require 'config.my.box'.delete 'o' end, 'my.box.delete: delete from o', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-p>'] = { function() require 'config.my.box'.delete 'p' end, 'my.box.delete: delete from p', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-q>'] = { function() require 'config.my.box'.delete 'q' end, 'my.box.delete: delete from q', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-r>'] = { function() require 'config.my.box'.delete 'r' end, 'my.box.delete: delete from r', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-s>'] = { function() require 'config.my.box'.delete 's' end, 'my.box.delete: delete from s', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-t>'] = { function() require 'config.my.box'.delete 't' end, 'my.box.delete: delete from t', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-u>'] = { function() require 'config.my.box'.delete 'u' end, 'my.box.delete: delete from u', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-v>'] = { function() require 'config.my.box'.delete 'v' end, 'my.box.delete: delete from v', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-w>'] = { function() require 'config.my.box'.delete 'w' end, 'my.box.delete: delete from w', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-x>'] = { function() require 'config.my.box'.delete 'x' end, 'my.box.delete: delete from x', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-y>'] = { function() require 'config.my.box'.delete 'y' end, 'my.box.delete: delete from y', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-z>'] = { function() require 'config.my.box'.delete 'z' end, 'my.box.delete: delete from z', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-,>'] = { function() require 'config.my.box'.delete ',' end, 'my.box.delete: delete from ,', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-.>'] = { function() require 'config.my.box'.delete '.' end, 'my.box.delete: delete from .', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-/>'] = { function() require 'config.my.box'.delete '/' end, 'my.box.delete: delete from /', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-;>'] = { function() require 'config.my.box'.delete ';' end, 'my.box.delete: delete from ;', mode = { 'n', 'v', }, silent = true, },
+  ["<F9><c-s-'>"] = { function() require 'config.my.box'.delete "'" end, "my.box.delete: delete from '", mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-[>'] = { function() require 'config.my.box'.delete '[' end, 'my.box.delete: delete from [', mode = { 'n', 'v', }, silent = true, },
+  ['<F9><c-s-]>'] = { function() require 'config.my.box'.delete ']' end, 'my.box.delete: delete from ]', mode = { 'n', 'v', }, silent = true, },
 }
 
 local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
