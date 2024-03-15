@@ -530,7 +530,7 @@ return {
   {
     name = 'my.box_ex',
     dir = '',
-    lazy = false,
+    event = { 'CursorHold', 'CursorHoldI', },
     config = function() require 'config.my.box_ex' end,
   },
 
