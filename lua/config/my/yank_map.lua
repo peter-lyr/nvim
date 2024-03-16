@@ -367,7 +367,7 @@ r {
 }
 
 r {
-  ['<F9><F1><F1>'] = { function() require 'config.my.yank'.clipboard_from_pool() end, 'my.yank.clipboard: from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1><F1>'] = { function() require 'config.my.yank'.clipboard_from_pool() end, 'my.yank.clipboard: sel from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
 }
 
 r {
