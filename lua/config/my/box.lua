@@ -2,6 +2,8 @@ local M = {}
 
 local B = require 'base'
 
+vim.cmd 'Lazy load vim-gitbranch'
+
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
@@ -132,15 +134,12 @@ function M.sel_write_to_temp()
   end)
 end
 
-vim.api.nvim_create_user_command('ExecuteOutput', function(params)
-  M.execute_output(vim.fn.join(params['fargs'], ' '))
-end, { nargs = '*', complete = 'command', })
-
 function M.type_execute_output()
-  local cmd = vim.fn.input 'ExecuteOutput: '
-  if B.is(cmd) then
-    B.cmd('ExecuteOutput %s', cmd)
-  end
+  vim.ui.input({ prompt = 'type command, execute output to and open file: ', default = 'mes', completion = 'command', }, function(input)
+    if B.is(input) then
+      M.execute_output(input)
+    end
+  end)
 end
 
 function M.mes_clear()
@@ -474,46 +473,6 @@ function M.prepare_sessions()
     vim.fn.writefile({ '2', }, M.nvim_qt_start_flag_socket_txt)
   end
 end
-
--- mapping
-B.del_map({ 'n', 'v', }, '<leader>a')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>a', 'my.box')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ao', 'my.box.open')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>am', 'my.box.monitor')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ap', 'my.box.proxy')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>as', 'my.box.sel/nvim-qt')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>ag', 'my.box.git')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>aq', 'my.box.qf')
-
-B.lazy_map {
-  { '<leader>asr',        function() M.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: restart_nvim_qt', },
-  { '<leader>as<leader>', function() M.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt', },
-  { '<leader>as;',        function() M.start_new_nvim_qt_cfile() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: start_new_nvim_qt_cfile', },
-  { '<leader>asq',        function() M.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.nvim-qt: quit_nvim_qt', },
-  { '<leader>aa',         function() M.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'my.box: source', },
-  { '<leader>ax',         function() M.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.box: type_execute_output', },
-  { '<leader>ae',         function() M.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_open_temp', },
-  { '<leader>aw',         function() M.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.box: sel_write_to_temp', },
-  { '<leader>a<c-e>',     function() M.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box: mes_clear', },
-  { '<leader>aop',        function() M.open_path() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_path', },
-  { '<leader>aos',        function() M.open_sound() end,                   mode = { 'n', 'v', }, silent = true, desc = 'my.box.open: open_sound', },
-  { '<leader>am1',        function() M.monitor_1min() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_1min', },
-  { '<leader>am3',        function() M.monitor_30min() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_30min', },
-  { '<leader>am5',        function() M.monitor_5hours() end,               mode = { 'n', 'v', }, silent = true, desc = 'my.box.monitor: monitor_5hours', },
-  { '<leader>apo',        function() M.proxy_on() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_on', },
-  { '<leader>apf',        function() M.proxy_off() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.proxy: proxy_off', },
-  { '<leader>asp',        function() M.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file', },
-  { '<leader>as<c-p>',    function() M.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_programs_file_force', },
-  { '<leader>ask',        function() M.sel_kill_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file', },
-  { '<leader>as<c-k>',    function() M.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_kill_programs_file_force', },
-  { '<leader>ass',        function() M.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: sel_open_startup_file', },
-  { '<leader>agm',        function() M.git_init_and_cmake() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: git_init_and_cmake', },
-  { '<leader>aq8',        function() M.qfmakeconv2utf8() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2utf8', },
-  { '<leader>aq9',        function() M.qfmakeconv2cp936() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: qfmakeconv2cp936', },
-  { '<leader>aof',        function() M.open_file() end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.box.sel: open_file', },
-}
 
 function M.replace_two_words(mode)
   if mode == 'n' then

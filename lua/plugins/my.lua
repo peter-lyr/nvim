@@ -501,17 +501,7 @@ return {
   {
     name = 'my.box',
     dir = '',
-    cmd = 'ExecuteOutput',
     dependencies = { 'itchyny/vim-gitbranch', },
-    keys = {
-      { '<leader>a', function() require 'config.my.box' end,                         mode = { 'n', 'v', }, silent = true, desc = '---my.box---', },
-      { '<F1>',      function() require 'config.my.box'.show_info() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.box: show info', },
-      { '<F2>',      function() require 'config.my.box'.replace_two_words 'n' end,   mode = { 'n', },      silent = true, desc = 'my.box.sel: replace_two_words', },
-      { '<F2>',      function() require 'config.my.box'.replace_two_words 'v' end,   mode = { 'v', },      silent = true, desc = 'my.box.sel: replace_two_words', },
-      { '<F3>',      function() require 'config.my.box'.replace_two_words_2 'n' end, mode = { 'n', },      silent = true, desc = 'my.box.sel: replace_two_words_2', },
-      { '<F3>',      function() require 'config.my.box'.replace_two_words_2 'v' end, mode = { 'v', },      silent = true, desc = 'my.box.sel: replace_two_words_2', },
-    },
-    config = function() require 'config.my.box' end,
   },
 
   -- my.yank
