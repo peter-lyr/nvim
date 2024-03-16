@@ -301,39 +301,69 @@ r {
 }
 
 r {
-  ['<F9><F1>a'] = { function() require 'config.my.yank'.clipboard('a') end, 'my.yank.clipboard: a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>b'] = { function() require 'config.my.yank'.clipboard('b') end, 'my.yank.clipboard: b to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>c'] = { function() require 'config.my.yank'.clipboard('c') end, 'my.yank.clipboard: c to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>d'] = { function() require 'config.my.yank'.clipboard('d') end, 'my.yank.clipboard: d to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>e'] = { function() require 'config.my.yank'.clipboard('e') end, 'my.yank.clipboard: e to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>f'] = { function() require 'config.my.yank'.clipboard('f') end, 'my.yank.clipboard: f to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>g'] = { function() require 'config.my.yank'.clipboard('g') end, 'my.yank.clipboard: g to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>h'] = { function() require 'config.my.yank'.clipboard('h') end, 'my.yank.clipboard: h to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>i'] = { function() require 'config.my.yank'.clipboard('i') end, 'my.yank.clipboard: i to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>j'] = { function() require 'config.my.yank'.clipboard('j') end, 'my.yank.clipboard: j to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>k'] = { function() require 'config.my.yank'.clipboard('k') end, 'my.yank.clipboard: k to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>l'] = { function() require 'config.my.yank'.clipboard('l') end, 'my.yank.clipboard: l to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>m'] = { function() require 'config.my.yank'.clipboard('m') end, 'my.yank.clipboard: m to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>n'] = { function() require 'config.my.yank'.clipboard('n') end, 'my.yank.clipboard: n to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>o'] = { function() require 'config.my.yank'.clipboard('o') end, 'my.yank.clipboard: o to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>p'] = { function() require 'config.my.yank'.clipboard('p') end, 'my.yank.clipboard: p to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>q'] = { function() require 'config.my.yank'.clipboard('q') end, 'my.yank.clipboard: q to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>r'] = { function() require 'config.my.yank'.clipboard('r') end, 'my.yank.clipboard: r to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>s'] = { function() require 'config.my.yank'.clipboard('s') end, 'my.yank.clipboard: s to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>t'] = { function() require 'config.my.yank'.clipboard('t') end, 'my.yank.clipboard: t to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>u'] = { function() require 'config.my.yank'.clipboard('u') end, 'my.yank.clipboard: u to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>v'] = { function() require 'config.my.yank'.clipboard('v') end, 'my.yank.clipboard: v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>w'] = { function() require 'config.my.yank'.clipboard('w') end, 'my.yank.clipboard: w to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>x'] = { function() require 'config.my.yank'.clipboard('x') end, 'my.yank.clipboard: x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>y'] = { function() require 'config.my.yank'.clipboard('y') end, 'my.yank.clipboard: y to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>z'] = { function() require 'config.my.yank'.clipboard('z') end, 'my.yank.clipboard: z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>,'] = { function() require 'config.my.yank'.clipboard(',') end, 'my.yank.clipboard: , to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>.'] = { function() require 'config.my.yank'.clipboard('.') end, 'my.yank.clipboard: . to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>/'] = { function() require 'config.my.yank'.clipboard('/') end, 'my.yank.clipboard: / to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>;'] = { function() require 'config.my.yank'.clipboard(';') end, 'my.yank.clipboard: ; to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ["<F9><F1>'"] = { function() require 'config.my.yank'.clipboard("'") end, "my.yank.clipboard: ' to clipboard", mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>['] = { function() require 'config.my.yank'.clipboard('[') end, 'my.yank.clipboard: [ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  ['<F9><F1>]'] = { function() require 'config.my.yank'.clipboard(']') end, 'my.yank.clipboard: ] to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>a'] = { function() require 'config.my.yank'.clipboard 'a' end, 'my.yank.clipboard: a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>b'] = { function() require 'config.my.yank'.clipboard 'b' end, 'my.yank.clipboard: b to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>c'] = { function() require 'config.my.yank'.clipboard 'c' end, 'my.yank.clipboard: c to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>d'] = { function() require 'config.my.yank'.clipboard 'd' end, 'my.yank.clipboard: d to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>e'] = { function() require 'config.my.yank'.clipboard 'e' end, 'my.yank.clipboard: e to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>f'] = { function() require 'config.my.yank'.clipboard 'f' end, 'my.yank.clipboard: f to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>g'] = { function() require 'config.my.yank'.clipboard 'g' end, 'my.yank.clipboard: g to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>h'] = { function() require 'config.my.yank'.clipboard 'h' end, 'my.yank.clipboard: h to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>i'] = { function() require 'config.my.yank'.clipboard 'i' end, 'my.yank.clipboard: i to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>j'] = { function() require 'config.my.yank'.clipboard 'j' end, 'my.yank.clipboard: j to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>k'] = { function() require 'config.my.yank'.clipboard 'k' end, 'my.yank.clipboard: k to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>l'] = { function() require 'config.my.yank'.clipboard 'l' end, 'my.yank.clipboard: l to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>m'] = { function() require 'config.my.yank'.clipboard 'm' end, 'my.yank.clipboard: m to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>n'] = { function() require 'config.my.yank'.clipboard 'n' end, 'my.yank.clipboard: n to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>o'] = { function() require 'config.my.yank'.clipboard 'o' end, 'my.yank.clipboard: o to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>p'] = { function() require 'config.my.yank'.clipboard 'p' end, 'my.yank.clipboard: p to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>q'] = { function() require 'config.my.yank'.clipboard 'q' end, 'my.yank.clipboard: q to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>r'] = { function() require 'config.my.yank'.clipboard 'r' end, 'my.yank.clipboard: r to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>s'] = { function() require 'config.my.yank'.clipboard 's' end, 'my.yank.clipboard: s to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>t'] = { function() require 'config.my.yank'.clipboard 't' end, 'my.yank.clipboard: t to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>u'] = { function() require 'config.my.yank'.clipboard 'u' end, 'my.yank.clipboard: u to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>v'] = { function() require 'config.my.yank'.clipboard 'v' end, 'my.yank.clipboard: v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>w'] = { function() require 'config.my.yank'.clipboard 'w' end, 'my.yank.clipboard: w to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>x'] = { function() require 'config.my.yank'.clipboard 'x' end, 'my.yank.clipboard: x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>y'] = { function() require 'config.my.yank'.clipboard 'y' end, 'my.yank.clipboard: y to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>z'] = { function() require 'config.my.yank'.clipboard 'z' end, 'my.yank.clipboard: z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>,'] = { function() require 'config.my.yank'.clipboard ',' end, 'my.yank.clipboard: , to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>.'] = { function() require 'config.my.yank'.clipboard '.' end, 'my.yank.clipboard: . to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>/'] = { function() require 'config.my.yank'.clipboard '/' end, 'my.yank.clipboard: / to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>;'] = { function() require 'config.my.yank'.clipboard ';' end, 'my.yank.clipboard: ; to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ["<F9><F1>'"] = { function() require 'config.my.yank'.clipboard "'" end, "my.yank.clipboard: ' to clipboard", mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>['] = { function() require 'config.my.yank'.clipboard '[' end, 'my.yank.clipboard: [ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  ['<F9><F1>]'] = { function() require 'config.my.yank'.clipboard ']' end, 'my.yank.clipboard: ] to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+}
+
+r {
+  ['<F9><F2>'] = { function() require 'config.my.yank'.stack('n', 'w') end, 'my.yank.stack: yank <cword> to pool', mode = { 'n', }, silent = true, },
+  ['<F9><F3>'] = { function() require 'config.my.yank'.stack('n', 'W') end, 'my.yank.stack: yank <cWORD> to pool', mode = { 'n', }, silent = true, },
+}
+
+r {
+  ['<F9><F2>'] = { function() require 'config.my.yank'.stack('v', 'w') end, 'my.yank.stack: yank <cword> to pool', mode = { 'v', }, silent = true, },
+  ['<F9><F3>'] = { function() require 'config.my.yank'.stack('v', 'W') end, 'my.yank.stack: yank <cWORD> to pool', mode = { 'v', }, silent = true, },
+}
+
+r {
+  ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'n' end, 'my.yank.stack: sel paste from pool', mode = { 'n', }, silent = true, },
+}
+
+r {
+  ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'v' end, 'my.yank.stack: sel paste from pool', mode = { 'v', }, silent = true, },
+}
+
+r {
+  ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'i' end, 'my.yank.stack: sel paste from pool', mode = { 'i', }, silent = true, },
+}
+
+r {
+  ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'c' end, 'my.yank.stack: sel paste from pool', mode = { 'c', }, silent = true, },
+}
+
+r {
+  ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 't' end, 'my.yank.stack: sel paste from pool', mode = { 't', }, silent = true, },
 }
 
 local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))

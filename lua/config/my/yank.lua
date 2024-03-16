@@ -8,18 +8,18 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-M.yank_pool_dir_path = B.getcreate_stddata_dirpath 'yank-pool'
-M.yank_pool_txt_path = M.yank_pool_dir_path:joinpath 'yank-pool.txt'
+M.yank_reg_dir_path = B.getcreate_stddata_dirpath 'yank-reg'
+M.yank_reg_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg.txt'
 
-if not M.yank_pool_txt_path:exists() then
-  M.yank_pool_txt_path:write(vim.inspect {}, 'w')
+if not M.yank_reg_txt_path:exists() then
+  M.yank_reg_txt_path:write(vim.inspect {}, 'w')
 end
 
-M.reg = B.read_table_from_file(M.yank_pool_txt_path.filename)
+M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
 
-B.aucmd({ 'VimLeave', }, 'nvim.telescope.VimLeave', {
+B.aucmd({ 'VimLeave', }, 'my.yank.reg', {
   callback = function()
-    M.yank_pool_txt_path:write(vim.inspect(M.reg), 'w')
+    M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
   end,
 })
 
@@ -63,7 +63,7 @@ function M.yank(reg, mode, word)
 end
 
 function M.paste(reg, mode)
-  local back = vim.fn.getreg('"')
+  local back = vim.fn.getreg '"'
   vim.fn.setreg('"', M.reg[reg])
   if mode == 'i' then
     vim.cmd [[call feedkeys("\<c-o>p")]]
@@ -83,6 +83,78 @@ end
 
 function M.clipboard(reg)
   vim.fn.setreg('+', M.reg[reg])
+end
+
+-----------------------------------------------------------------------
+
+M.yank_pool_dir_path = B.getcreate_stddata_dirpath 'yank-pool'
+M.yank_pool_txt_path = M.yank_pool_dir_path:joinpath 'yank-pool.txt'
+
+if not M.yank_pool_txt_path:exists() then
+  M.yank_pool_txt_path:write(vim.inspect {}, 'w')
+end
+
+M.pool = B.read_table_from_file(M.yank_pool_txt_path.filename)
+
+B.aucmd({ 'VimLeave', }, 'my.yank.pool', {
+  callback = function()
+    M.yank_pool_txt_path:write(vim.inspect(M.pool), 'w')
+  end,
+})
+
+function M.pool_show()
+  local info = { tostring(#M.pool) .. ' item(s)', }
+  for c, content in ipairs(M.pool) do
+    info[#info + 1] = M.get_short(string.format('%2s. [[%d]]: %s', c, #content, content))
+  end
+  B.notify_info(info)
+end
+
+function M.stack(mode, word)
+  if mode == 'n' then
+    B.cmd('norm vi%s', word)
+  end
+  vim.cmd 'norm y'
+  B.stack_item_uniq(M.pool, vim.fn.getreg '"')
+  M.pool_show()
+end
+
+function M.paste_from_stack_do(pool, mode)
+  B.ui_sel(pool, 'sel to "', function(_, idx)
+    local text = M.pool[idx]
+    if B.is(text) then
+      vim.fn.setreg('"', text)
+      if mode == 'i' then
+        vim.cmd [[call feedkeys("\<esc>p")]]
+      elseif mode == 't' then
+        if vim.fn.mode() == 't' then
+          vim.cmd [[call feedkeys("\<c-\>\<c-n>pi")]]
+        else
+          vim.cmd [[call feedkeys("pi")]]
+        end
+      elseif mode == 'c' then
+        vim.cmd [[call feedkeys(":\<up>")]]
+        B.notify_info('copied to ": ' .. string.gsub(M.get_short(text), '\n', '\\n'))
+      else
+        vim.cmd [[call feedkeys("p")]]
+      end
+    end
+  end)
+end
+
+function M.paste_from_stack(mode)
+  local pool = {}
+  for _, t in ipairs(M.pool) do
+    pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
+  end
+  if mode == 't' then
+    vim.cmd [[call feedkeys("\<c-\>\<c-n>")]]
+    B.set_timeout(100, function()
+      M.paste_from_stack_do(pool, mode)
+    end)
+  else
+    M.paste_from_stack_do(pool, mode)
+  end
 end
 
 return M
