@@ -172,7 +172,7 @@ function M.clipboard_from_pool()
   for _, t in ipairs(M.pool) do
     pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
   end
-  B.ui_sel(pool, 'sel to "', function(_, idx)
+  B.ui_sel(pool, 'sel to +', function(_, idx)
     local text = M.pool[idx]
     if B.is(text) then
       vim.fn.setreg('+', text)
