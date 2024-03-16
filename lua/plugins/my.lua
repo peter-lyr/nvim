@@ -526,12 +526,19 @@ return {
     config = function() require 'config.my.box' end,
   },
 
-  -- my.box_ex
+  -- my.yank
   {
-    name = 'my.box_ex',
+    name = 'my.yank',
+    dir = '',
+    config = function() require 'config.my.yank' end,
+  },
+
+  -- my.yank_ex
+  {
+    name = 'my.yank_ex',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    config = function() require 'config.my.box_ex' end,
+    config = function() require 'config.my.yank_ex' end,
   },
 
   -- my.scroll
