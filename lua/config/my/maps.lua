@@ -138,33 +138,26 @@ function M.window()
     { '<leader>ws',       function() require 'config.my.window'.change_around 'j' end,   mode = { 'n', 'v', }, desc = 'change with window down', },
     { '<leader>ww',       function() require 'config.my.window'.change_around 'k' end,   mode = { 'n', 'v', }, desc = 'change with window up', },
     { '<leader>wd',       function() require 'config.my.window'.change_around 'l' end,   mode = { 'n', 'v', }, desc = 'change with window right', },
-
     { '<leader>wt',       '<c-w>t',                                                      mode = { 'n', 'v', }, desc = 'go topleft window', },
     { '<leader>wq',       '<c-w>p',                                                      mode = { 'n', 'v', }, desc = 'go toggle last window', },
-
     { '<leader>w;',       function() require 'config.my.window'.toggle_max_height() end, mode = { 'n', 'v', }, desc = 'toggle max height', },
     { '<leader>wm',       function() require 'base'.win_max_height() end,                mode = { 'n', 'v', }, desc = 'window highest', },
-
     { '<leader>wh',       function() require 'config.my.window'.go_window 'h' end,       mode = { 'n', 'v', }, desc = 'go window up', },
     { '<leader>wj',       function() require 'config.my.window'.go_window 'j' end,       mode = { 'n', 'v', }, desc = 'go window down', },
     { '<leader>wk',       function() require 'config.my.window'.go_window 'k' end,       mode = { 'n', 'v', }, desc = 'go window left', },
     { '<leader>wl',       function() require 'config.my.window'.go_window 'l' end,       mode = { 'n', 'v', }, desc = 'go window right', },
-
     { '<leader>wu',       ':<c-u>leftabove new<cr>',                                     mode = { 'n', 'v', }, desc = 'create new window up', },
     { '<leader>wi',       ':<c-u>new<cr>',                                               mode = { 'n', 'v', }, desc = 'create new window down', },
     { '<leader>wo',       ':<c-u>leftabove vnew<cr>',                                    mode = { 'n', 'v', }, desc = 'create new window left', },
     { '<leader>wp',       ':<c-u>vnew<cr>',                                              mode = { 'n', 'v', }, desc = 'create new window right', },
-
     { '<leader>w<left>',  '<c-w>v<c-w>h',                                                mode = { 'n', 'v', }, desc = 'split to window up', },
     { '<leader>w<down>',  '<c-w>s',                                                      mode = { 'n', 'v', }, desc = 'split to window down', },
     { '<leader>w<up>',    '<c-w>s<c-w>k',                                                mode = { 'n', 'v', }, desc = 'split to window left', },
     { '<leader>w<right>', '<c-w>v',                                                      mode = { 'n', 'v', }, desc = 'split to window right', },
-
     { '<leader>wc',       '<c-w>H',                                                      mode = { 'n', 'v', }, desc = 'be most window up', },
     { '<leader>wv',       '<c-w>J',                                                      mode = { 'n', 'v', }, desc = 'be most window down', },
     { '<leader>wf',       '<c-w>K',                                                      mode = { 'n', 'v', }, desc = 'be most window left', },
     { '<leader>wb',       '<c-w>L',                                                      mode = { 'n', 'v', }, desc = 'be most window right', },
-
     { '<leader>wn',       '<c-w>w',                                                      mode = { 'n', 'v', }, desc = 'go next window', },
     { '<leader>wg',       '<c-w>W',                                                      mode = { 'n', 'v', }, desc = 'go prev window', },
     { '<leader>wz',       function() require 'config.my.window'.go_last_window() end,    mode = { 'n', 'v', }, desc = 'go last window', },
@@ -176,20 +169,16 @@ function M.window()
     { '<leader>xk',     function() require 'config.my.window'.close_win_up() end,      mode = { 'n', 'v', }, desc = 'close window up', },
     { '<leader>xl',     function() require 'config.my.window'.close_win_right() end,   mode = { 'n', 'v', }, desc = 'close window right', },
     { '<leader>xt',     function() require 'config.my.window'.close_cur_tab() end,     mode = { 'n', 'v', }, desc = 'close window current', },
-
     { '<leader>xw',     function() require 'config.my.window'.Bwipeout_cur() end,      mode = { 'n', 'v', }, desc = 'Bwipeout current buffer', },
     { '<leader>x<c-w>', function() require 'config.my.window'.bwipeout_cur() end,      mode = { 'n', 'v', }, desc = 'bwipeout current buffer', },
     { '<leader>xW',     function() require 'config.my.window'.bwipeout_cur() end,      mode = { 'n', 'v', }, desc = 'bwipeout current buffer', },
     { '<leader>xd',     function() require 'config.my.window'.Bdelete_cur() end,       mode = { 'n', 'v', }, desc = 'Bdelete current buffer', },
     { '<leader>x<c-d>', function() require 'config.my.window'.bdelete_cur() end,       mode = { 'n', 'v', }, desc = 'bdelete current buffer', },
     { '<leader>xD',     function() require 'config.my.window'.bdelete_cur() end,       mode = { 'n', 'v', }, desc = 'bdelete current buffer', },
-
     { '<leader>xc',     function() require 'config.my.window'.close_cur() end,         mode = { 'n', 'v', }, desc = 'close current buffer', },
-
     { '<leader>xp',     function() require 'config.my.window'.bdelete_cur_proj() end,  mode = { 'n', 'v', }, desc = 'bdelete current proj files', },
     { '<leader>x<c-p>', function() require 'config.my.window'.bwipeout_cur_proj() end, mode = { 'n', 'v', }, desc = 'bwipeout current proj files', },
     { '<leader>xP',     function() require 'config.my.window'.bwipeout_cur_proj() end, mode = { 'n', 'v', }, desc = 'bwipeout current proj files', },
-
     { '<leader>x<del>', function() require 'config.my.window'.bwipeout_deleted() end,  mode = { 'n', 'v', }, desc = 'bwipeout buffers deleted', },
     { '<leader>x<cr>',  function() require 'config.my.window'.reopen_deleted() end,    mode = { 'n', 'v', }, desc = 'sel reopen buffers deleted', },
     { '<leader>xu',     function() require 'config.my.window'.bwipeout_unloaded() end, mode = { 'n', 'v', }, desc = 'bdelete buffers unloaded', },
@@ -202,26 +191,21 @@ function M.window()
     { '<leader>xod',     function() require 'config.my.window'.Bdelete_other() end,             mode = { 'n', 'v', }, desc = 'Bdelete other buffers', },
     { '<leader>xo<c-d>', function() require 'config.my.window'.bdelete_other() end,             mode = { 'n', 'v', }, desc = 'bdelete other buffers', },
     { '<leader>xoD',     function() require 'config.my.window'.bdelete_other() end,             mode = { 'n', 'v', }, desc = 'bdelete other buffers', },
-
     { '<leader>xop',     function() require 'config.my.window'.bdelete_other_proj() end,        mode = { 'n', 'v', }, desc = 'bdelete other proj buffers', },
     { '<leader>xo<c-p>', function() require 'config.my.window'.bwipeout_other_proj() end,       mode = { 'n', 'v', }, desc = 'bwipeout other proj buffers', },
     { '<leader>xoP',     function() require 'config.my.window'.bwipeout_other_proj() end,       mode = { 'n', 'v', }, desc = 'bwipeout other proj buffers', },
-
     { '<leader>xoh',     function() require 'config.my.window'.bdelete_proj 'h' end,            mode = { 'n', 'v', }, desc = 'bdelete proj up', },
     { '<leader>xoj',     function() require 'config.my.window'.bdelete_proj 'j' end,            mode = { 'n', 'v', }, desc = 'bdelete proj down', },
     { '<leader>xok',     function() require 'config.my.window'.bdelete_proj 'k' end,            mode = { 'n', 'v', }, desc = 'bdelete proj left', },
     { '<leader>xol',     function() require 'config.my.window'.bdelete_proj 'l' end,            mode = { 'n', 'v', }, desc = 'bdelete proj right', },
-
     { '<leader>xo<c-h>', function() require 'config.my.window'.bwipeout_proj 'h' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj up', },
     { '<leader>xo<c-j>', function() require 'config.my.window'.bwipeout_proj 'j' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj down', },
     { '<leader>xo<c-k>', function() require 'config.my.window'.bwipeout_proj 'k' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj left', },
     { '<leader>xo<c-l>', function() require 'config.my.window'.bwipeout_proj 'l' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj right', },
-
     { '<leader>xoH',     function() require 'config.my.window'.bwipeout_proj 'h' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj up', },
     { '<leader>xoJ',     function() require 'config.my.window'.bwipeout_proj 'j' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj down', },
     { '<leader>xoK',     function() require 'config.my.window'.bwipeout_proj 'k' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj left', },
     { '<leader>xoL',     function() require 'config.my.window'.bwipeout_proj 'l' end,           mode = { 'n', 'v', }, desc = 'bwipeout proj right', },
-
     { '<leader>xor',     function() require 'config.my.window'.bdelete_ex_cur_root() end,       mode = { 'n', 'v', }, desc = 'bdelete buffers exclude cur_root', },
     { '<leader>xr',      function() require 'config.my.window'.listed_cur_root_files() end,     mode = { 'n', 'v', }, desc = 'listed cur root buffers', },
     { '<leader>x<c-r>',  function() require 'config.my.window'.listed_cur_root_files 'all' end, mode = { 'n', 'v', }, desc = 'listed cur root buffers all', },
