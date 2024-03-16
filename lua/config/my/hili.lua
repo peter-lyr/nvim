@@ -2,6 +2,8 @@ local M = {}
 
 local B = require 'base'
 
+vim.cmd 'Lazy load sha2'
+
 M.hl_cursorword = { bg = 'green', fg = 'yellow', reverse = false, bold = true, }
 M.hl_lastcursorword = { fg = '#aaaa00', bg = 'blue', reverse = false, bold = true, }
 -- M.hl_lastcursorword = { fg = nil, bg = nil, reverse = true, bold = true, }
