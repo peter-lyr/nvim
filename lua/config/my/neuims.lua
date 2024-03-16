@@ -61,7 +61,7 @@ B.aucmd('ModeChanged', 'my.neuims.ModeChanged', {
 function M.i_enter()
   M.enable = nil
   vim.cmd [[call feedkeys("\<esc>o")]]
-  B.set_timeout(10, function() M.enable = 1 end)
+  B.set_timeout(100, function() M.enable = 1 end)
 end
 
 function M.toggle_lang_in_cmdline()
