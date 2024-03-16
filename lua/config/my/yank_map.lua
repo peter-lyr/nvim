@@ -5,9 +5,7 @@ local M = {}
 
 local start_time = vim.fn.reltime()
 
-local wk = require 'which-key'
-
-local r = wk.register
+local r = require 'which-key'.register
 
 r {
   ['<F9>'] = { name = '+my.yank', },
