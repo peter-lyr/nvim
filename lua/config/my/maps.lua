@@ -3,11 +3,10 @@
 
 local M = {}
 
-local start_time = vim.fn.reltime()
-
 local r = require 'which-key'.register
 
 function M.base()
+  local start_time = vim.fn.reltime()
   r {
     ['<c-;>'] = { function()
       local B = require 'base'
@@ -23,6 +22,9 @@ function M.base()
       B.all_commands()
     end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },
   }
+  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
+  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
+  vim.cmd('echo "' .. vim.g.startup_time .. '"')
 end
 
 function M._m(items)
@@ -36,6 +38,7 @@ function M._m(items)
 end
 
 function M.box()
+  local start_time = vim.fn.reltime()
   M._m {
     { '<leader>a', name = 'my.box', },
   }
@@ -89,13 +92,12 @@ function M.box()
     { '<leader>aq8', function() require 'config.my.box'.qfmakeconv2utf8() end,  mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 utf8', },
     { '<leader>aq9', function() require 'config.my.box'.qfmakeconv2cp936() end, mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 cp936', },
   }
+  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
+  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
+  vim.cmd('echo "' .. vim.g.startup_time .. '"')
 end
 
 M.base()
 M.box()
-
-local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-local startup_time = string.format('maps time: %.3f ms', end_time * 1000)
-print(startup_time)
 
 return M
