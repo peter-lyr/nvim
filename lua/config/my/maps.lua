@@ -97,7 +97,33 @@ function M.box()
   vim.cmd('echo "' .. vim.g.startup_time .. '"')
 end
 
+function M.copy()
+  local start_time = vim.fn.reltime()
+  M._m {
+    { '<leader>y', name = 'copy to clipboard', },
+  }
+  -- M._m {
+  --   { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'copy_cwd', },
+  -- }
+  M._m {
+    { '<leader>yf',  name = 'absolute path', },
+    { '<leader>yff', function() require 'config.my.copy'.full_name() end, mode = { 'n', 'v', }, silent = true, desc = 'full name', },
+    { '<leader>yft', function() require 'config.my.copy'.full_tail() end, mode = { 'n', 'v', }, silent = true, desc = 'full tail', },
+    { '<leader>yfh', function() require 'config.my.copy'.full_head() end, mode = { 'n', 'v', }, silent = true, desc = 'full head', },
+  }
+  M._m {
+    { '<leader>yr',  name = 'relative path', },
+    { '<leader>yrr', function() require 'config.my.copy'.rela_name() end, mode = { 'n', 'v', }, silent = true, desc = 'rela name', },
+    { '<leader>yrh', function() require 'config.my.copy'.rela_head() end, mode = { 'n', 'v', }, silent = true, desc = 'rela head', },
+    { '<leader>yrc', function() require 'config.my.copy'.cur_root() end,  mode = { 'n', 'v', }, silent = true, desc = 'telescope cur root', },
+  }
+  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
+  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
+  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+end
+
 M.base()
 M.box()
+M.copy()
 
 return M

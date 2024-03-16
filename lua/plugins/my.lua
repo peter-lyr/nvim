@@ -328,8 +328,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<leader>y',  function() require 'config.my.copy' end,            mode = { 'n', 'v', }, silent = true, desc = '---my.copy---', },
-      { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'my.copy: copy_cwd', },
+      { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'copy cwd to clipboard', },
     },
     config = function() require 'config.my.copy' end,
   },

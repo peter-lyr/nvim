@@ -42,26 +42,12 @@ function M.rela_head()
   M._copy(vim.fn.fnamemodify(M._get_rela_name(), ':h'))
 end
 
--- mappings
-B.del_map({ 'n', 'v', }, '<leader>y')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>y', 'my.yank')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>yf', 'my.yank.full')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>yr', 'my.yank.rela')
-
-B.lazy_map {
-  { '<leader>yff', M.full_name, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: full_name', },
-  { '<leader>yft', M.full_tail, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: full_tail', },
-  { '<leader>yfh', M.full_head, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: full_head', },
-  { '<leader>yrr', M.rela_name, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: rela_name', },
-  { '<leader>yrh', M.rela_head, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: rela_head', },
-  { '<leader>yrc', function()
-    local telescope = require 'config.nvim.telescope'
-    local dir = telescope.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))]
-    if dir then
-      M._copy(dir)
-    end
-  end, mode = { 'n', 'v', }, silent = true, desc = 'my.yank: cur_root', },
-}
+function M.cur_root()
+  local telescope = require 'config.nvim.telescope'
+  local dir = telescope.cur_root[B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))]
+  if dir then
+    M._copy(dir)
+  end
+end
 
 return M
