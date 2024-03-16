@@ -81,4 +81,8 @@ function M.delete(reg)
   M.reg[reg] = nil
 end
 
+function M.clipboard(reg)
+  vim.fn.setreg('+', M.reg[reg])
+end
+
 return M
