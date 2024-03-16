@@ -167,4 +167,17 @@ function M.paste_from_stack(mode)
   end
 end
 
+function M.clipboard_from_pool()
+  local pool = {}
+  for _, t in ipairs(M.pool) do
+    pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
+  end
+  B.ui_sel(pool, 'sel to "', function(_, idx)
+    local text = M.pool[idx]
+    if B.is(text) then
+      vim.fn.setreg('+', text)
+    end
+  end)
+end
+
 return M
