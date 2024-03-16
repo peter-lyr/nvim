@@ -371,6 +371,10 @@ r {
   ['<F9><F1><F1>'] = { function() require 'config.my.yank'.clipboard_from_pool() end, 'my.yank.clipboard: from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
 }
 
+r {
+  ['<F9><c-F4>'] = { function() require 'config.my.yank'.delete_pool() end, 'my.yank.clipboard: delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+}
+
 local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
 local startup_time = string.format('wk.register time: %.3f ms', end_time * 1000)
 print(vim.g.startup_time .. ', ' .. startup_time)

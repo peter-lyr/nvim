@@ -180,4 +180,8 @@ function M.clipboard_from_pool()
   end)
 end
 
+function M.delete_pool()
+  M.pool = {}
+end
+
 return M
