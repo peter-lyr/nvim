@@ -313,6 +313,4 @@ function M.cmake()
   end)
 end
 
-B.create_user_command_with_M(M, 'C') -- M.source,M.lua is needed
-
 return M

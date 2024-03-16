@@ -115,24 +115,26 @@ end
 
 M.commands = {}
 
-function M.create_user_command_with_M(m, name)
-  M.commands[name] = M._get_functions_of_M(m)
-  vim.api.nvim_create_user_command(name, function(params)
-    if #params.fargs == 0 then
-      pcall(M.cmd, "lua require('%s').main()", m.lua)
-    elseif #params.fargs == 1 then
-      pcall(M.cmd, "lua require('%s').%s()", m.lua, params.fargs[1])
-    else
-      local func = table.remove(params.fargs, 1)
-      pcall(M.cmd, "lua require('%s').%s([[%s]])", m.lua, func, vim.fn.join(params.fargs, ']], [['))
-    end
-  end, {
-    nargs = '*',
-    desc = name,
-    complete = function()
-      return M.commands[name]
-    end,
-  })
+function M.create_user_command_with_M(items)
+  for name, m in pairs(items) do
+    M.commands[name] = M._get_functions_of_M(m)
+    vim.api.nvim_create_user_command(name, function(params)
+      if #params.fargs == 0 then
+        pcall(M.cmd, "lua require('%s').main()", m.lua)
+      elseif #params.fargs == 1 then
+        pcall(M.cmd, "lua require('%s').%s()", m.lua, params.fargs[1])
+      else
+        local func = table.remove(params.fargs, 1)
+        pcall(M.cmd, "lua require('%s').%s([[%s]])", m.lua, func, vim.fn.join(params.fargs, ']], [['))
+      end
+    end, {
+        nargs = '*',
+        desc = name,
+        complete = function()
+          return M.commands[name]
+        end,
+      })
+  end
 end
 
 function M.all_commands()

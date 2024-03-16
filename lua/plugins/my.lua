@@ -278,9 +278,6 @@ return {
 
       { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: quickfix_toggle', },
 
-      --
-      { '<c-;>',        function() require 'base'.all_commands() end,                 mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
-
     },
     dependencies = {
       'skywind3000/asyncrun.vim',
@@ -300,9 +297,6 @@ return {
     dir = '',
     cmd = { 'C', },
     ft = { 'c', 'cpp', },
-    keys = {
-      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
-    },
     config = function() require 'config.my.c' end,
   },
 
@@ -312,9 +306,6 @@ return {
     dir = '',
     cmd = { 'Args', },
     event = { 'BufReadPre', 'BufNewFile', },
-    keys = {
-      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
-    },
     config = function() require 'config.my.args' end,
   },
 
@@ -326,9 +317,6 @@ return {
     cmd = { 'Drag', },
     -- event = { 'FocusLost', },
     dependencies = { 'peter-lyr/vim-bbye', },
-    keys = {
-      { '<c-;>', function() require 'base'.all_commands() end, mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
-    },
     config = function()
       require 'config.my.drag'
     end,
@@ -533,12 +521,15 @@ return {
     config = function() require 'config.my.yank' end,
   },
 
-  -- my.yank_map
+  -- my.maps
   {
-    name = 'my.yank_map',
+    name = 'my.maps',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    config = function() require 'config.my.yank_map' end,
+    config = function()
+      require 'config.my.maps'
+      require 'config.my.yank_map'
+    end,
   },
 
   -- my.scroll
@@ -595,7 +586,6 @@ return {
     dir = '',
     ft = { 'python', },
     keys = {
-      { '<c-;>',      function() require 'base'.all_commands() end,       mode = { 'n', 'v', }, silent = true, desc = 'base: all commands', },
       { '<leader>r',  function() end,                                     mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
     },

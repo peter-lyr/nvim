@@ -515,6 +515,4 @@ B.lazy_map {
   { '<S-MiddleMouse>', M._s_middlemouse, mode = { 'n', 'v', }, silent = true, desc = 'my.drag: _s_middlemouse', expr = true, },
 }
 
-B.create_user_command_with_M(M, 'Drag') -- M.source,M.lua is needed
-
 return M

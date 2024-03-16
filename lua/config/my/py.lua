@@ -36,6 +36,4 @@ function M.sel_run_py()
   end
 end
 
-B.create_user_command_with_M(M, 'Py') -- M.source,M.lua is needed
-
 return M

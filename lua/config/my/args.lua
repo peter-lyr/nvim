@@ -174,6 +174,4 @@ function M.move_files()
   M._operate_files()
 end
 
-B.create_user_command_with_M(M, 'Args') -- M.source,M.lua is needed
-
 return M

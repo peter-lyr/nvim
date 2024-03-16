@@ -375,7 +375,7 @@ r {
 }
 
 local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-local startup_time = string.format('wk.register time: %.3f ms', end_time * 1000)
+local startup_time = string.format('yank_map time: %.3f ms', end_time * 1000)
 print(vim.g.startup_time .. ', ' .. startup_time)
 
 return M

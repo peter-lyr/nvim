@@ -101,6 +101,4 @@ B.lazy_map {
   { '<c-0><c-=>', M.fontsize_fullscreen, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: fullscreen', },
 }
 
--- B.create_user_command_with_M(M, 'Gui') -- M.source,M.lua is needed
-
 return M
