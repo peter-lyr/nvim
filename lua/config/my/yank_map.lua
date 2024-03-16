@@ -11,7 +11,8 @@ local r = wk.register
 
 r {
   ['<F9>'] = { name = '+my.yank', },
-  ['<F9><F1>'] = { name = '+my.yank.clipboard', },
+  ['<F9><F1>'] = { name = '+my.yank.clipboard.cword', },
+  ['<F9><F2>'] = { name = '+my.yank.clipboard.cWORD', },
 }
 
 r {
