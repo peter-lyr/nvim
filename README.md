@@ -19,6 +19,7 @@
 9. [x] TODO: no markdown lsp
 10. [x] TODO: restart new nvim-qt.exe and open curfile
 11. [x] TODO: use wk.register to map all mappings at once in one lua file. | `no need`
+12. [x] TODO: yank-reg yank-pool
 
 # FIX
 
