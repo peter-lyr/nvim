@@ -5,8 +5,21 @@ local M = {}
 
 local r = require 'which-key'.register
 
+function M._s()
+  return vim.fn.reltime()
+end
+
+function M._e(start_time)
+  return vim.fn.reltimefloat(vim.fn.reltime(start_time))
+end
+
+function M._c(end_time)
+  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
+  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+end
+
 function M.base()
-  local start_time = vim.fn.reltime()
+  local start_time = M._s()
   r {
     ['<c-;>'] = { function()
       local B = require 'base'
@@ -22,9 +35,7 @@ function M.base()
       B.all_commands()
     end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },
   }
-  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
-  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+  M._c(M._e(start_time))
 end
 
 function M._m(items)
@@ -38,7 +49,7 @@ function M._m(items)
 end
 
 function M.box()
-  local start_time = vim.fn.reltime()
+  local start_time = M._s()
   M._m {
     { '<leader>a', name = 'my.box', },
   }
@@ -92,13 +103,11 @@ function M.box()
     { '<leader>aq8', function() require 'config.my.box'.qfmakeconv2utf8() end,  mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 utf8', },
     { '<leader>aq9', function() require 'config.my.box'.qfmakeconv2cp936() end, mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 cp936', },
   }
-  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
-  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+  M._c(M._e(start_time))
 end
 
 function M.copy()
-  local start_time = vim.fn.reltime()
+  local start_time = M._s()
   M._m {
     { '<leader>y', name = 'copy to clipboard', },
   }
@@ -117,13 +126,11 @@ function M.copy()
     { '<leader>yrh', function() require 'config.my.copy'.rela_head() end, mode = { 'n', 'v', }, silent = true, desc = 'rela head', },
     { '<leader>yrc', function() require 'config.my.copy'.cur_root() end,  mode = { 'n', 'v', }, silent = true, desc = 'telescope cur root', },
   }
-  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
-  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+  M._c(M._e(start_time))
 end
 
 function M.window()
-  local start_time = vim.fn.reltime()
+  local start_time = M._s()
   M._m {
     { '<leader>w',        name = 'window jump/split/new', },
     { '<leader>wa',       function() require 'config.my.window'.change_around 'h' end,   mode = { 'n', 'v', }, desc = 'change with window left', },
@@ -218,9 +225,7 @@ function M.window()
     { '<leader>xr',      function() require 'config.my.window'.listed_cur_root_files() end,     mode = { 'n', 'v', }, desc = 'listed cur root buffers', },
     { '<leader>x<c-r>',  function() require 'config.my.window'.listed_cur_root_files 'all' end, mode = { 'n', 'v', }, desc = 'listed cur root buffers all', },
   }
-  local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
-  vim.cmd('echo "' .. vim.g.startup_time .. '"')
+  M._c(M._e(start_time))
 end
 
 M.base()
