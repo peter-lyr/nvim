@@ -546,16 +546,16 @@ function M.replace_two_words_2(mode)
       temp = vim.fn.getpos "'>"
       _, M.line_4, M.col_4, _ = unpack(temp)
       if M.line_1 > M.line_4 or M.line_1 == M.line_4 and M.col_1 > M.col_4 then
-        B.cmd('norm %dgg%d|v%dgg%d|h"vp', M.line_1, M.col_1, M.line_2, M.col_2)
-        B.cmd('norm %dgg%d|v%dgg%d|h"bp', M.line_3, M.col_3, M.line_4, M.col_4)
+        B.cmd('norm %dgg%d|v%dgg%d|"vp', M.line_1, M.col_1, M.line_2, M.col_2)
+        B.cmd('norm %dgg%d|v%dgg%d|"bp', M.line_3, M.col_3, M.line_4, M.col_4)
       elseif M.line_3 > M.line_2 or M.line_3 == M.line_2 and M.col_3 > M.col_2 then
         vim.cmd 'norm gv"bp'
-        B.cmd('norm %dgg%d|v%dgg%d|h"vp', M.line_1, M.col_1, M.line_2, M.col_2)
+        B.cmd('norm %dgg%d|v%dgg%d|"vp', M.line_1, M.col_1, M.line_2, M.col_2)
       end
     else
       vim.cmd 'norm gv"bp'
       B.cmd('b%d', M.bufnr)
-      B.cmd('norm %dgg%d|v%dgg%d|h"vp', M.line_1, M.col_1, M.line_2, M.col_2)
+      B.cmd('norm %dgg%d|v%dgg%d|"vp', M.line_1, M.col_1, M.line_2, M.col_2)
     end
   end)
 end
