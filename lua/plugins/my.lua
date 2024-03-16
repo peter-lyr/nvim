@@ -533,8 +533,6 @@ return {
   {
     name = 'my.window',
     dir = '',
-    event = { 'BufReadPost', 'BufNewFile', },
-    config = function() require 'config.my.window' end,
   },
 
   -- my.cal
