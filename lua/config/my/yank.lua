@@ -10,16 +10,23 @@ M.lua = B.getlua(M.source)
 
 M.yank_reg_dir_path = B.getcreate_stddata_dirpath 'yank-reg'
 M.yank_reg_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg.txt'
+M.yank_reg_list_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg-list.txt'
 
 if not M.yank_reg_txt_path:exists() then
   M.yank_reg_txt_path:write(vim.inspect {}, 'w')
 end
 
+if not M.yank_reg_list_txt_path:exists() then
+  M.yank_reg_list_txt_path:write(vim.inspect {}, 'w')
+end
+
 M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
+M.reg_list = B.read_table_from_file(M.yank_reg_list_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'my.yank.reg', {
   callback = function()
     M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
+    M.yank_reg_list_txt_path:write(vim.inspect(vim.tbl_keys(M.reg)), 'w')
   end,
 })
 
@@ -47,8 +54,9 @@ end
 
 function M.reg_show()
   local info = { tostring(#vim.tbl_keys(M.reg)) .. ' reg(s)', }
-  for r, content in pairs(M.reg) do
-    info[#info + 1] = M.get_short(string.format('%s[[%d]]: %s', r, #content, content))
+  for _, key in pairs(M.reg_list) do
+    local content = M.reg[key]
+    info[#info + 1] = string.format('%s[[%d]]: %s', key, #content, M.get_short(content))
   end
   B.notify_info(info)
 end
@@ -59,6 +67,7 @@ function M.yank(reg, mode, word)
   end
   vim.cmd 'norm y'
   M.reg[reg] = vim.fn.getreg '"'
+  B.stack_item_uniq(M.reg_list, reg)
   M.reg_show()
 end
 
@@ -79,6 +88,7 @@ end
 
 function M.delete(reg)
   M.reg[reg] = nil
+  table.remove(M.reg_list, B.index_of(reg))
 end
 
 function M.clipboard(reg)
