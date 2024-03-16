@@ -14,9 +14,7 @@ function M._e(start_time)
 end
 
 function M._c(end_time, name)
-  vim.g.startup_time = string.format('%s, %s:%.1f', vim.g.startup_time, name, end_time * 1000)
-  -- vim.cmd('echo "' .. vim.g.startup_time .. '"')
-  print(vim.g.startup_time)
+  Notify(string.format('%s: %.3f ms', name, end_time * 1000))
 end
 
 function M.base()
