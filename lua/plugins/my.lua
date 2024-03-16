@@ -533,12 +533,12 @@ return {
     config = function() require 'config.my.yank' end,
   },
 
-  -- my.yank_ex
+  -- my.yank_map
   {
-    name = 'my.yank_ex',
+    name = 'my.yank_map',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    config = function() require 'config.my.yank_ex' end,
+    config = function() require 'config.my.yank_map' end,
   },
 
   -- my.scroll
