@@ -13,8 +13,8 @@ function M._e(start_time)
   return vim.fn.reltimefloat(vim.fn.reltime(start_time))
 end
 
-function M._c(end_time)
-  vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, debug.getinfo(1)['name'], end_time * 1000)
+function M._c(end_time, name)
+  vim.g.startup_time = string.format('%s, %s:%.1f', vim.g.startup_time, name, end_time * 1000)
   vim.cmd('echo "' .. vim.g.startup_time .. '"')
 end
 
@@ -35,7 +35,7 @@ function M.base()
       B.all_commands()
     end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time))
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
 function M._m(items)
@@ -103,7 +103,7 @@ function M.box()
     { '<leader>aq8', function() require 'config.my.box'.qfmakeconv2utf8() end,  mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 utf8', },
     { '<leader>aq9', function() require 'config.my.box'.qfmakeconv2cp936() end, mode = { 'n', 'v', }, silent = true, desc = 'qf makeconv 2 cp936', },
   }
-  M._c(M._e(start_time))
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
 function M.copy()
@@ -126,7 +126,7 @@ function M.copy()
     { '<leader>yrh', function() require 'config.my.copy'.rela_head() end, mode = { 'n', 'v', }, silent = true, desc = 'rela head', },
     { '<leader>yrc', function() require 'config.my.copy'.cur_root() end,  mode = { 'n', 'v', }, silent = true, desc = 'telescope cur root', },
   }
-  M._c(M._e(start_time))
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
 function M.window()
@@ -225,7 +225,7 @@ function M.window()
     { '<leader>xr',      function() require 'config.my.window'.listed_cur_root_files() end,     mode = { 'n', 'v', }, desc = 'listed cur root buffers', },
     { '<leader>x<c-r>',  function() require 'config.my.window'.listed_cur_root_files 'all' end, mode = { 'n', 'v', }, desc = 'listed cur root buffers all', },
   }
-  M._c(M._e(start_time))
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
 M.base()

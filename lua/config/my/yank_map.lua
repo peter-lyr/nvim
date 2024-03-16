@@ -370,7 +370,7 @@ r {
 }
 
 local end_time = vim.fn.reltimefloat(vim.fn.reltime(start_time))
-vim.g.startup_time = string.format('%s, %s: %.3f ms', vim.g.startup_time, 'yank', end_time * 1000)
+vim.g.startup_time = string.format('%s, %s:%.1f', vim.g.startup_time, 'yank', end_time * 1000)
 vim.cmd('echo "' .. vim.g.startup_time .. '"')
 
 return M

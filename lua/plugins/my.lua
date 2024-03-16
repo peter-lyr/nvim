@@ -97,7 +97,7 @@ return {
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
       local function print_startup_time()
         vim.fn.timer_start(380, function()
-          vim.g.startup_time = string.format('Startup: %.3f ms', vim.g.end_time * 1000)
+          vim.g.startup_time = string.format('(ms) Startup:%.1f', vim.g.end_time * 1000)
           vim.cmd('echo "' .. vim.g.startup_time .. '"')
           vim.fn.writefile({ vim.g.startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
         end)
