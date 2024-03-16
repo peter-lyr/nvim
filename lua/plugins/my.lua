@@ -404,14 +404,6 @@ return {
   {
     name = 'my.toggle',
     dir = '',
-    keys = {
-      { '<leader>t', function() end, mode = { 'n', 'v', }, silent = true, desc = '---my.toggle---', },
-    },
-    config = function()
-      require 'base'.del_map({ 'n', 'v', }, '<leader>t')
-      require 'base'.whichkey_register({ 'n', 'v', }, '<leader>t', 'my.toggle')
-      require 'config.my.toggle'
-    end,
   },
 
   -- my.tabline

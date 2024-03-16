@@ -213,9 +213,25 @@ function M.window()
   M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
+function M.toggle()
+  local start_time = M._s()
+  M._m {
+    { '<leader>t',  name = 'toggle', },
+    { '<leader>td', function() require 'config.my.toggle'.diff() end,         mode = { 'n', 'v', }, silent = true, desc = 'diff', },
+    { '<leader>tw', function() require 'config.my.toggle'.wrap() end,         mode = { 'n', 'v', }, silent = true, desc = 'wrap', },
+    { '<leader>tn', function() require 'config.my.toggle'.nu() end,           mode = { 'n', 'v', }, silent = true, desc = 'nu', },
+    { '<leader>tr', function() require 'config.my.toggle'.renu() end,         mode = { 'n', 'v', }, silent = true, desc = 'renu', },
+    { '<leader>ts', function() require 'config.my.toggle'.signcolumn() end,   mode = { 'n', 'v', }, silent = true, desc = 'signcolumn', },
+    { '<leader>tc', function() require 'config.my.toggle'.conceallevel() end, mode = { 'n', 'v', }, silent = true, desc = 'conceallevel', },
+    { '<leader>tk', function() require 'config.my.toggle'.iskeyword() end,    mode = { 'n', 'v', }, silent = true, desc = 'iskeyword', },
+  }
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
+end
+
 M.base()
 M.box()
 M.copy()
 M.window()
+M.toggle()
 
 return M

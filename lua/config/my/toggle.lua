@@ -138,20 +138,4 @@ M.iskeyword = function()
   print(vim.o.iskeyword)
 end
 
--- mapping
-B.del_map({ 'n', 'v', }, '<leader>t')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>t', 'my.toggle')
-
-B.lazy_map {
-  { '<leader>td', function() M.diff() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: diff', },
-  { '<leader>tw', function() M.wrap() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: wrap', },
-  { '<leader>tn', function() M.nu() end,           mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: nu', },
-  { '<leader>tr', function() M.renu() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: renu', },
-  { '<leader>ts', function() M.signcolumn() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: signcolumn', },
-  { '<leader>tc', function() M.conceallevel() end, mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: conceallevel', },
-  { '<leader>tk', function() M.iskeyword() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.toggle: iskeyword', },
-}
-
-
 return M
