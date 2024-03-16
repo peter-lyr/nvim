@@ -115,7 +115,7 @@ B.aucmd({ 'VimLeave', }, 'my.yank.pool', {
 function M.pool_show()
   local info = { tostring(#M.pool) .. ' item(s)', }
   for c, content in ipairs(M.pool) do
-    info[#info + 1] = M.get_short(string.format('%2s. [[%d]]: %s', c, #content, content))
+    info[#info + 1] = string.format('%2s. [[%d]]: %s', c, #content, M.get_short(content))
   end
   B.notify_info(info)
 end
