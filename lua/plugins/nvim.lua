@@ -86,10 +86,6 @@ return {
       { '<leader><c-b>',    function() require 'config.nvim.telescope'.buffers_all() end,          mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: buffers all', },
 
       { '<leader>so',       function() require 'config.nvim.telescope'.oldfiles() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: oldfiles', },
-      -- lsp
-      { '<leader>f',        function() require 'config.nvim.telescope' end,                        mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope.lsp---', },
-      { '<leader>fl',       function() require 'config.nvim.telescope'.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: document_symbols', },
-      { '<leader>fr',       function() require 'config.nvim.telescope'.lsp_references() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: references', },
       -- git
       { '<leader>g',        function() require 'config.nvim.telescope' end,                        mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope.git---', },
       { '<leader>gt',       function() require 'config.nvim.telescope' end,                        mode = { 'n', 'v', }, silent = true, desc = '---nvim.telescope.git.more---', },
@@ -165,12 +161,6 @@ return {
       'folke/neodev.nvim',
       'smjonas/inc-rename.nvim',
       'LazyVim/LazyVim',
-    },
-    keys = {
-      { '<leader>f',  function() require 'config.nvim.lsp' end,          mode = { 'n', 'v', }, desc = '---nvim.lsp---', },
-      { '<leader>fv', function() require 'config.nvim.lsp' end,          mode = { 'n', 'v', }, desc = '---nvim.lsp.more---', },
-      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format', },
-      { '<leader>fn', function() require 'config.nvim.lsp'.rename() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: rename', },
     },
     config = function()
       require 'config.nvim.lsp'

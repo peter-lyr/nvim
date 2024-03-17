@@ -788,14 +788,12 @@ function M.nop() end
 
 -- mappings
 B.del_map({ 'n', 'v', }, '<leader>s')
-B.del_map({ 'n', 'v', }, '<leader>f')
 B.del_map({ 'n', 'v', }, '<leader>g')
 B.del_map({ 'n', 'v', }, '<leader>gt')
 B.del_map({ 'n', 'v', }, '<leader>sv')
 B.del_map({ 'n', 'v', }, '<leader>svv')
 
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>s', 'nvim.telescope')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>f', 'nvim.telescope.lsp')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>g', 'nvim.telescope.git')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gt', 'nvim.telescope.git.more')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>sv', 'nvim.telescope.more')
