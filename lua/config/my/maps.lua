@@ -283,12 +283,12 @@ end
 function M.lsp()
   local start_time = M._s()
   M._m {
-    { '<leader>f',  name = 'nvim.lsp', },
-    { '<leader>fv', name = 'nvim.lsp.move', },
-    { '<leader>ff', function() require 'config.nvim.lsp'.format() end,                     mode = { 'n', 'v', }, silent = true, desc = 'nvim.lsp: format', },
-    { '<leader>fn', function() require 'config.nvim.lsp'.rename() end,                     mode = { 'n', 'v', }, silent = true, desc = 'nvim.lsp: rename', },
-    { '<leader>fl', function() require 'config.nvim.telescope'.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: document_symbols', },
-    { '<leader>fr', function() require 'config.nvim.telescope'.lsp_references() end,       mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope.lsp: references', },
+    { '<leader>f',  name = 'lsp', },
+    { '<leader>fv', name = 'lsp.move', },
+    { '<leader>ff', function() require 'config.nvim.lsp'.format() end,                     mode = { 'n', 'v', }, silent = true, desc = 'lsp: format', },
+    { '<leader>fn', function() require 'config.nvim.lsp'.rename() end,                     mode = { 'n', 'v', }, silent = true, desc = 'lsp: rename', },
+    { '<leader>fl', function() require 'config.nvim.telescope'.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'telescope.lsp: document_symbols', },
+    { '<leader>fr', function() require 'config.nvim.telescope'.lsp_references() end,       mode = { 'n', 'v', }, silent = true, desc = 'telescope.lsp: references', },
   }
   M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
