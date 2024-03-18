@@ -133,7 +133,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       'LazyVim/LazyVim',
     },
-    config = function() Require 'config.nvim.cmp' end,
+    config = function() require 'config.nvim.cmp' end,
   },
 
   -- lsp
