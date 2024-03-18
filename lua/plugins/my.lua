@@ -439,6 +439,16 @@ return {
     name = 'my.box',
     dir = '',
     dependencies = { 'itchyny/vim-gitbranch', },
+    keys = {
+      { '<F1>',               function() require 'config.my.box'.show_info() end,              mode = { 'n', 'v', }, silent = true, desc = 'show info', },
+      { '<leader>asr',        function() require 'config.my.box'.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'restart nvim-qt', },
+      { '<leader>as<leader>', function() require 'config.my.box'.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt', },
+      { '<leader>asq',        function() require 'config.my.box'.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'quit nvim-qt', },
+      { '<leader>asp',        function() require 'config.my.box'.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file', },
+      { '<leader>ask',        function() require 'config.my.box'.sel_kill_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file', },
+      { '<leader>ae',         function() require 'config.my.box'.sel_open_temp() end,          mode = { 'n', 'v', }, silent = true, desc = 'sel open temp file', },
+      { '<leader>aw',         function() require 'config.my.box'.sel_write_to_temp() end,      mode = { 'n', 'v', }, silent = true, desc = 'sel write to temp file', },
+    },
   },
 
   -- my.yank

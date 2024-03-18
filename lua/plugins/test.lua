@@ -328,8 +328,8 @@ return {
       {
         '<esc>',
         function()
-          require 'config.my.box'.show_info_allow()
-          require 'notify'.dismiss()
+          Require 'config.my.box'.show_info_allow()
+          Require 'notify'.dismiss()
         end,
         mode = { 'n', },
         silent = true,

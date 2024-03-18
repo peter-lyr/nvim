@@ -47,7 +47,6 @@ function M.box()
     { '<leader>a', name = 'my.box', },
   }
   M._m {
-    { '<F1>', function() require 'config.my.box'.show_info() end,             mode = { 'n', 'v', }, silent = true, desc = 'show info', },
     { '<F2>', function() require 'config.my.box'.replace_two_words 'n' end,   mode = { 'n', },      silent = true, desc = 'switch two words prepare', },
     { '<F2>', function() require 'config.my.box'.replace_two_words 'v' end,   mode = { 'v', },      silent = true, desc = 'switch two words prepare', },
     { '<F3>', function() require 'config.my.box'.replace_two_words_2 'n' end, mode = { 'n', },      silent = true, desc = 'switch two words do', },
@@ -55,19 +54,12 @@ function M.box()
   }
   M._m {
     { '<leader>as',         name = 'nvim-qt/programs', },
-    { '<leader>asr',        function() require 'config.my.box'.restart_nvim_qt() end,              mode = { 'n', 'v', }, silent = true, desc = 'restart nvim-qt', },
-    { '<leader>as<leader>', function() require 'config.my.box'.start_new_nvim_qt() end,            mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt', },
     { '<leader>as;',        function() require 'config.my.box'.start_new_nvim_qt_cfile() end,      mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt and open <cfile>', },
-    { '<leader>asq',        function() require 'config.my.box'.quit_nvim_qt() end,                 mode = { 'n', 'v', }, silent = true, desc = 'quit nvim-qt', },
-    { '<leader>asp',        function() require 'config.my.box'.sel_open_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file', },
     { '<leader>as<c-p>',    function() require 'config.my.box'.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file force', },
-    { '<leader>ask',        function() require 'config.my.box'.sel_kill_programs_file() end,       mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file', },
     { '<leader>as<c-k>',    function() require 'config.my.box'.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file force', },
     { '<leader>ass',        function() require 'config.my.box'.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'sel open startup file', },
     { '<leader>aa',         function() require 'config.my.box'.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'source', },
     { '<leader>ax',         function() require 'config.my.box'.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'execute output to and open file', },
-    { '<leader>ae',         function() require 'config.my.box'.sel_open_temp() end,                mode = { 'n', 'v', }, silent = true, desc = 'sel open temp file', },
-    { '<leader>aw',         function() require 'config.my.box'.sel_write_to_temp() end,            mode = { 'n', 'v', }, silent = true, desc = 'sel write to temp file', },
     { '<leader>ac',         function() require 'config.my.box'.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'mes clear', },
   }
   M._m {
