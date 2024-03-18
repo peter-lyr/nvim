@@ -17,6 +17,8 @@ if not vim.loop.fs_stat(lazypath) then
   vim.opt.rtp:prepend(lazypath)
 end
 
+require 'func'
+
 local root = data .. 'lazy\\plugins'
 local lockfile = data .. 'lazy-lock.json'
 

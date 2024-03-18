@@ -65,7 +65,7 @@ return {
     name = 'my.nmaps',
     dir = '',
     event = 'VeryLazy',
-    config = function() require 'config.my.nmaps' end,
+    config = function() Require 'config.my.nmaps' end,
   },
 
   -- my.uienter
@@ -209,7 +209,7 @@ return {
     name = 'my.imaps',
     dir = '',
     event = { 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
-    config = function() require 'config.my.imaps' end,
+    config = function() Require 'config.my.imaps' end,
   },
 
   -- my.git
@@ -273,7 +273,7 @@ return {
       'peter-lyr/diffview.nvim',
       'dbakker/vim-projectroot',
     },
-    config = function() require 'config.my.git' end,
+    config = function() Require 'config.my.git' end,
   },
 
   -- my.c
@@ -282,7 +282,7 @@ return {
     dir = '',
     cmd = { 'C', },
     ft = { 'c', 'cpp', },
-    config = function() require 'config.my.c' end,
+    config = function() Require 'config.my.c' end,
   },
 
   -- my.args
@@ -291,7 +291,7 @@ return {
     dir = '',
     cmd = { 'Args', },
     event = { 'BufReadPre', 'BufNewFile', },
-    config = function() require 'config.my.args' end,
+    config = function() Require 'config.my.args' end,
   },
 
   -- my.drag
@@ -310,7 +310,7 @@ return {
     keys = {
       { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'copy cwd to clipboard', },
     },
-    config = function() require 'config.my.copy' end,
+    config = function() Require 'config.my.copy' end,
   },
 
   -- my.gui
@@ -336,7 +336,7 @@ return {
         end,
       })
     end,
-    config = function() require 'config.my.gui' end,
+    config = function() Require 'config.my.gui' end,
   },
 
   -- my.hili
@@ -402,7 +402,7 @@ return {
         }
       end)
     end,
-    config = function() require 'config.my.tabline' end,
+    config = function() Require 'config.my.tabline' end,
   },
 
   -- markdown
@@ -431,7 +431,7 @@ return {
       vim.g.mkdp_combine_preview    = 1
       vim.g.mkdp_command_for_global = 1
     end,
-    config = function() require 'config.my.markdown' end,
+    config = function() Require 'config.my.markdown' end,
   },
 
   -- my.box
@@ -445,7 +445,7 @@ return {
   {
     name = 'my.yank',
     dir = '',
-    config = function() require 'config.my.yank' end,
+    config = function() Require 'config.my.yank' end,
   },
 
   -- my.maps
@@ -464,7 +464,7 @@ return {
     name = 'my.scroll',
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
-    config = function() require 'config.my.scroll' end,
+    config = function() Require 'config.my.scroll' end,
   },
 
   -- my.window
@@ -511,7 +511,7 @@ return {
       { '<leader>r',  function() end,                                     mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
       { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
     },
-    config = function() require 'config.my.py' end,
+    config = function() Require 'config.my.py' end,
   },
 
 }

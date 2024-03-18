@@ -23,9 +23,7 @@ return {
       'nvim-treesitter/nvim-treesitter-context',
       'p00f/nvim-ts-rainbow',
     },
-    config = function()
-      require 'config.nvim.treesitter'
-    end,
+    config = function() Require 'config.nvim.treesitter' end,
   },
 
   -- telescope
@@ -110,9 +108,7 @@ return {
       -- projects
       { '<leader>sk',       function() require 'config.nvim.telescope'.projects() end,             mode = { 'n', 'v', }, silent = true, desc = 'nvim.telescope: projects', },
     },
-    config = function()
-      require 'config.nvim.telescope'
-    end,
+    config = function() Require 'config.nvim.telescope' end,
   },
 
   -- cmp
@@ -137,9 +133,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       'LazyVim/LazyVim',
     },
-    config = function()
-      require 'config.nvim.cmp'
-    end,
+    config = function() Require 'config.nvim.cmp' end,
   },
 
   -- lsp
@@ -162,9 +156,7 @@ return {
       'smjonas/inc-rename.nvim',
       'LazyVim/LazyVim',
     },
-    config = function()
-      require 'config.nvim.lsp'
-    end,
+    config = function() Require 'config.nvim.lsp' end,
   },
 
 }

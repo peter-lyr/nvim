@@ -358,7 +358,7 @@ return {
       { '<leader>rw',     function() require 'spectre'.open_visual { select_word = true, } end,      mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd cword', },
       { '<leader>r<c-w>', function() require 'spectre'.open() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd', },
     },
-    config = function() require 'config.test.spectre' end,
+    config = function() Require 'config.test.spectre' end,
   },
 
   -- bqf
@@ -522,12 +522,12 @@ return {
 
       { '<leader>da',   function() require 'config.test.nvimtree'.ausize_toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: ausize_toggle', },
     },
-    config = function() require 'config.test.nvimtree' end,
+    config = function() Require 'config.test.nvimtree' end,
   },
 
   -- {
   --   'norcalli/nvim-colorizer.lua',
-  --   config = function() require 'colorizer'.setup() end,
+  --   config = function() Require 'colorizer'.setup() end,
   -- },
 
   -- searchindex
