@@ -2,6 +2,10 @@ local M = {}
 
 local B = require 'base'
 
+if not B.commands then
+  B.create_user_command_with_M(BaseCommand())
+end
+
 M.source = B.getsource(debug.getinfo(1)['source'])
 
 vim.cmd 'Lazy load nvim-notify'

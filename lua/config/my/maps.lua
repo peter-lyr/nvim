@@ -22,14 +22,8 @@ function M.base()
   r {
     ['<c-;>'] = { function()
       local B = require 'base'
-      if #B.commands == 0 then
-        B.create_user_command_with_M {
-          ['Drag'] = require 'config.my.drag',
-          ['Args'] = require 'config.my.args',
-          ['Py'] = require 'config.my.py',
-          ['C'] = require 'config.my.c',
-          ['Gui'] = require 'config.my.gui',
-        }
+      if not B.commands then
+        B.create_user_command_with_M(BaseCommand())
       end
       B.all_commands()
     end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },

@@ -38,4 +38,14 @@ function Notify(message)
   })
 end
 
+function BaseCommand()
+  return {
+    ['Drag'] = require 'config.my.drag',
+    ['Args'] = require 'config.my.args',
+    ['Py'] = require 'config.my.py',
+    ['C'] = require 'config.my.c',
+    ['Gui'] = require 'config.my.gui',
+  }
+end
+
 return M

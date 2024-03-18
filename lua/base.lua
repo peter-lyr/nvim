@@ -113,9 +113,10 @@ function M._get_functions_of_M(m)
   return functions
 end
 
-M.commands = {}
+M.commands = nil
 
 function M.create_user_command_with_M(items)
+  M.commands = {}
   for name, m in pairs(items) do
     M.commands[name] = M._get_functions_of_M(m)
     vim.api.nvim_create_user_command(name, function(params)
