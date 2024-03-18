@@ -2,6 +2,8 @@ local M = {}
 
 local B = require 'base'
 
+vim.cmd 'Lazy load vim-bbye'
+
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
