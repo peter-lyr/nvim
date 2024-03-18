@@ -128,12 +128,12 @@ function M.create_user_command_with_M(items)
         pcall(M.cmd, "lua require('%s').%s([[%s]])", m.lua, func, vim.fn.join(params.fargs, ']], [['))
       end
     end, {
-        nargs = '*',
-        desc = name,
-        complete = function()
-          return M.commands[name]
-        end,
-      })
+      nargs = '*',
+      desc = name,
+      complete = function()
+        return M.commands[name]
+      end,
+    })
   end
 end
 
@@ -1474,7 +1474,7 @@ function M.win_max_height()
         --   vim.api.nvim_buf_get_name(wininfo['bufnr']),
         --   wininfo['height'],
         -- '')
-        winids[#winids+1] = winid
+        winids[#winids + 1] = winid
         winids_dict[winid] = wininfo['height']
       end
     end
