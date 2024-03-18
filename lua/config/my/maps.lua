@@ -47,20 +47,20 @@ function M.box()
     { '<leader>a', name = 'my.box', },
   }
   M._m {
-    { '<F2>', function() require 'config.my.box'.replace_two_words 'n' end,   mode = { 'n', },      silent = true, desc = 'switch two words prepare', },
-    { '<F2>', function() require 'config.my.box'.replace_two_words 'v' end,   mode = { 'v', },      silent = true, desc = 'switch two words prepare', },
-    { '<F3>', function() require 'config.my.box'.replace_two_words_2 'n' end, mode = { 'n', },      silent = true, desc = 'switch two words do', },
-    { '<F3>', function() require 'config.my.box'.replace_two_words_2 'v' end, mode = { 'v', },      silent = true, desc = 'switch two words do', },
+    { '<F2>', function() require 'config.my.box'.replace_two_words 'n' end,   mode = { 'n', }, silent = true, desc = 'switch two words prepare', },
+    { '<F2>', function() require 'config.my.box'.replace_two_words 'v' end,   mode = { 'v', }, silent = true, desc = 'switch two words prepare', },
+    { '<F3>', function() require 'config.my.box'.replace_two_words_2 'n' end, mode = { 'n', }, silent = true, desc = 'switch two words do', },
+    { '<F3>', function() require 'config.my.box'.replace_two_words_2 'v' end, mode = { 'v', }, silent = true, desc = 'switch two words do', },
   }
   M._m {
-    { '<leader>as',         name = 'nvim-qt/programs', },
-    { '<leader>as;',        function() require 'config.my.box'.start_new_nvim_qt_cfile() end,      mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt and open <cfile>', },
-    { '<leader>as<c-p>',    function() require 'config.my.box'.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file force', },
-    { '<leader>as<c-k>',    function() require 'config.my.box'.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file force', },
-    { '<leader>ass',        function() require 'config.my.box'.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'sel open startup file', },
-    { '<leader>aa',         function() require 'config.my.box'.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'source', },
-    { '<leader>ax',         function() require 'config.my.box'.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'execute output to and open file', },
-    { '<leader>ac',         function() require 'config.my.box'.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'mes clear', },
+    { '<leader>as',      name = 'nvim-qt/programs', },
+    { '<leader>as;',     function() require 'config.my.box'.start_new_nvim_qt_cfile() end,      mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt and open <cfile>', },
+    { '<leader>as<c-p>', function() require 'config.my.box'.sel_open_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file force', },
+    { '<leader>as<c-k>', function() require 'config.my.box'.sel_kill_programs_file_force() end, mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file force', },
+    { '<leader>ass',     function() require 'config.my.box'.sel_open_startup_file() end,        mode = { 'n', 'v', }, silent = true, desc = 'sel open startup file', },
+    { '<leader>aa',      function() require 'config.my.box'.source() end,                       mode = { 'n', 'v', }, silent = true, desc = 'source', },
+    { '<leader>ax',      function() require 'config.my.box'.type_execute_output() end,          mode = { 'n', 'v', }, silent = true, desc = 'execute output to and open file', },
+    { '<leader>ac',      function() require 'config.my.box'.mes_clear() end,                    mode = { 'n', 'v', }, silent = true, desc = 'mes clear', },
   }
   M._m {
     { '<leader>ao',  name = 'open', },

@@ -269,7 +269,6 @@ require 'base'.whichkey_register({ 'n', 'v', }, '<leader>f', 'nvim.lsp')
 require 'base'.whichkey_register({ 'n', 'v', }, '<leader>fv', 'nvim.lsp.more')
 
 B.lazy_map {
-  { '<leader>fn',     function() M.rename() end,                      mode = { 'n', 'v', }, desc = 'config.nvim.lsp: rename', },
   { '<leader>fC',     function() M.format_input() end,                mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_input', },
   { '<leader>fD',     function() M.feedkeys_LspStop() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: feedkeys_LspStop', },
   { '<leader>f<c-f>', function() M.LspInfo() end,                     mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspInfo', },
