@@ -94,7 +94,7 @@ return {
       'smjonas/inc-rename.nvim',
       'LazyVim/LazyVim',
     },
-    config = function() Require 'config.nvim.lsp' end,
+    config = function() require 'config.nvim.lsp' end,
   },
 
 }
