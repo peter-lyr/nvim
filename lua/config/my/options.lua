@@ -34,7 +34,7 @@ function Notify(message)
     title = title,
     animate = false,
     on_open = M.notify_on_open,
-    timeout = 1000 * 8,
+    timeout = 1000 * 1,
   })
 end
 
