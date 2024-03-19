@@ -97,6 +97,9 @@ return {
       'smjonas/inc-rename.nvim',
       'LazyVim/LazyVim',
     },
+    keys = {
+      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, mode = { 'n', 'v', }, silent = true, desc = 'lsp: format', },
+    },
     config = function() require 'config.nvim.lsp' end,
   },
 

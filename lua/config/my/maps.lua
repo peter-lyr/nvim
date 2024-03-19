@@ -122,10 +122,6 @@ function M.window()
     { '<leader>wt',       '<c-w>t',                                                      mode = { 'n', 'v', }, desc = 'go topleft window', },
     { '<leader>wq',       '<c-w>p',                                                      mode = { 'n', 'v', }, desc = 'go toggle last window', },
     { '<leader>w;',       function() require 'config.my.window'.toggle_max_height() end, mode = { 'n', 'v', }, desc = 'toggle max height', },
-    { '<leader>wh',       function() require 'config.my.window'.go_window 'h' end,       mode = { 'n', 'v', }, desc = 'go window up', },
-    { '<leader>wj',       function() require 'config.my.window'.go_window 'j' end,       mode = { 'n', 'v', }, desc = 'go window down', },
-    { '<leader>wk',       function() require 'config.my.window'.go_window 'k' end,       mode = { 'n', 'v', }, desc = 'go window left', },
-    { '<leader>wl',       function() require 'config.my.window'.go_window 'l' end,       mode = { 'n', 'v', }, desc = 'go window right', },
     { '<leader>wu',       ':<c-u>leftabove new<cr>',                                     mode = { 'n', 'v', }, desc = 'create new window up', },
     { '<leader>wi',       ':<c-u>new<cr>',                                               mode = { 'n', 'v', }, desc = 'create new window down', },
     { '<leader>wo',       ':<c-u>leftabove vnew<cr>',                                    mode = { 'n', 'v', }, desc = 'create new window left', },
@@ -283,7 +279,6 @@ function M.lsp()
   M._m {
     { '<leader>f',  name = 'lsp', },
     { '<leader>fv', name = 'lsp.move', },
-    { '<leader>ff', function() require 'config.nvim.lsp'.format() end,                     mode = { 'n', 'v', }, silent = true, desc = 'lsp: format', },
     { '<leader>fn', function() require 'config.nvim.lsp'.rename() end,                     mode = { 'n', 'v', }, silent = true, desc = 'lsp: rename', },
     { '<leader>fl', function() require 'config.nvim.telescope'.lsp_document_symbols() end, mode = { 'n', 'v', }, silent = true, desc = 'telescope.lsp: document_symbols', },
     { '<leader>fr', function() require 'config.nvim.telescope'.lsp_references() end,       mode = { 'n', 'v', }, silent = true, desc = 'telescope.lsp: references', },

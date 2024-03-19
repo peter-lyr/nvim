@@ -471,8 +471,12 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<leader>we', '<c-w>=',                                       mode = { 'n', 'v', }, desc = 'wincmd =', },
-      { '<leader>wm', function() require 'base'.win_max_height() end, mode = { 'n', 'v', }, desc = 'wincmd _ (winfixheight version)', },
+      { '<leader>we', '<c-w>=',                                                mode = { 'n', 'v', }, desc = 'wincmd =', },
+      { '<leader>wm', function() require 'base'.win_max_height() end,          mode = { 'n', 'v', }, desc = 'wincmd _ (winfixheight version)', },
+      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end, mode = { 'n', 'v', }, desc = 'go window up', },
+      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end, mode = { 'n', 'v', }, desc = 'go window down', },
+      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end, mode = { 'n', 'v', }, desc = 'go window left', },
+      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end, mode = { 'n', 'v', }, desc = 'go window right', },
     },
   },
 
