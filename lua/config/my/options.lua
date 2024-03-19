@@ -22,7 +22,7 @@ function HL()
   ]]
 end
 
-function Notify(message)
+function Notify(message, timeout)
   vim.cmd 'Lazy load nvim-notify'
   local messages = type(message) == 'table' and message or { message, }
   local title = ''
@@ -33,8 +33,7 @@ function Notify(message)
   vim.notify(message, 'info', {
     title = title,
     animate = false,
-    on_open = M.notify_on_open,
-    timeout = 1000 * 1,
+    timeout = timeout * 40,
   })
 end
 

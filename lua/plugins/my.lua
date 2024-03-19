@@ -48,7 +48,6 @@ return {
       -- vim.opt.spell         = true
       -- vim.opt.spelllang     = 'en_us,cjk'
       vim.opt.linebreak      = true
-      vim.opt.updatetime     = 500
       vim.opt.sessionoptions = 'buffers,sesdir,folds,help,tabpages,winsize,terminal'
       require 'config.my.options'
     end,
@@ -437,25 +436,18 @@ return {
   {
     name = 'my.yank',
     dir = '',
-    config = function() Require 'config.my.yank' end,
+    config = function() require 'config.my.yank' end,
   },
 
   -- my.maps
   {
     name = 'my.maps',
     dir = '',
+    event = { 'CursorHold', 'CursorHoldI', },
     keys = {
-      {
-        '<cr>',
-        function()
-          require 'config.my.maps'
-          require 'config.my.yank_map'
-        end,
-        mode = { 'n', 'v', },
-        silent = true,
-        desc = 'maps',
-      },
+      { '<s-esc>', function() Require 'config.my.maps'.all() end, mode = { 'n', 'v', }, silent = true, desc = 'maps', },
     },
+    config = function() Require 'config.my.maps'.all() end,
   },
 
   -- my.scroll
@@ -463,7 +455,7 @@ return {
     name = 'my.scroll',
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
-    config = function() Require 'config.my.scroll' end,
+    config = function() require 'config.my.scroll' end,
   },
 
   -- my.window
