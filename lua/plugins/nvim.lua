@@ -47,6 +47,7 @@ return {
       { '<leader><leader>', function() require 'config.nvim.telescope'.find_files() end,      mode = { 'n', 'v', }, silent = true, desc = 'telescope: find_files', },
       { '<leader>l',        function() require 'config.nvim.telescope'.live_grep() end,       mode = { 'n', 'v', }, silent = true, desc = 'telescope: live_grep', },
       { '<leader>h',        function() require 'config.nvim.telescope'.command_history() end, mode = { 'n', 'v', }, silent = true, desc = 'telescope: command_history', },
+      { '<leader><c-f>',    function() require 'config.nvim.telescope'.git_status() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: status', },
     },
     config = function() Require 'config.nvim.telescope' end,
   },

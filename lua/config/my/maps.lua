@@ -299,7 +299,6 @@ function M.git()
     { '<leader>gtb',       function() require 'config.nvim.telescope'.git_bcommits() end,            mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: bcommits', },
     { '<leader>gtc',       function() require 'config.nvim.telescope'.git_commits() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: commits', },
     { '<leader>gh',        function() require 'config.nvim.telescope'.git_branches() end,            mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: branches', },
-    { '<leader><c-f>',     function() require 'config.nvim.telescope'.git_status() end,              mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: status', },
     { '<leader>gg',        name = 'git.push', },
     { '<leader>ga',        function() require 'config.my.git'.addcommitpush() end,                   mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush', },
     { '<leader>gga',       function() require 'config.my.git'.addcommitpush(nil, 1) end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush commit_history_en', },
