@@ -121,9 +121,7 @@ function M.window()
     { '<leader>wd',       function() require 'config.my.window'.change_around 'l' end,   mode = { 'n', 'v', }, desc = 'change with window right', },
     { '<leader>wt',       '<c-w>t',                                                      mode = { 'n', 'v', }, desc = 'go topleft window', },
     { '<leader>wq',       '<c-w>p',                                                      mode = { 'n', 'v', }, desc = 'go toggle last window', },
-    { '<leader>we',       '<c-w>=',                                                      mode = { 'n', 'v', }, desc = 'my.window: go window equal', },
     { '<leader>w;',       function() require 'config.my.window'.toggle_max_height() end, mode = { 'n', 'v', }, desc = 'toggle max height', },
-    { '<leader>wm',       function() require 'base'.win_max_height() end,                mode = { 'n', 'v', }, desc = 'window highest', },
     { '<leader>wh',       function() require 'config.my.window'.go_window 'h' end,       mode = { 'n', 'v', }, desc = 'go window up', },
     { '<leader>wj',       function() require 'config.my.window'.go_window 'j' end,       mode = { 'n', 'v', }, desc = 'go window down', },
     { '<leader>wk',       function() require 'config.my.window'.go_window 'k' end,       mode = { 'n', 'v', }, desc = 'go window left', },
@@ -293,6 +291,67 @@ function M.lsp()
   M._c(M._e(start_time), debug.getinfo(1)['name'])
 end
 
+function M.git()
+  local start_time = M._s()
+  M._m {
+    { '<leader>g',         name = 'git', },
+    { '<leader>gt',        name = 'git.telescope', },
+    { '<leader>gtb',       function() require 'config.nvim.telescope'.git_bcommits() end,            mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: bcommits', },
+    { '<leader>gtc',       function() require 'config.nvim.telescope'.git_commits() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: commits', },
+    { '<leader>gh',        function() require 'config.nvim.telescope'.git_branches() end,            mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: branches', },
+    { '<leader><c-f>',     function() require 'config.nvim.telescope'.git_status() end,              mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: status', },
+    { '<leader>gg',        name = 'git.push', },
+    { '<leader>ga',        function() require 'config.my.git'.addcommitpush() end,                   mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush', },
+    { '<leader>gga',       function() require 'config.my.git'.addcommitpush(nil, 1) end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush commit_history_en', },
+    { '<leader>gc',        function() require 'config.my.git'.commit_push() end,                     mode = { 'n', 'v', }, silent = true, desc = 'git.push: commit_push', },
+    { '<leader>ggc',       function() require 'config.my.git'.commit_push(nil, 1) end,               mode = { 'n', 'v', }, silent = true, desc = 'git.push: commit_push commit_history_en', },
+    { '<leader>gp',        function() require 'config.my.git'.pull() end,                            mode = { 'n', 'v', }, silent = true, desc = 'git.push: pull', },
+    { '<leader>ggp',       function() require 'config.my.git'.pull_all() end,                        mode = { 'n', 'v', }, silent = true, desc = 'git.push: pull_all', },
+    { '<leader>gb',        function() require 'config.my.git'.git_browser() end,                     mode = { 'n', 'v', }, silent = true, desc = 'git.push: browser', },
+    { '<leader>ggs',       function() require 'config.my.git'.push() end,                            mode = { 'n', 'v', }, silent = true, desc = 'git.push: push', },
+    { '<leader>ggg',       function() require 'config.my.git'.graph_asyncrun() end,                  mode = { 'n', 'v', }, silent = true, desc = 'git.push: graph_asyncrun', },
+    { '<leader>gg<c-g>',   function() require 'config.my.git'.graph_start() end,                     mode = { 'n', 'v', }, silent = true, desc = 'git.push: graph_start', },
+    { '<leader>ggv',       function() require 'config.my.git'.init() end,                            mode = { 'n', 'v', }, silent = true, desc = 'git.push: init', },
+    { '<leader>g<c-a>',    function() require 'config.my.git'.addall() end,                          mode = { 'n', 'v', }, silent = true, desc = 'git.push: addall', },
+    { '<leader>ggr',       function() require 'config.my.git'.reset_hard() end,                      mode = { 'n', 'v', }, silent = true, desc = 'git.push: reset_hard', },
+    { '<leader>ggd',       function() require 'config.my.git'.reset_hard_clean() end,                mode = { 'n', 'v', }, silent = true, desc = 'git.push: reset_hard_clean', },
+    { '<leader>ggD',       function() require 'config.my.git'.clean_ignored_files_and_folders() end, mode = { 'n', 'v', }, silent = true, desc = 'git.push: clean_ignored_files_and_folders', },
+    { '<leader>ggC',       function() require 'config.my.git'.clone() end,                           mode = { 'n', 'v', }, silent = true, desc = 'git.push: clone', },
+    { '<leader>ggh',       function() require 'config.my.git'.show_commit_history() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: show_commit_history', },
+    { '<leader>g<c-l>',    function() require 'config.my.git'.addcommitpush_curline() end,           mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush curline', },
+    { '<leader>g<c-\'>',   function() require 'config.my.git'.addcommitpush_single_quote() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush single_quote', },
+    { '<leader>g<c-s-\'>', function() require 'config.my.git'.addcommitpush_double_quote() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush double_quote', },
+    { '<leader>g<c-0>',    function() require 'config.my.git'.addcommitpush_parentheses() end,       mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush parentheses', },
+    { '<leader>g<c-]>',    function() require 'config.my.git'.addcommitpush_bracket() end,           mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush bracket', },
+    { '<leader>g<c-s-]>',  function() require 'config.my.git'.addcommitpush_brace() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush brace', },
+    { '<leader>g<c-`>',    function() require 'config.my.git'.addcommitpush_back_quote() end,        mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush back_quote', },
+    { '<leader>g<c-s-.>',  function() require 'config.my.git'.addcommitpush_angle_bracket() end,     mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush angle_bracket', },
+    { '<leader>g<c-e>',    function() require 'config.my.git'.addcommitpush_cword() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush cword', },
+    { '<leader>g<c-4>',    function() require 'config.my.git'.addcommitpush_cWORD() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush cWORD', },
+    { 'g',                 name = 'git.push', },
+    { 'g<c-l>',            function() require 'config.my.git'.addcommitpush_curline() end,           mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush curline', },
+    { 'g<c-\'>',           function() require 'config.my.git'.addcommitpush_single_quote() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush single_quote', },
+    { 'g<c-s-\'>',         function() require 'config.my.git'.addcommitpush_double_quote() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush double_quote', },
+    { 'g<c-0>',            function() require 'config.my.git'.addcommitpush_parentheses() end,       mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush parentheses', },
+    { 'g<c-]>',            function() require 'config.my.git'.addcommitpush_bracket() end,           mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush bracket', },
+    { 'g<c-s-]>',          function() require 'config.my.git'.addcommitpush_brace() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush brace', },
+    { 'g<c-`>',            function() require 'config.my.git'.addcommitpush_back_quote() end,        mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush back_quote', },
+    { 'g<c-s-.>',          function() require 'config.my.git'.addcommitpush_angle_bracket() end,     mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush angle_bracket', },
+    { 'g<c-e>',            function() require 'config.my.git'.addcommitpush_cword() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush cword', },
+    { 'g<c-4>',            function() require 'config.my.git'.addcommitpush_cWORD() end,             mode = { 'n', 'v', }, silent = true, desc = 'git.push: addcommitpush cWORD', },
+    { '<leader>gv',        name = 'git.diffview', },
+    { '<leader>gv1',       function() require 'config.my.git'.diffview_filehistory(1) end,           mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: filehistory 16', },
+    { '<leader>gv2',       function() require 'config.my.git'.diffview_filehistory(2) end,           mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: filehistory 64', },
+    { '<leader>gv3',       function() require 'config.my.git'.diffview_filehistory(3) end,           mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: filehistory finite', },
+    { '<leader>gvs',       function() require 'config.my.git'.diffview_stash() end,                  mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: filehistory stash', },
+    { '<leader>gvo',       function() require 'config.my.git'.diffview_open() end,                   mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: open', },
+    { '<leader>gvq',       function() require 'config.my.git'.diffview_close() end,                  mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: close', },
+    { '<leader>gvl',       ':<c-u>DiffviewRefresh<cr>',                                              mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: refresh', },
+    { '<leader>gvw',       ':<c-u>Telescope git_diffs diff_commits<cr>',                             mode = { 'n', 'v', }, silent = true, desc = 'git.diffview: Telescope git_diffs diff_commits', },
+  }
+  M._c(M._e(start_time), debug.getinfo(1)['name'])
+end
+
 function M.telescope()
   local start_time = M._s()
   M._m {
@@ -317,11 +376,6 @@ function M.telescope()
     { '<leader>sva',       function() require 'config.nvim.telescope'.autocommands() end,          mode = { 'n', 'v', }, silent = true, desc = 'telescope: autocommands', },
     { '<leader>svva',      function() require 'config.nvim.telescope'.builtin() end,               mode = { 'n', 'v', }, silent = true, desc = 'telescope: builtin', },
     { '<leader>svo',       function() require 'config.nvim.telescope'.vim_options() end,           mode = { 'n', 'v', }, silent = true, desc = 'telescope: vim_options', },
-    -- git
-    { '<leader>g',         name = 'git', },
-    { '<leader>gt',        name = 'git.telescope', },
-    { '<leader>gtb',       function() require 'config.nvim.telescope'.git_bcommits() end,          mode = { 'n', 'v', }, silent = true, desc = 'telescope.git: bcommits', },
-    { '<leader>gtc',       function() require 'config.nvim.telescope'.git_commits() end,           mode = { 'n', 'v', }, silent = true, desc = 'telescope.git: commits', },
     -- terminal
     { '<leader>st',        name = 'telescope.terminal', },
     { '<leader>stc',       function() require 'config.nvim.telescope'.terminal_cmd() end,          mode = { 'n', 'v', }, silent = true, desc = 'telescope.terminal: cmd', },
@@ -361,8 +415,6 @@ function M.telescope()
     { '<leader>b',         function() require 'config.nvim.telescope'.buffers_cur() end,           mode = { 'n', 'v', }, silent = true, desc = 'telescope: buffers cur', },
     { '<leader><c-b>',     function() require 'config.nvim.telescope'.buffers_all() end,           mode = { 'n', 'v', }, silent = true, desc = 'telescope: buffers all', },
     { '<leader>so',        function() require 'config.nvim.telescope'.oldfiles() end,              mode = { 'n', 'v', }, silent = true, desc = 'telescope: oldfiles', },
-    { '<leader><c-f>',     function() require 'config.nvim.telescope'.git_status() end,            mode = { 'n', 'v', }, silent = true, desc = 'telescope.git: status', },
-    { '<leader>gh',        function() require 'config.nvim.telescope'.git_branches() end,          mode = { 'n', 'v', }, silent = true, desc = 'telescope.git: branches', },
     -- mouse
     { '<c-s-f12>',         name = 'telescope', },
     { '<c-s-f12><f1>',     function() require 'config.nvim.telescope'.git_status() end,            mode = { 'n', 'v', }, silent = true, desc = 'telescope: git_status', },
@@ -391,6 +443,7 @@ M.toggle()
 M.hili()
 M.svn()
 M.lsp()
+M.git()
 M.telescope()
 
 return M

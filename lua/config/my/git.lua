@@ -42,7 +42,7 @@ function GitCompletion()
   local items = vim.fn.split(string.gsub(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', B.system_cd(root)))), '\r', ''), '\n')
   local items_new = {}
   for _, item in ipairs(items) do
-    items_new[#items_new+1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
+    items_new[#items_new + 1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
   end
   return items_new
 end
@@ -392,48 +392,6 @@ function M.clone()
   end)
 end
 
--- mapping
-B.del_map({ 'n', 'v', }, '<leader>g')
-B.del_map({ 'n', 'v', }, '<leader>gg')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>g', 'my.git')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gg', 'my.git.push')
-
-B.lazy_map {
-  -- { '<leader>gc',        M.commit,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit', },
-  -- { '<leader>ggc',       function() M.commit(nil, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: commit commit_history_en', },
-  { '<leader>ggs',       M.push,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: push', },
-  { '<leader>ggg',       M.graph_asyncrun,                  mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_asyncrun', },
-  { '<leader>gg<c-g>',   M.graph_start,                     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: graph_start', },
-  { '<leader>ggv',       M.init,                            mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: init', },
-  { '<leader>g<c-a>',    M.addall,                          mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addall', },
-  { '<leader>ggr',       M.reset_hard,                      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard', },
-  { '<leader>ggd',       M.reset_hard_clean,                mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: reset_hard_clean', },
-  { '<leader>ggD',       M.clean_ignored_files_and_folders, mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clean_ignored_files_and_folders', },
-  { '<leader>ggC',       M.clone,                           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: clone', },
-  { '<leader>ggh',       M.show_commit_history,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: show_commit_history', },
-  { '<leader>g<c-l>',    M.addcommitpush_curline,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush curline', },
-  { '<leader>g<c-\'>',   M.addcommitpush_single_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush single_quote', },
-  { '<leader>g<c-s-\'>', M.addcommitpush_double_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush double_quote', },
-  { '<leader>g<c-0>',    M.addcommitpush_parentheses,       mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush parentheses', },
-  { '<leader>g<c-]>',    M.addcommitpush_bracket,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush bracket', },
-  { '<leader>g<c-s-]>',  M.addcommitpush_brace,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush brace', },
-  { '<leader>g<c-`>',    M.addcommitpush_back_quote,        mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush back_quote', },
-  { '<leader>g<c-s-.>',  M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
-  { '<leader>g<c-e>',    M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
-  { '<leader>g<c-4>',    M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
-  { 'g<c-l>',            M.addcommitpush_curline,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush curline', },
-  { 'g<c-\'>',           M.addcommitpush_single_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush single_quote', },
-  { 'g<c-s-\'>',         M.addcommitpush_double_quote,      mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush double_quote', },
-  { 'g<c-0>',            M.addcommitpush_parentheses,       mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush parentheses', },
-  { 'g<c-]>',            M.addcommitpush_bracket,           mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush bracket', },
-  { 'g<c-s-]>',          M.addcommitpush_brace,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush brace', },
-  { 'g<c-`>',            M.addcommitpush_back_quote,        mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush back_quote', },
-  { 'g<c-s-.>',          M.addcommitpush_angle_bracket,     mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush angle_bracket', },
-  { 'g<c-e>',            M.addcommitpush_cword,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cword', },
-  { 'g<c-4>',            M.addcommitpush_cWORD,             mode = { 'n', 'v', }, silent = true, desc = 'my.git.push: addcommitpush cWORD', },
-}
-
 -- gitsigns
 require 'gitsigns'.setup {
   signs                        = {
@@ -727,22 +685,6 @@ require 'diffview'.setup {
   },
 }
 
--- mapping
-B.del_map({ 'n', 'v', }, '<leader>gv')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gv', 'my.git.diffview')
-
-B.lazy_map {
-  { '<leader>gv1', function() M.diffview_filehistory(1) end,     mode = { 'n', 'v', }, silent = true, desc = 'Diffview filehistory 16', },
-  { '<leader>gv2', function() M.diffview_filehistory(2) end,     mode = { 'n', 'v', }, silent = true, desc = 'Diffview filehistory 64', },
-  { '<leader>gv3', function() M.diffview_filehistory(3) end,     mode = { 'n', 'v', }, silent = true, desc = 'Diffview filehistory finite', },
-  { '<leader>gvs', function() M.diffview_stash() end,            mode = { 'n', 'v', }, silent = true, desc = 'Diffview filehistory stash', },
-  { '<leader>gvo', function() M.diffview_open() end,             mode = { 'n', 'v', }, silent = true, desc = 'Diffview open', },
-  { '<leader>gvq', function() M.diffview_close() end,            mode = { 'n', 'v', }, silent = true, desc = 'Diffview close', },
-  { '<leader>gvl', ':<c-u>DiffviewRefresh<cr>',                  mode = { 'n', 'v', }, silent = true, desc = 'Diffview refresh', },
-  { '<leader>gvw', ':<c-u>Telescope git_diffs diff_commits<cr>', mode = { 'n', 'v', }, silent = true, desc = 'Diffview Telescope git_diffs diff_commits', },
-}
-
 -- repos
 function M.get_all_git_repos(force)
   local all_git_repos_txt = B.getcreate_filepath(
@@ -880,12 +822,6 @@ B.lazy_map {
   { '<leader>dw', M.open_prev_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: prev item', },
   { '<leader>ds', M.open_next_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: next item', },
 }
-
-B.del_map({ 'n', 'v', }, '<leader>d')
-
-B.whichkey_register({ 'n', 'v', }, '<leader>d', 'my.qf')
-
-B.del_map({ 'n', 'v', }, '<RightMouse>')
 
 vim.cmd [[
   anoremenu PopUp.-3-              <Nop>
