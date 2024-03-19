@@ -792,6 +792,23 @@ function M.all()
   require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
+function M.test()
+  local fname = string.gsub(vim.api.nvim_buf_get_name(0), '/', '\\')
+  vim.cmd 'mes clear'
+  for _, line in ipairs(vim.fn.readfile(fname)) do
+    local res = string.match(line, '({.*mode *= *.*}),')
+    if res then
+      local item = loadstring('return ' .. res)
+      if item then
+        local val = item()
+        print(vim.inspect(val))
+      end
+    end
+  end
+end
+
+-- M.test()
+
 vim.opt.updatetime = 500
 
 return M
