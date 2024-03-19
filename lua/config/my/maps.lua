@@ -795,13 +795,18 @@ end
 function M.test()
   local fname = string.gsub(vim.api.nvim_buf_get_name(0), '/', '\\')
   vim.cmd 'mes clear'
-  for _, line in ipairs(vim.fn.readfile(fname)) do
+  for idx, line in ipairs(vim.fn.readfile(fname)) do
     local res = string.match(line, '({.*mode *= *.*}),')
     if res then
       local item = loadstring('return ' .. res)
       if item then
         local val = item()
-        print(vim.inspect(val))
+        -- local temp = string.gsub(vim.inspect(val), '%s+', ' ')
+        -- if type(val[2]) == 'function' then
+        --   -- print(idx, val[2])
+        -- else
+        -- end
+        require 'base'.print("%s, %s -- %s, %s", idx, type(val[2]), val[1], val[2])
       end
     end
   end
