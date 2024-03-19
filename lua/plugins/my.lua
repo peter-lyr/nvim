@@ -325,7 +325,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     dependencies = { 'peter-lyr/sha2', },
-    config = function() Require 'config.my.hiil' end,
+    config = function() Require 'config.my.hili' end,
   },
 
   -- my.toggle
