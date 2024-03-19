@@ -113,7 +113,7 @@ end
 
 function M.yank()
   local start_time = M._s()
-  M._m {
+  r {
     ['<F9>']      = { name = 'my.yank', },
     ['<F9><F9>']  = { function() require 'config.my.yank'.reg_show() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>a']     = { function() require 'config.my.yank'.yank('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
@@ -183,7 +183,7 @@ function M.yank()
     ['<F9><a-[>'] = { function() require 'config.my.yank'.yank('[', 'n', 'W') end, '<cWORD> to [', mode = { 'n', }, silent = true, },
     ['<F9><a-]>'] = { function() require 'config.my.yank'.yank(']', 'n', 'W') end, '<cWORD> to ]', mode = { 'n', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9>a'] = { function() require 'config.my.yank'.yank('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.yank('b', 'v') end, 'sel to b', mode = { 'v', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.yank('c', 'v') end, 'sel to c', mode = { 'v', }, silent = true, },
@@ -218,7 +218,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.yank('[', 'v') end, 'sel to [', mode = { 'v', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.yank(']', 'v') end, 'sel to ]', mode = { 'v', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 'i') end, 'paste from a', mode = { 'i', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 'i') end, 'paste from b', mode = { 'i', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 'i') end, 'paste from c', mode = { 'i', }, silent = true, },
@@ -253,7 +253,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 'i') end, 'paste from [', mode = { 'i', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 'i') end, 'paste from ]', mode = { 'i', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 'c') end, 'paste from a', mode = { 'c', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 'c') end, 'paste from b', mode = { 'c', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 'c') end, 'paste from c', mode = { 'c', }, silent = true, },
@@ -288,7 +288,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 'c') end, 'paste from [', mode = { 'c', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 'c') end, 'paste from ]', mode = { 'c', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 't') end, 'paste from a', mode = { 't', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 't') end, 'paste from b', mode = { 't', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 't') end, 'paste from c', mode = { 't', }, silent = true, },
@@ -323,7 +323,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 't') end, 'paste from [', mode = { 't', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 't') end, 'paste from ]', mode = { 't', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9>A'] = { function() require 'config.my.yank'.paste('a', 'n') end, 'paste from a', mode = { 'n', 'v', }, silent = true, },
     ['<F9>B'] = { function() require 'config.my.yank'.paste('b', 'n') end, 'paste from b', mode = { 'n', 'v', }, silent = true, },
     ['<F9>C'] = { function() require 'config.my.yank'.paste('c', 'n') end, 'paste from c', mode = { 'n', 'v', }, silent = true, },
@@ -358,7 +358,7 @@ function M.yank()
     ['<F9>{'] = { function() require 'config.my.yank'.paste('[', 'n') end, 'paste from [', mode = { 'n', 'v', }, silent = true, },
     ['<F9>}'] = { function() require 'config.my.yank'.paste(']', 'n') end, 'paste from ]', mode = { 'n', 'v', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><c-s-a>'] = { function() require 'config.my.yank'.delete 'a' end, 'delete from a', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-b>'] = { function() require 'config.my.yank'.delete 'b' end, 'delete from b', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-c>'] = { function() require 'config.my.yank'.delete 'c' end, 'delete from c', mode = { 'n', 'v', }, silent = true, },
@@ -393,7 +393,7 @@ function M.yank()
     ['<F9><c-s-[>'] = { function() require 'config.my.yank'.delete '[' end, 'delete from [', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-]>'] = { function() require 'config.my.yank'.delete ']' end, 'delete from ]', mode = { 'n', 'v', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F1>'] = { name = '+my.yank.clipboard', },
     ['<F9><F1>a'] = { function() require 'config.my.yank'.clipboard 'a' end, 'a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><F1>b'] = { function() require 'config.my.yank'.clipboard 'b' end, 'b to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -429,33 +429,33 @@ function M.yank()
     ['<F9><F1>['] = { function() require 'config.my.yank'.clipboard '[' end, '[ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><F1>]'] = { function() require 'config.my.yank'.clipboard ']' end, '] to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F2>'] = { function() require 'config.my.yank'.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
     ['<F9><F3>'] = { function() require 'config.my.yank'.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F2>'] = { function() require 'config.my.yank'.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
     ['<F9><F3>'] = { function() require 'config.my.yank'.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><F1><F1>'] = { function() require 'config.my.yank'.clipboard_from_pool() end, 'sel from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
-  M._m {
+  r {
     ['<F9><c-F4>'] = { function() require 'config.my.yank'.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
   M._c(M._e(start_time), debug.getinfo(1)['name'])
