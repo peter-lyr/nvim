@@ -442,11 +442,18 @@ return {
   {
     name = 'my.maps',
     dir = '',
-    event = { 'CursorHold', 'CursorHoldI', },
-    config = function()
-      require 'config.my.maps'
-      require 'config.my.yank_map'
-    end,
+    keys = {
+      {
+        '<cr>',
+        function()
+          require 'config.my.maps'
+          require 'config.my.yank_map'
+        end,
+        mode = { 'n', 'v', },
+        silent = true,
+        desc = 'maps',
+      },
+    },
   },
 
   -- my.scroll
