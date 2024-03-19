@@ -323,7 +323,9 @@ return {
   {
     name = 'my_hili',
     dir = '',
+    event = { 'BufReadPost', 'BufNewFile', },
     dependencies = { 'peter-lyr/sha2', },
+    config = function() Require 'config.my.hiil' end,
   },
 
   -- my.toggle
