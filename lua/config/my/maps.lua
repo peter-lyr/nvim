@@ -789,6 +789,7 @@ function M.all()
   M.lsp()
   M.git()
   M.telescope()
+  require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
 vim.opt.updatetime = 500
