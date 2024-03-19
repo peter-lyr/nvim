@@ -444,6 +444,9 @@ return {
     name = 'my.maps',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
+    cmd = {
+      'MapFromLazyToWhichkey',
+    },
     keys = {
       { '<s-esc>', function() Require 'config.my.maps'.all() end, mode = { 'n', 'v', }, silent = true, desc = 'maps', },
     },

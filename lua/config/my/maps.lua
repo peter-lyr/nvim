@@ -792,24 +792,45 @@ function M.all()
   require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
-function M.test()
-  local fname = string.gsub(vim.api.nvim_buf_get_name(0), '/', '\\')
-  vim.cmd 'mes clear'
-  for idx, line in ipairs(vim.fn.readfile(fname)) do
+vim.api.nvim_create_user_command('MapFromLazyToWhichkey', function(params)
+  M.map_from_lazy_to_whichkey(unpack(params['fargs']))
+end, { nargs = 0, })
+
+function M.map_from_lazy_to_whichkey(fname)
+  if not fname then
+    fname = string.gsub(vim.api.nvim_buf_get_name(0), '/', '\\')
+  end
+  if #fname == 0 then
+    return
+  end
+  local new_lines = {}
+  for _, line in ipairs(vim.fn.readfile(fname)) do
     local res = string.match(line, '^ +({.*mode *= *.*}),')
     if res then
       local item = loadstring('return ' .. res)
       if item then
         local val = item()
-        if type(val[2]) == 'string' then
-          require 'base'.print("%s %s", idx, val[2])
+        if type(val[2]) == 'function' then
+          val[2] = string.match(res, '(function().+end)')
         end
+        local lhs = table.remove(val, 1)
+        if not val['name'] then
+          val[#val + 1] = val['desc']
+          val['desc'] = nil
+        end
+        local temp = string.gsub(vim.inspect { [lhs] = val, }, '%s+', ' ')
+        temp = string.gsub(temp, '"(function().+end)"', '%1')
+        temp = string.gsub(temp, '{(.+)}', '%1') .. ','
+        new_lines[#new_lines + 1] = temp
+      else
+        new_lines[#new_lines + 1] = line
       end
+    else
+      new_lines[#new_lines + 1] = line
     end
   end
+  require 'plenary.path':new(fname):write(vim.fn.join(new_lines, '\r\n'), 'w')
 end
-
--- M.test()
 
 vim.opt.updatetime = 500
 
