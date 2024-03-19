@@ -79,11 +79,13 @@ function M.paste(reg, mode)
   elseif mode == 't' then
     vim.cmd [[call feedkeys("\<c-\>\<c-n>pi")]]
   elseif mode == 'c' then
-    vim.cmd [[call feedkeys("\<c-r>")]]
+    vim.cmd [[call feedkeys("\<c-r>\"")]]
   else
     vim.cmd [[call feedkeys("p")]]
   end
-  vim.fn.setreg('"', back)
+  B.set_timeout(400, function()
+    vim.fn.setreg('"', back)
+  end)
 end
 
 function M.delete(reg)
