@@ -796,17 +796,14 @@ function M.test()
   local fname = string.gsub(vim.api.nvim_buf_get_name(0), '/', '\\')
   vim.cmd 'mes clear'
   for idx, line in ipairs(vim.fn.readfile(fname)) do
-    local res = string.match(line, '({.*mode *= *.*}),')
+    local res = string.match(line, '^ +({.*mode *= *.*}),')
     if res then
       local item = loadstring('return ' .. res)
       if item then
         local val = item()
-        -- local temp = string.gsub(vim.inspect(val), '%s+', ' ')
-        -- if type(val[2]) == 'function' then
-        --   -- print(idx, val[2])
-        -- else
-        -- end
-        require 'base'.print("%s, %s -- %s, %s", idx, type(val[2]), val[1], val[2])
+        if type(val[2]) == 'string' then
+          require 'base'.print("%s %s", idx, val[2])
+        end
       end
     end
   end
