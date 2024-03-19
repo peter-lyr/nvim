@@ -67,9 +67,9 @@ function M.yank(feedkeys)
   local B = require 'base'
   local save_cursor = vim.fn.getcurpos()
   B.cmd('norm %s', feedkeys)
-  vim.fn.setpos('.', save_cursor)
-  local temp = ''
   if B.is_in_str('y', feedkeys) then
+    local temp = ''
+    vim.fn.setpos('.', save_cursor)
     local head = 'yank to '
     if B.is_in_str('+', feedkeys) then
       temp = vim.fn.getreg '+'
