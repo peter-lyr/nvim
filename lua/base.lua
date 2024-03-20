@@ -1360,7 +1360,6 @@ function M.jump_or_split(file)
     end
   end
   if not jumped then
-    vim.cmd 'wincmd e'
     vim.cmd 'wincmd s'
   end
   M.cmd('e %s', file)
