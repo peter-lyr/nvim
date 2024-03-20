@@ -32,7 +32,7 @@ end
 function M.box()
   TimingBegin()
   M.r {
-    { '<leader>a', name = 'my.box', },
+    ['<leader>a'] = { name = 'my.box', },
   }
   M.r {
     ['<F2>'] = { function() require 'config.my.box'.replace_two_words 'v' end, 'switch two words prepare', mode = { 'v', }, silent = true, },
@@ -43,7 +43,7 @@ function M.box()
     ['<F3>'] = { function() require 'config.my.box'.replace_two_words_2 'n' end, 'switch two words do', mode = { 'n', }, silent = true, },
   }
   M.r {
-    { '<leader>as', name = 'nvim-qt/programs', },
+    ['<leader>as'] = { name = 'nvim-qt/programs', },
     ['<leader>as;'] = { function() require 'config.my.box'.start_new_nvim_qt_cfile() end, 'start new nvim-qt and open <cfile>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-p>'] = { function() require 'config.my.box'.sel_open_programs_file_force() end, 'sel open programs file force', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-k>'] = { function() require 'config.my.box'.sel_kill_programs_file_force() end, 'sel kill programs file force', mode = { 'n', 'v', }, silent = true, },
@@ -53,28 +53,28 @@ function M.box()
     ['<leader>ac'] = { function() require 'config.my.box'.mes_clear() end, 'mes clear', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>ao', name = 'open', },
+    ['<leader>ao'] = { name = 'open', },
     ['<leader>aop'] = { function() require 'config.my.box'.open_path() end, 'open path', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aos'] = { function() require 'config.my.box'.open_sound() end, 'open sound', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aof'] = { function() require 'config.my.box'.open_file() end, 'open file in clipboard', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>am', name = 'monitor', },
+    ['<leader>am'] = { name = 'monitor', },
     ['<leader>am1'] = { function() require 'config.my.box'.monitor_1min() end, 'monitor 1 min', mode = { 'n', 'v', }, silent = true, },
     ['<leader>am3'] = { function() require 'config.my.box'.monitor_30min() end, 'monitor 30 min', mode = { 'n', 'v', }, silent = true, },
     ['<leader>am5'] = { function() require 'config.my.box'.monitor_5hours() end, 'monitor 5 hours', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>ap', name = 'prx', },
+    ['<leader>ap'] = { name = 'prx', },
     ['<leader>apo'] = { function() require 'config.my.box'.proxy_on() end, 'prx on', mode = { 'n', 'v', }, silent = true, },
     ['<leader>apf'] = { function() require 'config.my.box'.proxy_off() end, 'prx off', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>ag', name = 'git', },
+    ['<leader>ag'] = { name = 'git', },
     ['<leader>agm'] = { function() require 'config.my.box'.git_init_and_cmake() end, 'git init and cmake', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>aq', name = 'qf make conv', },
+    ['<leader>aq'] = { name = 'qf make conv', },
     ['<leader>aq8'] = { function() require 'config.my.box'.qfmakeconv2utf8() end, 'qf makeconv 2 utf8', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aq9'] = { function() require 'config.my.box'.qfmakeconv2cp936() end, 'qf makeconv 2 cp936', mode = { 'n', 'v', }, silent = true, },
   }
@@ -84,16 +84,16 @@ end
 function M.copy()
   TimingBegin()
   M.r {
-    { '<leader>y', name = 'copy to clipboard', },
+    ['<leader>y'] = { name = 'copy to clipboard', },
   }
   M.r {
-    { '<leader>yf', name = 'absolute path', },
+    ['<leader>yf'] = { name = 'absolute path', },
     ['<leader>yff'] = { function() require 'config.my.copy'.full_name() end, 'full name', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yft'] = { function() require 'config.my.copy'.full_tail() end, 'full tail', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yfh'] = { function() require 'config.my.copy'.full_head() end, 'full head', mode = { 'n', 'v', }, silent = true, },
   }
   M.r {
-    { '<leader>yr', name = 'relative path', },
+    ['<leader>yr'] = { name = 'relative path', },
     ['<leader>yrr'] = { function() require 'config.my.copy'.rela_name() end, 'rela name', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yrh'] = { function() require 'config.my.copy'.rela_head() end, 'rela head', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yrc'] = { function() require 'config.my.copy'.cur_root() end, 'telescope cur root', mode = { 'n', 'v', }, silent = true, },
@@ -454,7 +454,7 @@ end
 function M.window()
   TimingBegin()
   M.r {
-    { '<leader>w', name = 'window jump/split/new', },
+    ['<leader>w'] = { name = 'window jump/split/new', },
     ['<leader>wa'] = { function() require 'config.my.window'.change_around 'h' end, 'change with window left', mode = { 'n', 'v', }, },
     ['<leader>ws'] = { function() require 'config.my.window'.change_around 'j' end, 'change with window down', mode = { 'n', 'v', }, },
     ['<leader>ww'] = { function() require 'config.my.window'.change_around 'k' end, 'change with window up', mode = { 'n', 'v', }, },
@@ -479,7 +479,7 @@ function M.window()
     ['<leader>wz'] = { function() require 'config.my.window'.go_last_window() end, 'go last window', mode = { 'n', 'v', }, },
   }
   M.r {
-    { '<leader>x', name = 'window bdelete/bwipeout', },
+    ['<leader>x'] = { name = 'window bdelete/bwipeout', },
     ['<leader>xh'] = { function() require 'config.my.window'.close_win_left() end, 'close window left', mode = { 'n', 'v', }, },
     ['<leader>xj'] = { function() require 'config.my.window'.close_win_down() end, 'close window down', mode = { 'n', 'v', }, },
     ['<leader>xk'] = { function() require 'config.my.window'.close_win_up() end, 'close window up', mode = { 'n', 'v', }, },
@@ -500,7 +500,7 @@ function M.window()
     ['<leader>xu'] = { function() require 'config.my.window'.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
   }
   M.r {
-    { '<leader>xo', name = 'window other bdelete/bwipeout', },
+    ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },
     ['<leader>xow'] = { function() require 'config.my.window'.Bwipeout_other() end, 'Bwipeout other buffers', mode = { 'n', 'v', }, },
     ['<leader>xo<c-w>'] = { function() require 'config.my.window'.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
     ['<leader>xoW'] = { function() require 'config.my.window'.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
@@ -543,7 +543,7 @@ end
 function M.toggle()
   TimingBegin()
   M.r {
-    { '<leader>t', name = 'toggle', },
+    ['<leader>t'] = { name = 'toggle', },
     ['<leader>td'] = { function() require 'config.my.toggle'.diff() end, 'diff', mode = { 'n', 'v', }, silent = true, },
     ['<leader>tw'] = { function() require 'config.my.toggle'.wrap() end, 'wrap', mode = { 'n', 'v', }, silent = true, },
     ['<leader>tn'] = { function() require 'config.my.toggle'.nu() end, 'nu', mode = { 'n', 'v', }, silent = true, },
@@ -598,7 +598,7 @@ function M.svn()
     require 'config.my.svn'.tortoisesvn(params['fargs'])
   end, { nargs = '*', })
   M.r {
-    { '<leader>v', name = 'my.svn', },
+    ['<leader>v'] = { name = 'my.svn', },
     ['<leader>vo'] = { '<cmd>TortoiseSVN settings cur yes<cr>', 'TortoiseSVN settings cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vd'] = { '<cmd>TortoiseSVN diff cur yes<cr>', 'TortoiseSVN diff cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vf'] = { '<cmd>TortoiseSVN diff root yes<cr>', 'TortoiseSVN diff root yes<cr>', mode = { 'n', 'v', }, silent = true, },
@@ -619,8 +619,8 @@ end
 function M.lsp()
   TimingBegin()
   M.r {
-    { '<leader>f',  name = 'lsp', },
-    { '<leader>fv', name = 'lsp.move', },
+    ['<leader>f'] = { name = 'lsp', },
+    ['<leader>fv'] = { name = 'lsp.move', },
     ['<leader>fn'] = { function() require 'config.nvim.lsp'.rename() end, 'lsp: rename', mode = { 'n', 'v', }, silent = true, },
     ['<leader>fl'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
     ['<leader>fr'] = { function() require 'config.nvim.telescope'.lsp_references() end, 'telescope.lsp: references', mode = { 'n', 'v', }, silent = true, },
@@ -631,12 +631,12 @@ end
 function M.git()
   TimingBegin()
   M.r {
-    { '<leader>g',  name = 'git', },
-    { '<leader>gt', name = 'git.telescope', },
+    ['<leader>g'] = { name = 'git', },
+    ['<leader>gt'] = { name = 'git.telescope', },
     ['<leader>gtb'] = { function() require 'config.nvim.telescope'.git_bcommits() end, 'git.telescope: bcommits', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gtc'] = { function() require 'config.nvim.telescope'.git_commits() end, 'git.telescope: commits', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gh'] = { function() require 'config.nvim.telescope'.git_branches() end, 'git.telescope: branches', mode = { 'n', 'v', }, silent = true, },
-    { '<leader>gg', name = 'git.push', },
+    ['<leader>gg'] = { name = 'git.push', },
     ['<leader>gga'] = { function() require 'config.my.git'.addcommitpush(nil, 1) end, 'git.push: addcommitpush commit_history_en', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gc'] = { function() require 'config.my.git'.commit_push() end, 'git.push: commit_push', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ggc'] = { function() require 'config.my.git'.commit_push(nil, 1) end, 'git.push: commit_push commit_history_en', mode = { 'n', 'v', }, silent = true, },
@@ -663,7 +663,7 @@ function M.git()
     ['<leader>g<c-s-.>'] = { function() require 'config.my.git'.addcommitpush_angle_bracket() end, 'git.push: addcommitpush angle_bracket', mode = { 'n', 'v', }, silent = true, },
     ['<leader>g<c-e>'] = { function() require 'config.my.git'.addcommitpush_cword() end, 'git.push: addcommitpush cword', mode = { 'n', 'v', }, silent = true, },
     ['<leader>g<c-4>'] = { function() require 'config.my.git'.addcommitpush_cWORD() end, 'git.push: addcommitpush cWORD', mode = { 'n', 'v', }, silent = true, },
-    { 'g',          name = 'git.push', },
+    g = { name = 'git.push', },
     ['g<c-l>'] = { function() require 'config.my.git'.addcommitpush_curline() end, 'git.push: addcommitpush curline', mode = { 'n', 'v', }, silent = true, },
     ["g<c-'>"] = { function() require 'config.my.git'.addcommitpush_single_quote() end, 'git.push: addcommitpush single_quote', mode = { 'n', 'v', }, silent = true, },
     ["g<c-s-'>"] = { function() require 'config.my.git'.addcommitpush_double_quote() end, 'git.push: addcommitpush double_quote', mode = { 'n', 'v', }, silent = true, },
@@ -674,7 +674,7 @@ function M.git()
     ['g<c-s-.>'] = { function() require 'config.my.git'.addcommitpush_angle_bracket() end, 'git.push: addcommitpush angle_bracket', mode = { 'n', 'v', }, silent = true, },
     ['g<c-e>'] = { function() require 'config.my.git'.addcommitpush_cword() end, 'git.push: addcommitpush cword', mode = { 'n', 'v', }, silent = true, },
     ['g<c-4>'] = { function() require 'config.my.git'.addcommitpush_cWORD() end, 'git.push: addcommitpush cWORD', mode = { 'n', 'v', }, silent = true, },
-    { '<leader>gv', name = 'git.diffview', },
+    ['<leader>gv'] = { name = 'git.diffview', },
     ['<leader>gv1'] = { function() require 'config.my.git'.diffview_filehistory(1) end, 'git.diffview: filehistory 16', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gv2'] = { function() require 'config.my.git'.diffview_filehistory(2) end, 'git.diffview: filehistory 64', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gv3'] = { function() require 'config.my.git'.diffview_filehistory(3) end, 'git.diffview: filehistory finite', mode = { 'n', 'v', }, silent = true, },
@@ -690,7 +690,7 @@ end
 function M.telescope()
   TimingBegin()
   M.r {
-    { '<leader>s',   name = 'telescope', },
+    ['<leader>s'] = { name = 'telescope', },
     -- builtins
     ['<leader>s<leader>'] = { function() require 'config.nvim.telescope'.find_files_all() end, 'telescope: find_files_all', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sd'] = { function() require 'config.nvim.telescope'.diagnostics() end, 'telescope: diagnostics', mode = { 'n', 'v', }, silent = true, },
@@ -703,8 +703,8 @@ function M.telescope()
     ['<leader>s<a-r>'] = { function() require 'config.nvim.telescope'.root_sel_parennt_dirs() end, 'telescope: root_sel_parennt_dirs', mode = { 'n', 'v', }, silent = true, },
     ['<leader>s<c-r>'] = { function() require 'config.nvim.telescope'.root_sel_switch() end, 'telescope: root_sel_switch', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sq'] = { function() require 'config.nvim.telescope'.quickfix() end, 'telescope: quickfix', mode = { 'n', 'v', }, silent = true, },
-    { '<leader>sv',  name = 'telescope.more', },
-    { '<leader>svv', name = 'telescope.more', },
+    ['<leader>sv'] = { name = 'telescope.more', },
+    ['<leader>svv'] = { name = 'telescope.more', },
     ['<leader>svq'] = { function() require 'config.nvim.telescope'.quickfixhistory() end, 'telescope: quickfixhistory', mode = { 'n', 'v', }, silent = true, },
     ['<leader>svvc'] = { function() require 'config.nvim.telescope'.colorscheme() end, 'telescope: colorscheme', mode = { 'n', 'v', }, silent = true, },
     ['<leader>svh'] = { function() require 'config.nvim.telescope'.help_tags() end, 'telescope: help_tags', mode = { 'n', 'v', }, silent = true, },
@@ -712,7 +712,7 @@ function M.telescope()
     ['<leader>svva'] = { function() require 'config.nvim.telescope'.builtin() end, 'telescope: builtin', mode = { 'n', 'v', }, silent = true, },
     ['<leader>svo'] = { function() require 'config.nvim.telescope'.vim_options() end, 'telescope: vim_options', mode = { 'n', 'v', }, silent = true, },
     -- terminal
-    { '<leader>st', name = 'telescope.terminal', },
+    ['<leader>st'] = { name = 'telescope.terminal', },
     ['<leader>stc'] = { function() require 'config.nvim.telescope'.terminal_cmd() end, 'telescope.terminal: cmd', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sti'] = { function() require 'config.nvim.telescope'.terminal_ipython() end, 'telescope.terminal: ipython', mode = { 'n', 'v', }, silent = true, },
     ['<leader>stb'] = { function() require 'config.nvim.telescope'.terminal_bash() end, 'telescope.terminal: bash', mode = { 'n', 'v', }, silent = true, },
@@ -749,7 +749,7 @@ function M.telescope()
     ['<leader><c-b>'] = { function() require 'config.nvim.telescope'.buffers_all() end, 'telescope: buffers all', mode = { 'n', 'v', }, silent = true, },
     ['<leader>so'] = { function() require 'config.nvim.telescope'.oldfiles() end, 'telescope: oldfiles', mode = { 'n', 'v', }, silent = true, },
     -- mouse
-    { '<c-s-f12>',  name = 'telescope', },
+    ['<c-s-f12>'] = { name = 'telescope', },
     ['<c-s-f12><f1>'] = { function() require 'config.nvim.telescope'.git_status() end, 'telescope: git_status', mode = { 'n', 'v', }, silent = true, },
     ['<c-s-f12><f2>'] = { function() require 'config.nvim.telescope'.buffers_cur() end, 'telescope: buffers_cur', mode = { 'n', 'v', }, silent = true, },
     ['<c-s-f12><f3>'] = { function() require 'config.nvim.telescope'.find_files() end, 'telescope: find_files', mode = { 'n', 'v', }, silent = true, },
@@ -799,6 +799,9 @@ function M.map_from_lazy_to_whichkey(fname)
   local new_lines = {}
   for _, line in ipairs(vim.fn.readfile(fname)) do
     local res = string.match(line, '^ +({.*mode *= *.*}) *,')
+    if not res then
+      res = string.match(line, '^ +({.*name *= *.*}) *,')
+    end
     if res then
       local item = loadstring('return ' .. res)
       if item then
@@ -870,3 +873,4 @@ end
 vim.opt.updatetime = 500
 
 return M
+
