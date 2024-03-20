@@ -496,19 +496,14 @@ end
 
 ---------------------------------
 
-function M.open(dir, nvimtree)
+function M.open(dir)
   dir = B.rep_backslash_lower(dir)
-  if B.is_dir(B.get_dirpath { dir, '.git', }.filename) or nvimtree then
-    vim.cmd 'NvimTreeOpen'
-    B.set_timeout(20, function() B.cmd('cd %s', dir) end)
-    print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
-  else
-    require 'config.nvim.telescope'.pure_curdir_do(dir)
-  end
+  vim.cmd 'NvimTreeOpen'
+  require 'nvim-tree'.change_dir(dir)
 end
 
 function M._sel_dirs_do(dirs, prompt)
-  B.ui_sel(dirs, prompt, function(dir) if dir then M.open(dir, 1) end end)
+  B.ui_sel(dirs, prompt, function(dir) if dir then M.open(dir) end end)
   B.set_timeout(20, function() vim.cmd [[call feedkeys("\<esc>")]] end)
 end
 
@@ -529,7 +524,7 @@ function M.sel_SHGetFolderPath() M._sel_dirs_do(B.get_SHGetFolderPath(), 'SHGetF
 
 function M.sel_all_git_repos() M._sel_dirs_do(require 'config.my.git'.get_all_git_repos(), 'all_git_repos') end
 
-function M.last_dir() if B.is(M._last_dir) then M.open(M._last_dir, 1) end end
+function M.last_dir() if B.is(M._last_dir) then M.open(M._last_dir) end end
 
 B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
   callback = function(ev)
