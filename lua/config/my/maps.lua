@@ -615,10 +615,8 @@ function M.lsp()
   TimingBegin()
   M.r {
     ['<leader>f'] = { name = 'lsp', },
-    ['<leader>fv'] = { name = 'lsp.move', },
+    ['<leader>fv'] = { name = 'lsp.more', },
     ['<leader>fn'] = { function() require 'config.nvim.lsp'.rename() end, 'lsp: rename', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>fl'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>fr'] = { function() require 'config.nvim.telescope'.lsp_references() end, 'telescope.lsp: references', mode = { 'n', 'v', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
 end

@@ -99,10 +99,11 @@ return {
       'LazyVim/LazyVim',
     },
     keys = {
-      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, desc = 'lsp: format', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>ff', function() require 'config.nvim.lsp'.format() end,                     desc = 'lsp: format',                     mode = { 'n', 'v', }, silent = true, },
+      { '<leader>fl', function() require 'config.nvim.telescope'.lsp_document_symbols() end, desc = 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>fr', function() require 'config.nvim.telescope'.lsp_references() end,       desc = 'telescope.lsp: references',       mode = { 'n', 'v', }, silent = true, },
     },
     config = function() require 'config.nvim.lsp' end,
   },
 
 }
-
