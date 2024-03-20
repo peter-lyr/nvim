@@ -521,6 +521,7 @@ return {
       { '<leader>dk',   function() require 'config.test.nvimtree'.open_prev_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_prev_tree_node', },
 
       { '<leader>da',   function() require 'config.test.nvimtree'.ausize_toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: ausize_toggle', },
+      { '<leader>dc',   function() require 'config.test.nvimtree'.toggle_cur_root() end,     mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: toggle_cur_root', },
     },
     config = function() Require 'config.test.nvimtree' end,
   },

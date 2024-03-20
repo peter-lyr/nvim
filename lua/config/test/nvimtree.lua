@@ -697,6 +697,21 @@ function M.rg(node)
   B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget .. '\\\\')
 end
 
+function M.toggle_cur_root()
+  if not M.cur_root_sta then
+    M.cur_root_sta = 0
+  end
+  M.cur_root_sta = 1 - M.cur_root_sta
+  local cwd = vim.loop.cwd()
+  if M.cur_root_sta == 1 then
+    local cur_root = require 'config.nvim.telescope'.cur_root[B.rep_backslash_lower(cwd)]
+    if B.is(cur_root) then
+      cwd = cur_root
+    end
+  end
+  require 'nvim-tree'.change_dir(cwd)
+end
+
 function M._on_attach(bufnr)
   local api = require 'nvim-tree.api'
   B.lazy_map {
