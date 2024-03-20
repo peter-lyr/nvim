@@ -138,11 +138,15 @@ end
 
 ---------------------------------------
 
-vim.cmd [[
-  hi NvimTreeOpenedFile guibg=#238789
-  hi NvimTreeModifiedFile guibg=#87237f
-  hi NvimTreeSpecialFile guifg=brown gui=bold,underline
-]]
+function M.refresh_hl()
+  vim.cmd [[
+    hi NvimTreeOpenedFile guibg=#238789
+    hi NvimTreeModifiedFile guibg=#87237f
+    hi NvimTreeSpecialFile guifg=brown gui=bold,underline
+  ]]
+end
+
+M.refresh_hl()
 
 function M._tab()
   local api = require 'nvim-tree.api'
