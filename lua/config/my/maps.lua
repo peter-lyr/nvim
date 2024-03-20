@@ -60,7 +60,7 @@ function M.box()
     ['<leader>as<c-p>'] = { function() require 'config.my.box'.sel_open_programs_file_force() end, 'sel open programs file force', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-k>'] = { function() require 'config.my.box'.sel_kill_programs_file_force() end, 'sel kill programs file force', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ass'] = { function() require 'config.my.box'.sel_open_startup_file() end, 'sel open startup file', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>aa'] = { function() require 'config.my.box'.source() end, 'source', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aa'] = { function() require 'config.my.box'.source_file() end, 'source file', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ax'] = { function() require 'config.my.box'.type_execute_output() end, 'execute output to and open file', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ac'] = { function() require 'config.my.box'.mes_clear() end, 'mes clear', mode = { 'n', 'v', }, silent = true, },
   }
