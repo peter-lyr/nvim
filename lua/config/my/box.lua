@@ -22,6 +22,7 @@ function M.restart_new_nvim_qt()
   local rtp = vim.fn.expand(string.match(vim.fn.execute 'set rtp', ',([^,]+)\\share\\nvim\\runtime'))
   _restart_nvim_qt_py_path:write(string.format([[
 import os
+import time
 try:
   import psutil
 except:
@@ -30,8 +31,11 @@ except:
 while 1:
   # if `require 'base'.get_nvim_qt_exe_pid()` not in psutil.pids():
   #   break
+  start = time.time()
   with open(r'%s', 'rb') as f:
     if f.read().strip() == b'1':
+      break
+    if time.time() - start > 10:
       break
 cmds = [
   r'cd %s\bin',
