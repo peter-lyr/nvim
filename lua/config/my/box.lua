@@ -28,15 +28,15 @@ try:
 except:
   os.system("pip install psutil -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host mirrors.aliyun.com")
   import psutil
+start = time.time()
 while 1:
   # if `require 'base'.get_nvim_qt_exe_pid()` not in psutil.pids():
   #   break
-  start = time.time()
   with open(r'%s', 'rb') as f:
     if f.read().strip() == b'1':
       break
-    if time.time() - start > 10:
-      break
+  if time.time() - start > 10:
+    break
 cmds = [
   r'cd %s\bin',
   r'start /d %s nvim-qt.exe',
