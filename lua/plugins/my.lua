@@ -222,19 +222,16 @@ return {
       { '<leader>ga',   function() require 'config.my.git'.addcommitpush() end,   desc = 'git.push: addcommitpush',       mode = { 'n', 'v', }, silent = true, },
 
       -- git.signs
-      { '<leader>gm',   function() require 'config.my.git' end,                   desc = '---my.git.signs---',            mode = { 'n', 'v', }, silent = true, },
-      { '<leader>gmt',  function() require 'config.my.git' end,                   desc = '---my.git.signs.toggle---',     mode = { 'n', 'v', }, silent = true, },
-      { '<leader>ge',   function() require 'config.my.git'.toggle_deleted() end,  desc = 'my.git.signs: toggle_deleted',  mode = { 'n', 'v', }, silent = true, },
       { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
       { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
       { '<leader>j',    desc = 'my.git.signs next_hunk', },
       { '<leader>k',    desc = 'my.git.signs prev_hunk', },
-      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },     silent = true, },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      desc = 'my.git.signs: reset_hunk',      mode = { 'n', },     silent = true, },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    desc = 'my.git.signs: reset_hunk_v',    mode = { 'v', },     silent = true, },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      desc = 'my.git.signs: stage_hunk',      mode = { 'n', },     silent = true, },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    desc = 'my.git.signs: stage_hunk_v',    mode = { 'v', },     silent = true, },
-      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, desc = 'my.git.signs: undo_stage_hunk', mode = { 'n', },     silent = true, },
+      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },      silent = true, },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      desc = 'my.git.signs: reset_hunk',      mode = { 'n', },      silent = true, },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    desc = 'my.git.signs: reset_hunk_v',    mode = { 'v', },      silent = true, },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      desc = 'my.git.signs: stage_hunk',      mode = { 'n', },      silent = true, },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    desc = 'my.git.signs: stage_hunk_v',    mode = { 'v', },      silent = true, },
+      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, desc = 'my.git.signs: undo_stage_hunk', mode = { 'n', },      silent = true, },
 
       -- fugitive_toggle
       { '<c-\\>',       function() require 'config.my.git'.fugitive_toggle() end, desc = 'my.git.fugitive: toggle',       mode = { 'n', 'v', }, silent = true, },
@@ -466,12 +463,17 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<leader>we', '<c-w>=',                                                desc = 'wincmd =',                        mode = { 'n', 'v', }, },
-      { '<leader>wm', function() require 'base'.win_max_height() end,          desc = 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
-      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end, desc = 'go window up',                    mode = { 'n', 'v', }, },
-      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end, desc = 'go window down',                  mode = { 'n', 'v', }, },
-      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end, desc = 'go window left',                  mode = { 'n', 'v', }, },
-      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end, desc = 'go window right',                 mode = { 'n', 'v', }, },
+      { '<leader>we', '<c-w>=',                                                    desc = 'wincmd =',                        mode = { 'n', 'v', }, },
+      { '<leader>wm', function() require 'base'.win_max_height() end,              desc = 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
+      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end,     desc = 'go window up',                    mode = { 'n', 'v', }, },
+      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end,     desc = 'go window down',                  mode = { 'n', 'v', }, },
+      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end,     desc = 'go window left',                  mode = { 'n', 'v', }, },
+      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end,     desc = 'go window right',                 mode = { 'n', 'v', }, },
+      { '<leader>xc', function() require 'config.my.window'.close_cur() end,       desc = 'close current buffer',            mode = { 'n', 'v', }, },
+      { '<leader>xh', function() require 'config.my.window'.close_win_left() end,  desc = 'close window left',               mode = { 'n', 'v', }, },
+      { '<leader>xj', function() require 'config.my.window'.close_win_down() end,  desc = 'close window down',               mode = { 'n', 'v', }, },
+      { '<leader>xk', function() require 'config.my.window'.close_win_up() end,    desc = 'close window up',                 mode = { 'n', 'v', }, },
+      { '<leader>xl', function() require 'config.my.window'.close_win_right() end, desc = 'close window right',              mode = { 'n', 'v', }, },
     },
   },
 
@@ -496,7 +498,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
-      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                desc = 'my.insertenter: cr',                mode = { 'i', },                         silent = true, },
+      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                desc = 'my.insertenter: cr',                mode = { 'i', },                          silent = true, },
       { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, desc = 'my.neuims: toggle_lang_in_cmdline', mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, },
     },
     config = function()
@@ -517,4 +519,3 @@ return {
   },
 
 }
-

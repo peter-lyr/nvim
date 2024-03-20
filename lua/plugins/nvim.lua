@@ -43,11 +43,12 @@ return {
       'dbakker/vim-projectroot',
     },
     keys = {
-      { '<leader>sk',       function() require 'config.nvim.telescope'.projects() end,        mode = { 'n', 'v', }, silent = true, desc = 'telescope: projects', },
-      { '<leader><leader>', function() require 'config.nvim.telescope'.find_files() end,      mode = { 'n', 'v', }, silent = true, desc = 'telescope: find_files', },
-      { '<leader>l',        function() require 'config.nvim.telescope'.live_grep() end,       mode = { 'n', 'v', }, silent = true, desc = 'telescope: live_grep', },
-      { '<leader>h',        function() require 'config.nvim.telescope'.command_history() end, mode = { 'n', 'v', }, silent = true, desc = 'telescope: command_history', },
-      { '<leader><c-f>',    function() require 'config.nvim.telescope'.git_status() end,      mode = { 'n', 'v', }, silent = true, desc = 'git.telescope: status', },
+      { '<leader>sk',       function() require 'config.nvim.telescope'.projects() end,        desc = 'telescope: projects',        mode = { 'n', 'v', }, silent = true, },
+      { '<leader><leader>', function() require 'config.nvim.telescope'.find_files() end,      desc = 'telescope: find_files',      mode = { 'n', 'v', }, silent = true, },
+      { '<leader>l',        function() require 'config.nvim.telescope'.live_grep() end,       desc = 'telescope: live_grep',       mode = { 'n', 'v', }, silent = true, },
+      { '<leader>h',        function() require 'config.nvim.telescope'.command_history() end, desc = 'telescope: command_history', mode = { 'n', 'v', }, silent = true, },
+      { '<leader><c-f>',    function() require 'config.nvim.telescope'.git_status() end,      desc = 'git.telescope: status',      mode = { 'n', 'v', }, silent = true, },
+      { '<leader>sj',       function() require 'config.nvim.telescope'.jumplist() end,        desc = 'telescope: jumplist',        mode = { 'n', 'v', }, silent = true, },
     },
     config = function() Require 'config.nvim.telescope' end,
   },
@@ -98,9 +99,10 @@ return {
       'LazyVim/LazyVim',
     },
     keys = {
-      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, mode = { 'n', 'v', }, silent = true, desc = 'lsp: format', },
+      { '<leader>ff', function() require 'config.nvim.lsp'.format() end, desc = 'lsp: format', mode = { 'n', 'v', }, silent = true, },
     },
     config = function() require 'config.nvim.lsp' end,
   },
 
 }
+

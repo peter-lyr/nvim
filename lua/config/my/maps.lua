@@ -480,10 +480,6 @@ function M.window()
   }
   M.r {
     ['<leader>x'] = { name = 'window bdelete/bwipeout', },
-    ['<leader>xh'] = { function() require 'config.my.window'.close_win_left() end, 'close window left', mode = { 'n', 'v', }, },
-    ['<leader>xj'] = { function() require 'config.my.window'.close_win_down() end, 'close window down', mode = { 'n', 'v', }, },
-    ['<leader>xk'] = { function() require 'config.my.window'.close_win_up() end, 'close window up', mode = { 'n', 'v', }, },
-    ['<leader>xl'] = { function() require 'config.my.window'.close_win_right() end, 'close window right', mode = { 'n', 'v', }, },
     ['<leader>xt'] = { function() require 'config.my.window'.close_cur_tab() end, 'close window current', mode = { 'n', 'v', }, },
     ['<leader>xw'] = { function() require 'config.my.window'.Bwipeout_cur() end, 'Bwipeout current buffer', mode = { 'n', 'v', }, },
     ['<leader>x<c-w>'] = { function() require 'config.my.window'.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
@@ -491,7 +487,6 @@ function M.window()
     ['<leader>xd'] = { function() require 'config.my.window'.Bdelete_cur() end, 'Bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>x<c-d>'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>xD'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
-    ['<leader>xc'] = { function() require 'config.my.window'.close_cur() end, 'close current buffer', mode = { 'n', 'v', }, },
     ['<leader>xp'] = { function() require 'config.my.window'.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
     ['<leader>x<c-p>'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
     ['<leader>xP'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
@@ -683,6 +678,9 @@ function M.git()
     ['<leader>gvq'] = { function() require 'config.my.git'.diffview_close() end, 'git.diffview: close', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gvl'] = { ':<c-u>DiffviewRefresh<cr>', 'git.diffview: refresh', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gvw'] = { ':<c-u>Telescope git_diffs diff_commits<cr>', 'git.diffview: Telescope git_diffs diff_commits', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>gm'] = { name = 'git.signs', },
+    ['<leader>gmt'] = { name = 'git.signs.toggle', },
+    ['<leader>ge'] = { function() require 'config.my.git'.toggle_deleted() end, 'my.git.signs: toggle_deleted', mode = { 'n', 'v', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
 end
@@ -696,7 +694,6 @@ function M.telescope()
     ['<leader>sd'] = { function() require 'config.nvim.telescope'.diagnostics() end, 'telescope: diagnostics', mode = { 'n', 'v', }, silent = true, },
     ['<leader>s<c-f>'] = { function() require 'config.nvim.telescope'.filetypes() end, 'telescope: filetypes', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sh'] = { function() require 'config.nvim.telescope'.search_history() end, 'telescope: search_history', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sj'] = { function() require 'config.nvim.telescope'.jumplist() end, 'telescope: jumplist', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sm'] = { function() require 'config.nvim.telescope'.keymaps() end, 'telescope: keymaps', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sr'] = { function() require 'config.nvim.telescope'.root_sel_till_git() end, 'telescope: root_sel_till_git', mode = { 'n', 'v', }, silent = true, },
     ['<leader>sR'] = { function() require 'config.nvim.telescope'.root_sel_scan_dirs() end, 'telescope: root_sel_scan_dirs', mode = { 'n', 'v', }, silent = true, },
@@ -873,4 +870,3 @@ end
 vim.opt.updatetime = 500
 
 return M
-

@@ -119,12 +119,17 @@ function M.create_user_command_with_M(items)
   M.commands = {}
   for name, m in pairs(items) do
     M.commands[name] = M._get_functions_of_M(m)
+    print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
     vim.api.nvim_create_user_command(name, function(params)
+      print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
       if #params.fargs == 0 then
+        print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
         pcall(M.cmd, "lua require('%s').main()", m.lua)
       elseif #params.fargs == 1 then
+        print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
         pcall(M.cmd, "lua require('%s').%s()", m.lua, params.fargs[1])
       else
+        print(string.format('## %s# %d', debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
         local func = table.remove(params.fargs, 1)
         pcall(M.cmd, "lua require('%s').%s([[%s]])", m.lua, func, vim.fn.join(params.fargs, ']], [['))
       end
