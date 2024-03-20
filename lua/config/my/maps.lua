@@ -822,6 +822,7 @@ function M.map_from_lazy_to_whichkey(fname)
       new_lines[#new_lines + 1] = line
     end
   end
+  vim.cmd 'e!'
   require 'plenary.path':new(fname):write(vim.fn.join(new_lines, '\r\n'), 'w')
 end
 
@@ -862,6 +863,7 @@ function M.map_from_whichkey_to_lazy(fname)
       new_lines[#new_lines + 1] = line
     end
   end
+  vim.cmd 'e!'
   require 'plenary.path':new(fname):write(vim.fn.join(new_lines, '\r\n'), 'w')
 end
 
