@@ -298,13 +298,9 @@ return {
     cmd = { 'Gui', },
     event = { 'TabEnter', },
     keys = {
-      { '<c-0>',               function() require 'config.my.gui' end,                   desc = '---my.gui---',           mode = { 'n', 'v', }, silent = true, },
-      { '<c-0><c-0>',          function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
-      { '<c-->',               function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
-      { '<c-=>',               function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
-      { '<c-ScrollWheelDown>', function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
-      { '<c-ScrollWheelUp>',   function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
-      { '<c-RightMouse>',      function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
+      { '<c-0><c-0>', function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
+      { '<c-->',      function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
+      { '<c-=>',      function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
     },
     init = function()
       vim.api.nvim_create_autocmd('VimLeave', {
@@ -436,7 +432,6 @@ return {
     name = 'my.maps',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    cmd = { 'MapFromLazyToWhichkey', 'MapFromWhichkeyToLazy', },
     keys = {
       { '<s-esc>', function() Require 'config.my.maps'.all() end, desc = 'maps', mode = { 'n', 'v', }, silent = true, },
     },

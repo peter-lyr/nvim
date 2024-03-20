@@ -90,15 +90,4 @@ B.aucmd({ 'TabEnter', }, 'my.gui.TabEnter', {
   end,
 })
 
--- mappings
-B.del_map({ 'n', 'v', }, '<c-0>')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<c-0>', 'my.gui')
-
-B.lazy_map {
-  { '<c-0>_',     M.fontsize_min,        mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
-  { '<c-0><c-->', M.fontsize_frameless,  mode = { 'n', 'v', }, silent = true, desc = 'my.gui: frameless', },
-  { '<c-0><c-=>', M.fontsize_fullscreen, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: fullscreen', },
-}
-
 return M

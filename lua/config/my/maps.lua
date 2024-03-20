@@ -773,6 +773,20 @@ function M.q()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
+function M.gui()
+  TimingBegin()
+  M.r {
+    ['<c-0>'] = { name = 'gui', },
+    ['<c-0>_'] = { function() M.fontsize_min() end, 'my.gui: font size min', mode = { 'n', 'v', }, silent = true, },
+    ['<c-0><c-->'] = { function() M.fontsize_frameless() end, 'my.gui: frameless', mode = { 'n', 'v', }, silent = true, },
+    ['<c-0><c-=>'] = { function() M.fontsize_fullscreen() end, 'my.gui: fullscreen', mode = { 'n', 'v', }, silent = true, },
+    ['<c-ScrollWheelDown>'] = { function() require 'config.my.gui'.fontsize_down() end, 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
+    ['<c-ScrollWheelUp>'] = { function() require 'config.my.gui'.fontsize_up() end, 'my.gui: font size up', mode = { 'n', 'v', }, silent = true, },
+    ['<c-RightMouse>'] = { function() require 'config.my.gui'.fontsize_normal() end, 'my.gui: font size min', mode = { 'n', 'v', }, silent = true, },
+  }
+  TimingEnd(debug.getinfo(1)['name'])
+end
+
 function M.all()
   M.base()
   M.box()
@@ -786,10 +800,10 @@ function M.all()
   M.git()
   M.telescope()
   M.q()
+  M.gui()
   require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
 vim.opt.updatetime = 500
 
 return M
-
