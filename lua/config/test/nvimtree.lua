@@ -256,6 +256,10 @@ if not M.dirs then
   M.dirs = {}
 end
 
+function M.dirs_append(dir)
+  B.stack_item_uniq(M.dirs, B.rep_slash_lower(dir))
+end
+
 B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
   callback = function(ev)
     if vim.bo.ft == 'NvimTree' and B.is(M.ausize_en) then
@@ -270,7 +274,7 @@ B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
       vim.cmd 'set nowinfixheight'
     end
     if ev.event == 'DirChanged' then
-      B.stack_item_uniq(M.dirs, B.rep_slash_lower(vim.loop.cwd()))
+      M.dirs_append(vim.loop.cwd())
     end
   end,
 })
@@ -707,6 +711,7 @@ function M.cur_root_do()
     end
   end
   require 'nvim-tree'.change_dir(cwd)
+  M.dirs_append(cwd)
 end
 
 function M.toggle_cur_root()
