@@ -50,8 +50,11 @@ function M.map_from_lazy_to_whichkey(fname)
       new_lines[#new_lines + 1] = line
     end
   end
-  vim.cmd 'e!'
   require 'plenary.path':new(fname):write(vim.fn.join(new_lines, '\r\n'), 'w')
+  B.set_timeout(10, function()
+    vim.cmd 'e!'
+    require 'config.nvim.lsp'.format()
+  end)
 end
 
 vim.api.nvim_create_user_command('MapFromWhichkeyToLazy', function(params)
@@ -91,8 +94,11 @@ function M.map_from_whichkey_to_lazy(fname)
       new_lines[#new_lines + 1] = line
     end
   end
-  vim.cmd 'e!'
   require 'plenary.path':new(fname):write(vim.fn.join(new_lines, '\r\n'), 'w')
+  B.set_timeout(10, function()
+    vim.cmd 'e!'
+    require 'config.nvim.lsp'.format()
+  end)
 end
 
 return M
