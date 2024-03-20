@@ -50,7 +50,7 @@ function M.b_next_buf()
       index = B.index_of(M.proj_bufs[M.cur_proj], M.cur_buf) + 1
     end
     if index > #M.proj_bufs[M.cur_proj] then
-      index = 1
+      index = #M.proj_bufs[M.cur_proj]
     end
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
