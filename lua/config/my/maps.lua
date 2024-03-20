@@ -782,7 +782,6 @@ function M.all()
   M.lsp()
   M.git()
   M.telescope()
-  require 'config.test.nvimtree'.open_all()
   require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
