@@ -697,13 +697,15 @@ function M.rg(node)
   B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget .. '\\\\')
 end
 
-function M.toggle_cur_root()
+function M.cur_root_do()
+  local cwd = B.rep_backslash_lower(vim.loop.cwd())
   if not M.cur_root_sta then
-    M.cur_root_sta = 0
+    M.cur_root_sta = {}
   end
-  M.cur_root_sta = 1 - M.cur_root_sta
-  local cwd = vim.loop.cwd()
-  if M.cur_root_sta == 1 then
+  if not M.cur_root_sta[cwd] then
+    M.cur_root_sta[cwd] = 0
+  end
+  if M.cur_root_sta[cwd] == 1 then
     local cur_root = require 'config.nvim.telescope'.cur_root[B.rep_backslash_lower(cwd)]
     if B.is(cur_root) then
       cwd = cur_root
@@ -711,6 +713,26 @@ function M.toggle_cur_root()
   end
   require 'nvim-tree'.change_dir(cwd)
 end
+
+function M.toggle_cur_root()
+  local cwd = B.rep_backslash_lower(vim.loop.cwd())
+  if not M.cur_root_sta then
+    M.cur_root_sta = {}
+  end
+  if not M.cur_root_sta[cwd] then
+    M.cur_root_sta[cwd] = 0
+  end
+  M.cur_root_sta[cwd] = 1 - M.cur_root_sta[cwd]
+  M.cur_root_do()
+end
+
+B.aucmd('DirChanged', 'test.nvimtree.DirChanged', {
+  callback = function()
+    B.set_timeout(30, function()
+      M.cur_root_do()
+    end)
+  end,
+})
 
 function M._on_attach(bufnr)
   local api = require 'nvim-tree.api'
