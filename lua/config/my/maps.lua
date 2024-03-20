@@ -637,7 +637,6 @@ function M.git()
     ['<leader>gtc'] = { function() require 'config.nvim.telescope'.git_commits() end, 'git.telescope: commits', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gh'] = { function() require 'config.nvim.telescope'.git_branches() end, 'git.telescope: branches', mode = { 'n', 'v', }, silent = true, },
     { '<leader>gg', name = 'git.push', },
-    ['<leader>ga'] = { function() require 'config.my.git'.addcommitpush() end, 'git.push: addcommitpush', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gga'] = { function() require 'config.my.git'.addcommitpush(nil, 1) end, 'git.push: addcommitpush commit_history_en', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gc'] = { function() require 'config.my.git'.commit_push() end, 'git.push: commit_push', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ggc'] = { function() require 'config.my.git'.commit_push(nil, 1) end, 'git.push: commit_push commit_history_en', mode = { 'n', 'v', }, silent = true, },
@@ -872,4 +871,3 @@ end
 vim.opt.updatetime = 500
 
 return M
-

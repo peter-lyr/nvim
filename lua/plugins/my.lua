@@ -217,30 +217,32 @@ return {
       'DiffviewOpen', 'DiffviewFileHistory',
     },
     keys = {
-      { '<RightMouse>', function() end,                                           mode = { 'n', 'v', }, silent = true, desc = 'my.git', },
+      { '<RightMouse>', function() end,                                           desc = 'my.git',                        mode = { 'n', 'v', }, silent = true, },
+
+      { '<leader>ga',   function() require 'config.my.git'.addcommitpush() end,   desc = 'git.push: addcommitpush',       mode = { 'n', 'v', }, silent = true, },
 
       -- git.signs
-      { '<leader>gm',   function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs---', },
-      { '<leader>gmt',  function() require 'config.my.git' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.git.signs.toggle---', },
-      { '<leader>ge',   function() require 'config.my.git'.toggle_deleted() end,  mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: toggle_deleted', },
-      { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
-      { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                         mode = { 'o', 'x', }, silent = true, desc = 'my.git.signs: select_hunk', },
+      { '<leader>gm',   function() require 'config.my.git' end,                   desc = '---my.git.signs---',            mode = { 'n', 'v', }, silent = true, },
+      { '<leader>gmt',  function() require 'config.my.git' end,                   desc = '---my.git.signs.toggle---',     mode = { 'n', 'v', }, silent = true, },
+      { '<leader>ge',   function() require 'config.my.git'.toggle_deleted() end,  desc = 'my.git.signs: toggle_deleted',  mode = { 'n', 'v', }, silent = true, },
+      { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
+      { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
       { '<leader>j',    desc = 'my.git.signs next_hunk', },
       { '<leader>k',    desc = 'my.git.signs prev_hunk', },
-      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        mode = { 'n', },      silent = true, desc = 'my.git.signs: diffthis', },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: reset_hunk', },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: reset_hunk_v', },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      mode = { 'n', },      silent = true, desc = 'my.git.signs: stage_hunk', },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    mode = { 'v', },      silent = true, desc = 'my.git.signs: stage_hunk_v', },
-      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, mode = { 'n', },      silent = true, desc = 'my.git.signs: undo_stage_hunk', },
+      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },     silent = true, },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      desc = 'my.git.signs: reset_hunk',      mode = { 'n', },     silent = true, },
+      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    desc = 'my.git.signs: reset_hunk_v',    mode = { 'v', },     silent = true, },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      desc = 'my.git.signs: stage_hunk',      mode = { 'n', },     silent = true, },
+      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    desc = 'my.git.signs: stage_hunk_v',    mode = { 'v', },     silent = true, },
+      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, desc = 'my.git.signs: undo_stage_hunk', mode = { 'n', },     silent = true, },
 
       -- fugitive_toggle
-      { '<c-\\>',       function() require 'config.my.git'.fugitive_toggle() end, mode = { 'n', 'v', }, silent = true, desc = 'my.git.fugitive: toggle', },
+      { '<c-\\>',       function() require 'config.my.git'.fugitive_toggle() end, desc = 'my.git.fugitive: toggle',       mode = { 'n', 'v', }, silent = true, },
 
       -- git.lazy
-      { '<leader>gl',   function() require 'config.my.git'.lazygit() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.git.lazy: lazygit', },
+      { '<leader>gl',   function() require 'config.my.git'.lazygit() end,         desc = 'my.git.lazy: lazygit',          mode = { 'n', 'v', }, silent = true, },
 
-      { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end, mode = { 'n', 'v', }, silent = true, desc = 'my.git.signs: quickfix_toggle', },
+      { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end, desc = 'my.git.signs: quickfix_toggle', mode = { 'n', 'v', }, silent = true, },
 
     },
     dependencies = {
@@ -287,7 +289,7 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, mode = { 'n', 'v', }, silent = true, desc = 'copy cwd to clipboard', },
+      { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, desc = 'copy cwd to clipboard', mode = { 'n', 'v', }, silent = true, },
     },
     config = function() Require 'config.my.copy' end,
   },
@@ -299,13 +301,13 @@ return {
     cmd = { 'Gui', },
     event = { 'TabEnter', },
     keys = {
-      { '<c-0>',               function() require 'config.my.gui' end,                   mode = { 'n', 'v', }, silent = true, desc = '---my.gui---', },
-      { '<c-0><c-0>',          function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
-      { '<c-->',               function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
-      { '<c-=>',               function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
-      { '<c-ScrollWheelDown>', function() require 'config.my.gui'.fontsize_down() end,   mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size down', },
-      { '<c-ScrollWheelUp>',   function() require 'config.my.gui'.fontsize_up() end,     mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size up', },
-      { '<c-RightMouse>',      function() require 'config.my.gui'.fontsize_normal() end, mode = { 'n', 'v', }, silent = true, desc = 'my.gui: font size min', },
+      { '<c-0>',               function() require 'config.my.gui' end,                   desc = '---my.gui---',           mode = { 'n', 'v', }, silent = true, },
+      { '<c-0><c-0>',          function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
+      { '<c-->',               function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
+      { '<c-=>',               function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
+      { '<c-ScrollWheelDown>', function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
+      { '<c-ScrollWheelUp>',   function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
+      { '<c-RightMouse>',      function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
     },
     init = function()
       vim.api.nvim_create_autocmd('VimLeave', {
@@ -344,24 +346,24 @@ return {
       'peter-lyr/vim-bbye',
     },
     keys = {
-      { '<c-h>',           function() require 'config.my.tabline'.b_prev_buf() end,                      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_prev_buf', },
-      { '<c-s-l>',         function() require 'config.my.tabline'.bd_next_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_next_buf', },
-      { '<c-s-h>',         function() require 'config.my.tabline'.bd_prev_buf() end,                     mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_prev_buf', },
-      { '<c-s-.>',         function() require 'config.my.tabline'.bd_all_next_buf() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_all_next_buf', },
-      { '<c-s-,>',         function() require 'config.my.tabline'.bd_all_prev_buf() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bd_all_prev_buf', },
-      { '<leader><c-s-l>', function() require 'config.my.tabline'.bd_next_buf(1) end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bwipeout_next_buf ', },
-      { '<leader><c-s-h>', function() require 'config.my.tabline'.bd_prev_buf(1) end,                    mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bwipeout_prev_buf', },
-      { '<leader><c-s-.>', function() require 'config.my.tabline'.bd_all_next_buf(1) end,                mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bwipeout_all_next_buf', },
-      { '<leader><c-s-,>', function() require 'config.my.tabline'.bd_all_prev_buf(1) end,                mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: bwipeout_all_prev_buf', },
-      { '<a-,>',           function() require 'config.my.tabline'.simple_statusline_toggle() end,        mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: simple_statusline_toggle', },
-      { '<a-.>',           function() require 'config.my.tabline'.toggle_tabs_way() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: toggle_tabs_way', },
-      { 'ql',              function() require 'config.my.tabline'.only_cur_buffer() end,                 mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: only_cur_buffer', },
-      { 'qh',              function() require 'config.my.tabline'.restore_hidden_tabs() end,             mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
-      { 'qj',              function() require 'config.my.tabline'.append_one_proj_right_down() end,      mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down', },
-      { 'q<c-j>',          function() require 'config.my.tabline'.append_one_proj_right_down_more() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_right_down_more', },
-      { 'qk',              function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', },
-      { 'qp',              function() require 'config.my.tabline'.restore_hidden_stack() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
-      { 'qm',              function() require 'config.my.tabline'.restore_hidden_stack_main() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: restore_hidden_tabs', },
+      { '<c-h>',           function() require 'config.my.tabline'.b_prev_buf() end,                      desc = 'my.tabline: b_prev_buf',                      mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-l>',         function() require 'config.my.tabline'.bd_next_buf() end,                     desc = 'my.tabline: bd_next_buf',                     mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-h>',         function() require 'config.my.tabline'.bd_prev_buf() end,                     desc = 'my.tabline: bd_prev_buf',                     mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-.>',         function() require 'config.my.tabline'.bd_all_next_buf() end,                 desc = 'my.tabline: bd_all_next_buf',                 mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-,>',         function() require 'config.my.tabline'.bd_all_prev_buf() end,                 desc = 'my.tabline: bd_all_prev_buf',                 mode = { 'n', 'v', }, silent = true, },
+      { '<leader><c-s-l>', function() require 'config.my.tabline'.bd_next_buf(1) end,                    desc = 'my.tabline: bwipeout_next_buf ',              mode = { 'n', 'v', }, silent = true, },
+      { '<leader><c-s-h>', function() require 'config.my.tabline'.bd_prev_buf(1) end,                    desc = 'my.tabline: bwipeout_prev_buf',               mode = { 'n', 'v', }, silent = true, },
+      { '<leader><c-s-.>', function() require 'config.my.tabline'.bd_all_next_buf(1) end,                desc = 'my.tabline: bwipeout_all_next_buf',           mode = { 'n', 'v', }, silent = true, },
+      { '<leader><c-s-,>', function() require 'config.my.tabline'.bd_all_prev_buf(1) end,                desc = 'my.tabline: bwipeout_all_prev_buf',           mode = { 'n', 'v', }, silent = true, },
+      { '<a-,>',           function() require 'config.my.tabline'.simple_statusline_toggle() end,        desc = 'my.tabline: simple_statusline_toggle',        mode = { 'n', 'v', }, silent = true, },
+      { '<a-.>',           function() require 'config.my.tabline'.toggle_tabs_way() end,                 desc = 'my.tabline: toggle_tabs_way',                 mode = { 'n', 'v', }, silent = true, },
+      { 'ql',              function() require 'config.my.tabline'.only_cur_buffer() end,                 desc = 'my.tabline: only_cur_buffer',                 mode = { 'n', 'v', }, silent = true, },
+      { 'qh',              function() require 'config.my.tabline'.restore_hidden_tabs() end,             desc = 'my.tabline: restore_hidden_tabs',             mode = { 'n', 'v', }, silent = true, },
+      { 'qj',              function() require 'config.my.tabline'.append_one_proj_right_down() end,      desc = 'my.tabline: append_one_proj_right_down',      mode = { 'n', 'v', }, silent = true, },
+      { 'q<c-j>',          function() require 'config.my.tabline'.append_one_proj_right_down_more() end, desc = 'my.tabline: append_one_proj_right_down_more', mode = { 'n', 'v', }, silent = true, },
+      { 'qk',              function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, desc = 'my.tabline: append_one_proj_new_tab_no_dupl', mode = { 'n', 'v', }, silent = true, },
+      { 'qp',              function() require 'config.my.tabline'.restore_hidden_stack() end,            desc = 'my.tabline: restore_hidden_tabs',             mode = { 'n', 'v', }, silent = true, },
+      { 'qm',              function() require 'config.my.tabline'.restore_hidden_stack_main() end,       desc = 'my.tabline: restore_hidden_tabs',             mode = { 'n', 'v', }, silent = true, },
     },
     init = function()
       vim.opt.tabline = vim.loop.cwd()
@@ -379,7 +381,7 @@ return {
       end
       vim.fn.timer_start(1000, function()
         lazy_map {
-          { '<c-l>', function() require 'config.my.tabline'.b_next_buf() end, mode = { 'n', 'v', }, silent = true, desc = 'my.tabline: b_next_buf', },
+          { '<c-l>', function() require 'config.my.tabline'.b_next_buf() end, desc = 'my.tabline: b_next_buf', mode = { 'n', 'v', }, silent = true, },
         }
       end)
     end,
@@ -394,16 +396,16 @@ return {
     ft = { 'markdown', },
     cmd = { 'MarkdownPreview', 'MarkdownPreviewStop', 'MarkdownPreviewToggle', 'MarkdownExportCreate', 'MarkdownExportDelete', },
     keys = {
-      { '<a-o>',   function() require 'config.my.markdown'.system_open_cfile() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: start cfile', },
-      { '<a-i>',   function() require 'config.my.markdown'.buffer_open_cfile() end,       mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: buffer_open_cfile', },
-      { '<a-s-i>', function() require 'config.my.markdown'.pop_file_stack() end,          mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: pop_file_stack', },
-      { '<a-u>',   function() require 'config.my.markdown'.make_url() end,                mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url', },
-      { '<c-s-u>', function() require 'config.my.markdown'.make_url_sel() end,            mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: make_url_sel', },
-      { '<a-s-u>', function() require 'config.my.markdown'.create_file_from_target() end, mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: create_file', },
-      { '<a-r>',   function() require 'config.my.markdown'.run_in_cmd() end,              mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd', },
-      { '<a-e>',   function() require 'config.my.markdown'.run_in_cmd 'silent' end,       mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: run_in_cmd silent', },
-      { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end,    mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_path_clip', },
-      { '<c-s-y>', function() require 'config.my.markdown'.copy_cfile_clip() end,         mode = { 'n', 'v', }, silent = true, desc = 'my.markdown: copy_cfile_clip', },
+      { '<a-o>',   function() require 'config.my.markdown'.system_open_cfile() end,       desc = 'my.markdown: start cfile',          mode = { 'n', 'v', }, silent = true, },
+      { '<a-i>',   function() require 'config.my.markdown'.buffer_open_cfile() end,       desc = 'my.markdown: buffer_open_cfile',    mode = { 'n', 'v', }, silent = true, },
+      { '<a-s-i>', function() require 'config.my.markdown'.pop_file_stack() end,          desc = 'my.markdown: pop_file_stack',       mode = { 'n', 'v', }, silent = true, },
+      { '<a-u>',   function() require 'config.my.markdown'.make_url() end,                desc = 'my.markdown: make_url',             mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-u>', function() require 'config.my.markdown'.make_url_sel() end,            desc = 'my.markdown: make_url_sel',         mode = { 'n', 'v', }, silent = true, },
+      { '<a-s-u>', function() require 'config.my.markdown'.create_file_from_target() end, desc = 'my.markdown: create_file',          mode = { 'n', 'v', }, silent = true, },
+      { '<a-r>',   function() require 'config.my.markdown'.run_in_cmd() end,              desc = 'my.markdown: run_in_cmd',           mode = { 'n', 'v', }, silent = true, },
+      { '<a-e>',   function() require 'config.my.markdown'.run_in_cmd 'silent' end,       desc = 'my.markdown: run_in_cmd silent',    mode = { 'n', 'v', }, silent = true, },
+      { '<a-s-y>', function() require 'config.my.markdown'.copy_cfile_path_clip() end,    desc = 'my.markdown: copy_cfile_path_clip', mode = { 'n', 'v', }, silent = true, },
+      { '<c-s-y>', function() require 'config.my.markdown'.copy_cfile_clip() end,         desc = 'my.markdown: copy_cfile_clip',      mode = { 'n', 'v', }, silent = true, },
     },
     init = function()
       vim.g.mkdp_theme              = 'light'
@@ -421,14 +423,14 @@ return {
     dir = '',
     dependencies = { 'itchyny/vim-gitbranch', },
     keys = {
-      { '<F1>',               function() require 'config.my.box'.show_info() end,              mode = { 'n', 'v', }, silent = true, desc = 'show info', },
-      { '<leader>asr',        function() require 'config.my.box'.restart_nvim_qt() end,        mode = { 'n', 'v', }, silent = true, desc = 'restart nvim-qt', },
-      { '<leader>as<leader>', function() require 'config.my.box'.start_new_nvim_qt() end,      mode = { 'n', 'v', }, silent = true, desc = 'start new nvim-qt', },
-      { '<leader>asq',        function() require 'config.my.box'.quit_nvim_qt() end,           mode = { 'n', 'v', }, silent = true, desc = 'quit nvim-qt', },
-      { '<leader>asp',        function() require 'config.my.box'.sel_open_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'sel open programs file', },
-      { '<leader>ask',        function() require 'config.my.box'.sel_kill_programs_file() end, mode = { 'n', 'v', }, silent = true, desc = 'sel kill programs file', },
-      { '<leader>ae',         function() require 'config.my.box'.sel_open_temp() end,          mode = { 'n', 'v', }, silent = true, desc = 'sel open temp file', },
-      { '<leader>aw',         function() require 'config.my.box'.sel_write_to_temp() end,      mode = { 'n', 'v', }, silent = true, desc = 'sel write to temp file', },
+      { '<F1>',               function() require 'config.my.box'.show_info() end,              desc = 'show info',              mode = { 'n', 'v', }, silent = true, },
+      { '<leader>asr',        function() require 'config.my.box'.restart_nvim_qt() end,        desc = 'restart nvim-qt',        mode = { 'n', 'v', }, silent = true, },
+      { '<leader>as<leader>', function() require 'config.my.box'.start_new_nvim_qt() end,      desc = 'start new nvim-qt',      mode = { 'n', 'v', }, silent = true, },
+      { '<leader>asq',        function() require 'config.my.box'.quit_nvim_qt() end,           desc = 'quit nvim-qt',           mode = { 'n', 'v', }, silent = true, },
+      { '<leader>asp',        function() require 'config.my.box'.sel_open_programs_file() end, desc = 'sel open programs file', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>ask',        function() require 'config.my.box'.sel_kill_programs_file() end, desc = 'sel kill programs file', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>ae',         function() require 'config.my.box'.sel_open_temp() end,          desc = 'sel open temp file',     mode = { 'n', 'v', }, silent = true, },
+      { '<leader>aw',         function() require 'config.my.box'.sel_write_to_temp() end,      desc = 'sel write to temp file', mode = { 'n', 'v', }, silent = true, },
     },
   },
 
@@ -446,7 +448,7 @@ return {
     event = { 'CursorHold', 'CursorHoldI', },
     cmd = { 'MapFromLazyToWhichkey', 'MapFromWhichkeyToLazy', },
     keys = {
-      { '<s-esc>', function() Require 'config.my.maps'.all() end, mode = { 'n', 'v', }, silent = true, desc = 'maps', },
+      { '<s-esc>', function() Require 'config.my.maps'.all() end, desc = 'maps', mode = { 'n', 'v', }, silent = true, },
     },
     config = function() Require 'config.my.maps'.all() end,
   },
@@ -464,12 +466,12 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<leader>we', '<c-w>=',                                                mode = { 'n', 'v', }, desc = 'wincmd =', },
-      { '<leader>wm', function() require 'base'.win_max_height() end,          mode = { 'n', 'v', }, desc = 'wincmd _ (winfixheight version)', },
-      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end, mode = { 'n', 'v', }, desc = 'go window up', },
-      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end, mode = { 'n', 'v', }, desc = 'go window down', },
-      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end, mode = { 'n', 'v', }, desc = 'go window left', },
-      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end, mode = { 'n', 'v', }, desc = 'go window right', },
+      { '<leader>we', '<c-w>=',                                                desc = 'wincmd =',                        mode = { 'n', 'v', }, },
+      { '<leader>wm', function() require 'base'.win_max_height() end,          desc = 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
+      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end, desc = 'go window up',                    mode = { 'n', 'v', }, },
+      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end, desc = 'go window down',                  mode = { 'n', 'v', }, },
+      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end, desc = 'go window left',                  mode = { 'n', 'v', }, },
+      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end, desc = 'go window right',                 mode = { 'n', 'v', }, },
     },
   },
 
@@ -478,7 +480,7 @@ return {
     name = 'my.cal',
     dir = '',
     keys = {
-      { 'c/', function() require 'config.my.cal' end, mode = { 'n', 'v', }, silent = true, desc = '---my.cal---', },
+      { 'c/', function() require 'config.my.cal' end, desc = '---my.cal---', mode = { 'n', 'v', }, silent = true, },
     },
   },
 
@@ -494,8 +496,8 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
-      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                mode = { 'i', },                          silent = true, desc = 'my.insertenter: cr', },
-      { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, desc = 'my.neuims: toggle_lang_in_cmdline', },
+      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                desc = 'my.insertenter: cr',                mode = { 'i', },                         silent = true, },
+      { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, desc = 'my.neuims: toggle_lang_in_cmdline', mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, },
     },
     config = function()
       require 'config.my.neuims'
@@ -508,10 +510,11 @@ return {
     dir = '',
     ft = { 'python', },
     keys = {
-      { '<leader>r',  function() end,                                     mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
-      { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, mode = { 'n', 'v', }, silent = true, desc = 'my.py: sel_run', },
+      { '<leader>r',  function() end,                                     desc = '---my.py/test.spectre---', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, desc = 'my.py: sel_run',           mode = { 'n', 'v', }, silent = true, },
     },
     config = function() Require 'config.my.py' end,
   },
 
 }
+

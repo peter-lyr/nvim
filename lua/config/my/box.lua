@@ -33,9 +33,9 @@ while 1:
   # if `require 'base'.get_nvim_qt_exe_pid()` not in psutil.pids():
   #   break
   with open(r'%s', 'rb') as f:
-    if f.read().strip() == b'1':
+    if f.read().strip() == b'2':
       break
-  if time.time() - start > 10:
+  if time.time() - start > 2:
     break
 cmds = [
   r'cd %s\bin',
