@@ -857,8 +857,7 @@ require 'nvim-tree'.setup(opts)
 function M.open_all()
   local cur_bufnr = vim.fn.bufnr()
   local roots = {}
-  vim.cmd 'wincmd s'
-  vim.cmd 'wincmd T'
+  vim.cmd 'NvimTreeClose'
   vim.cmd 'NvimTreeOpen'
   vim.cmd 'wincmd p'
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
@@ -873,8 +872,6 @@ function M.open_all()
   end
   for root, _ in pairs(roots) do
     local fname = B.get_filepath(root, roots[root][1]).filename
-    vim.cmd 'wincmd ='
-    vim.cmd 'wincmd s'
     B.cmd('e %s', fname)
     require "nvim-tree.actions.tree.find-file".fn()
   end

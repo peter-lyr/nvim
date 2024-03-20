@@ -520,6 +520,8 @@ return {
       { '<leader>dj',   function() require 'config.test.nvimtree'.open_next_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_next_tree_node', },
       { '<leader>dk',   function() require 'config.test.nvimtree'.open_prev_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_prev_tree_node', },
 
+      { '<leader>do',   function() require 'config.test.nvimtree'.open_all() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_all', },
+
       { '<leader>da',   function() require 'config.test.nvimtree'.ausize_toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: ausize_toggle', },
       { '<leader>dc',   function() require 'config.test.nvimtree'.toggle_cur_root() end,     mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: toggle_cur_root', },
     },
