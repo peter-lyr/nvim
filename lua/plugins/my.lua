@@ -518,4 +518,14 @@ return {
     config = function() Require 'config.my.py' end,
   },
 
+  -- my.command
+  {
+    name = 'my.command',
+    dir = '',
+    cmd = {
+      'MapFromLazyToWhichkey', 'MapFromWhichkeyToLazy',
+    },
+    config = function() require 'config.my.command' end,
+  },
+
 }
