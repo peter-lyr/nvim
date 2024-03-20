@@ -37,6 +37,15 @@ function Notify(message, timeout)
   })
 end
 
+function TimingBegin()
+  StartTime = vim.fn.reltime()
+end
+
+function TimingEnd(name)
+  local end_time = vim.fn.reltimefloat(vim.fn.reltime(StartTime))
+  Notify(string.format('%s: %.3f ms', name, end_time * 1000), end_time * 1000)
+end
+
 function BaseCommand()
   return {
     ['Drag'] = require 'config.my.drag',

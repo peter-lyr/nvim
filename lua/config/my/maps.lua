@@ -5,20 +5,8 @@ local M = {}
 
 M.r = require 'which-key'.register
 
-function M._s()
-  return vim.fn.reltime()
-end
-
-function M._e(start_time)
-  return vim.fn.reltimefloat(vim.fn.reltime(start_time))
-end
-
-function M._c(end_time, name)
-  Notify(string.format('%s: %.3f ms', name, end_time * 1000), end_time * 1000)
-end
-
 function M.base()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     ['<c-;>'] = { function()
       local B = require 'base'
@@ -28,21 +16,21 @@ function M.base()
       B.all_commands()
     end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
--- function M._m(items)
---   for _, item in ipairs(items) do
---     local lhs = table.remove(item, 1)
---     if not item['name'] then
---       item[#item + 1] = item['desc']
---     end
---     M.r { [lhs] = item, }
---   end
--- end
+function M._m(items)
+  for _, item in ipairs(items) do
+    local lhs = table.remove(item, 1)
+    if not item['name'] then
+      item[#item + 1] = item['desc']
+    end
+    M.r { [lhs] = item, }
+  end
+end
 
 function M.box()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>a', name = 'my.box', },
   }
@@ -90,11 +78,11 @@ function M.box()
     ['<leader>aq8'] = { function() require 'config.my.box'.qfmakeconv2utf8() end, 'qf makeconv 2 utf8', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aq9'] = { function() require 'config.my.box'.qfmakeconv2cp936() end, 'qf makeconv 2 cp936', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.copy()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>y', name = 'copy to clipboard', },
   }
@@ -110,11 +98,11 @@ function M.copy()
     ['<leader>yrh'] = { function() require 'config.my.copy'.rela_head() end, 'rela head', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yrc'] = { function() require 'config.my.copy'.cur_root() end, 'telescope cur root', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.yank()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     ['<F9>']      = { name = 'my.yank', },
     ['<F9><F9>']  = { function() require 'config.my.yank'.reg_show() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -460,11 +448,11 @@ function M.yank()
   M.r {
     ['<F9><c-F4>'] = { function() require 'config.my.yank'.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.window()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>w', name = 'window jump/split/new', },
     ['<leader>wa'] = { function() require 'config.my.window'.change_around 'h' end, 'change with window left', mode = { 'n', 'v', }, },
@@ -549,11 +537,11 @@ function M.window()
     ['<a-s-j>'] = { function() vim.cmd '10wincmd -' end, 'my.window: height_less_10', mode = { 'n', 'v', }, silent = true, },
     ['<a-s-k>'] = { function() vim.cmd '10wincmd +' end, 'my.window: height_more_10', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.toggle()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>t', name = 'toggle', },
     ['<leader>td'] = { function() require 'config.my.toggle'.diff() end, 'diff', mode = { 'n', 'v', }, silent = true, },
@@ -564,11 +552,11 @@ function M.toggle()
     ['<leader>tc'] = { function() require 'config.my.toggle'.conceallevel() end, 'conceallevel', mode = { 'n', 'v', }, silent = true, },
     ['<leader>tk'] = { function() require 'config.my.toggle'.iskeyword() end, 'iskeyword', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.hili()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     ['*'] = { function() require 'config.my.hili'.search() end, 'hili: multiline search', mode = { 'v', }, silent = true, },
     -- windo cursorword
@@ -601,11 +589,11 @@ function M.hili()
     ['<c-8>'] = { function() require 'config.my.hili'.hili_n() end, 'hili: cword', mode = { 'n', }, silent = true, },
     ['<c-s-8>'] = { function() require 'config.my.hili'.rmhili_n() end, 'hili: rm n', mode = { 'n', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.svn()
-  local start_time = M._s()
+  TimingBegin()
   vim.api.nvim_create_user_command('TortoiseSVN', function(params)
     require 'config.my.svn'.tortoisesvn(params['fargs'])
   end, { nargs = '*', })
@@ -625,11 +613,11 @@ function M.svn()
     ['<leader>v;'] = { '<cmd>TortoiseSVN log root yes<cr>', 'TortoiseSVN log root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vk'] = { '<cmd>TortoiseSVN checkout root yes<cr>', 'TortoiseSVN checkout root yes<cr>', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.lsp()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>f',  name = 'lsp', },
     { '<leader>fv', name = 'lsp.move', },
@@ -637,11 +625,11 @@ function M.lsp()
     ['<leader>fl'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
     ['<leader>fr'] = { function() require 'config.nvim.telescope'.lsp_references() end, 'telescope.lsp: references', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.git()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>g',  name = 'git', },
     { '<leader>gt', name = 'git.telescope', },
@@ -697,11 +685,11 @@ function M.git()
     ['<leader>gvl'] = { ':<c-u>DiffviewRefresh<cr>', 'git.diffview: refresh', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gvw'] = { ':<c-u>Telescope git_diffs diff_commits<cr>', 'git.diffview: Telescope git_diffs diff_commits', mode = { 'n', 'v', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.telescope()
-  local start_time = M._s()
+  TimingBegin()
   M.r {
     { '<leader>s',   name = 'telescope', },
     -- builtins
@@ -780,7 +768,7 @@ function M.telescope()
     ['<c-s-f12><f7>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
     ['<c-s-f12><f8>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
   }
-  M._c(M._e(start_time), debug.getinfo(1)['name'])
+  TimingEnd(debug.getinfo(1)['name'])
 end
 
 function M.all()
