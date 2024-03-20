@@ -24,6 +24,9 @@ function M.b_prev_buf()
     local index
     if vim.v.count ~= 0 then
       index = vim.v.count
+      if index > #M.proj_bufs[M.cur_proj] then
+        index = #M.proj_bufs[M.cur_proj]
+      end
     else
       index = B.index_of(M.proj_bufs[M.cur_proj], M.cur_buf) - 1
     end
@@ -46,11 +49,14 @@ function M.b_next_buf()
     local index
     if vim.v.count ~= 0 then
       index = vim.v.count
+      if index > #M.proj_bufs[M.cur_proj] then
+        index = #M.proj_bufs[M.cur_proj]
+      end
     else
       index = B.index_of(M.proj_bufs[M.cur_proj], M.cur_buf) + 1
     end
     if index > #M.proj_bufs[M.cur_proj] then
-      index = #M.proj_bufs[M.cur_proj]
+      index = 1
     end
     local buf = M.proj_bufs[M.cur_proj][index]
     if buf then
