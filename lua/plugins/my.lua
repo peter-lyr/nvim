@@ -217,29 +217,30 @@ return {
       'DiffviewOpen', 'DiffviewFileHistory',
     },
     keys = {
-      { '<RightMouse>', function() end,                                           desc = 'my.git',                        mode = { 'n', 'v', }, silent = true, },
+      { '<RightMouse>',   function() end,                                           desc = 'my.git',                        mode = { 'n', 'v', }, silent = true, },
 
-      { '<leader>ga',   function() require 'config.my.git'.addcommitpush() end,   desc = 'git.push: addcommitpush',       mode = { 'n', 'v', }, silent = true, },
+      { '<leader>ga',     function() require 'config.my.git'.addcommitpush() end,   desc = 'git.push: addcommitpush',       mode = { 'n', 'v', }, silent = true, },
+      { '<leader>g<c-p>', function() require 'config.my.git'.pull_all() end,        desc = 'git.push: pull_all',            mode = { 'n', 'v', }, silent = true, },
 
       -- git.signs
-      { 'ig',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
-      { 'ag',           ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
-      { '<leader>j',    desc = 'my.git.signs next_hunk', },
-      { '<leader>k',    desc = 'my.git.signs prev_hunk', },
-      { '<leader>gd',   function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },      silent = true, },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk() end,      desc = 'my.git.signs: reset_hunk',      mode = { 'n', },      silent = true, },
-      { '<leader>gr',   function() require 'config.my.git'.reset_hunk_v() end,    desc = 'my.git.signs: reset_hunk_v',    mode = { 'v', },      silent = true, },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk() end,      desc = 'my.git.signs: stage_hunk',      mode = { 'n', },      silent = true, },
-      { '<leader>gs',   function() require 'config.my.git'.stage_hunk_v() end,    desc = 'my.git.signs: stage_hunk_v',    mode = { 'v', },      silent = true, },
-      { '<leader>gu',   function() require 'config.my.git'.undo_stage_hunk() end, desc = 'my.git.signs: undo_stage_hunk', mode = { 'n', },      silent = true, },
+      { 'ig',             ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
+      { 'ag',             ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
+      { '<leader>j',      desc = 'my.git.signs next_hunk', },
+      { '<leader>k',      desc = 'my.git.signs prev_hunk', },
+      { '<leader>gd',     function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },      silent = true, },
+      { '<leader>gr',     function() require 'config.my.git'.reset_hunk() end,      desc = 'my.git.signs: reset_hunk',      mode = { 'n', },      silent = true, },
+      { '<leader>gr',     function() require 'config.my.git'.reset_hunk_v() end,    desc = 'my.git.signs: reset_hunk_v',    mode = { 'v', },      silent = true, },
+      { '<leader>gs',     function() require 'config.my.git'.stage_hunk() end,      desc = 'my.git.signs: stage_hunk',      mode = { 'n', },      silent = true, },
+      { '<leader>gs',     function() require 'config.my.git'.stage_hunk_v() end,    desc = 'my.git.signs: stage_hunk_v',    mode = { 'v', },      silent = true, },
+      { '<leader>gu',     function() require 'config.my.git'.undo_stage_hunk() end, desc = 'my.git.signs: undo_stage_hunk', mode = { 'n', },      silent = true, },
 
       -- fugitive_toggle
-      { '<c-\\>',       function() require 'config.my.git'.fugitive_toggle() end, desc = 'my.git.fugitive: toggle',       mode = { 'n', 'v', }, silent = true, },
+      { '<c-\\>',         function() require 'config.my.git'.fugitive_toggle() end, desc = 'my.git.fugitive: toggle',       mode = { 'n', 'v', }, silent = true, },
 
       -- git.lazy
-      { '<leader>gl',   function() require 'config.my.git'.lazygit() end,         desc = 'my.git.lazy: lazygit',          mode = { 'n', 'v', }, silent = true, },
+      { '<leader>gl',     function() require 'config.my.git'.lazygit() end,         desc = 'my.git.lazy: lazygit',          mode = { 'n', 'v', }, silent = true, },
 
-      { '<c-cr>',       function() require 'config.my.git'.quickfix_toggle() end, desc = 'my.git.signs: quickfix_toggle', mode = { 'n', 'v', }, silent = true, },
+      { '<c-cr>',         function() require 'config.my.git'.quickfix_toggle() end, desc = 'my.git.signs: quickfix_toggle', mode = { 'n', 'v', }, silent = true, },
 
     },
     dependencies = {
@@ -517,3 +518,4 @@ return {
   },
 
 }
+

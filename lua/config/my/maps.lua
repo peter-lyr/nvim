@@ -634,7 +634,6 @@ function M.git()
     ['<leader>gc'] = { function() require 'config.my.git'.commit_push() end, 'git.push: commit_push', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ggc'] = { function() require 'config.my.git'.commit_push(nil, 1) end, 'git.push: commit_push commit_history_en', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gp'] = { function() require 'config.my.git'.pull() end, 'git.push: pull', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggp'] = { function() require 'config.my.git'.pull_all() end, 'git.push: pull_all', mode = { 'n', 'v', }, silent = true, },
     ['<leader>gb'] = { function() require 'config.my.git'.git_browser() end, 'git.push: browser', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ggs'] = { function() require 'config.my.git'.push() end, 'git.push: push', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ggg'] = { function() require 'config.my.git'.graph_asyncrun() end, 'git.push: graph_asyncrun', mode = { 'n', 'v', }, silent = true, },
