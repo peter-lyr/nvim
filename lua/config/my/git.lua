@@ -520,11 +520,6 @@ end
 -- mapping
 function M.gitsigns_opt(desc) return { silent = true, desc = 'my.git.signs: ' .. desc, } end
 
-B.lazy_map {
-  { '<leader>k', function() M.leader_k() end, mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk', expr = true, },
-  { '<leader>j', function() M.leader_j() end, mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk', expr = true, },
-}
-
 -- lazygit
 function M.lazygit() B.system_run('start', 'lazygit') end
 
