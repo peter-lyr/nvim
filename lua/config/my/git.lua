@@ -796,11 +796,6 @@ B.aucmd({ 'BufLeave', }, 'test.nvimtree.BufLeave', {
   end,
 })
 
-B.lazy_map {
-  { '<leader>dw', M.open_prev_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: prev item', },
-  { '<leader>ds', M.open_next_item, mode = { 'n', 'v', }, silent = true, desc = 'my.qf: next item', },
-}
-
 vim.cmd [[
   anoremenu PopUp.-3-              <Nop>
   nnoremenu PopUp.QuickFix\ Open   :copen<cr>

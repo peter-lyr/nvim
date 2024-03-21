@@ -5,10 +5,6 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-B.del_map({ 'n', 'v', }, '<leader>d')
-
-B.whichkey_register({ 'n', 'v', }, '<leader>d', 'test.nvimtree')
-
 M.run_what_list = {
   '"Adobe Audition.exe"',
   '"wmplayer.exe"',
@@ -864,7 +860,6 @@ function M._on_attach(bufnr)
 end
 
 B.lazy_map {
-  { '<leader>dr', M.reset_nvimtree, mode = { 'n', }, silent = true, desc = 'test.nvimtree: reset_nvimtree', },
 }
 
 B.del_map({ 'n', 'v', }, '<RightMouse>')

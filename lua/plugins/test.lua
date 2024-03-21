@@ -518,17 +518,6 @@ return {
       { '<c-s-4>',      function() require 'config.my.git'.get_all_git_repos(1) end,         mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: get_all_git_repos', },
 
       { '<c-5>',        function() require 'config.test.nvimtree'.sel_dirs() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: sel_dirs', },
-
-      { '<leader>d',    function() end,                                                      mode = { 'n', 'v', }, silent = true, desc = '---test.nvimtree---', },
-
-      { '<leader>dj',   function() require 'config.test.nvimtree'.open_next_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_next_tree_node', },
-      { '<leader>dk',   function() require 'config.test.nvimtree'.open_prev_tree_node() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_prev_tree_node', },
-
-      { '<leader>do',   function() require 'config.test.nvimtree'.open_all() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: open_all', },
-      { '<leader>de',   function() require 'config.test.nvimtree'.refresh_hl() end,          mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: refresh_hl', },
-
-      { '<leader>da',   function() require 'config.test.nvimtree'.ausize_toggle() end,       mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: ausize_toggle', },
-      { '<leader>dc',   function() require 'config.test.nvimtree'.toggle_cur_root() end,     mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: toggle_cur_root', },
     },
     config = function() Require 'config.test.nvimtree' end,
   },
