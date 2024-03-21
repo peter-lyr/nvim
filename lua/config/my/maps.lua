@@ -813,6 +813,21 @@ function M.leader_d()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
+function M.nvimtree()
+  TimingBegin()
+  M.r {
+    ['<c-s-cr>'] = { function() require 'config.test.nvimtree'.last_dir() end, 'test.nvimtree: last_dir', mode = { 'n', 'v', }, silent = true, },
+    ['<c-`>'] = { function() require 'config.test.nvimtree'.sel_dirvers() end, 'test.nvimtree: sel_dirvers', mode = { 'n', 'v', }, silent = true, },
+    ['<c-1>'] = { function() require 'config.test.nvimtree'.sel_parent_dirs() end, 'test.nvimtree: sel_parent_dirs', mode = { 'n', 'v', }, silent = true, },
+    ['<c-2>'] = { function() require 'config.test.nvimtree'.sel_my_dirs() end, 'test.nvimtree: sel_my_dirs', mode = { 'n', 'v', }, silent = true, },
+    ['<c-3>'] = { function() require 'config.test.nvimtree'.sel_SHGetFolderPath() end, 'test.nvimtree: sel_SHGetFolderPath', mode = { 'n', 'v', }, silent = true, },
+    ['<c-4>'] = { function() require 'config.test.nvimtree'.sel_all_git_repos() end, 'test.nvimtree: sel_all_git_repos', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-4>'] = { function() require 'config.my.git'.get_all_git_repos(1) end, 'test.nvimtree: get_all_git_repos', mode = { 'n', 'v', }, silent = true, },
+    ['<c-5>'] = { function() require 'config.test.nvimtree'.sel_dirs() end, 'test.nvimtree: sel_dirs', mode = { 'n', 'v', }, silent = true, },
+  }
+  TimingEnd(debug.getinfo(1)['name'])
+end
+
 function M.all()
   M.base()
   M.box()
@@ -828,9 +843,11 @@ function M.all()
   M.q()
   M.gui()
   M.leader_d()
+  M.nvimtree()
   require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
 vim.opt.updatetime = 500
 
 return M
+

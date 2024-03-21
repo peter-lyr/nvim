@@ -859,11 +859,6 @@ function M._on_attach(bufnr)
   vim.cmd [[call feedkeys("d\<esc>")]]
 end
 
-B.lazy_map {
-}
-
-B.del_map({ 'n', 'v', }, '<RightMouse>')
-
 vim.cmd [[
   anoremenu PopUp.-2-              <Nop>
   nnoremenu PopUp.NvimTree\ Toggle :NvimTreeToggle<cr>
