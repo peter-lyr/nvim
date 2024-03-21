@@ -853,7 +853,6 @@ end
 
 function M.others()
   require 'base'.lazy_map {
-    ['<c-;>'] = { function() require 'config.my.neuims'.i_enter() end, 'insertenter: <Enter>', mode = { 'i', }, silent = true, },
   }
 end
 
