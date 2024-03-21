@@ -47,7 +47,7 @@ M.lang = nil
 B.aucmd('ModeChanged', 'my.neuims.ModeChanged', {
   callback = function()
     if M.enable then
-      B.set_timeout(300, function()
+      B.set_timeout(150, function()
         if B.is_in_tbl(vim.fn.mode(), { 'c', 'i', 't', 'r', 'R', }) then
           M.change_language 'ZH'
         else
