@@ -843,10 +843,10 @@ function M.cal()
   M.r {
     ['c/'] = { name = 'cal', },
     ['c/b'] = { name = 'cal.bin', },
-    ['c/bn'] = { function() M.count_bin '<cword>' end, 'cal bit to notify', mode = { 'n', 'v', }, silent = true, },
-    ['c/b<c-n>'] = { function() M.count_bin('<cword>', 1) end, 'cal hex bit to notify', mode = { 'n', 'v', }, silent = true, },
-    ['c/bp'] = { function() M.count_bin('<cword>', nil, 1) end, 'cal bit to append', mode = { 'n', 'v', }, silent = true, },
-    ['c/b<c-p>'] = { function() M.count_bin('<cword>', 1, 1) end, 'cal hex bit to append', mode = { 'n', 'v', }, silent = true, },
+    ['c/bn'] = { function() require 'config.my.cal'.count_bin '<cword>' end, 'cal bit to notify', mode = { 'n', 'v', }, silent = true, },
+    ['c/b<c-n>'] = { function() require 'config.my.cal'.count_bin('<cword>', 1) end, 'cal hex bit to notify', mode = { 'n', 'v', }, silent = true, },
+    ['c/bp'] = { function() require 'config.my.cal'.count_bin('<cword>', nil, 1) end, 'cal bit to append', mode = { 'n', 'v', }, silent = true, },
+    ['c/b<c-p>'] = { function() require 'config.my.cal'.count_bin('<cword>', 1, 1) end, 'cal hex bit to append', mode = { 'n', 'v', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
 end
