@@ -112,6 +112,13 @@ return {
         print_startup_time()
       end
       vim.fn.writefile({ '0', }, nvim_qt_start_flag_socket_txt)
+      vim.fn.timer_start(78, function()
+        vim.api.nvim_create_autocmd('FocusLost', {
+          callback = function()
+            Require 'config.my.maps'.all()
+          end,
+        })
+      end)
     end,
   },
 
