@@ -88,18 +88,4 @@ EOF
   end
 end
 
--- mapping
-B.del_map({ 'n', 'v', }, 'c/')
-
-require 'base'.whichkey_register({ 'n', 'v', }, 'c/', 'my.cal')
-
-require 'base'.whichkey_register({ 'n', 'v', }, 'c/b', 'my.cal.count_bin')
-
-B.lazy_map {
-  { 'c/bn',     function() M.count_bin '<cword>' end,          mode = { 'n', 'v', }, silent = true, desc = 'notify', },
-  { 'c/b<c-n>', function() M.count_bin('<cword>', 1) end,      mode = { 'n', 'v', }, silent = true, desc = 'hex notify', },
-  { 'c/bp',     function() M.count_bin('<cword>', nil, 1) end, mode = { 'n', 'v', }, silent = true, desc = 'append', },
-  { 'c/b<c-p>', function() M.count_bin('<cword>', 1, 1) end,   mode = { 'n', 'v', }, silent = true, desc = 'hex append', },
-}
-
 return M

@@ -476,9 +476,6 @@ return {
   {
     name = 'my.cal',
     dir = '',
-    keys = {
-      { 'c/', function() require 'config.my.cal' end, desc = '---my.cal---', mode = { 'n', 'v', }, silent = true, },
-    },
   },
 
   -- my.svn
