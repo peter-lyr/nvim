@@ -440,9 +440,6 @@ return {
     name = 'my.maps',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    keys = {
-      { '<s-esc>', function() Require 'config.my.maps'.all() end, desc = 'maps', mode = { 'n', 'v', }, silent = true, },
-    },
     config = function() Require 'config.my.maps'.all() end,
   },
 

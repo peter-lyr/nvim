@@ -844,7 +844,6 @@ function M.all()
   M.gui()
   M.leader_d()
   M.nvimtree()
-  require 'base'.del_map({ 'n', 'v', }, '<s-esc>')
 end
 
 vim.opt.updatetime = 500
