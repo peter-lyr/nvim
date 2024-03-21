@@ -829,6 +829,10 @@ function M.nvimtree()
 end
 
 function M.all()
+  if M.loaded then
+    return
+  end
+  M.loaded = 1
   M.base()
   M.box()
   M.copy()

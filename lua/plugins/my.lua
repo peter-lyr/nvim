@@ -115,8 +115,8 @@ return {
       vim.fn.timer_start(78, function()
         vim.g.temp_au = vim.api.nvim_create_autocmd('FocusLost', {
           callback = function()
-            Require 'config.my.maps'.all()
             vim.api.nvim_del_autocmd(vim.g.temp_au)
+            require 'config.my.maps'.all()
           end,
         })
       end)
@@ -441,7 +441,7 @@ return {
     name = 'my.maps',
     dir = '',
     event = { 'CursorHold', 'CursorHoldI', },
-    config = function() Require 'config.my.maps'.all() end,
+    config = function() require 'config.my.maps'.all() end,
   },
 
   -- my.scroll
