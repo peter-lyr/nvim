@@ -220,7 +220,6 @@ return {
     dir = '',
     event = { 'BufReadPre', 'BufNewFile', },
     cmd = {
-      'MyGit',
       'Git',
       'Gitsings',
       'DiffviewOpen', 'DiffviewFileHistory',
@@ -253,10 +252,7 @@ return {
 
     },
     dependencies = {
-      {
-        'skywind3000/asyncrun.vim',
-        cmd = { 'AsyncRun', },
-      },
+      { 'skywind3000/asyncrun.vim', cmd = { 'AsyncRun', }, },
       'tpope/vim-fugitive',
       -- 'lewis6991/gitsigns.nvim',
       'peter-lyr/gitsigns.nvim',
