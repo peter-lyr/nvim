@@ -102,7 +102,7 @@ return {
           -- augend.constant.new { elements = { '<=', '>=', }, },
           -- augend.constant.new { elements = { '==', '!=', }, word = false, },
           -- augend.constant.new { elements = { '++', '--', }, word = false, },
-          augend.constant.new { elements = { '[ ]', '[x]', }, word = false, },
+          augend.constant.new { elements = { '[ ] TODO:', '[x] DONE:', }, word = false, },
           augend.constant.new { elements = { 'TRUE', 'FALSE', }, },
           augend.constant.new { elements = { 'True', 'False', }, },
           augend.constant.new { elements = { 'true', 'false', }, },
@@ -117,7 +117,7 @@ return {
           augend.constant.new { elements = { 'prev_', 'next_', }, word = false, },
           augend.constant.new { elements = { 'Prev', 'Next', }, word = false, },
           -- c
-          augend.constant.new { elements = { '%d', '%s', '%x', }, word = false, },
+          -- augend.constant.new { elements = { '%d', '%s', '%x', }, word = false, },
           augend.constant.new { elements = { 'signed', 'unsigned', }, },
           augend.constant.new { elements = { 'u8', 'u16', 'u32', 'u64', }, },
           augend.constant.new { elements = { 's8', 's16', 's32', 's64', }, },
