@@ -544,7 +544,9 @@ function M.toggle()
   local opened = nil
   for winnr=1, vim.fn.winnr '$' do
     if vim.api.nvim_buf_get_option(vim.fn.winbufnr(winnr), 'filetype') == 'NvimTree' then
-      vim.fn.win_gotoid(vim.fn.win_getid(winnr))
+      local winid = vim.fn.win_getid(winnr)
+      vim.fn.win_gotoid(winid)
+      vim.api.nvim_win_set_width(winid, require 'nvim-tree.view'.View.width)
       opened = 1
       break
     end
