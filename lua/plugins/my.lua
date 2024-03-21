@@ -252,7 +252,10 @@ return {
 
     },
     dependencies = {
-      'skywind3000/asyncrun.vim',
+      {
+        'skywind3000/asyncrun.vim',
+        cmd = { 'AsyncRun', },
+      },
       'tpope/vim-fugitive',
       -- 'lewis6991/gitsigns.nvim',
       'peter-lyr/gitsigns.nvim',
