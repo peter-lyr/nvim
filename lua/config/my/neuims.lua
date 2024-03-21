@@ -58,6 +58,30 @@ B.aucmd('ModeChanged', 'my.neuims.ModeChanged', {
   end,
 })
 
+B.aucmd('FocusLost', 'my.neuims.FocusLost', {
+  callback = function()
+    if M.enable then
+      B.set_timeout(150, function()
+        M.change_language 'ZH'
+      end)
+    end
+  end,
+})
+
+B.aucmd('FocusGained', 'my.neuims.FocusGained', {
+  callback = function()
+    if M.enable then
+      B.set_timeout(150, function()
+        if B.is_in_tbl(vim.fn.mode(), { 'c', 'i', 't', 'r', 'R', }) then
+          M.change_language 'ZH'
+        else
+          M.change_language 'EN'
+        end
+      end)
+    end
+  end,
+})
+
 function M.i_enter()
   M.enable = nil
   vim.cmd [[call feedkeys("\<esc>o")]]
