@@ -452,17 +452,18 @@ return {
     name = 'my.window',
     dir = '',
     keys = {
-      { '<leader>we', '<c-w>=',                                                    desc = 'wincmd =',                        mode = { 'n', 'v', }, },
-      { '<leader>wm', function() require 'base'.win_max_height() end,              desc = 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
-      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end,     desc = 'go window up',                    mode = { 'n', 'v', }, },
-      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end,     desc = 'go window down',                  mode = { 'n', 'v', }, },
-      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end,     desc = 'go window left',                  mode = { 'n', 'v', }, },
-      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end,     desc = 'go window right',                 mode = { 'n', 'v', }, },
-      { '<leader>xc', function() require 'config.my.window'.close_cur() end,       desc = 'close current buffer',            mode = { 'n', 'v', }, },
-      { '<leader>xh', function() require 'config.my.window'.close_win_left() end,  desc = 'close window left',               mode = { 'n', 'v', }, },
-      { '<leader>xj', function() require 'config.my.window'.close_win_down() end,  desc = 'close window down',               mode = { 'n', 'v', }, },
-      { '<leader>xk', function() require 'config.my.window'.close_win_up() end,    desc = 'close window up',                 mode = { 'n', 'v', }, },
-      { '<leader>xl', function() require 'config.my.window'.close_win_right() end, desc = 'close window right',              mode = { 'n', 'v', }, },
+      { '<leader>we', '<c-w>=',                                                     desc = 'wincmd =',                        mode = { 'n', 'v', }, },
+      { '<leader>wm', function() require 'base'.win_max_height() end,               desc = 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
+      { '<leader>wh', function() require 'config.my.window'.go_window 'h' end,      desc = 'go window up',                    mode = { 'n', 'v', }, },
+      { '<leader>wj', function() require 'config.my.window'.go_window 'j' end,      desc = 'go window down',                  mode = { 'n', 'v', }, },
+      { '<leader>wk', function() require 'config.my.window'.go_window 'k' end,      desc = 'go window left',                  mode = { 'n', 'v', }, },
+      { '<leader>wl', function() require 'config.my.window'.go_window 'l' end,      desc = 'go window right',                 mode = { 'n', 'v', }, },
+      { '<leader>xc', function() require 'config.my.window'.close_cur() end,        desc = 'close current buffer',            mode = { 'n', 'v', }, },
+      { '<leader>xh', function() require 'config.my.window'.close_win_left() end,   desc = 'close window left',               mode = { 'n', 'v', }, },
+      { '<leader>xj', function() require 'config.my.window'.close_win_down() end,   desc = 'close window down',               mode = { 'n', 'v', }, },
+      { '<leader>xk', function() require 'config.my.window'.close_win_up() end,     desc = 'close window up',                 mode = { 'n', 'v', }, },
+      { '<leader>xl', function() require 'config.my.window'.close_win_right() end,  desc = 'close window right',              mode = { 'n', 'v', }, },
+      { '<leader>xp', function() require 'config.my.window'.bdelete_cur_proj() end, desc = 'bdelete current proj files',      mode = { 'n', 'v', }, },
     },
   },
 
@@ -518,4 +519,3 @@ return {
   },
 
 }
-

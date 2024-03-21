@@ -487,7 +487,6 @@ function M.window()
     ['<leader>xd'] = { function() require 'config.my.window'.Bdelete_cur() end, 'Bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>x<c-d>'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>xD'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
-    ['<leader>xp'] = { function() require 'config.my.window'.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
     ['<leader>x<c-p>'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
     ['<leader>xP'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
     ['<leader>x<del>'] = { function() require 'config.my.window'.bwipeout_deleted() end, 'bwipeout buffers deleted', mode = { 'n', 'v', }, },
