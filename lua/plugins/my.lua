@@ -225,8 +225,6 @@ return {
       -- git.signs
       { 'ig',             ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
       { 'ag',             ':<C-U>Gitsigns select_hunk<CR>',                         desc = 'my.git.signs: select_hunk',     mode = { 'o', 'x', }, silent = true, },
-      { '<leader>j',      desc = 'my.git.signs next_hunk', },
-      { '<leader>k',      desc = 'my.git.signs prev_hunk', },
       { '<leader>k',      function() return require 'config.my.git'.leader_k() end, desc = 'my.git.signs: prev_hunk',       mode = { 'n', 'v', }, expr = true, },
       { '<leader>j',      function() return require 'config.my.git'.leader_j() end, desc = 'my.git.signs: next_hunk',       mode = { 'n', 'v', }, expr = true, },
       { '<leader>gd',     function() require 'config.my.git'.diffthis() end,        desc = 'my.git.signs: diffthis',        mode = { 'n', },      silent = true, },
