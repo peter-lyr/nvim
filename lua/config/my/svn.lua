@@ -27,4 +27,8 @@ function M.tortoisesvn(params)
   end
 end
 
+vim.api.nvim_create_user_command('TortoiseSVN', function(params)
+  M.tortoisesvn(params['fargs'])
+end, { nargs = '*', })
+
 return M

@@ -595,16 +595,13 @@ function M.svn()
     ['<leader>v'] = { name = 'my.svn', },
     ['<leader>vo'] = { '<cmd>TortoiseSVN settings cur yes<cr>', 'TortoiseSVN settings cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vd'] = { '<cmd>TortoiseSVN diff cur yes<cr>', 'TortoiseSVN diff cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vf'] = { '<cmd>TortoiseSVN diff root yes<cr>', 'TortoiseSVN diff root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vb'] = { '<cmd>TortoiseSVN blame cur yes<cr>', 'TortoiseSVN blame cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vw'] = { '<cmd>TortoiseSVN repobrowser cur yes<cr>', 'TortoiseSVN repobrowser cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ve'] = { '<cmd>TortoiseSVN repobrowser root yes<cr>', 'TortoiseSVN repobrowser root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vv'] = { '<cmd>TortoiseSVN revert root yes<cr>', 'TortoiseSVN revert root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>va'] = { '<cmd>TortoiseSVN add root yes<cr>', 'TortoiseSVN add root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vc'] = { '<cmd>TortoiseSVN commit root yes<cr>', 'TortoiseSVN commit root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vu'] = { '<cmd>TortoiseSVN update /rev root yes<cr>', 'TortoiseSVN update /rev root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vl'] = { '<cmd>TortoiseSVN log cur yes<cr>', 'TortoiseSVN log cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>v;'] = { '<cmd>TortoiseSVN log root yes<cr>', 'TortoiseSVN log root yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vk'] = { '<cmd>TortoiseSVN checkout root yes<cr>', 'TortoiseSVN checkout root yes<cr>', mode = { 'n', 'v', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
@@ -839,6 +836,12 @@ function M.leader_r()
     ['<leader>r<c-w>'] = { function() require 'spectre'.open() end, 'test.spectre: cwd', mode = { 'n', 'v', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
+end
+
+function M.others()
+  require 'base'.lazy_map {
+    { '<c-;>', function() require 'config.my.neuims'.i_enter() end, desc = 'my.insertenter: cr', mode = { 'i', }, silent = true, },
+  }
 end
 
 function M.all(force)

@@ -485,6 +485,13 @@ return {
   {
     name = 'my.svn',
     dir = '',
+    cmd = 'TortoiseSVN',
+    keys = {
+      { '<leader>vu', '<cmd>TortoiseSVN update /rev root yes<cr>', desc = 'TortoiseSVN update /rev root yes<cr>', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>vf', '<cmd>TortoiseSVN diff root yes<cr>',        desc = 'TortoiseSVN diff root yes<cr>',        mode = { 'n', 'v', }, silent = true, },
+      { '<leader>v;', '<cmd>TortoiseSVN log root yes<cr>',         desc = 'TortoiseSVN log root yes<cr>',         mode = { 'n', 'v', }, silent = true, },
+    },
+    config = function() require 'config.my.neuims' end,
   },
 
   -- my.neuims
@@ -493,12 +500,9 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
-      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                desc = 'my.insertenter: cr',                mode = { 'i', },                          silent = true, },
       { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, desc = 'my.neuims: toggle_lang_in_cmdline', mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, },
     },
-    config = function()
-      require 'config.my.neuims'
-    end,
+    config = function() require 'config.my.neuims' end,
   },
 
   -- my.py
@@ -520,3 +524,4 @@ return {
   },
 
 }
+
