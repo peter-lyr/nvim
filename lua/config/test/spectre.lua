@@ -116,7 +116,7 @@ function M.replace(patt, rep, root)
   M.replace_do()
 end
 
--- require 'config.test.spectre'.require([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
--- require 'config.test.spectre'.require([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]])
+-- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
+-- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]])
 
 return M
