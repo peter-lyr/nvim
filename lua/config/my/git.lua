@@ -520,26 +520,9 @@ end
 -- mapping
 function M.gitsigns_opt(desc) return { silent = true, desc = 'my.git.signs: ' .. desc, } end
 
-B.del_map({ 'n', 'v', }, '<leader>gm')
-B.del_map({ 'n', 'v', }, '<leader>gmt')
-
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gm', 'my.git.signs')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>gmt', 'my.git.signs.toggle')
-
 B.lazy_map {
-  { '<leader>k',    M.leader_k,                  mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk',                 expr = true, },
-  { '<leader>j',    M.leader_j,                  mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk',                 expr = true, },
-  { '<leader>gmd',  M.diffthis_l,                mode = { 'n', 'v', }, desc = 'my.git.signs: diffthis_l', },
-  { '<leader>gmr',  M.reset_buffer,              mode = { 'n', 'v', }, desc = 'my.git.signs: reset_buffer', },
-  { '<leader>gms',  M.stage_buffer,              mode = { 'n', 'v', }, desc = 'my.git.signs: stage_buffer', },
-  { '<leader>gmb',  M.blame_line,                mode = { 'n', 'v', }, desc = 'my.git.signs: blame_line', },
-  { '<leader>gmp',  M.preview_hunk,              mode = { 'n', 'v', }, desc = 'my.git.signs: preview_hunk', },
-  { '<leader>gmtb', M.toggle_current_line_blame, mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_current_line_blame', },
-  { '<leader>gmtd', M.toggle_deleted,            mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_deleted', },
-  { '<leader>gmtl', M.toggle_linehl,             mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_linehl', },
-  { '<leader>gmtn', M.toggle_numhl,              mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_numhl', },
-  { '<leader>gmts', M.toggle_signs,              mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_signs', },
-  { '<leader>gmtw', M.toggle_word_diff,          mode = { 'n', 'v', }, desc = 'my.git.signs: toggle_word_diff', },
+  { '<leader>k', function() M.leader_k() end, mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk', expr = true, },
+  { '<leader>j', function() M.leader_j() end, mode = { 'n', 'v', }, desc = 'my.git.signs: prev_hunk', expr = true, },
 }
 
 -- lazygit

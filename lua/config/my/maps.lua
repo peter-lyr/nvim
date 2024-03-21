@@ -677,6 +677,17 @@ function M.git()
     ['<leader>gm'] = { name = 'git.signs', },
     ['<leader>gmt'] = { name = 'git.signs.toggle', },
     ['<leader>ge'] = { function() require 'config.my.git'.toggle_deleted() end, 'my.git.signs: toggle_deleted', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>gmd'] = { function() require 'config.my.git'.diffthis_l() end, 'my.git.signs: diffthis_l', mode = { 'n', 'v', }, },
+    ['<leader>gmr'] = { function() require 'config.my.git'.reset_buffer() end, 'my.git.signs: reset_buffer', mode = { 'n', 'v', }, },
+    ['<leader>gms'] = { function() require 'config.my.git'.stage_buffer() end, 'my.git.signs: stage_buffer', mode = { 'n', 'v', }, },
+    ['<leader>gmb'] = { function() require 'config.my.git'.blame_line() end, 'my.git.signs: blame_line', mode = { 'n', 'v', }, },
+    ['<leader>gmp'] = { function() require 'config.my.git'.preview_hunk() end, 'my.git.signs: preview_hunk', mode = { 'n', 'v', }, },
+    ['<leader>gmtb'] = { function() require 'config.my.git'.toggle_current_line_blame() end, 'my.git.signs: toggle_current_line_blame', mode = { 'n', 'v', }, },
+    ['<leader>gmtd'] = { function() require 'config.my.git'.toggle_deleted() end, 'my.git.signs: toggle_deleted', mode = { 'n', 'v', }, },
+    ['<leader>gmtl'] = { function() require 'config.my.git'.toggle_linehl() end, 'my.git.signs: toggle_linehl', mode = { 'n', 'v', }, },
+    ['<leader>gmtn'] = { function() require 'config.my.git'.toggle_numhl() end, 'my.git.signs: toggle_numhl', mode = { 'n', 'v', }, },
+    ['<leader>gmts'] = { function() require 'config.my.git'.toggle_signs() end, 'my.git.signs: toggle_signs', mode = { 'n', 'v', }, },
+    ['<leader>gmtw'] = { function() require 'config.my.git'.toggle_word_diff() end, 'my.git.signs: toggle_word_diff', mode = { 'n', 'v', }, },
   }
   TimingEnd(debug.getinfo(1)['name'])
 end
@@ -805,3 +816,4 @@ end
 vim.opt.updatetime = 500
 
 return M
+
