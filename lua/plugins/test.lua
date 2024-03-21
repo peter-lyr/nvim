@@ -350,13 +350,6 @@ return {
   -- spectre
   {
     'nvim-pack/nvim-spectre',
-    keys = {
-      { '<leader>r',      function() end,                                                            mode = { 'n', 'v', }, silent = true, desc = '---my.py/test.spectre---', },
-      { '<leader>rf',     function() require 'spectre'.open_file_search { select_word = true, } end, mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur cword', },
-      { '<leader>r<c-f>', function() require 'spectre'.open_file_search() end,                       mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cur', },
-      { '<leader>rw',     function() require 'spectre'.open_visual { select_word = true, } end,      mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd cword', },
-      { '<leader>r<c-w>', function() require 'spectre'.open() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.spectre: cwd', },
-    },
     init = function()
       function Replace(patt, rep, root)
         require 'config.test.spectre'.replace(patt, rep, root)

@@ -8,11 +8,6 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
--- mapping
-B.del_map({ 'n', 'v', }, '<leader>r')
-
-B.whichkey_register({ 'n', 'v', }, '<leader>r', 'my.py')
-
 M.py_dir = B.getcreate_dir(M.source .. '.py')
 M.py_files = require 'plenary.scandir'.scan_dir(M.py_dir, { hidden = true, depth = 64, add_dirs = false, })
 

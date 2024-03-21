@@ -506,11 +506,7 @@ return {
     name = 'my.py',
     dir = '',
     ft = { 'python', },
-    keys = {
-      { '<leader>r',  function() end,                                     desc = '---my.py/test.spectre---', mode = { 'n', 'v', }, silent = true, },
-      { '<leader>rp', function() require 'config.my.py'.sel_run_py() end, desc = 'my.py: sel_run',           mode = { 'n', 'v', }, silent = true, },
-    },
-    config = function() Require 'config.my.py' end,
+    config = function() require 'config.my.py' end,
   },
 
   -- my.command

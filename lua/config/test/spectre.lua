@@ -7,10 +7,6 @@ local B = require 'base'
 
 M.source = B.getsource(debug.getinfo(1)['source'])
 
-B.del_map({ 'n', 'v', }, '<leader>r')
-
-B.whichkey_register({ 'n', 'v', }, '<leader>r', 'test.spectre')
-
 M.spectre_dir = B.getcreate_dir(M.source .. '.exe')
 
 M.sed_exe = B.get_filepath(M.spectre_dir, 'sed.exe').filename
