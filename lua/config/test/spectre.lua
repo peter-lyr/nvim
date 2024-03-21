@@ -80,7 +80,8 @@ function M.replace_do()
   end)
 end
 
-function M.replace(substitute_string, root)
+function M.replace(patt, rep, root)
+  local substitute_string = string.format('%%s/%s/%s/g', patt, rep)
   if not root then
     root = vim.loop.cwd()
   else
@@ -97,7 +98,6 @@ function M.replace(substitute_string, root)
   B.aucmd({ 'BufEnter', }, 'test_replace_without_spectre', {
     callback = function()
       vim.schedule(function()
-        -- B.print([[try|%s|catch|endtry]], substitute_string)
         B.cmd([[try|%s|catch|endtry]], substitute_string)
       end)
     end,
@@ -105,6 +105,6 @@ function M.replace(substitute_string, root)
   M.replace_do()
 end
 
--- require 'confit.test.spectre'.require([[%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
+require 'confit.test.spectre'.require([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
 
 return M
