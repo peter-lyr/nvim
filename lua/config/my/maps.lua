@@ -828,8 +828,8 @@ function M.nvimtree()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.all()
-  if M.loaded then
+function M.all(force)
+  if M.loaded and not force then
     return
   end
   M.loaded = 1
