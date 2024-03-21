@@ -58,7 +58,7 @@ function M.replace_end()
 end
 
 function M.replace_do()
-  local file
+  local file = nil
   while 1 do
     M._replace_cnt = M._replace_cnt + 1
     if M._replace_cnt > #M._replace_files then
@@ -79,6 +79,9 @@ function M.replace_do()
         break
       end
     end
+  end
+  if not file or not B.is_file(file) then
+    return
   end
   B.cmd('e %s', file)
   B.set_timeout(100, function()
