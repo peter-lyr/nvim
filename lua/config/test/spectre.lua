@@ -106,13 +106,5 @@ function M.replace(substitute_string, root)
 end
 
 -- require 'confit.test.spectre'.require([[%s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
---
--- :Replace %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g
---
--- :Replace %s/20\(2[34]\d\{2}\)\(\d\{2}\)/\=submatch(1)..submatch(2)/g c:\Users\depei_liu\appdata\local\repos\2024s
-
-vim.api.nvim_create_user_command('Replace', function(params)
-  M.replace(unpack(params['fargs']))
-end, { nargs = '*', })
 
 return M
