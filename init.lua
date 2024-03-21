@@ -1,5 +1,6 @@
 vim.g.start_time = vim.fn.reltime()
 vim.g.mapleader = ' '
+vim.o.shada = nil
 
 local vimruntime = vim.fn.expand '$VIMRUNTIME'
 local data = vim.fn.stdpath 'data' .. '\\'

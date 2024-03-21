@@ -113,6 +113,7 @@ return {
       end
       vim.fn.writefile({ '0', }, nvim_qt_start_flag_socket_txt)
       vim.fn.timer_start(78, function()
+        vim.cmd 'rshada'
         vim.g.temp_au = vim.api.nvim_create_autocmd('FocusLost', {
           callback = function()
             vim.api.nvim_del_autocmd(vim.g.temp_au)
