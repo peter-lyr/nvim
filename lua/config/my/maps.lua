@@ -831,7 +831,7 @@ end
 function M.leader_r()
   TimingBegin()
   M.r {
-    ['<leader>r'] = { name = 'run/replace', },
+    ['<leader>r'] = { name = 'run/spectre', },
     ['<leader>rp'] = { function() require 'config.my.py'.sel_run_py() end, 'run.py', mode = { 'n', 'v', }, silent = true, },
     ['<leader>rf'] = { function() require 'spectre'.open_file_search { select_word = true, } end, 'test.spectre: cur cword', mode = { 'n', 'v', }, silent = true, },
     ['<leader>r<c-f>'] = { function() require 'spectre'.open_file_search() end, 'test.spectre: cur', mode = { 'n', 'v', }, silent = true, },
