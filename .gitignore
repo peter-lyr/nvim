@@ -3,3 +3,5 @@
 .not_images
 *.exe
 spell
+.clang-format
+.clangd
