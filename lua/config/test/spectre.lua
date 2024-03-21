@@ -58,16 +58,26 @@ function M.replace_end()
 end
 
 function M.replace_do()
-  local file = M._replace_files[M._replace_cnt]
-  local ext = string.match(file, '%.([^.]+)$')
-  while ext ~= 'md' do
+  while 1 do
     M._replace_cnt = M._replace_cnt + 1
-    if M._replace_cnt > M._replace_files then
+    if M._replace_cnt > #M._replace_files then
       M.replace_end()
       return
     end
-    file = M._replace_files[M._replace_cnt]
-    ext = string.match(file, '%.([^.]+)$')
+    local file = M._replace_files[M._replace_cnt]
+    local ext = string.match(file, '%.([^.]+)$')
+    if ext == 'md' then
+      local temp = nil
+      for _, line in ipairs(vim.fn.readfile(file)) do
+        if vim.fn.match(line, M.patt) > -1 then
+          temp = 1
+          break
+        end
+      end
+      if temp then
+        break
+      end
+    end
   end
   B.cmd('e %s', file)
   B.set_timeout(100, function()
@@ -81,6 +91,7 @@ function M.replace_do()
 end
 
 function M.replace(patt, rep, root)
+  M.patt = patt
   local substitute_string = string.format('%%s/%s/%s/g', patt, rep)
   if not root then
     root = vim.loop.cwd()
