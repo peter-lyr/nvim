@@ -534,6 +534,26 @@ function M.sel_all_git_repos() M._sel_dirs_do(require 'config.my.git'.get_all_gi
 
 function M.last_dir() if B.is(M._last_dir) then M.open(M._last_dir) end end
 
+function M.toggle()
+  if vim.api.nvim_buf_get_option(vim.fn.bufnr(), 'filetype') == 'NvimTree' then
+    vim.api.nvim_win_set_width(0, 0)
+    vim.cmd 'wincmd p'
+    vim.cmd 'wincmd >'
+    return
+  end
+  local opened = nil
+  for winnr=1, vim.fn.winnr '$' do
+    if vim.api.nvim_buf_get_option(vim.fn.winbufnr(winnr), 'filetype') == 'NvimTree' then
+      vim.fn.win_gotoid(vim.fn.win_getid(winnr))
+      opened = 1
+      break
+    end
+  end
+  if not opened then
+    vim.cmd 'NvimTreeOpen'
+  end
+end
+
 B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
   callback = function(ev)
     if B.is_buf_fts('NvimTree', ev.buf) then

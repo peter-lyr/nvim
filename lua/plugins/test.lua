@@ -501,7 +501,7 @@ return {
     keys = {
       { '<RightMouse>', function() end,                                                      mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
 
-      { '<c-f>',        '<cmd>NvimTreeFindFileToggle<cr>',                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: NvimTreeFindFileToggle', },
+      { '<c-f>',        function() require 'config.test.nvimtree'.toggle() end,              mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: nvimtree toggle', },
 
       { '<c-s-cr>',     function() require 'config.test.nvimtree'.last_dir() end,            mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: last_dir', },
 
