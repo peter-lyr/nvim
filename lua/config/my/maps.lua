@@ -885,4 +885,3 @@ end
 vim.opt.updatetime = 500
 
 return M
-
