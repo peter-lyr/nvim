@@ -8,3 +8,13 @@ function Require(lua)
   end
   return require(lua)
 end
+
+function R(lua)
+  local temp = Require('config.my.' .. lua)
+  if temp then return temp end
+  temp = Require('config.test.' .. lua)
+  if temp then return temp end
+  temp = Require('config.nvim.' .. lua)
+  if temp then return temp end
+  return Require(lua)
+end
