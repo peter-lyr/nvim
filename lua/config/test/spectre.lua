@@ -58,13 +58,14 @@ function M.replace_end()
 end
 
 function M.replace_do()
+  local file
   while 1 do
     M._replace_cnt = M._replace_cnt + 1
     if M._replace_cnt > #M._replace_files then
       M.replace_end()
       return
     end
-    local file = M._replace_files[M._replace_cnt]
+    file = M._replace_files[M._replace_cnt]
     local ext = string.match(file, '%.([^.]+)$')
     if ext == 'md' then
       local temp = nil
