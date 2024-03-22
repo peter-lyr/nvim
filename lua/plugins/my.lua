@@ -498,8 +498,8 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', 'InsertEnter', 'CmdlineEnter', 'TermEnter', },
     keys = {
-      { '<c-;>',  function() require 'config.my.neuims'.i_enter() end,                desc = 'insertenter: <Enter>',              mode = { 'i', },                          silent = true, },
-      { '<c-F1>', function() require 'config.my.neuims'.toggle_lang_in_cmdline() end, desc = 'my.neuims: toggle_lang_in_cmdline', mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, },
+      { '<c-;>',  desc = 'Enter new empty line', },
+      { '<c-F1>', desc = 'toggle: EN/ZH', },
     },
     config = function() require 'config.my.neuims' end,
   },

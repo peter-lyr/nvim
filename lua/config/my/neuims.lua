@@ -96,4 +96,13 @@ function M.toggle_lang_in_cmdline()
   end
 end
 
+function M.map()
+  require 'which-key'.register {
+    ['<c-F1>'] = { function() M.toggle_lang_in_cmdline() end, 'toggle: EN/ZH', mode = { 'n', 's', 'v', 'c', 'i', 't', }, silent = true, },
+    ['<c-;>'] = { function() M.i_enter() end, 'Enter new empty line', mode = { 'i', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M
