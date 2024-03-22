@@ -8,3 +8,4 @@
 6. [ ] TODO: nvim-qt dead when insertleave, maybe neuims, maybe windows 10
 7. [ ] TODO: add path variable in nvim-qt
 8. [ ] TODO: sort telescope(todo) result by time(modify/create)
+9. [ ] TODO: tabline bdelete unmodified buffers
