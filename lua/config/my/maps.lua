@@ -584,27 +584,6 @@ function M.hili()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.svn()
-  TimingBegin()
-  vim.api.nvim_create_user_command('TortoiseSVN', function(params)
-    require 'config.my.svn'.tortoisesvn(params['fargs'])
-  end, { nargs = '*', })
-  require 'which-key'.register {
-    ['<leader>v'] = { name = 'my.svn', },
-    ['<leader>vo'] = { '<cmd>TortoiseSVN settings cur yes<cr>', 'TortoiseSVN settings cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vd'] = { '<cmd>TortoiseSVN diff cur yes<cr>', 'TortoiseSVN diff cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vb'] = { '<cmd>TortoiseSVN blame cur yes<cr>', 'TortoiseSVN blame cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vw'] = { '<cmd>TortoiseSVN repobrowser cur yes<cr>', 'TortoiseSVN repobrowser cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ve'] = { '<cmd>TortoiseSVN repobrowser root yes<cr>', 'TortoiseSVN repobrowser root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vv'] = { '<cmd>TortoiseSVN revert root yes<cr>', 'TortoiseSVN revert root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>va'] = { '<cmd>TortoiseSVN add root yes<cr>', 'TortoiseSVN add root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vc'] = { '<cmd>TortoiseSVN commit root yes<cr>', 'TortoiseSVN commit root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vl'] = { '<cmd>TortoiseSVN log cur yes<cr>', 'TortoiseSVN log cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>vk'] = { '<cmd>TortoiseSVN checkout root yes<cr>', 'TortoiseSVN checkout root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.lsp()
   TimingBegin()
   require 'which-key'.register {
@@ -853,7 +832,6 @@ function M.all(force)
   M.window()
   M.toggle()
   M.hili()
-  M.svn()
   M.lsp()
   M.git()
   M.telescope()
@@ -868,3 +846,4 @@ end
 vim.opt.updatetime = 500
 
 return M
+

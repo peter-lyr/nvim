@@ -486,11 +486,8 @@ return {
   {
     name = 'my.svn',
     dir = '',
-    cmd = 'TortoiseSVN',
     keys = {
-      { '<leader>vu', '<cmd>TortoiseSVN update /rev root yes<cr>', desc = 'TortoiseSVN update /rev root yes<cr>', mode = { 'n', 'v', }, silent = true, },
-      { '<leader>vf', '<cmd>TortoiseSVN diff root yes<cr>',        desc = 'TortoiseSVN diff root yes<cr>',        mode = { 'n', 'v', }, silent = true, },
-      { '<leader>v;', '<cmd>TortoiseSVN log root yes<cr>',         desc = 'TortoiseSVN log root yes<cr>',         mode = { 'n', 'v', }, silent = true, },
+      { '<leader>v', desc = 'svn', },
     },
     config = function() require 'config.my.svn' end,
   },
