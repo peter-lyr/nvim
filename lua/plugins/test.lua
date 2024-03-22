@@ -485,9 +485,17 @@ return {
       'NvimTreeFindFileToggle',
     },
     keys = {
-      { '<c-f>', function() require 'config.test.nvimtree'.toggle() end, mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree: nvimtree toggle', },
+      { '<c-f>',    desc = 'nvimtree: toggle', },
+      { '<c-s-cr>', desc = 'nvimtree: open tree in last dir', },
+      { '<c-`>',    desc = 'nvimtree: open tree in dirvers(sel)', },
+      { '<c-1>',    desc = 'nvimtree: open tree in parent dirs(sel)', },
+      { '<c-2>',    desc = 'nvimtree: open tree in my dirs(sel)', },
+      { '<c-3>',    desc = 'nvimtree: open tree in SHGetFolderPath(sel)', },
+      { '<c-4>',    desc = 'nvimtree: open tree in all git repos(sel)', },
+      { '<c-s-4>',  desc = 'nvimtree: open tree in all git repos(sel)(force)', },
+      { '<c-5>',    desc = 'nvimtree: open tree in dirs(sel)', },
     },
-    config = function() Require 'config.test.nvimtree' end,
+    config = function() require 'config.test.nvimtree' end,
   },
 
   -- {

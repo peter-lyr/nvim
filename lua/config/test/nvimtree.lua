@@ -538,7 +538,7 @@ function M.toggle()
     return
   end
   local opened = nil
-  for winnr=1, vim.fn.winnr '$' do
+  for winnr = 1, vim.fn.winnr '$' do
     if vim.api.nvim_buf_get_option(vim.fn.winbufnr(winnr), 'filetype') == 'NvimTree' then
       local winid = vim.fn.win_getid(winnr)
       vim.fn.win_gotoid(winid)
@@ -889,9 +889,23 @@ function M.open_all()
   for root, _ in pairs(roots) do
     local fname = B.get_filepath(root, roots[root][1]).filename
     B.cmd('e %s', fname)
-    require "nvim-tree.actions.tree.find-file".fn()
+    require 'nvim-tree.actions.tree.find-file'.fn()
   end
   B.cmd('b%d', cur_bufnr)
+end
+
+function M.map()
+  require 'which-key'.register {
+    ['<c-f>'] = { function() M.toggle() end, 'nvimtree: toggle', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-cr>'] = { function() M.last_dir() end, 'nvimtree: open tree in last dir', mode = { 'n', 'v', }, silent = true, },
+    ['<c-`>'] = { function() M.sel_dirvers() end, 'nvimtree: open tree in dirvers(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-1>'] = { function() M.sel_parent_dirs() end, 'nvimtree: open tree in parent dirs(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-2>'] = { function() M.sel_my_dirs() end, 'nvimtree: open tree in my dirs(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-3>'] = { function() M.sel_SHGetFolderPath() end, 'nvimtree: open tree in SHGetFolderPath(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-4>'] = { function() M.sel_all_git_repos() end, 'nvimtree: open tree in all git repos(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-4>'] = { function() require 'config.my.git'.get_all_git_repos(1) end, 'nvimtree: open tree in all git repos(sel)(force)', mode = { 'n', 'v', }, silent = true, },
+    ['<c-5>'] = { function() M.sel_dirs() end, 'nvimtree: open tree in dirs(sel)', mode = { 'n', 'v', }, silent = true, },
+  }
 end
 
 return M
