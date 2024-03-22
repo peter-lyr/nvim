@@ -423,4 +423,101 @@ function M.bdelete_unmodified()
   M.refresh()
 end
 
+function M.map()
+  require 'which-key'.register {
+    ['<leader>w'] = { name = 'window jump/split/new', },
+    ['<leader>wa'] = { function() M.change_around 'h' end, 'change with window left', mode = { 'n', 'v', }, },
+    ['<leader>ws'] = { function() M.change_around 'j' end, 'change with window down', mode = { 'n', 'v', }, },
+    ['<leader>ww'] = { function() M.change_around 'k' end, 'change with window up', mode = { 'n', 'v', }, },
+    ['<leader>wd'] = { function() M.change_around 'l' end, 'change with window right', mode = { 'n', 'v', }, },
+    ['<leader>wt'] = { '<c-w>t', 'go topleft window', mode = { 'n', 'v', }, },
+    ['<leader>wq'] = { '<c-w>p', 'go toggle last window', mode = { 'n', 'v', }, },
+    ['<leader>w;'] = { function() M.toggle_max_height() end, 'toggle max height', mode = { 'n', 'v', }, },
+    ['<leader>wu'] = { ':<c-u>leftabove new<cr>', 'create new window up', mode = { 'n', 'v', }, },
+    ['<leader>wi'] = { ':<c-u>new<cr>', 'create new window down', mode = { 'n', 'v', }, },
+    ['<leader>wo'] = { ':<c-u>leftabove vnew<cr>', 'create new window left', mode = { 'n', 'v', }, },
+    ['<leader>wp'] = { ':<c-u>vnew<cr>', 'create new window right', mode = { 'n', 'v', }, },
+    ['<leader>w<left>'] = { '<c-w>v<c-w>h', 'split to window up', mode = { 'n', 'v', }, },
+    ['<leader>w<down>'] = { '<c-w>s', 'split to window down', mode = { 'n', 'v', }, },
+    ['<leader>w<up>'] = { '<c-w>s<c-w>k', 'split to window left', mode = { 'n', 'v', }, },
+    ['<leader>w<right>'] = { '<c-w>v', 'split to window right', mode = { 'n', 'v', }, },
+    ['<leader>wc'] = { '<c-w>H', 'be most window up', mode = { 'n', 'v', }, },
+    ['<leader>wv'] = { '<c-w>J', 'be most window down', mode = { 'n', 'v', }, },
+    ['<leader>wf'] = { '<c-w>K', 'be most window left', mode = { 'n', 'v', }, },
+    ['<leader>wb'] = { '<c-w>L', 'be most window right', mode = { 'n', 'v', }, },
+    ['<leader>wn'] = { '<c-w>w', 'go next window', mode = { 'n', 'v', }, },
+    ['<leader>wg'] = { '<c-w>W', 'go prev window', mode = { 'n', 'v', }, },
+    ['<leader>wz'] = { function() M.go_last_window() end, 'go last window', mode = { 'n', 'v', }, },
+  }
+  require 'which-key'.register {
+    ['<leader>x'] = { name = 'window bdelete/bwipeout', },
+    ['<leader>xt'] = { function() M.close_cur_tab() end, 'close window current', mode = { 'n', 'v', }, },
+    ['<leader>xw'] = { function() M.Bwipeout_cur() end, 'Bwipeout current buffer', mode = { 'n', 'v', }, },
+    ['<leader>x<c-w>'] = { function() M.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
+    ['<leader>xW'] = { function() M.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
+    ['<leader>xd'] = { function() M.Bdelete_cur() end, 'Bdelete current buffer', mode = { 'n', 'v', }, },
+    ['<leader>xD'] = { function() M.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
+    ['<leader>x<c-p>'] = { function() M.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
+    ['<leader>xP'] = { function() M.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
+    ['<leader>x<del>'] = { function() M.bwipeout_deleted() end, 'bwipeout buffers deleted', mode = { 'n', 'v', }, },
+    ['<leader>x<cr>'] = { function() M.reopen_deleted() end, 'sel reopen buffers deleted', mode = { 'n', 'v', }, },
+    ['<leader>xu'] = { function() M.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
+    ['<leader>xm'] = { function() M.bdelete_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
+  }
+  require 'which-key'.register {
+    ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },
+    ['<leader>xow'] = { function() M.Bwipeout_other() end, 'Bwipeout other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-w>'] = { function() M.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xoW'] = { function() M.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xod'] = { function() M.Bdelete_other() end, 'Bdelete other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-d>'] = { function() M.bdelete_other() end, 'bdelete other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xoD'] = { function() M.bdelete_other() end, 'bdelete other buffers', mode = { 'n', 'v', }, },
+    ['<leader>xop'] = { function() M.bdelete_other_proj() end, 'bdelete other proj buffers', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-p>'] = { function() M.bwipeout_other_proj() end, 'bwipeout other proj buffers', mode = { 'n', 'v', }, },
+    ['<leader>xoP'] = { function() M.bwipeout_other_proj() end, 'bwipeout other proj buffers', mode = { 'n', 'v', }, },
+    ['<leader>xoh'] = { function() M.bdelete_proj 'h' end, 'bdelete proj up', mode = { 'n', 'v', }, },
+    ['<leader>xoj'] = { function() M.bdelete_proj 'j' end, 'bdelete proj down', mode = { 'n', 'v', }, },
+    ['<leader>xok'] = { function() M.bdelete_proj 'k' end, 'bdelete proj left', mode = { 'n', 'v', }, },
+    ['<leader>xol'] = { function() M.bdelete_proj 'l' end, 'bdelete proj right', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-h>'] = { function() M.bwipeout_proj 'h' end, 'bwipeout proj up', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-j>'] = { function() M.bwipeout_proj 'j' end, 'bwipeout proj down', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-k>'] = { function() M.bwipeout_proj 'k' end, 'bwipeout proj left', mode = { 'n', 'v', }, },
+    ['<leader>xo<c-l>'] = { function() M.bwipeout_proj 'l' end, 'bwipeout proj right', mode = { 'n', 'v', }, },
+    ['<leader>xoH'] = { function() M.bwipeout_proj 'h' end, 'bwipeout proj up', mode = { 'n', 'v', }, },
+    ['<leader>xoJ'] = { function() M.bwipeout_proj 'j' end, 'bwipeout proj down', mode = { 'n', 'v', }, },
+    ['<leader>xoK'] = { function() M.bwipeout_proj 'k' end, 'bwipeout proj left', mode = { 'n', 'v', }, },
+    ['<leader>xoL'] = { function() M.bwipeout_proj 'l' end, 'bwipeout proj right', mode = { 'n', 'v', }, },
+    ['<leader>xor'] = { function() M.bdelete_ex_cur_root() end, 'bdelete buffers exclude cur_root', mode = { 'n', 'v', }, },
+    ['<leader>xr'] = { function() M.listed_cur_root_files() end, 'listed cur root buffers', mode = { 'n', 'v', }, },
+    ['<leader>x<c-r>'] = { function() M.listed_cur_root_files 'all' end, 'listed cur root buffers all', mode = { 'n', 'v', }, },
+  }
+  require 'which-key'.register {
+    ['<a-h>'] = { function() vim.cmd 'wincmd <' end, 'window: width less 1', mode = { 'n', 'v', }, silent = true, },
+    ['<a-l>'] = { function() vim.cmd 'wincmd >' end, 'window: width more 1', mode = { 'n', 'v', }, silent = true, },
+    ['<a-j>'] = { function() vim.cmd 'wincmd -' end, 'window: height less 1', mode = { 'n', 'v', }, silent = true, },
+    ['<a-k>'] = { function() vim.cmd 'wincmd +' end, 'window: height more 1', mode = { 'n', 'v', }, silent = true, },
+    ['<a-s-h>'] = { function() vim.cmd '10wincmd <' end, 'window: width less 10', mode = { 'n', 'v', }, silent = true, },
+    ['<a-s-l>'] = { function() vim.cmd '10wincmd >' end, 'window: width more 10', mode = { 'n', 'v', }, silent = true, },
+    ['<a-s-j>'] = { function() vim.cmd '10wincmd -' end, 'window: height less 10', mode = { 'n', 'v', }, silent = true, },
+    ['<a-s-k>'] = { function() vim.cmd '10wincmd +' end, 'window: height more 10', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>we'] = { '<c-w>=', 'wincmd =', mode = { 'n', 'v', }, },
+    ['<leader>wm'] = { function() require 'base'.win_max_height() end, 'wincmd _ (winfixheight version)', mode = { 'n', 'v', }, },
+    ['<leader>wh'] = { function() M.go_window 'h' end, 'go window up', mode = { 'n', 'v', }, },
+    ['<leader>wj'] = { function() M.go_window 'j' end, 'go window down', mode = { 'n', 'v', }, },
+    ['<leader>wk'] = { function() M.go_window 'k' end, 'go window left', mode = { 'n', 'v', }, },
+    ['<leader>wl'] = { function() M.go_window 'l' end, 'go window right', mode = { 'n', 'v', }, },
+    ['<leader>xc'] = { function() M.close_cur() end, 'close current buffer', mode = { 'n', 'v', }, },
+    ['<leader>xh'] = { function() M.close_win_left() end, 'close window left', mode = { 'n', 'v', }, },
+    ['<leader>xj'] = { function() M.close_win_down() end, 'close window down', mode = { 'n', 'v', }, },
+    ['<leader>xk'] = { function() M.close_win_up() end, 'close window up', mode = { 'n', 'v', }, },
+    ['<leader>xl'] = { function() M.close_win_right() end, 'close window right', mode = { 'n', 'v', }, },
+    ['<leader>xp'] = { function() M.bdelete_cur_proj() end, 'bdelete current proj files', mode = { 'n', 'v', }, },
+  }
+end
+
+L(M, M.map)
+
 return M
+

@@ -429,89 +429,6 @@ function M.yank()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.window()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>w'] = { name = 'window jump/split/new', },
-    ['<leader>wa'] = { function() require 'config.my.window'.change_around 'h' end, 'change with window left', mode = { 'n', 'v', }, },
-    ['<leader>ws'] = { function() require 'config.my.window'.change_around 'j' end, 'change with window down', mode = { 'n', 'v', }, },
-    ['<leader>ww'] = { function() require 'config.my.window'.change_around 'k' end, 'change with window up', mode = { 'n', 'v', }, },
-    ['<leader>wd'] = { function() require 'config.my.window'.change_around 'l' end, 'change with window right', mode = { 'n', 'v', }, },
-    ['<leader>wt'] = { '<c-w>t', 'go topleft window', mode = { 'n', 'v', }, },
-    ['<leader>wq'] = { '<c-w>p', 'go toggle last window', mode = { 'n', 'v', }, },
-    ['<leader>w;'] = { function() require 'config.my.window'.toggle_max_height() end, 'toggle max height', mode = { 'n', 'v', }, },
-    ['<leader>wu'] = { ':<c-u>leftabove new<cr>', 'create new window up', mode = { 'n', 'v', }, },
-    ['<leader>wi'] = { ':<c-u>new<cr>', 'create new window down', mode = { 'n', 'v', }, },
-    ['<leader>wo'] = { ':<c-u>leftabove vnew<cr>', 'create new window left', mode = { 'n', 'v', }, },
-    ['<leader>wp'] = { ':<c-u>vnew<cr>', 'create new window right', mode = { 'n', 'v', }, },
-    ['<leader>w<left>'] = { '<c-w>v<c-w>h', 'split to window up', mode = { 'n', 'v', }, },
-    ['<leader>w<down>'] = { '<c-w>s', 'split to window down', mode = { 'n', 'v', }, },
-    ['<leader>w<up>'] = { '<c-w>s<c-w>k', 'split to window left', mode = { 'n', 'v', }, },
-    ['<leader>w<right>'] = { '<c-w>v', 'split to window right', mode = { 'n', 'v', }, },
-    ['<leader>wc'] = { '<c-w>H', 'be most window up', mode = { 'n', 'v', }, },
-    ['<leader>wv'] = { '<c-w>J', 'be most window down', mode = { 'n', 'v', }, },
-    ['<leader>wf'] = { '<c-w>K', 'be most window left', mode = { 'n', 'v', }, },
-    ['<leader>wb'] = { '<c-w>L', 'be most window right', mode = { 'n', 'v', }, },
-    ['<leader>wn'] = { '<c-w>w', 'go next window', mode = { 'n', 'v', }, },
-    ['<leader>wg'] = { '<c-w>W', 'go prev window', mode = { 'n', 'v', }, },
-    ['<leader>wz'] = { function() require 'config.my.window'.go_last_window() end, 'go last window', mode = { 'n', 'v', }, },
-  }
-  require 'which-key'.register {
-    ['<leader>x'] = { name = 'window bdelete/bwipeout', },
-    ['<leader>xt'] = { function() require 'config.my.window'.close_cur_tab() end, 'close window current', mode = { 'n', 'v', }, },
-    ['<leader>xw'] = { function() require 'config.my.window'.Bwipeout_cur() end, 'Bwipeout current buffer', mode = { 'n', 'v', }, },
-    ['<leader>x<c-w>'] = { function() require 'config.my.window'.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
-    ['<leader>xW'] = { function() require 'config.my.window'.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
-    ['<leader>xd'] = { function() require 'config.my.window'.Bdelete_cur() end, 'Bdelete current buffer', mode = { 'n', 'v', }, },
-    ['<leader>xD'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
-    ['<leader>x<c-p>'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
-    ['<leader>xP'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
-    ['<leader>x<del>'] = { function() require 'config.my.window'.bwipeout_deleted() end, 'bwipeout buffers deleted', mode = { 'n', 'v', }, },
-    ['<leader>x<cr>'] = { function() require 'config.my.window'.reopen_deleted() end, 'sel reopen buffers deleted', mode = { 'n', 'v', }, },
-    ['<leader>xu'] = { function() require 'config.my.window'.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
-    ['<leader>xm'] = { function() require 'config.my.window'.bdelete_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
-  }
-  require 'which-key'.register {
-    ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },
-    ['<leader>xow'] = { function() require 'config.my.window'.Bwipeout_other() end, 'Bwipeout other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-w>'] = { function() require 'config.my.window'.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xoW'] = { function() require 'config.my.window'.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xod'] = { function() require 'config.my.window'.Bdelete_other() end, 'Bdelete other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-d>'] = { function() require 'config.my.window'.bdelete_other() end, 'bdelete other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xoD'] = { function() require 'config.my.window'.bdelete_other() end, 'bdelete other buffers', mode = { 'n', 'v', }, },
-    ['<leader>xop'] = { function() require 'config.my.window'.bdelete_other_proj() end, 'bdelete other proj buffers', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-p>'] = { function() require 'config.my.window'.bwipeout_other_proj() end, 'bwipeout other proj buffers', mode = { 'n', 'v', }, },
-    ['<leader>xoP'] = { function() require 'config.my.window'.bwipeout_other_proj() end, 'bwipeout other proj buffers', mode = { 'n', 'v', }, },
-    ['<leader>xoh'] = { function() require 'config.my.window'.bdelete_proj 'h' end, 'bdelete proj up', mode = { 'n', 'v', }, },
-    ['<leader>xoj'] = { function() require 'config.my.window'.bdelete_proj 'j' end, 'bdelete proj down', mode = { 'n', 'v', }, },
-    ['<leader>xok'] = { function() require 'config.my.window'.bdelete_proj 'k' end, 'bdelete proj left', mode = { 'n', 'v', }, },
-    ['<leader>xol'] = { function() require 'config.my.window'.bdelete_proj 'l' end, 'bdelete proj right', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-h>'] = { function() require 'config.my.window'.bwipeout_proj 'h' end, 'bwipeout proj up', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-j>'] = { function() require 'config.my.window'.bwipeout_proj 'j' end, 'bwipeout proj down', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-k>'] = { function() require 'config.my.window'.bwipeout_proj 'k' end, 'bwipeout proj left', mode = { 'n', 'v', }, },
-    ['<leader>xo<c-l>'] = { function() require 'config.my.window'.bwipeout_proj 'l' end, 'bwipeout proj right', mode = { 'n', 'v', }, },
-    ['<leader>xoH'] = { function() require 'config.my.window'.bwipeout_proj 'h' end, 'bwipeout proj up', mode = { 'n', 'v', }, },
-    ['<leader>xoJ'] = { function() require 'config.my.window'.bwipeout_proj 'j' end, 'bwipeout proj down', mode = { 'n', 'v', }, },
-    ['<leader>xoK'] = { function() require 'config.my.window'.bwipeout_proj 'k' end, 'bwipeout proj left', mode = { 'n', 'v', }, },
-    ['<leader>xoL'] = { function() require 'config.my.window'.bwipeout_proj 'l' end, 'bwipeout proj right', mode = { 'n', 'v', }, },
-    ['<leader>xor'] = { function() require 'config.my.window'.bdelete_ex_cur_root() end, 'bdelete buffers exclude cur_root', mode = { 'n', 'v', }, },
-    ['<leader>xr'] = { function() require 'config.my.window'.listed_cur_root_files() end, 'listed cur root buffers', mode = { 'n', 'v', }, },
-    ['<leader>x<c-r>'] = { function() require 'config.my.window'.listed_cur_root_files 'all' end, 'listed cur root buffers all', mode = { 'n', 'v', }, },
-  }
-  require 'which-key'.register {
-    ['<a-h>'] = { function() vim.cmd 'wincmd <' end, 'my.window: width_less_1', mode = { 'n', 'v', }, silent = true, },
-    ['<a-l>'] = { function() vim.cmd 'wincmd >' end, 'my.window: width_more_1', mode = { 'n', 'v', }, silent = true, },
-    ['<a-j>'] = { function() vim.cmd 'wincmd -' end, 'my.window: height_less_1', mode = { 'n', 'v', }, silent = true, },
-    ['<a-k>'] = { function() vim.cmd 'wincmd +' end, 'my.window: height_more_1', mode = { 'n', 'v', }, silent = true, },
-
-    ['<a-s-h>'] = { function() vim.cmd '10wincmd <' end, 'my.window: width_less_10', mode = { 'n', 'v', }, silent = true, },
-    ['<a-s-l>'] = { function() vim.cmd '10wincmd >' end, 'my.window: width_more_10', mode = { 'n', 'v', }, silent = true, },
-    ['<a-s-j>'] = { function() vim.cmd '10wincmd -' end, 'my.window: height_less_10', mode = { 'n', 'v', }, silent = true, },
-    ['<a-s-k>'] = { function() vim.cmd '10wincmd +' end, 'my.window: height_more_10', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.toggle()
   TimingBegin()
   require 'which-key'.register {
@@ -698,7 +615,6 @@ function M.all(force)
   M.base()
   M.box()
   M.yank()
-  M.window()
   M.toggle()
   M.hili()
   M.lsp()
