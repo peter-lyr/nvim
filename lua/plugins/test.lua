@@ -347,17 +347,6 @@ return {
     end,
   },
 
-  -- spectre
-  {
-    'nvim-pack/nvim-spectre',
-    init = function()
-      function Replace(patt, rep, root)
-        require 'config.test.spectre'.replace(patt, rep, root)
-      end
-    end,
-    config = function() Require 'config.test.spectre' end,
-  },
-
   -- bqf
   {
     'kevinhwang91/nvim-bqf',

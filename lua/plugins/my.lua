@@ -504,12 +504,20 @@ return {
     config = function() require 'config.my.neuims' end,
   },
 
-  -- my.py
+  -- my.leader_r
   {
-    name = 'my.py',
+    name = 'my.leader_r',
     dir = '',
     ft = { 'python', },
-    config = function() require 'config.my.py' end,
+    dependencies = {
+      'nvim-pack/nvim-spectre',
+    },
+    keys = {
+      { '<leader>r', desc = 'Run Py/Find & Replace', },
+    },
+    config = function()
+      require 'config.my.leader_r'
+    end,
   },
 
   -- my.command

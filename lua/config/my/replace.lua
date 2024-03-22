@@ -90,7 +90,7 @@ function M.replace_do()
   end)
 end
 
-function M.replace(patt, rep, root)
+function Replace(patt, rep, root)
   M.patt = patt
   local substitute_string = string.format('%%s/%s/%s/g', patt, rep)
   if not root then
@@ -116,7 +116,25 @@ function M.replace(patt, rep, root)
   M.replace_do()
 end
 
+function M.test()
+  B.cmd([[call feedkeys(":\<c-u>lua Replace(%s, %s)")]], string.format('[[%s]]', vim.fn.getreg '/'), '[[]]')
+  vim.cmd [[call feedkeys("\<c-f>b5h")]]
+end
+
 -- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
 -- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]])
+
+function M.map()
+  require 'which-key'.register {
+    ['<leader>r'] = { name = 'Run Py/Find & Replace', },
+    ['<leader>rf'] = { function() require 'spectre'.open_file_search { select_word = true, } end, 'Find <cword> & Replace in current buffer', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>r<c-f>'] = { function() require 'spectre'.open_file_search() end, 'Find copied text & Replace', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>rw'] = { function() require 'spectre'.open_visual { select_word = true, } end, 'Find <cword> & Replace in current project', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>r<c-w>'] = { function() require 'spectre'.open() end, 'Find & Replace in current project', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>rr'] = { function() M.test() end, 'My Find & Replace in current project', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
 
 return M

@@ -31,4 +31,11 @@ function M.sel_run_py()
   end
 end
 
+function M.map()
+  require 'which-key'.register {
+    ['<leader>r'] = { name = 'Run Py/Find & Replace', },
+    ['<leader>rp'] = { function() M.sel_run_py() end, 'Run Py(sel)', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
 return M

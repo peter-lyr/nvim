@@ -802,19 +802,6 @@ function M.nvimtree()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.leader_r()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>r'] = { name = 'run/spectre', },
-    ['<leader>rp'] = { function() require 'config.my.py'.sel_run_py() end, 'run.py', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>rf'] = { function() require 'spectre'.open_file_search { select_word = true, } end, 'test.spectre: cur cword', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>r<c-f>'] = { function() require 'spectre'.open_file_search() end, 'test.spectre: cur', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>rw'] = { function() require 'spectre'.open_visual { select_word = true, } end, 'test.spectre: cwd cword', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>r<c-w>'] = { function() require 'spectre'.open() end, 'test.spectre: cwd', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.others()
   require 'base'.lazy_map {
   }
@@ -839,7 +826,6 @@ function M.all(force)
   M.gui()
   M.leader_d()
   M.nvimtree()
-  M.leader_r()
   M.others()
 end
 
