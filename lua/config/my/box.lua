@@ -523,4 +523,66 @@ function M.replace_two_words_2(mode)
   end)
 end
 
+function M.map()
+  require 'which-key'.register {
+    ['<leader>a'] = { name = 'my.box', },
+  }
+  require 'which-key'.register {
+    ['<F2>'] = { function() require 'config.my.box'.replace_two_words 'v' end, 'switch two words prepare', mode = { 'v', }, silent = true, },
+    ['<F3>'] = { function() require 'config.my.box'.replace_two_words_2 'v' end, 'switch two words do', mode = { 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F2>'] = { function() require 'config.my.box'.replace_two_words 'n' end, 'switch two words prepare', mode = { 'n', }, silent = true, },
+    ['<F3>'] = { function() require 'config.my.box'.replace_two_words_2 'n' end, 'switch two words do', mode = { 'n', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>as'] = { name = 'nvim-qt/programs', },
+    ['<leader>as;'] = { function() require 'config.my.box'.start_new_nvim_qt_cfile() end, 'start new nvim-qt and open <cfile>', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>as<c-p>'] = { function() require 'config.my.box'.sel_open_programs_file_force() end, 'sel open programs file force', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>as<c-k>'] = { function() require 'config.my.box'.sel_kill_programs_file_force() end, 'sel kill programs file force', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ass'] = { function() require 'config.my.box'.sel_open_startup_file() end, 'sel open startup file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aa'] = { function() require 'config.my.box'.source_file() end, 'source file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ax'] = { function() require 'config.my.box'.type_execute_output() end, 'execute output to and open file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ac'] = { function() require 'config.my.box'.mes_clear() end, 'mes clear', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>ao'] = { name = 'open', },
+    ['<leader>aop'] = { function() require 'config.my.box'.open_path() end, 'open path', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aos'] = { function() require 'config.my.box'.open_sound() end, 'open sound', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aof'] = { function() require 'config.my.box'.open_file() end, 'open file in clipboard', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>am'] = { name = 'monitor', },
+    ['<leader>am1'] = { function() require 'config.my.box'.monitor_1min() end, 'monitor 1 min', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>am3'] = { function() require 'config.my.box'.monitor_30min() end, 'monitor 30 min', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>am5'] = { function() require 'config.my.box'.monitor_5hours() end, 'monitor 5 hours', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>ap'] = { name = 'prx', },
+    ['<leader>apo'] = { function() require 'config.my.box'.proxy_on() end, 'prx on', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>apf'] = { function() require 'config.my.box'.proxy_off() end, 'prx off', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>ag'] = { name = 'git', },
+    ['<leader>agm'] = { function() require 'config.my.box'.git_init_and_cmake() end, 'git init and cmake', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<leader>aq'] = { name = 'qf make conv', },
+    ['<leader>aq8'] = { function() require 'config.my.box'.qfmakeconv2utf8() end, 'qf makeconv 2 utf8', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aq9'] = { function() require 'config.my.box'.qfmakeconv2cp936() end, 'qf makeconv 2 cp936', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F1>'] = { function() require 'config.my.box'.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>asr'] = { function() require 'config.my.box'.restart_nvim_qt() end, 'restart nvim-qt', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>as<leader>'] = { function() require 'config.my.box'.start_new_nvim_qt() end, 'start new nvim-qt', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>asq'] = { function() require 'config.my.box'.quit_nvim_qt() end, 'quit nvim-qt', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>asp'] = { function() require 'config.my.box'.sel_open_programs_file() end, 'sel open programs file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ask'] = { function() require 'config.my.box'.sel_kill_programs_file() end, 'sel kill programs file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ae'] = { function() require 'config.my.box'.sel_open_temp() end, 'sel open temp file', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>aw'] = { function() require 'config.my.box'.sel_write_to_temp() end, 'sel write to temp file', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M
