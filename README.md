@@ -6,3 +6,4 @@
 4. [ ] TODO: <leader>xp will mess up nvimtree
 5. [x] DONE: neuims focuslost
 6. [ ] TODO: nvim-qt dead when insertleave, maybe neuims, maybe windows 10
+7. [ ] TODO: add path variable in nvim-qt
