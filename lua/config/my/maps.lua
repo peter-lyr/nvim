@@ -392,43 +392,6 @@ function M.toggle()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.hili()
-  TimingBegin()
-  require 'which-key'.register {
-    ['*'] = { function() require 'config.my.hili'.search() end, 'hili: multiline search', mode = { 'v', }, silent = true, },
-    -- windo cursorword
-    ['<a-7>'] = { function() require 'config.my.hili'.cursorword() end, 'hili: cursor word', mode = { 'n', }, silent = true, },
-    ['<a-8>'] = { function() require 'config.my.hili'.windocursorword() end, 'hili: windo cursor word', mode = { 'n', }, silent = true, },
-    -- cword hili
-    ['<c-8>'] = { function() require 'config.my.hili'.hili_v() end, 'hili: cword', mode = { 'v', }, silent = true, },
-    -- cword hili rm
-    ['<c-s-8>'] = { function() require 'config.my.hili'.rmhili_v() end, 'hili: rm v', mode = { 'v', }, silent = true, },
-    -- select hili
-    ['<c-7>'] = { function() require 'config.my.hili'.selnexthili() end, 'hili: sel next', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-7>'] = { function() require 'config.my.hili'.selprevhili() end, 'hili: sel prev', mode = { 'n', 'v', }, silent = true, },
-    -- go hili
-    ['<c-n>'] = { function() require 'config.my.hili'.prevhili() end, 'hili: go prev', mode = { 'n', 'v', }, silent = true, },
-    ['<c-m>'] = { function() require 'config.my.hili'.nexthili() end, 'hili: go next', mode = { 'n', 'v', }, silent = true, },
-    -- go cur hili
-    ['<c-s-n>'] = { function() require 'config.my.hili'.prevcurhili() end, 'hili: go cur prev', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-m>'] = { function() require 'config.my.hili'.nextcurhili() end, 'hili: go cur next', mode = { 'n', 'v', }, silent = true, },
-    -- rehili
-    ['<c-s-9>'] = { function() require 'config.my.hili'.rehili() end, 'hili: rehili', mode = { 'n', 'v', }, silent = true, },
-    -- search cword
-    ["<c-s-'>"] = { function() require 'config.my.hili'.prevlastcword() end, 'hili: prevlastcword', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-/>'] = { function() require 'config.my.hili'.nextlastcword() end, 'hili: nextlastcword', mode = { 'n', 'v', }, silent = true, },
-    ['<c-,>'] = { function() require 'config.my.hili'.prevcword() end, 'hili: prevcword', mode = { 'n', 'v', }, silent = true, },
-    ['<c-.>'] = { function() require 'config.my.hili'.nextcword() end, 'hili: nextcword', mode = { 'n', 'v', }, silent = true, },
-    ["<c-'>"] = { function() require 'config.my.hili'.prevcWORD() end, 'hili: prevcWORD', mode = { 'n', 'v', }, silent = true, },
-    ['<c-/>'] = { function() require 'config.my.hili'.nextcWORD() end, 'hili: nextcWORD', mode = { 'n', 'v', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<c-8>'] = { function() require 'config.my.hili'.hili_n() end, 'hili: cword', mode = { 'n', }, silent = true, },
-    ['<c-s-8>'] = { function() require 'config.my.hili'.rmhili_n() end, 'hili: rm n', mode = { 'n', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.lsp()
   TimingBegin()
   require 'which-key'.register {
@@ -563,14 +526,11 @@ function M.all(force)
   M.base()
   M.yank()
   M.toggle()
-  M.hili()
   M.lsp()
   M.git()
   M.q()
   M.leader_d()
   M.others()
 end
-
-vim.opt.updatetime = 500
 
 return M

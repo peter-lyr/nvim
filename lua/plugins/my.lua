@@ -41,6 +41,7 @@ return {
       vim.opt.completeopt    = 'menu,menuone,noselect'
       vim.opt.conceallevel   = 0      -- Hide * markup for bold and italic
       vim.opt.list           = true
+      vim.opt.updatetime     = 500
       -- vim.opt.shada          = [[!,'10,<50,s10,h]]
       vim.opt.laststatus     = 3
       vim.opt.statusline     = [[%f %h%m%r%=%{getcwd()}   [%{mode()}]  %<%-14.(%l,%c%V%) %P]]
@@ -331,7 +332,27 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     dependencies = { 'peter-lyr/sha2', },
-    config = function() Require 'config.my.hili' end,
+    keys = {
+      { '*',       desc = 'hili: multiline search', },
+      { '<a-7>',   desc = 'hili: cursor word', },
+      { '<a-8>',   desc = 'hili: windo cursor word', },
+      { '<c-8>',   desc = 'hili: cword', },
+      { '<c-s-8>', desc = 'hili: rm v', },
+      { '<c-7>',   desc = 'hili: sel next', },
+      { '<c-s-7>', desc = 'hili: sel prev', },
+      { '<c-n>',   desc = 'hili: go prev', },
+      { '<c-m>',   desc = 'hili: go next', },
+      { '<c-s-n>', desc = 'hili: go cur prev', },
+      { '<c-s-m>', desc = 'hili: go cur next', },
+      { '<c-s-9>', desc = 'hili: rehili', },
+      { "<c-s-'>", desc = 'hili: prevlastcword', },
+      { '<c-s-/>', desc = 'hili: nextlastcword', },
+      { '<c-,>',   desc = 'hili: prevcword', },
+      { '<c-.>',   desc = 'hili: nextcword', },
+      { "<c-'>",   desc = 'hili: prevcWORD', },
+      { '<c-/>',   desc = 'hili: nextcWORD', },
+    },
+    config = function() require 'config.my.hili' end,
   },
 
   -- my.toggle

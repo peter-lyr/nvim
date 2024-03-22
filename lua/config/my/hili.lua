@@ -444,4 +444,41 @@ B.aucmd({ 'ColorScheme', }, 'my.hili.ColorScheme', {
   end,
 })
 
+function M.map()
+  require 'which-key'.register {
+    ['*'] = { function() M.search() end, 'hili: multiline search', mode = { 'v', }, silent = true, },
+    -- windo cursorword
+    ['<a-7>'] = { function() M.cursorword() end, 'hili: cursor word', mode = { 'n', }, silent = true, },
+    ['<a-8>'] = { function() M.windocursorword() end, 'hili: windo cursor word', mode = { 'n', }, silent = true, },
+    -- cword hili
+    ['<c-8>'] = { function() M.hili_v() end, 'hili: cword', mode = { 'v', }, silent = true, },
+    -- cword hili rm
+    ['<c-s-8>'] = { function() M.rmhili_v() end, 'hili: rm v', mode = { 'v', }, silent = true, },
+    -- select hili
+    ['<c-7>'] = { function() M.selnexthili() end, 'hili: sel next', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-7>'] = { function() M.selprevhili() end, 'hili: sel prev', mode = { 'n', 'v', }, silent = true, },
+    -- go hili
+    ['<c-n>'] = { function() M.prevhili() end, 'hili: go prev', mode = { 'n', 'v', }, silent = true, },
+    ['<c-m>'] = { function() M.nexthili() end, 'hili: go next', mode = { 'n', 'v', }, silent = true, },
+    -- go cur hili
+    ['<c-s-n>'] = { function() M.prevcurhili() end, 'hili: go cur prev', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-m>'] = { function() M.nextcurhili() end, 'hili: go cur next', mode = { 'n', 'v', }, silent = true, },
+    -- rehili
+    ['<c-s-9>'] = { function() M.rehili() end, 'hili: rehili', mode = { 'n', 'v', }, silent = true, },
+    -- search cword
+    ["<c-s-'>"] = { function() M.prevlastcword() end, 'hili: prevlastcword', mode = { 'n', 'v', }, silent = true, },
+    ['<c-s-/>'] = { function() M.nextlastcword() end, 'hili: nextlastcword', mode = { 'n', 'v', }, silent = true, },
+    ['<c-,>'] = { function() M.prevcword() end, 'hili: prevcword', mode = { 'n', 'v', }, silent = true, },
+    ['<c-.>'] = { function() M.nextcword() end, 'hili: nextcword', mode = { 'n', 'v', }, silent = true, },
+    ["<c-'>"] = { function() M.prevcWORD() end, 'hili: prevcWORD', mode = { 'n', 'v', }, silent = true, },
+    ['<c-/>'] = { function() M.nextcWORD() end, 'hili: nextcWORD', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<c-8>'] = { function() M.hili_n() end, 'hili: cword', mode = { 'n', }, silent = true, },
+    ['<c-s-8>'] = { function() M.rmhili_n() end, 'hili: rm n', mode = { 'n', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M
