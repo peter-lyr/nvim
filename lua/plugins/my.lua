@@ -295,9 +295,9 @@ return {
     dir = '',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<leader>yw', function() require 'config.my.copy'.copy_cwd() end, desc = 'copy cwd to clipboard', mode = { 'n', 'v', }, silent = true, },
+      { '<leader>y', desc = 'copy cwd to clipboard', },
     },
-    config = function() Require 'config.my.copy' end,
+    config = function() require 'config.my.copy' end,
   },
 
   -- my.gui

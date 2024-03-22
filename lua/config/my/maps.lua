@@ -79,26 +79,6 @@ function M.box()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.copy()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>y'] = { name = 'copy to clipboard', },
-  }
-  require 'which-key'.register {
-    ['<leader>yf'] = { name = 'absolute path', },
-    ['<leader>yff'] = { function() require 'config.my.copy'.full_name() end, 'full name', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>yft'] = { function() require 'config.my.copy'.full_tail() end, 'full tail', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>yfh'] = { function() require 'config.my.copy'.full_head() end, 'full head', mode = { 'n', 'v', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<leader>yr'] = { name = 'relative path', },
-    ['<leader>yrr'] = { function() require 'config.my.copy'.rela_name() end, 'rela name', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>yrh'] = { function() require 'config.my.copy'.rela_head() end, 'rela head', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>yrc'] = { function() require 'config.my.copy'.cur_root() end, 'telescope cur root', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.yank()
   TimingBegin()
   require 'which-key'.register {
@@ -717,7 +697,6 @@ function M.all(force)
   M.loaded = 1
   M.base()
   M.box()
-  M.copy()
   M.yank()
   M.window()
   M.toggle()
