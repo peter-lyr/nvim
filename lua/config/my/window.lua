@@ -402,4 +402,25 @@ function M.bwipeout_unloaded()
   B.notify_info(info)
 end
 
+function M.bwipeout_unmodified()
+  local info = {}
+  local cwd = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
+  local modified_files = B.get_git_modified_files()
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if B.is(vim.fn.bufloaded(bufnr)) then
+      local fname = B.rep_backslash_lower(vim.api.nvim_buf_get_name(bufnr))
+      if cwd == B.rep_backslash_lower(vim.fn['ProjectRootGet'](fname)) then
+        fname = string.sub(fname, #cwd + 2, #fname)
+        if B.is(fname) and not B.is_in_tbl(fname, modified_files) then
+          pcall(vim.cmd, 'Bdelete! ' .. tostring(bufnr))
+          info[#info + 1] = 'Bdelete -> ' .. fname
+        end
+      end
+    end
+  end
+  table.insert(info, 1, string.format('%d buffer(s) bdelete', #info))
+  B.notify_info(info)
+  M.refresh()
+end
+
 return M

@@ -485,13 +485,13 @@ function M.window()
     ['<leader>x<c-w>'] = { function() require 'config.my.window'.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
     ['<leader>xW'] = { function() require 'config.my.window'.bwipeout_cur() end, 'bwipeout current buffer', mode = { 'n', 'v', }, },
     ['<leader>xd'] = { function() require 'config.my.window'.Bdelete_cur() end, 'Bdelete current buffer', mode = { 'n', 'v', }, },
-    ['<leader>x<c-d>'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>xD'] = { function() require 'config.my.window'.bdelete_cur() end, 'bdelete current buffer', mode = { 'n', 'v', }, },
     ['<leader>x<c-p>'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
     ['<leader>xP'] = { function() require 'config.my.window'.bwipeout_cur_proj() end, 'bwipeout current proj files', mode = { 'n', 'v', }, },
     ['<leader>x<del>'] = { function() require 'config.my.window'.bwipeout_deleted() end, 'bwipeout buffers deleted', mode = { 'n', 'v', }, },
     ['<leader>x<cr>'] = { function() require 'config.my.window'.reopen_deleted() end, 'sel reopen buffers deleted', mode = { 'n', 'v', }, },
     ['<leader>xu'] = { function() require 'config.my.window'.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
+    ['<leader>xm'] = { function() require 'config.my.window'.bwipeout_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
   }
   M.r {
     ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },

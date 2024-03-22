@@ -1493,7 +1493,7 @@ function M.get_git_modified_files(file)
   local items = vim.fn.split(string.gsub(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', M.system_cd(root)))), '\r', ''), '\n')
   local items_new = {}
   for _, item in ipairs(items) do
-    items_new[#items_new + 1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
+    items_new[#items_new + 1] = M.rep_backslash_lower(string.match(vim.fn.trim(item), '[^ ]+ (.+)'))
   end
   return items_new
 end
