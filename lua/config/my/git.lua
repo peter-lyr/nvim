@@ -38,13 +38,7 @@ function M.show_commit_history() B.ui_sel(M.get_commit_history(), 'Show Commit H
 M.commit_history_en = nil
 
 function GitCompletion()
-  local root = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
-  local items = vim.fn.split(string.gsub(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', B.system_cd(root)))), '\r', ''), '\n')
-  local items_new = {}
-  for _, item in ipairs(items) do
-    items_new[#items_new + 1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
-  end
-  return items_new
+  return B.get_git_modified_files()
 end
 
 function M.get_commit_and_do(prompt, callback)

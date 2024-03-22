@@ -1485,4 +1485,17 @@ function M.win_max_height()
   end
 end
 
+function M.get_git_modified_files(file)
+  if not file then
+    file = M.buf_get_name_0()
+  end
+  local root = M.rep_backslash_lower(vim.fn['ProjectRootGet'](file))
+  local items = vim.fn.split(string.gsub(vim.fn.trim(vim.fn.system(string.format('%s && git status -s', M.system_cd(root)))), '\r', ''), '\n')
+  local items_new = {}
+  for _, item in ipairs(items) do
+    items_new[#items_new + 1] = string.match(vim.fn.trim(item), '[^ ]+ (.+)')
+  end
+  return items_new
+end
+
 return M
