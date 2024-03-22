@@ -666,74 +666,6 @@ function M.git()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.telescope()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>s'] = { name = 'telescope', },
-    -- builtins
-    ['<leader>s<leader>'] = { function() require 'config.nvim.telescope'.find_files_all() end, 'telescope: find_files_all', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sd'] = { function() require 'config.nvim.telescope'.diagnostics() end, 'telescope: diagnostics', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<c-f>'] = { function() require 'config.nvim.telescope'.filetypes() end, 'telescope: filetypes', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sR'] = { function() require 'config.nvim.telescope'.root_sel_scan_dirs() end, 'telescope: root_sel_scan_dirs', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<a-r>'] = { function() require 'config.nvim.telescope'.root_sel_parennt_dirs() end, 'telescope: root_sel_parennt_dirs', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sq'] = { function() require 'config.nvim.telescope'.quickfix() end, 'telescope: quickfix', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sv'] = { name = 'telescope.more', },
-    ['<leader>svv'] = { name = 'telescope.more', },
-    ['<leader>svq'] = { function() require 'config.nvim.telescope'.quickfixhistory() end, 'telescope: quickfixhistory', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>svvc'] = { function() require 'config.nvim.telescope'.colorscheme() end, 'telescope: colorscheme', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>svh'] = { function() require 'config.nvim.telescope'.help_tags() end, 'telescope: help_tags', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sva'] = { function() require 'config.nvim.telescope'.autocommands() end, 'telescope: autocommands', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>svva'] = { function() require 'config.nvim.telescope'.builtin() end, 'telescope: builtin', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>svo'] = { function() require 'config.nvim.telescope'.vim_options() end, 'telescope: vim_options', mode = { 'n', 'v', }, silent = true, },
-    -- terminal
-    ['<leader>st'] = { name = 'telescope.terminal', },
-    ['<leader>stc'] = { function() require 'config.nvim.telescope'.terminal_cmd() end, 'telescope.terminal: cmd', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sti'] = { function() require 'config.nvim.telescope'.terminal_ipython() end, 'telescope.terminal: ipython', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>stb'] = { function() require 'config.nvim.telescope'.terminal_bash() end, 'telescope.terminal: bash', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>stp'] = { function() require 'config.nvim.telescope'.terminal_powershell() end, 'telescope.terminal: powershell', mode = { 'n', 'v', }, silent = true, },
-    -- open telescope.lua
-    ['<leader><c-m>'] = { function() require 'config.nvim.telescope'.find_files_pardir() end, 'telescope: find_files_pardir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>M'] = { function() require 'config.nvim.telescope'.find_files_pardir_2() end, 'telescope: find_files_pardir_2', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-m>'] = { function() require 'config.nvim.telescope'.find_files_pardir_3() end, 'telescope: find_files_pardir_3', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-m>'] = { function() require 'config.nvim.telescope'.find_files_pardir_4() end, 'telescope: find_files_pardir_4', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-s-m>'] = { function() require 'config.nvim.telescope'.find_files_pardir_5() end, 'telescope: find_files_pardir_5', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-p>'] = { function() require 'config.nvim.telescope'.pure_pardir() end, 'telescope: pure_pardir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>P'] = { function() require 'config.nvim.telescope'.pure_pardir_2() end, 'telescope: pure_pardir_2', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-p>'] = { function() require 'config.nvim.telescope'.pure_pardir_3() end, 'telescope: pure_pardir_3', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-p>'] = { function() require 'config.nvim.telescope'.pure_pardir_4() end, 'telescope: pure_pardir_4', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-s-p>'] = { function() require 'config.nvim.telescope'.pure_pardir_5() end, 'telescope: pure_pardir_5', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-l>'] = { function() require 'config.nvim.telescope'.live_grep_curdir() end, 'telescope: live_grep_curdir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>L'] = { function() require 'config.nvim.telescope'.live_grep_pardir() end, 'telescope: live_grep_pardir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-l>'] = { function() require 'config.nvim.telescope'.live_grep_pardir_2() end, 'telescope: live_grep_pardir2', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-l>'] = { function() require 'config.nvim.telescope'.live_grep_pardir_3() end, 'telescope: live_grep_pardir3', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><a-s-l>'] = { function() require 'config.nvim.telescope'.live_grep_pardir_4() end, 'telescope: live_grep_pardir4', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<c-s>'] = { function() require 'config.nvim.telescope'.grep_string_curdir() end, 'telescope: grep_string_curdir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>sS'] = { function() require 'config.nvim.telescope'.grep_string_pardir() end, 'telescope: grep_string_pardir', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<c-s-s>'] = { function() require 'config.nvim.telescope'.grep_string_pardir_2() end, 'telescope: grep_string_pardir_2', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<a-s>'] = { function() require 'config.nvim.telescope'.grep_string_pardir_3() end, 'telescope: grep_string_pardir_3', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>s<a-s-s>'] = { function() require 'config.nvim.telescope'.grep_string_pardir_4() end, 'telescope: grep_string_pardir_4', mode = { 'n', 'v', }, silent = true, },
-    -- mouse
-    ['<c-s-f12>'] = { name = 'telescope', },
-    ['<c-s-f12><f1>'] = { function() require 'config.nvim.telescope'.git_status() end, 'telescope: git_status', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f2>'] = { function() require 'config.nvim.telescope'.buffers_cur() end, 'telescope: buffers_cur', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f3>'] = { function() require 'config.nvim.telescope'.find_files() end, 'telescope: find_files', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f4>'] = { function() require 'config.nvim.telescope'.jumplist() end, 'telescope: jumplist', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f6>'] = { function() require 'config.nvim.telescope'.command_history() end, 'telescope: command_history', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f7>'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
-    ['<c-s-f12><f8>'] = { function() require 'config.nvim.telescope'.buffers() end, 'telescope: buffers', mode = { 'n', 'v', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<c-s-f12><f1>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f2>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f3>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f4>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f6>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f7>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-    ['<c-s-f12><f8>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.tabline()
   TimingBegin()
   require 'which-key'.register {
@@ -821,7 +753,6 @@ function M.all(force)
   M.hili()
   M.lsp()
   M.git()
-  M.telescope()
   M.q()
   M.gui()
   M.leader_d()
@@ -832,4 +763,3 @@ end
 vim.opt.updatetime = 500
 
 return M
-
