@@ -3,11 +3,9 @@
 
 local M = {}
 
-M.r = require 'which-key'.register
-
 function M.base()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<c-;>'] = { function()
       local B = require 'base'
       if not B.commands then
@@ -25,24 +23,24 @@ function M._m(items)
     if not item['name'] then
       item[#item + 1] = item['desc']
     end
-    M.r { [lhs] = item, }
+    require 'which-key'.register { [lhs] = item, }
   end
 end
 
 function M.box()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>a'] = { name = 'my.box', },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F2>'] = { function() require 'config.my.box'.replace_two_words 'v' end, 'switch two words prepare', mode = { 'v', }, silent = true, },
     ['<F3>'] = { function() require 'config.my.box'.replace_two_words_2 'v' end, 'switch two words do', mode = { 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F2>'] = { function() require 'config.my.box'.replace_two_words 'n' end, 'switch two words prepare', mode = { 'n', }, silent = true, },
     ['<F3>'] = { function() require 'config.my.box'.replace_two_words_2 'n' end, 'switch two words do', mode = { 'n', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>as'] = { name = 'nvim-qt/programs', },
     ['<leader>as;'] = { function() require 'config.my.box'.start_new_nvim_qt_cfile() end, 'start new nvim-qt and open <cfile>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-p>'] = { function() require 'config.my.box'.sel_open_programs_file_force() end, 'sel open programs file force', mode = { 'n', 'v', }, silent = true, },
@@ -52,28 +50,28 @@ function M.box()
     ['<leader>ax'] = { function() require 'config.my.box'.type_execute_output() end, 'execute output to and open file', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ac'] = { function() require 'config.my.box'.mes_clear() end, 'mes clear', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>ao'] = { name = 'open', },
     ['<leader>aop'] = { function() require 'config.my.box'.open_path() end, 'open path', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aos'] = { function() require 'config.my.box'.open_sound() end, 'open sound', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aof'] = { function() require 'config.my.box'.open_file() end, 'open file in clipboard', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>am'] = { name = 'monitor', },
     ['<leader>am1'] = { function() require 'config.my.box'.monitor_1min() end, 'monitor 1 min', mode = { 'n', 'v', }, silent = true, },
     ['<leader>am3'] = { function() require 'config.my.box'.monitor_30min() end, 'monitor 30 min', mode = { 'n', 'v', }, silent = true, },
     ['<leader>am5'] = { function() require 'config.my.box'.monitor_5hours() end, 'monitor 5 hours', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>ap'] = { name = 'prx', },
     ['<leader>apo'] = { function() require 'config.my.box'.proxy_on() end, 'prx on', mode = { 'n', 'v', }, silent = true, },
     ['<leader>apf'] = { function() require 'config.my.box'.proxy_off() end, 'prx off', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>ag'] = { name = 'git', },
     ['<leader>agm'] = { function() require 'config.my.box'.git_init_and_cmake() end, 'git init and cmake', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>aq'] = { name = 'qf make conv', },
     ['<leader>aq8'] = { function() require 'config.my.box'.qfmakeconv2utf8() end, 'qf makeconv 2 utf8', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aq9'] = { function() require 'config.my.box'.qfmakeconv2cp936() end, 'qf makeconv 2 cp936', mode = { 'n', 'v', }, silent = true, },
@@ -83,16 +81,16 @@ end
 
 function M.copy()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>y'] = { name = 'copy to clipboard', },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>yf'] = { name = 'absolute path', },
     ['<leader>yff'] = { function() require 'config.my.copy'.full_name() end, 'full name', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yft'] = { function() require 'config.my.copy'.full_tail() end, 'full tail', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yfh'] = { function() require 'config.my.copy'.full_head() end, 'full head', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>yr'] = { name = 'relative path', },
     ['<leader>yrr'] = { function() require 'config.my.copy'.rela_name() end, 'rela name', mode = { 'n', 'v', }, silent = true, },
     ['<leader>yrh'] = { function() require 'config.my.copy'.rela_head() end, 'rela head', mode = { 'n', 'v', }, silent = true, },
@@ -103,7 +101,7 @@ end
 
 function M.yank()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<F9>']      = { name = 'my.yank', },
     ['<F9><F9>']  = { function() require 'config.my.yank'.reg_show() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>a']     = { function() require 'config.my.yank'.yank('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
@@ -173,7 +171,7 @@ function M.yank()
     ['<F9><a-[>'] = { function() require 'config.my.yank'.yank('[', 'n', 'W') end, '<cWORD> to [', mode = { 'n', }, silent = true, },
     ['<F9><a-]>'] = { function() require 'config.my.yank'.yank(']', 'n', 'W') end, '<cWORD> to ]', mode = { 'n', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9>a'] = { function() require 'config.my.yank'.yank('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.yank('b', 'v') end, 'sel to b', mode = { 'v', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.yank('c', 'v') end, 'sel to c', mode = { 'v', }, silent = true, },
@@ -208,7 +206,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.yank('[', 'v') end, 'sel to [', mode = { 'v', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.yank(']', 'v') end, 'sel to ]', mode = { 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 'i') end, 'paste from a', mode = { 'i', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 'i') end, 'paste from b', mode = { 'i', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 'i') end, 'paste from c', mode = { 'i', }, silent = true, },
@@ -243,7 +241,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 'i') end, 'paste from [', mode = { 'i', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 'i') end, 'paste from ]', mode = { 'i', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 'c') end, 'paste from a', mode = { 'c', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 'c') end, 'paste from b', mode = { 'c', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 'c') end, 'paste from c', mode = { 'c', }, silent = true, },
@@ -278,7 +276,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 'c') end, 'paste from [', mode = { 'c', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 'c') end, 'paste from ]', mode = { 'c', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9>a'] = { function() require 'config.my.yank'.paste('a', 't') end, 'paste from a', mode = { 't', }, silent = true, },
     ['<F9>b'] = { function() require 'config.my.yank'.paste('b', 't') end, 'paste from b', mode = { 't', }, silent = true, },
     ['<F9>c'] = { function() require 'config.my.yank'.paste('c', 't') end, 'paste from c', mode = { 't', }, silent = true, },
@@ -313,7 +311,7 @@ function M.yank()
     ['<F9>['] = { function() require 'config.my.yank'.paste('[', 't') end, 'paste from [', mode = { 't', }, silent = true, },
     ['<F9>]'] = { function() require 'config.my.yank'.paste(']', 't') end, 'paste from ]', mode = { 't', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9>A'] = { function() require 'config.my.yank'.paste('a', 'n') end, 'paste from a', mode = { 'n', 'v', }, silent = true, },
     ['<F9>B'] = { function() require 'config.my.yank'.paste('b', 'n') end, 'paste from b', mode = { 'n', 'v', }, silent = true, },
     ['<F9>C'] = { function() require 'config.my.yank'.paste('c', 'n') end, 'paste from c', mode = { 'n', 'v', }, silent = true, },
@@ -348,7 +346,7 @@ function M.yank()
     ['<F9>{'] = { function() require 'config.my.yank'.paste('[', 'n') end, 'paste from [', mode = { 'n', 'v', }, silent = true, },
     ['<F9>}'] = { function() require 'config.my.yank'.paste(']', 'n') end, 'paste from ]', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><c-s-a>'] = { function() require 'config.my.yank'.delete 'a' end, 'delete from a', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-b>'] = { function() require 'config.my.yank'.delete 'b' end, 'delete from b', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-c>'] = { function() require 'config.my.yank'.delete 'c' end, 'delete from c', mode = { 'n', 'v', }, silent = true, },
@@ -383,7 +381,7 @@ function M.yank()
     ['<F9><c-s-[>'] = { function() require 'config.my.yank'.delete '[' end, 'delete from [', mode = { 'n', 'v', }, silent = true, },
     ['<F9><c-s-]>'] = { function() require 'config.my.yank'.delete ']' end, 'delete from ]', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F1>'] = { name = '+my.yank.clipboard', },
     ['<F9><F1>a'] = { function() require 'config.my.yank'.clipboard 'a' end, 'a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><F1>b'] = { function() require 'config.my.yank'.clipboard 'b' end, 'b to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -419,33 +417,33 @@ function M.yank()
     ['<F9><F1>['] = { function() require 'config.my.yank'.clipboard '[' end, '[ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><F1>]'] = { function() require 'config.my.yank'.clipboard ']' end, '] to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F2>'] = { function() require 'config.my.yank'.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
     ['<F9><F3>'] = { function() require 'config.my.yank'.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F2>'] = { function() require 'config.my.yank'.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
     ['<F9><F3>'] = { function() require 'config.my.yank'.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F4>'] = { function() require 'config.my.yank'.paste_from_stack 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><F1><F1>'] = { function() require 'config.my.yank'.clipboard_from_pool() end, 'sel from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<F9><c-F4>'] = { function() require 'config.my.yank'.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
   TimingEnd(debug.getinfo(1)['name'])
@@ -453,7 +451,7 @@ end
 
 function M.window()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>w'] = { name = 'window jump/split/new', },
     ['<leader>wa'] = { function() require 'config.my.window'.change_around 'h' end, 'change with window left', mode = { 'n', 'v', }, },
     ['<leader>ws'] = { function() require 'config.my.window'.change_around 'j' end, 'change with window down', mode = { 'n', 'v', }, },
@@ -478,7 +476,7 @@ function M.window()
     ['<leader>wg'] = { '<c-w>W', 'go prev window', mode = { 'n', 'v', }, },
     ['<leader>wz'] = { function() require 'config.my.window'.go_last_window() end, 'go last window', mode = { 'n', 'v', }, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>x'] = { name = 'window bdelete/bwipeout', },
     ['<leader>xt'] = { function() require 'config.my.window'.close_cur_tab() end, 'close window current', mode = { 'n', 'v', }, },
     ['<leader>xw'] = { function() require 'config.my.window'.Bwipeout_cur() end, 'Bwipeout current buffer', mode = { 'n', 'v', }, },
@@ -493,7 +491,7 @@ function M.window()
     ['<leader>xu'] = { function() require 'config.my.window'.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
     ['<leader>xm'] = { function() require 'config.my.window'.bdelete_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },
     ['<leader>xow'] = { function() require 'config.my.window'.Bwipeout_other() end, 'Bwipeout other buffers', mode = { 'n', 'v', }, },
     ['<leader>xo<c-w>'] = { function() require 'config.my.window'.bwipeout_other() end, 'bwipeout other buffers', mode = { 'n', 'v', }, },
@@ -520,7 +518,7 @@ function M.window()
     ['<leader>xr'] = { function() require 'config.my.window'.listed_cur_root_files() end, 'listed cur root buffers', mode = { 'n', 'v', }, },
     ['<leader>x<c-r>'] = { function() require 'config.my.window'.listed_cur_root_files 'all' end, 'listed cur root buffers all', mode = { 'n', 'v', }, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<a-h>'] = { function() vim.cmd 'wincmd <' end, 'my.window: width_less_1', mode = { 'n', 'v', }, silent = true, },
     ['<a-l>'] = { function() vim.cmd 'wincmd >' end, 'my.window: width_more_1', mode = { 'n', 'v', }, silent = true, },
     ['<a-j>'] = { function() vim.cmd 'wincmd -' end, 'my.window: height_less_1', mode = { 'n', 'v', }, silent = true, },
@@ -536,7 +534,7 @@ end
 
 function M.toggle()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>t'] = { name = 'toggle', },
     ['<leader>td'] = { function() require 'config.my.toggle'.diff() end, 'diff', mode = { 'n', 'v', }, silent = true, },
     ['<leader>tw'] = { function() require 'config.my.toggle'.wrap() end, 'wrap', mode = { 'n', 'v', }, silent = true, },
@@ -551,7 +549,7 @@ end
 
 function M.hili()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['*'] = { function() require 'config.my.hili'.search() end, 'hili: multiline search', mode = { 'v', }, silent = true, },
     -- windo cursorword
     ['<a-7>'] = { function() require 'config.my.hili'.cursorword() end, 'hili: cursor word', mode = { 'n', }, silent = true, },
@@ -579,7 +577,7 @@ function M.hili()
     ["<c-'>"] = { function() require 'config.my.hili'.prevcWORD() end, 'hili: prevcWORD', mode = { 'n', 'v', }, silent = true, },
     ['<c-/>'] = { function() require 'config.my.hili'.nextcWORD() end, 'hili: nextcWORD', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<c-8>'] = { function() require 'config.my.hili'.hili_n() end, 'hili: cword', mode = { 'n', }, silent = true, },
     ['<c-s-8>'] = { function() require 'config.my.hili'.rmhili_n() end, 'hili: rm n', mode = { 'n', }, silent = true, },
   }
@@ -591,7 +589,7 @@ function M.svn()
   vim.api.nvim_create_user_command('TortoiseSVN', function(params)
     require 'config.my.svn'.tortoisesvn(params['fargs'])
   end, { nargs = '*', })
-  M.r {
+  require 'which-key'.register {
     ['<leader>v'] = { name = 'my.svn', },
     ['<leader>vo'] = { '<cmd>TortoiseSVN settings cur yes<cr>', 'TortoiseSVN settings cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
     ['<leader>vd'] = { '<cmd>TortoiseSVN diff cur yes<cr>', 'TortoiseSVN diff cur yes<cr>', mode = { 'n', 'v', }, silent = true, },
@@ -609,7 +607,7 @@ end
 
 function M.lsp()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>f'] = { name = 'lsp', },
     ['<leader>fv'] = { name = 'lsp.more', },
     ['<leader>fn'] = { function() require 'config.nvim.lsp'.rename() end, 'lsp: rename', mode = { 'n', 'v', }, silent = true, },
@@ -619,7 +617,7 @@ end
 
 function M.git()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>g'] = { name = 'git', },
     ['<leader>gt'] = { name = 'git.telescope', },
     ['<leader>gtb'] = { function() require 'config.nvim.telescope'.git_bcommits() end, 'git.telescope: bcommits', mode = { 'n', 'v', }, silent = true, },
@@ -691,7 +689,7 @@ end
 
 function M.telescope()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>s'] = { name = 'telescope', },
     -- builtins
     ['<leader>s<leader>'] = { function() require 'config.nvim.telescope'.find_files_all() end, 'telescope: find_files_all', mode = { 'n', 'v', }, silent = true, },
@@ -745,7 +743,7 @@ function M.telescope()
     ['<c-s-f12><f7>'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
     ['<c-s-f12><f8>'] = { function() require 'config.nvim.telescope'.buffers() end, 'telescope: buffers', mode = { 'n', 'v', }, silent = true, },
   }
-  M.r {
+  require 'which-key'.register {
     ['<c-s-f12><f1>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
     ['<c-s-f12><f2>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
     ['<c-s-f12><f3>'] = { function() require 'config.nvim.telescope'.nop() end, 'telescope: nop', mode = { 'i', }, silent = true, },
@@ -759,7 +757,7 @@ end
 
 function M.tabline()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader><c-s-l>'] = { function() require 'config.my.tabline'.bd_next_buf(1) end, 'my.tabline: bwipeout_next_buf ', mode = { 'n', 'v', }, silent = true, },
     ['<leader><c-s-h>'] = { function() require 'config.my.tabline'.bd_prev_buf(1) end, 'my.tabline: bwipeout_prev_buf', mode = { 'n', 'v', }, silent = true, },
     ['<leader><c-s-.>'] = { function() require 'config.my.tabline'.bd_all_next_buf(1) end, 'my.tabline: bwipeout_all_next_buf', mode = { 'n', 'v', }, silent = true, },
@@ -770,7 +768,7 @@ end
 
 function M.q()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['q'] = { name = 'tabline', },
     qh = { function() require 'config.my.tabline'.restore_hidden_tabs() end, 'my.tabline: restore_hidden_tabs', mode = { 'n', 'v', }, silent = true, },
     qk = { function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, 'my.tabline: append_one_proj_new_tab_no_dupl', mode = { 'n', 'v', }, silent = true, },
@@ -781,7 +779,7 @@ end
 
 function M.gui()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<c-0>'] = { name = 'gui', },
     ['<c-0>_'] = { function() M.fontsize_min() end, 'my.gui: font size min', mode = { 'n', 'v', }, silent = true, },
     ['<c-0><c-->'] = { function() M.fontsize_frameless() end, 'my.gui: frameless', mode = { 'n', 'v', }, silent = true, },
@@ -795,7 +793,7 @@ end
 
 function M.leader_d()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>d'] = { name = 'nvim/qf', },
     ['<leader>dw'] = { function() require 'config.myy.git'.open_prev_item() end, 'quick open: qf prev item', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ds'] = { function() require 'config.myy.git'.open_next_item() end, 'quick open: qf next item', mode = { 'n', 'v', }, silent = true, },
@@ -812,7 +810,7 @@ end
 
 function M.nvimtree()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<c-s-cr>'] = { function() require 'config.test.nvimtree'.last_dir() end, 'test.nvimtree: last_dir', mode = { 'n', 'v', }, silent = true, },
     ['<c-`>'] = { function() require 'config.test.nvimtree'.sel_dirvers() end, 'test.nvimtree: sel_dirvers', mode = { 'n', 'v', }, silent = true, },
     ['<c-1>'] = { function() require 'config.test.nvimtree'.sel_parent_dirs() end, 'test.nvimtree: sel_parent_dirs', mode = { 'n', 'v', }, silent = true, },
@@ -827,7 +825,7 @@ end
 
 function M.leader_r()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['<leader>r'] = { name = 'run/spectre', },
     ['<leader>rp'] = { function() require 'config.my.py'.sel_run_py() end, 'run.py', mode = { 'n', 'v', }, silent = true, },
     ['<leader>rf'] = { function() require 'spectre'.open_file_search { select_word = true, } end, 'test.spectre: cur cword', mode = { 'n', 'v', }, silent = true, },
@@ -840,7 +838,7 @@ end
 
 function M.cal()
   TimingBegin()
-  M.r {
+  require 'which-key'.register {
     ['c/'] = { name = 'cal', },
     ['c/b'] = { name = 'cal.bin', },
     ['c/bn'] = { function() require 'config.my.cal'.count_bin '<cword>' end, 'cal bit to notify', mode = { 'n', 'v', }, silent = true, },
