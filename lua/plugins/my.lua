@@ -488,7 +488,7 @@ return {
       { '<leader>vf', '<cmd>TortoiseSVN diff root yes<cr>',        desc = 'TortoiseSVN diff root yes<cr>',        mode = { 'n', 'v', }, silent = true, },
       { '<leader>v;', '<cmd>TortoiseSVN log root yes<cr>',         desc = 'TortoiseSVN log root yes<cr>',         mode = { 'n', 'v', }, silent = true, },
     },
-    config = function() require 'config.my.neuims' end,
+    config = function() require 'config.my.svn' end,
   },
 
   -- my.neuims
@@ -522,4 +522,3 @@ return {
   },
 
 }
-
