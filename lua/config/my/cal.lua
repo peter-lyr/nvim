@@ -88,4 +88,17 @@ EOF
   end
 end
 
+function M.map()
+  require 'which-key'.register {
+    ['c/'] = { name = 'cal', },
+    ['c/b'] = { name = 'cal.bin', },
+    ['c/bn'] = { function() M.count_bin '<cword>' end, 'cal bit to notify', mode = { 'n', 'v', }, silent = true, },
+    ['c/b<c-n>'] = { function() M.count_bin('<cword>', 1) end, 'cal hex bit to notify', mode = { 'n', 'v', }, silent = true, },
+    ['c/bp'] = { function() M.count_bin('<cword>', nil, 1) end, 'cal bit to append', mode = { 'n', 'v', }, silent = true, },
+    ['c/b<c-p>'] = { function() M.count_bin('<cword>', 1, 1) end, 'cal hex bit to append', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M

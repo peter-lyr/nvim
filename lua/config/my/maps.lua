@@ -836,19 +836,6 @@ function M.leader_r()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.cal()
-  TimingBegin()
-  require 'which-key'.register {
-    ['c/'] = { name = 'cal', },
-    ['c/b'] = { name = 'cal.bin', },
-    ['c/bn'] = { function() require 'config.my.cal'.count_bin '<cword>' end, 'cal bit to notify', mode = { 'n', 'v', }, silent = true, },
-    ['c/b<c-n>'] = { function() require 'config.my.cal'.count_bin('<cword>', 1) end, 'cal hex bit to notify', mode = { 'n', 'v', }, silent = true, },
-    ['c/bp'] = { function() require 'config.my.cal'.count_bin('<cword>', nil, 1) end, 'cal bit to append', mode = { 'n', 'v', }, silent = true, },
-    ['c/b<c-p>'] = { function() require 'config.my.cal'.count_bin('<cword>', 1, 1) end, 'cal hex bit to append', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.others()
   require 'base'.lazy_map {
   }
@@ -875,7 +862,6 @@ function M.all(force)
   M.leader_d()
   M.nvimtree()
   M.leader_r()
-  M.cal()
   M.others()
 end
 

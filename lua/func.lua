@@ -22,3 +22,11 @@ function R(lua)
   if temp then return temp end
   return Require(lua)
 end
+
+function L(m, func)
+  if m.loaded then
+    return
+  end
+  m.loaded = 1
+  func()
+end
