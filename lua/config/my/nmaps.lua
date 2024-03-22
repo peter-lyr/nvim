@@ -83,12 +83,18 @@ function M.yank(feedkeys)
 end
 
 lazy_map {
-  { 'vw',     function() M.yank 'viw' end,   mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
-  { 'v<c-w>', function() M.yank 'viW' end,   mode = { 'n', }, silent = true, desc = 'my.maps: viW', },
-  { 'yw',     function() M.yank 'yiw' end,   mode = { 'n', }, silent = true, desc = 'my.maps: yiw', },
-  { 'y<c-w>', function() M.yank 'yiW' end,   mode = { 'n', }, silent = true, desc = 'my.maps: yiW', },
-  { 'y<a-w>', function() M.yank '"+yiw' end, mode = { 'n', }, silent = true, desc = 'my.maps: "+yiw', },
-  { 'yW',     function() M.yank '"+yiW' end, mode = { 'n', }, silent = true, desc = 'my.maps: "+yiW', },
+  { 'vw',       function() M.yank 'viw' end,           mode = { 'n', }, silent = true, desc = 'my.maps: viw', },
+  { 'v<c-w>',   function() M.yank 'viW' end,           mode = { 'n', }, silent = true, desc = 'my.maps: viW', },
+  { 'yw',       function() M.yank 'yiw' end,           mode = { 'n', }, silent = true, desc = 'my.maps: yiw', },
+  { 'y<c-w>',   function() M.yank 'yiW' end,           mode = { 'n', }, silent = true, desc = 'my.maps: yiW', },
+  { 'qy',       function() M.yank 'qiy' end,           mode = { 'n', }, silent = true, desc = 'my.maps: qiy', },
+  { 'q<c-y>',   function() M.yank 'qiqiy' end,         mode = { 'n', }, silent = true, desc = 'my.maps: qiqiy', },
+  { 'qY',       function() M.yank 'qiqiqiy' end,       mode = { 'n', }, silent = true, desc = 'my.maps: qiqiqiy', },
+  { 'q<c-s-y>', function() M.yank 'qiqiqiqiy' end,     mode = { 'n', }, silent = true, desc = 'my.maps: qiqiqiqiy', },
+  { 'q<a-y>',   function() M.yank 'qiqiqiqiqiy' end,   mode = { 'n', }, silent = true, desc = 'my.maps: qiqiqiqiqiy', },
+  { 'q<a-s-y>', function() M.yank 'qiqiqiqiqiqiy' end, mode = { 'n', }, silent = true, desc = 'my.maps: qiqiqiqiqiqiy', },
+  { 'y<a-w>',   function() M.yank '"+yiw' end,         mode = { 'n', }, silent = true, desc = 'my.maps: "+yiw', },
+  { 'yW',       function() M.yank '"+yiW' end,         mode = { 'n', }, silent = true, desc = 'my.maps: "+yiW', },
 }
 
 vim.cmd [[
