@@ -307,9 +307,12 @@ return {
     cmd = { 'Gui', },
     event = { 'TabEnter', },
     keys = {
-      { '<c-0><c-0>', function() require 'config.my.gui'.fontsize_normal() end, desc = 'my.gui: font size min',  mode = { 'n', 'v', }, silent = true, },
-      { '<c-->',      function() require 'config.my.gui'.fontsize_down() end,   desc = 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
-      { '<c-=>',      function() require 'config.my.gui'.fontsize_up() end,     desc = 'my.gui: font size up',   mode = { 'n', 'v', }, silent = true, },
+      { '<c-0>',               desc = 'gui', },
+      { '<c-->',               desc = 'gui: font size down', },
+      { '<c-=>',               desc = 'gui: font size up', },
+      { '<c-ScrollWheelDown>', desc = 'gui: font size down', },
+      { '<c-ScrollWheelUp>',   desc = 'gui: font size up', },
+      { '<c-RightMouse>',      desc = 'gui: font size min', },
     },
     init = function()
       vim.api.nvim_create_autocmd('VimLeave', {
@@ -319,7 +322,7 @@ return {
         end,
       })
     end,
-    config = function() Require 'config.my.gui' end,
+    config = function() require 'config.my.gui' end,
   },
 
   -- my.hili

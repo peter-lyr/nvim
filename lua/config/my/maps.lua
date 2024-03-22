@@ -688,20 +688,6 @@ function M.q()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.gui()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<c-0>'] = { name = 'gui', },
-    ['<c-0>_'] = { function() M.fontsize_min() end, 'my.gui: font size min', mode = { 'n', 'v', }, silent = true, },
-    ['<c-0><c-->'] = { function() M.fontsize_frameless() end, 'my.gui: frameless', mode = { 'n', 'v', }, silent = true, },
-    ['<c-0><c-=>'] = { function() M.fontsize_fullscreen() end, 'my.gui: fullscreen', mode = { 'n', 'v', }, silent = true, },
-    ['<c-ScrollWheelDown>'] = { function() require 'config.my.gui'.fontsize_down() end, 'my.gui: font size down', mode = { 'n', 'v', }, silent = true, },
-    ['<c-ScrollWheelUp>'] = { function() require 'config.my.gui'.fontsize_up() end, 'my.gui: font size up', mode = { 'n', 'v', }, silent = true, },
-    ['<c-RightMouse>'] = { function() require 'config.my.gui'.fontsize_normal() end, 'my.gui: font size min', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.leader_d()
   TimingBegin()
   require 'which-key'.register {
@@ -739,7 +725,6 @@ function M.all(force)
   M.lsp()
   M.git()
   M.q()
-  M.gui()
   M.leader_d()
   M.others()
 end

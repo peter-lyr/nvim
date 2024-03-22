@@ -90,4 +90,22 @@ B.aucmd({ 'TabEnter', }, 'my.gui.TabEnter', {
   end,
 })
 
+function M.map()
+  require 'which-key'.register {
+    ['<c-0>'] = { name = 'gui', },
+    ['<c-0><c-0>'] = { function() M.fontsize_normal() end, 'gui: font size min', mode = { 'n', 'v', }, silent = true, },
+    ['<c-0>_'] = { function() M.fontsize_min() end, 'gui: font size min', mode = { 'n', 'v', }, silent = true, },
+    ['<c-0><c-->'] = { function() M.fontsize_frameless() end, 'gui: frameless', mode = { 'n', 'v', }, silent = true, },
+    ['<c-0><c-=>'] = { function() M.fontsize_fullscreen() end, 'gui: fullscreen', mode = { 'n', 'v', }, silent = true, },
+    ['<c-->'] = { function() M.fontsize_down() end, 'gui: font size down', mode = { 'n', 'v', }, silent = true, },
+    ['<c-=>'] = { function() M.fontsize_up() end, 'gui: font size up', mode = { 'n', 'v', }, silent = true, },
+    ['<c-ScrollWheelDown>'] = { function() M.fontsize_down() end, 'gui: font size down', mode = { 'n', 'v', }, silent = true, },
+    ['<c-ScrollWheelUp>'] = { function() M.fontsize_up() end, 'gui: font size up', mode = { 'n', 'v', }, silent = true, },
+    ['<c-RightMouse>'] = { function() M.fontsize_normal() end, 'gui: font size min', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M
+
