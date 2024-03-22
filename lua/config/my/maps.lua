@@ -513,11 +513,6 @@ function M.leader_d()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.others()
-  require 'base'.lazy_map {
-  }
-end
-
 function M.all(force)
   if M.loaded and not force then
     return
@@ -530,7 +525,6 @@ function M.all(force)
   M.git()
   M.q()
   M.leader_d()
-  M.others()
 end
 
 return M
