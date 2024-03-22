@@ -402,7 +402,7 @@ function M.bwipeout_unloaded()
   B.notify_info(info)
 end
 
-function M.bwipeout_unmodified()
+function M.bdelete_unmodified()
   local info = {}
   local cwd = B.rep_backslash_lower(vim.fn['ProjectRootGet'](B.buf_get_name_0()))
   local modified_files = B.get_git_modified_files()

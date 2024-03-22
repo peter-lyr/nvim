@@ -491,7 +491,7 @@ function M.window()
     ['<leader>x<del>'] = { function() require 'config.my.window'.bwipeout_deleted() end, 'bwipeout buffers deleted', mode = { 'n', 'v', }, },
     ['<leader>x<cr>'] = { function() require 'config.my.window'.reopen_deleted() end, 'sel reopen buffers deleted', mode = { 'n', 'v', }, },
     ['<leader>xu'] = { function() require 'config.my.window'.bwipeout_unloaded() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
-    ['<leader>xm'] = { function() require 'config.my.window'.bwipeout_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
+    ['<leader>xm'] = { function() require 'config.my.window'.bdelete_unmodified() end, 'bdelete buffers unloaded', mode = { 'n', 'v', }, },
   }
   M.r {
     ['<leader>xo'] = { name = 'window other bdelete/bwipeout', },
