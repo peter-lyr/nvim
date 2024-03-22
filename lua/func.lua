@@ -6,7 +6,11 @@ function Require(lua)
   if temp then
     return temp
   end
-  return require(lua)
+  local ok, res = pcall(require, lua)
+  if ok then
+    return res
+  end
+  return nil
 end
 
 function R(lua)
