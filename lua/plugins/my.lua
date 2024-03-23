@@ -359,6 +359,10 @@ return {
   {
     name = 'my.toggle',
     dir = '',
+    keys = {
+      { '<leader>t', desc = 'toggle', },
+    },
+    config = function() require 'config.my.toggle' end,
   },
 
   -- my.tabline
@@ -552,3 +556,4 @@ return {
   },
 
 }
+

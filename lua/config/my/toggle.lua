@@ -25,7 +25,7 @@ M.wrap = function()
   if vim.o.wrap == true then
     vim.cmd 'windo set nowrap'
   else
-    vim.cmd "windo lua require 'config.my.toggle'._wrap_en()"
+    vim.cmd "windo lua M._wrap_en()"
   end
   print('vim.o.wrap:', vim.o.wrap)
   vim.fn.win_gotoid(winid)
@@ -59,9 +59,9 @@ end
 M.renu = function()
   local winid = vim.fn.win_getid()
   if B.is(vim.o.relativenumber) then
-    vim.cmd "windo lua require 'config.my.toggle'._renu_dis()"
+    vim.cmd "windo lua M._renu_dis()"
   else
-    vim.cmd "windo lua require 'config.my.toggle'._renu_en()"
+    vim.cmd "windo lua M._renu_en()"
   end
   print('vim.o.relativenumber:', vim.o.relativenumber)
   vim.fn.win_gotoid(winid)
@@ -96,9 +96,9 @@ end
 M.nu = function()
   local winid = vim.fn.win_getid()
   if B.is(vim.o.number) then
-    vim.cmd "windo lua require 'config.my.toggle'._nu_dis()"
+    vim.cmd "windo lua M._nu_dis()"
   else
-    vim.cmd "windo lua require 'config.my.toggle'._nu_en()"
+    vim.cmd "windo lua M._nu_en()"
   end
   print('vim.o.number:', vim.o.number)
   vim.fn.win_gotoid(winid)
@@ -137,5 +137,20 @@ M.iskeyword = function()
   end
   print(vim.o.iskeyword)
 end
+
+function M.map()
+  require 'which-key'.register {
+    ['<leader>t'] = { name = 'toggle', },
+    ['<leader>td'] = { function() M.diff() end, 'diff', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>tw'] = { function() M.wrap() end, 'wrap', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>tn'] = { function() M.nu() end, 'nu', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>tr'] = { function() M.renu() end, 'renu', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ts'] = { function() M.signcolumn() end, 'signcolumn', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>tc'] = { function() M.conceallevel() end, 'conceallevel', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>tk'] = { function() M.iskeyword() end, 'iskeyword', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
 
 return M

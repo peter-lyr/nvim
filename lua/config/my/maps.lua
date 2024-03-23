@@ -27,21 +27,6 @@ function M._m(items)
   end
 end
 
-function M.toggle()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>t'] = { name = 'toggle', },
-    ['<leader>td'] = { function() require 'config.my.toggle'.diff() end, 'diff', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>tw'] = { function() require 'config.my.toggle'.wrap() end, 'wrap', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>tn'] = { function() require 'config.my.toggle'.nu() end, 'nu', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>tr'] = { function() require 'config.my.toggle'.renu() end, 'renu', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ts'] = { function() require 'config.my.toggle'.signcolumn() end, 'signcolumn', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>tc'] = { function() require 'config.my.toggle'.conceallevel() end, 'conceallevel', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>tk'] = { function() require 'config.my.toggle'.iskeyword() end, 'iskeyword', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.lsp()
   TimingBegin()
   require 'which-key'.register {
@@ -169,7 +154,6 @@ function M.all(force)
   end
   M.loaded = 1
   M.base()
-  M.toggle()
   M.lsp()
   M.git()
   M.q()
