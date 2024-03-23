@@ -135,8 +135,8 @@ function M.leader_d()
   TimingBegin()
   require 'which-key'.register {
     ['<leader>d'] = { name = 'nvim/qf', },
-    ['<leader>dw'] = { function() require 'config.myy.git'.open_prev_item() end, 'quick open: qf prev item', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ds'] = { function() require 'config.myy.git'.open_next_item() end, 'quick open: qf next item', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>dw'] = { function() require 'config.my.git'.open_prev_item() end, 'quick open: qf prev item', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ds'] = { function() require 'config.my.git'.open_next_item() end, 'quick open: qf next item', mode = { 'n', 'v', }, silent = true, },
     ['<leader>dj'] = { function() require 'config.test.nvimtree'.open_next_tree_node() end, 'quick open: nvimtree next node', mode = { 'n', 'v', }, silent = true, },
     ['<leader>dk'] = { function() require 'config.test.nvimtree'.open_prev_tree_node() end, 'quick open: nvimtree prev node', mode = { 'n', 'v', }, silent = true, },
     ['<leader>do'] = { function() require 'config.test.nvimtree'.open_all() end, 'nvimtree: open_all', mode = { 'n', 'v', }, silent = true, },
