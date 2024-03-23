@@ -37,78 +37,6 @@ function M.lsp()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.git()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>g'] = { name = 'git', },
-    ['<leader>gt'] = { name = 'git.telescope', },
-    ['<leader>gtb'] = { function() require 'config.nvim.telescope'.git_bcommits() end, 'git.telescope: bcommits', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gtc'] = { function() require 'config.nvim.telescope'.git_commits() end, 'git.telescope: commits', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gh'] = { function() require 'config.nvim.telescope'.git_branches() end, 'git.telescope: branches', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gg'] = { name = 'git.push', },
-    ['<leader>gga'] = { function() require 'config.my.git'.addcommitpush(nil, 1) end, 'git.push: addcommitpush commit_history_en', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gc'] = { function() require 'config.my.git'.commit_push() end, 'git.push: commit_push', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggc'] = { function() require 'config.my.git'.commit_push(nil, 1) end, 'git.push: commit_push commit_history_en', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gp'] = { function() require 'config.my.git'.pull() end, 'git.push: pull', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gb'] = { function() require 'config.my.git'.git_browser() end, 'git.push: browser', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggs'] = { function() require 'config.my.git'.push() end, 'git.push: push', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggg'] = { function() require 'config.my.git'.graph_asyncrun() end, 'git.push: graph_asyncrun', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gg<c-g>'] = { function() require 'config.my.git'.graph_start() end, 'git.push: graph_start', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggv'] = { function() require 'config.my.git'.init() end, 'git.push: init', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-a>'] = { function() require 'config.my.git'.addall() end, 'git.push: addall', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggr'] = { function() require 'config.my.git'.reset_hard() end, 'git.push: reset_hard', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggd'] = { function() require 'config.my.git'.reset_hard_clean() end, 'git.push: reset_hard_clean', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggD'] = { function() require 'config.my.git'.clean_ignored_files_and_folders() end, 'git.push: clean_ignored_files_and_folders', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggC'] = { function() require 'config.my.git'.clone() end, 'git.push: clone', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ggh'] = { function() require 'config.my.git'.show_commit_history() end, 'git.push: show_commit_history', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-l>'] = { function() require 'config.my.git'.addcommitpush_curline() end, 'git.push: addcommitpush curline', mode = { 'n', 'v', }, silent = true, },
-    ["<leader>g<c-'>"] = { function() require 'config.my.git'.addcommitpush_single_quote() end, 'git.push: addcommitpush single_quote', mode = { 'n', 'v', }, silent = true, },
-    ["<leader>g<c-s-'>"] = { function() require 'config.my.git'.addcommitpush_double_quote() end, 'git.push: addcommitpush double_quote', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-0>'] = { function() require 'config.my.git'.addcommitpush_parentheses() end, 'git.push: addcommitpush parentheses', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-]>'] = { function() require 'config.my.git'.addcommitpush_bracket() end, 'git.push: addcommitpush bracket', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-s-]>'] = { function() require 'config.my.git'.addcommitpush_brace() end, 'git.push: addcommitpush brace', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-`>'] = { function() require 'config.my.git'.addcommitpush_back_quote() end, 'git.push: addcommitpush back_quote', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-s-.>'] = { function() require 'config.my.git'.addcommitpush_angle_bracket() end, 'git.push: addcommitpush angle_bracket', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-e>'] = { function() require 'config.my.git'.addcommitpush_cword() end, 'git.push: addcommitpush cword', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>g<c-4>'] = { function() require 'config.my.git'.addcommitpush_cWORD() end, 'git.push: addcommitpush cWORD', mode = { 'n', 'v', }, silent = true, },
-    g = { name = 'git.push', },
-    ['g<c-l>'] = { function() require 'config.my.git'.addcommitpush_curline() end, 'git.push: addcommitpush curline', mode = { 'n', 'v', }, silent = true, },
-    ["g<c-'>"] = { function() require 'config.my.git'.addcommitpush_single_quote() end, 'git.push: addcommitpush single_quote', mode = { 'n', 'v', }, silent = true, },
-    ["g<c-s-'>"] = { function() require 'config.my.git'.addcommitpush_double_quote() end, 'git.push: addcommitpush double_quote', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-0>'] = { function() require 'config.my.git'.addcommitpush_parentheses() end, 'git.push: addcommitpush parentheses', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-]>'] = { function() require 'config.my.git'.addcommitpush_bracket() end, 'git.push: addcommitpush bracket', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-s-]>'] = { function() require 'config.my.git'.addcommitpush_brace() end, 'git.push: addcommitpush brace', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-`>'] = { function() require 'config.my.git'.addcommitpush_back_quote() end, 'git.push: addcommitpush back_quote', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-s-.>'] = { function() require 'config.my.git'.addcommitpush_angle_bracket() end, 'git.push: addcommitpush angle_bracket', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-e>'] = { function() require 'config.my.git'.addcommitpush_cword() end, 'git.push: addcommitpush cword', mode = { 'n', 'v', }, silent = true, },
-    ['g<c-4>'] = { function() require 'config.my.git'.addcommitpush_cWORD() end, 'git.push: addcommitpush cWORD', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gv'] = { name = 'git.diffview', },
-    ['<leader>gv1'] = { function() require 'config.my.git'.diffview_filehistory(1) end, 'git.diffview: filehistory 16', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gv2'] = { function() require 'config.my.git'.diffview_filehistory(2) end, 'git.diffview: filehistory 64', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gv3'] = { function() require 'config.my.git'.diffview_filehistory(3) end, 'git.diffview: filehistory finite', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gvs'] = { function() require 'config.my.git'.diffview_stash() end, 'git.diffview: filehistory stash', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gvo'] = { function() require 'config.my.git'.diffview_open() end, 'git.diffview: open', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gvq'] = { function() require 'config.my.git'.diffview_close() end, 'git.diffview: close', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gvl'] = { ':<c-u>DiffviewRefresh<cr>', 'git.diffview: refresh', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gvw'] = { ':<c-u>Telescope git_diffs diff_commits<cr>', 'git.diffview: Telescope git_diffs diff_commits', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gm'] = { name = 'git.signs', },
-    ['<leader>gmt'] = { name = 'git.signs.toggle', },
-    ['<leader>ge'] = { function() require 'config.my.git'.toggle_deleted() end, 'my.git.signs: toggle_deleted', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>gmd'] = { function() require 'config.my.git'.diffthis_l() end, 'my.git.signs: diffthis_l', mode = { 'n', 'v', }, },
-    ['<leader>gmr'] = { function() require 'config.my.git'.reset_buffer() end, 'my.git.signs: reset_buffer', mode = { 'n', 'v', }, },
-    ['<leader>gms'] = { function() require 'config.my.git'.stage_buffer() end, 'my.git.signs: stage_buffer', mode = { 'n', 'v', }, },
-    ['<leader>gmb'] = { function() require 'config.my.git'.blame_line() end, 'my.git.signs: blame_line', mode = { 'n', 'v', }, },
-    ['<leader>gmp'] = { function() require 'config.my.git'.preview_hunk() end, 'my.git.signs: preview_hunk', mode = { 'n', 'v', }, },
-    ['<leader>gmtb'] = { function() require 'config.my.git'.toggle_current_line_blame() end, 'my.git.signs: toggle_current_line_blame', mode = { 'n', 'v', }, },
-    ['<leader>gmtd'] = { function() require 'config.my.git'.toggle_deleted() end, 'my.git.signs: toggle_deleted', mode = { 'n', 'v', }, },
-    ['<leader>gmtl'] = { function() require 'config.my.git'.toggle_linehl() end, 'my.git.signs: toggle_linehl', mode = { 'n', 'v', }, },
-    ['<leader>gmtn'] = { function() require 'config.my.git'.toggle_numhl() end, 'my.git.signs: toggle_numhl', mode = { 'n', 'v', }, },
-    ['<leader>gmts'] = { function() require 'config.my.git'.toggle_signs() end, 'my.git.signs: toggle_signs', mode = { 'n', 'v', }, },
-    ['<leader>gmtw'] = { function() require 'config.my.git'.toggle_word_diff() end, 'my.git.signs: toggle_word_diff', mode = { 'n', 'v', }, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.tabline()
   TimingBegin()
   require 'which-key'.register {
@@ -155,7 +83,6 @@ function M.all(force)
   M.loaded = 1
   M.base()
   M.lsp()
-  M.git()
   M.q()
   M.leader_d()
 end
