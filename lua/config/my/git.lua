@@ -892,8 +892,6 @@ function M.map()
   }
 end
 
-print(string.format("## %s# %d", debug.getinfo(1)['source'], debug.getinfo(1)['currentline']))
-
 L(M, M.map)
 
 return M
