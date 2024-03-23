@@ -59,7 +59,7 @@ return {
     name = 'my.nmaps',
     dir = '',
     event = 'VeryLazy',
-    config = function() Require 'config.my.nmaps' end,
+    config = function() require 'config.my.nmaps' end,
   },
 
   -- my.uienter
@@ -361,7 +361,6 @@ return {
       { '<c-s-,>', desc = 'tabline: bd all prev buf', },
       { '<a-,>',   desc = 'tabline: simple statusline toggle', },
       { '<a-.>',   desc = 'tabline: toggle tabs way', },
-      { 'q',       desc = 'tabline', },
     },
     init = function()
       vim.opt.tabline = vim.loop.cwd()

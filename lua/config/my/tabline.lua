@@ -940,10 +940,11 @@ function M.map()
     qj = { function() M.append_one_proj_right_down() end, 'tabline: append_one_proj_right_down', mode = { 'n', 'v', }, silent = true, },
     qp = { function() M.restore_hidden_stack() end, 'tabline: restore_hidden_tabs', mode = { 'n', 'v', }, silent = true, },
     ['q<c-j>'] = { function() M.append_one_proj_right_down_more() end, 'tabline: append_one_proj_right_down_more', mode = { 'n', 'v', }, silent = true, },
+    ['<a-,>'] = { function() M.simple_statusline_toggle() end, 'my.tabline: simple_statusline_toggle', mode = { 'n', 'v', }, silent = true, },
+    ['<a-.>'] = { function() M.toggle_tabs_way() end, 'my.tabline: toggle_tabs_way', mode = { 'n', 'v', }, silent = true, },
   }
 end
 
 L(M, M.map)
 
 return M
-
