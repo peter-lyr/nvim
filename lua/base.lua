@@ -139,6 +139,9 @@ function M.create_user_command_with_M(items)
 end
 
 function M.all_commands()
+  if not M.commands then
+    M.create_user_command_with_M(BaseCommand())
+  end
   M.ui_sel(vim.tbl_keys(M.commands), 'All Commands', function(command)
     if not command then
       return
@@ -1497,5 +1500,13 @@ function M.get_git_modified_files(file)
   end
   return items_new
 end
+
+function M.map()
+  require 'which-key'.register {
+    ['<c-;>'] = { function() M.all_commands() end, 'base: all commands', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
 
 return M

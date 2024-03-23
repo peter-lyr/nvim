@@ -261,44 +261,45 @@ function M.format_input()
   end
 end
 
--- mappings
-B.del_map({ 'n', 'v', }, '<leader>f')
-B.del_map({ 'n', 'v', }, '<leader>fv')
+function M.map()
+  require 'which-key'.register {
+    ['<leader>f'] = { name = 'lsp', },
+    ['<leader>fv'] = { name = 'lsp.move', },
+    ['<leader>fC'] = { function() M.format_input() end, 'config.nvim.lsp: format_input', mode = { 'n', 'v', }, },
+    ['<leader>fD'] = { function() M.feedkeys_LspStop() end, 'config.nvim.lsp: feedkeys_LspStop', mode = { 'n', 'v', }, },
+    ['<leader>fn'] = { function() M.rename() end, 'lsp: rename', mode = { 'n', 'v', }, },
+    ['<leader>ff'] = { function() M.format() end, 'lsp: format', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>fl'] = { function() require 'config.nvim.telescope'.lsp_document_symbols() end, 'telescope.lsp: document_symbols', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>fr'] = { function() require 'config.nvim.telescope'.lsp_references() end, 'telescope.lsp: references', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>f<c-f>'] = { function() M.LspInfo() end, 'config.nvim.lsp: LspInfo', mode = { 'n', 'v', }, },
+    ['<leader>f<c-r>'] = { function() M.LspRestart() end, 'config.nvim.lsp: LspRestart', mode = { 'n', 'v', }, },
+    ['<leader>f<c-s>'] = { function() M.LspStart() end, 'config.nvim.lsp: LspStart', mode = { 'n', 'v', }, },
+    ['<leader>f<c-w>'] = { function() M.stop_all() end, 'config.nvim.lsp: stop_all', mode = { 'n', 'v', }, },
+    ['<leader>fc'] = { function() M.code_action() end, 'config.nvim.lsp: code_action', mode = { 'n', 'v', }, },
+    ['<leader>fi'] = { function() M.implementation() end, 'config.nvim.lsp: implementation', mode = { 'n', 'v', }, },
+    ['<leader>fp'] = { function() M.format_paragraph() end, 'config.nvim.lsp: format_paragraph', mode = { 'n', 'v', }, },
+    ['<leader>fs'] = { function() M.signature_help() end, 'config.nvim.lsp: signature_help', mode = { 'n', 'v', }, },
+    ['<leader>fq'] = { function() M.diagnostic_enable() end, 'config.nvim.lsp: diagnostic_enable', mode = { 'n', 'v', }, },
+    ['<leader>fvq'] = { function() M.diagnostic_disable() end, 'config.nvim.lsp: diagnostic_disable', mode = { 'n', 'v', }, },
+    ['<leader>fve'] = { function() M.retab_erase_bad_white_space() end, 'config.nvim.lsp: retab_erase_bad_white_space', mode = { 'n', 'v', }, },
+    ['<leader>fvd'] = { function() M.type_definition() end, 'config.nvim.lsp: type_definition', mode = { 'n', 'v', }, },
+    ['[d'] = { function() M.diagnostic_goto_prev() end, 'config.nvim.lsp: diagnostic_goto_prev', mode = { 'n', 'v', }, },
+    ['[f'] = { function() M.diagnostic_open_float() end, 'config.nvim.lsp: diagnostic_open_float', mode = { 'n', 'v', }, },
+    [']d'] = { function() M.diagnostic_goto_next() end, 'config.nvim.lsp: iagnostic_goto_next', mode = { 'n', 'v', }, },
+    [']f'] = { function() M.diagnostic_setloclist() end, 'config.nvim.lsp: diagnostic_setloclist', mode = { 'n', 'v', }, },
+    ['<leader>fo'] = { function() M.declaration() end, 'config.nvim.lsp: declaration', mode = { 'n', 'v', }, },
+    ['<C-F12>'] = { function() M.declaration() end, 'config.nvim.lsp: declaration', mode = { 'n', 'v', }, },
+    ['<leader>fw'] = { function() M.ClangdSwitchSourceHeader() end, 'config.nvim.lsp: ClangdSwitchSourceHeader', mode = { 'n', 'v', }, },
+    ['<F11>'] = { function() M.ClangdSwitchSourceHeader() end, 'config.nvim.lsp: ClangdSwitchSourceHeader', mode = { 'n', 'v', }, },
+    ['<leader>fd'] = { function() M.definition() end, 'config.nvim.lsp: definition', mode = { 'n', 'v', }, },
+    ['<F12>'] = { function() M.definition() end, 'config.nvim.lsp: definition', mode = { 'n', 'v', }, },
+    ['<leader>fe'] = { function() M.references() end, 'config.nvim.lsp: references', mode = { 'n', 'v', }, },
+    ['<S-F12>'] = { function() M.references() end, 'config.nvim.lsp: references', mode = { 'n', 'v', }, },
+    ['<leader>fh'] = { function() M.hover() end, 'config.nvim.lsp: hover', mode = { 'n', 'v', }, },
+    ['<A-F12>'] = { function() M.hover() end, 'config.nvim.lsp: hover', mode = { 'n', 'v', }, },
+  }
+end
 
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>f', 'nvim.lsp')
-require 'base'.whichkey_register({ 'n', 'v', }, '<leader>fv', 'nvim.lsp.more')
-
-B.lazy_map {
-  { '<leader>fC',     function() M.format_input() end,                mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_input', },
-  { '<leader>fD',     function() M.feedkeys_LspStop() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: feedkeys_LspStop', },
-  { '<leader>f<c-f>', function() M.LspInfo() end,                     mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspInfo', },
-  { '<leader>f<c-r>', function() M.LspRestart() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspRestart', },
-  { '<leader>f<c-s>', function() M.LspStart() end,                    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: LspStart', },
-  { '<leader>f<c-w>', function() M.stop_all() end,                    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: stop_all', },
-  { '<leader>fc',     function() M.code_action() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: code_action', },
-  { '<leader>fi',     function() M.implementation() end,              mode = { 'n', 'v', }, desc = 'config.nvim.lsp: implementation', },
-  { '<leader>fp',     function() M.format_paragraph() end,            mode = { 'n', 'v', }, desc = 'config.nvim.lsp: format_paragraph', },
-  { '<leader>fs',     function() M.signature_help() end,              mode = { 'n', 'v', }, desc = 'config.nvim.lsp: signature_help', },
-  { '<leader>fq',     function() M.diagnostic_enable() end,           mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_enable', },
-  { '<leader>fvq',    function() M.diagnostic_disable() end,          mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_disable', },
-  { '<leader>fve',    function() M.retab_erase_bad_white_space() end, mode = { 'n', 'v', }, desc = 'config.nvim.lsp: retab_erase_bad_white_space', },
-  { '<leader>fvd',    function() M.type_definition() end,             mode = { 'n', 'v', }, desc = 'config.nvim.lsp: type_definition', },
-  --
-  { '[d',             function() M.diagnostic_goto_prev() end,        mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_goto_prev', },
-  { '[f',             function() M.diagnostic_open_float() end,       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_open_float', },
-  { ']d',             function() M.diagnostic_goto_next() end,        mode = { 'n', 'v', }, desc = 'config.nvim.lsp: iagnostic_goto_next', },
-  { ']f',             function() M.diagnostic_setloclist() end,       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: diagnostic_setloclist', },
-  --
-  { '<leader>fo',     function() M.declaration() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: declaration', },
-  { '<C-F12>',        function() M.declaration() end,                 mode = { 'n', 'v', }, desc = 'config.nvim.lsp: declaration', },
-  { '<leader>fw',     function() M.ClangdSwitchSourceHeader() end,    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: ClangdSwitchSourceHeader', },
-  { '<F11>',          function() M.ClangdSwitchSourceHeader() end,    mode = { 'n', 'v', }, desc = 'config.nvim.lsp: ClangdSwitchSourceHeader', },
-  { '<leader>fd',     function() M.definition() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: definition', },
-  { '<F12>',          function() M.definition() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: definition', },
-  { '<leader>fe',     function() M.references() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: references', },
-  { '<S-F12>',        function() M.references() end,                  mode = { 'n', 'v', }, desc = 'config.nvim.lsp: references', },
-  { '<leader>fh',     function() M.hover() end,                       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: hover', },
-  { '<A-F12>',        function() M.hover() end,                       mode = { 'n', 'v', }, desc = 'config.nvim.lsp: hover', },
-}
+L(M, M.map)
 
 return M

@@ -355,7 +355,6 @@ return {
       'peter-lyr/vim-bbye',
     },
     keys = {
-      { '<c-h>',   desc = 'tabline: b prev buf', },
       { '<c-s-l>', desc = 'tabline: bd next buf', },
       { '<c-s-h>', desc = 'tabline: bd prev buf', },
       { '<c-s-.>', desc = 'tabline: bd all next buf', },
@@ -380,11 +379,12 @@ return {
       end
       vim.fn.timer_start(1000, function()
         lazy_map {
-          { '<c-l>', function() require 'config.my.tabline'.b_next_buf() end, desc = 'my.tabline: b_next_buf', mode = { 'n', 'v', }, silent = true, },
+          { '<c-l>', function() require 'config.my.tabline'.b_next_buf() end, desc = 'tabline: b_next_buf', mode = { 'n', 'v', }, silent = true, },
+          { '<c-h>', function() require 'config.my.tabline'.b_prev_buf() end, desc = 'tabline: b_prev_buf', mode = { 'n', 'v', }, silent = true, },
         }
       end)
     end,
-    config = function() Require 'config.my.tabline' end,
+    config = function() require 'config.my.tabline' end,
   },
 
   -- markdown
@@ -438,12 +438,14 @@ return {
     config = function() require 'config.my.yank' end,
   },
 
-  -- my.maps
+  -- my.base
   {
-    name = 'my.maps',
+    name = 'my.base',
     dir = '',
-    event = { 'CursorHold', 'CursorHoldI', },
-    config = function() require 'config.my.maps'.all() end,
+    keys = {
+      { '<c-;>', desc = 'base commands', },
+    },
+    config = function() require 'base' end,
   },
 
   -- my.scroll

@@ -22,30 +22,6 @@ function HL()
   ]]
 end
 
-function Notify(message, timeout)
-  vim.cmd 'Lazy load nvim-notify'
-  local messages = type(message) == 'table' and message or { message, }
-  local title = ''
-  if #messages > 1 then
-    title = table.remove(messages, 1)
-  end
-  message = vim.fn.join(messages, '\n')
-  vim.notify(message, 'info', {
-    title = title,
-    animate = false,
-    timeout = timeout * 40,
-  })
-end
-
-function TimingBegin()
-  StartTime = vim.fn.reltime()
-end
-
-function TimingEnd(name)
-  local end_time = vim.fn.reltimefloat(vim.fn.reltime(StartTime))
-  Notify(string.format('%s: %.3f ms', name, end_time * 1000), end_time * 1000)
-end
-
 function BaseCommand()
   return {
     ['Drag'] = require 'config.my.drag',
