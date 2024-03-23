@@ -454,6 +454,7 @@ return {
   {
     name = 'my.yank',
     dir = '',
+    event = { 'TextChanged', 'TextChangedI', },
     config = function() require 'config.my.yank' end,
   },
 
