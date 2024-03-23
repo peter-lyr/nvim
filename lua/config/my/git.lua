@@ -890,6 +890,11 @@ function M.map()
     ['<leader>gr'] = { function() M.reset_hunk() end, 'my.git.signs: reset_hunk', mode = { 'n', }, silent = true, },
     ['<leader>gs'] = { function() M.stage_hunk() end, 'my.git.signs: stage_hunk', mode = { 'n', }, silent = true, },
   }
+  require 'which-key'.register {
+    ['<leader>d'] = { name = 'nvim/qf', },
+    ['<leader>dw'] = { function() M.open_prev_item() end, 'quick open: qf prev item', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ds'] = { function() M.open_next_item() end, 'quick open: qf next item', mode = { 'n', 'v', }, silent = true, },
+  }
 end
 
 L(M, M.map)

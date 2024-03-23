@@ -524,6 +524,18 @@ return {
     end,
   },
 
+  -- my.leader_d
+  {
+    name = 'my.leader_d',
+    dir = '',
+    keys = {
+      { '<leader>d', desc = 'nvim/qf', },
+    },
+    config = function()
+      require 'config.my.leader_d'
+    end,
+  },
+
   -- my.command
   {
     name = 'my.command',

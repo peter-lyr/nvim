@@ -905,6 +905,14 @@ function M.map()
     ['<c-4>'] = { function() M.sel_all_git_repos() end, 'nvimtree: open tree in all git repos(sel)', mode = { 'n', 'v', }, silent = true, },
     ['<c-s-4>'] = { function() require 'config.my.git'.get_all_git_repos(1) end, 'nvimtree: open tree in all git repos(sel)(force)', mode = { 'n', 'v', }, silent = true, },
     ['<c-5>'] = { function() M.sel_dirs() end, 'nvimtree: open tree in dirs(sel)', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>d'] = { name = 'nvim/qf', },
+    ['<leader>dj'] = { function() M.open_next_tree_node() end, 'quick open: nvimtree next node', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>dk'] = { function() M.open_prev_tree_node() end, 'quick open: nvimtree prev node', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>do'] = { function() M.open_all() end, 'nvimtree: open_all', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>de'] = { function() M.refresh_hl() end, 'nvimtree: refresh hl', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>da'] = { function() M.ausize_toggle() end, 'nvimtree: ausize toggle', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>dc'] = { function() M.toggle_cur_root() end, 'nvimtree: toggle cur root', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>dr'] = { function() M.reset_nvimtree() end, 'nvimtree: reset nvimtree', mode = { 'n', }, silent = true, },
   }
 end
 

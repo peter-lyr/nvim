@@ -338,7 +338,7 @@ return {
     },
     config = function()
       require 'notify'.setup {
-        background_colour = "#000000",
+        background_colour = '#000000',
         top_down = false,
         timeout = 3000,
         max_height = function() return math.floor(vim.o.lines * 0.75) end,
@@ -496,7 +496,7 @@ return {
       { '<c-s-4>',  desc = 'nvimtree: open tree in all git repos(sel)(force)', },
       { '<c-5>',    desc = 'nvimtree: open tree in dirs(sel)', },
     },
-    config = function() require 'config.test.nvimtree' end,
+    config = function() Require 'config.test.nvimtree' end,
   },
 
   -- {

@@ -59,23 +59,6 @@ function M.q()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.leader_d()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader>d'] = { name = 'nvim/qf', },
-    ['<leader>dw'] = { function() require 'config.my.git'.open_prev_item() end, 'quick open: qf prev item', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ds'] = { function() require 'config.my.git'.open_next_item() end, 'quick open: qf next item', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>dj'] = { function() require 'config.test.nvimtree'.open_next_tree_node() end, 'quick open: nvimtree next node', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>dk'] = { function() require 'config.test.nvimtree'.open_prev_tree_node() end, 'quick open: nvimtree prev node', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>do'] = { function() require 'config.test.nvimtree'.open_all() end, 'nvimtree: open_all', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>de'] = { function() require 'config.test.nvimtree'.refresh_hl() end, 'nvimtree: refresh hl', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>da'] = { function() require 'config.test.nvimtree'.ausize_toggle() end, 'nvimtree: ausize toggle', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>dc'] = { function() require 'config.test.nvimtree'.toggle_cur_root() end, 'nvimtree: toggle cur root', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>dr'] = { function() require 'config.test.nvimtree'.reset_nvimtree() end, 'nvimtree: reset nvimtree', mode = { 'n', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.all(force)
   if M.loaded and not force then
     return
@@ -84,7 +67,6 @@ function M.all(force)
   M.base()
   M.lsp()
   M.q()
-  M.leader_d()
 end
 
 return M
