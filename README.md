@@ -9,3 +9,4 @@
 7. [ ] TODO: add path variable in nvim-qt
 8. [ ] TODO: sort telescope(todo) result by time(modify/create)
 9. [x] DONE: tabline bdelete unmodified buffers
+10. [x] DONE: no maps.lua
