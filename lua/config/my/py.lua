@@ -38,4 +38,6 @@ function M.map()
   }
 end
 
+L(M, M.map)
+
 return M
