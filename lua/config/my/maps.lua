@@ -37,28 +37,6 @@ function M.lsp()
   TimingEnd(debug.getinfo(1)['name'])
 end
 
-function M.tabline()
-  TimingBegin()
-  require 'which-key'.register {
-    ['<leader><c-s-l>'] = { function() require 'config.my.tabline'.bd_next_buf(1) end, 'my.tabline: bwipeout_next_buf ', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-h>'] = { function() require 'config.my.tabline'.bd_prev_buf(1) end, 'my.tabline: bwipeout_prev_buf', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-.>'] = { function() require 'config.my.tabline'.bd_all_next_buf(1) end, 'my.tabline: bwipeout_all_next_buf', mode = { 'n', 'v', }, silent = true, },
-    ['<leader><c-s-,>'] = { function() require 'config.my.tabline'.bd_all_prev_buf(1) end, 'my.tabline: bwipeout_all_prev_buf', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
-function M.q()
-  TimingBegin()
-  require 'which-key'.register {
-    ['q'] = { name = 'tabline', },
-    qh = { function() require 'config.my.tabline'.restore_hidden_tabs() end, 'my.tabline: restore_hidden_tabs', mode = { 'n', 'v', }, silent = true, },
-    qk = { function() require 'config.my.tabline'.append_one_proj_new_tab_no_dupl() end, 'my.tabline: append_one_proj_new_tab_no_dupl', mode = { 'n', 'v', }, silent = true, },
-    qm = { function() require 'config.my.tabline'.restore_hidden_stack_main() end, 'my.tabline: restore_hidden_tabs', mode = { 'n', 'v', }, silent = true, },
-  }
-  TimingEnd(debug.getinfo(1)['name'])
-end
-
 function M.all(force)
   if M.loaded and not force then
     return
@@ -66,7 +44,6 @@ function M.all(force)
   M.loaded = 1
   M.base()
   M.lsp()
-  M.q()
 end
 
 return M

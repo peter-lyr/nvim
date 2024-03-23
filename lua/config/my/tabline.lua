@@ -308,7 +308,7 @@ function M.append_one_proj_right_down_more()
       B.stack_item_uniq(roots[root], string.sub(fname, #root + 2, #fname))
     end
   end
-  B.ui_sel(vim.tbl_keys(roots), 'open which proj file', function (root)
+  B.ui_sel(vim.tbl_keys(roots), 'open which proj file', function(root)
     if root then
       local fname = B.get_filepath(root, roots[root][1]).filename
       B.jump_or_split(fname)
@@ -922,4 +922,24 @@ B.aucmd('BufEnter', 'my.tabline.BufEnter-vim-projectroot', {
   end,
 })
 
+function M.map()
+  require 'which-key'.register {
+    ['<leader><c-s-l>'] = { function() M.bd_next_buf(1) end, 'tabline: bwipeout next buf ', mode = { 'n', 'v', }, silent = true, },
+    ['<leader><c-s-h>'] = { function() M.bd_prev_buf(1) end, 'tabline: bwipeout prev buf', mode = { 'n', 'v', }, silent = true, },
+    ['<leader><c-s-.>'] = { function() M.bd_all_next_buf(1) end, 'tabline: bwipeout all next buf', mode = { 'n', 'v', }, silent = true, },
+    ['<leader><c-s-,>'] = { function() M.bd_all_prev_buf(1) end, 'tabline: bwipeout all prev buf', mode = { 'n', 'v', }, silent = true, },
+    ['q'] = { name = 'tabline', },
+    qh = { function() M.restore_hidden_tabs() end, 'tabline: restore hidden tabs', mode = { 'n', 'v', }, silent = true, },
+    qk = { function() M.append_one_proj_new_tab_no_dupl() end, 'tabline: append one proj new tab no dupl', mode = { 'n', 'v', }, silent = true, },
+    qm = { function() M.restore_hidden_stack_main() end, 'tabline: restore hidden tabs', mode = { 'n', 'v', }, silent = true, },
+    ql = { function() M.only_cur_buffer() end, 'tabline: only_cur_buffer', mode = { 'n', 'v', }, silent = true, },
+    qj = { function() M.append_one_proj_right_down() end, 'tabline: append_one_proj_right_down', mode = { 'n', 'v', }, silent = true, },
+    qp = { function() M.restore_hidden_stack() end, 'tabline: restore_hidden_tabs', mode = { 'n', 'v', }, silent = true, },
+    ['q<c-j>'] = { function() M.append_one_proj_right_down_more() end, 'tabline: append_one_proj_right_down_more', mode = { 'n', 'v', }, silent = true, },
+  }
+end
+
+L(M, M.map)
+
 return M
+
