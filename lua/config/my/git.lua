@@ -763,13 +763,13 @@ function M.open_next_item()
   end)
 end
 
--- B.aucmd({ 'TextChanged', }, 'test.nvimtree.TextChanged', {
+-- B.aucmd({ 'TextChanged', }, 'nvimtree.TextChanged', {
 --   callback = function()
 --     vim.fn['fugitive#ReloadStatus']()
 --   end,
 -- })
 
-B.aucmd({ 'BufEnter', }, 'test.nvimtree.BufEnter', {
+B.aucmd({ 'BufEnter', }, 'nvimtree.BufEnter', {
   callback = function()
     if vim.bo.ft == 'qf' then
       M.just_entered = 1
@@ -781,7 +781,7 @@ B.aucmd({ 'BufEnter', }, 'test.nvimtree.BufEnter', {
   end,
 })
 
-B.aucmd({ 'BufLeave', }, 'test.nvimtree.BufLeave', {
+B.aucmd({ 'BufLeave', }, 'nvimtree.BufLeave', {
   callback = function()
     if vim.bo.ft == 'qf' then
       M.line = vim.fn.line '.'

@@ -22,7 +22,7 @@ return {
       { '<c-s-4>',  desc = 'nvimtree: open tree in all git repos(sel)(force)', },
       { '<c-5>',    desc = 'nvimtree: open tree in dirs(sel)', },
     },
-    config = function() Require 'config.test.nvimtree' end,
+    config = function() Require 'config.nvim.nvimtree' end,
   },
 
   -- treesitter

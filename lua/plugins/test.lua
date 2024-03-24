@@ -370,7 +370,7 @@ return {
     version = '*',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'test.nvimtree', },
+      { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'nvimtree', },
       {
         '<c-bs>',
         function()

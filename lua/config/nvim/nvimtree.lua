@@ -260,7 +260,7 @@ function M.dirs_append(dir)
   B.stack_item_uniq(M.dirs, B.rep_slash_lower(dir))
 end
 
-B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'test.nvimtree.BufEnter', {
+B.aucmd({ 'BufEnter', 'DirChanged', 'CursorHold', }, 'nvimtree.BufEnter', {
   callback = function(ev)
     if vim.bo.ft == 'NvimTree' and B.is(M.ausize_en) then
       local winid = vim.fn.win_getid(vim.fn.bufwinnr(ev.buf))
@@ -291,7 +291,7 @@ function M.is_nvim_tree_opened()
   return nil
 end
 
-B.aucmd({ 'TabEnter', }, 'test.nvimtree.TabEnter', {
+B.aucmd({ 'TabEnter', }, 'nvimtree.TabEnter', {
   callback = function()
     local cur_nvim_tree = nil
     if B.is_buf_fts 'NvimTree' then
@@ -552,7 +552,7 @@ function M.toggle()
   end
 end
 
-B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'test.nvimtree.CursorHold', {
+B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'nvimtree.CursorHold', {
   callback = function(ev)
     if B.is_buf_fts('NvimTree', ev.buf) then
       M._last_dir = vim.loop.cwd()
@@ -748,7 +748,7 @@ function M.toggle_cur_root()
   M.cur_root_do()
 end
 
-B.aucmd('DirChanged', 'test.nvimtree.DirChanged', {
+B.aucmd('DirChanged', 'nvimtree.DirChanged', {
   callback = function()
     B.set_timeout(30, function()
       M.cur_root_do()
@@ -759,102 +759,102 @@ B.aucmd('DirChanged', 'test.nvimtree.DirChanged', {
 function M._on_attach(bufnr)
   local api = require 'nvim-tree.api'
   B.lazy_map {
-    { 'gf',            api.node.show_info_popup,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Info', },
-    { 'dk',            api.node.open.tab,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: New Tab', },
-    { 'dl',            api.node.open.vertical,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: Vertical Split', },
-    { 'dj',            api.node.open.horizontal,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: Horizontal Split', },
-    { 'a',             api.node.open.edit,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open', },
+    { 'gf',            api.node.show_info_popup,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Info', },
+    { 'dk',            api.node.open.tab,                           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: New Tab', },
+    { 'dl',            api.node.open.vertical,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: Vertical Split', },
+    { 'dj',            api.node.open.horizontal,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: Horizontal Split', },
+    { 'a',             api.node.open.edit,                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open', },
 
-    { '<Tab>',         M._tab,                                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open Preview', },
-    { '<S-Tab>',       M._s_tab,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open Preview', },
+    { '<Tab>',         M._tab,                                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open Preview', },
+    { '<S-Tab>',       M._s_tab,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open Preview', },
 
-    { '<2-LeftMouse>', M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: No Window Picker', },
-    { '<CR>',          M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: No Window Picker', },
-    { 'o',             M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: No Window Picker', },
-    { 'do',            M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Open: No Window Picker', },
+    { '<2-LeftMouse>', M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: No Window Picker', },
+    { '<CR>',          M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: No Window Picker', },
+    { 'o',             M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: No Window Picker', },
+    { 'do',            M._wrap_node(M._open_or_expand_or_dir_up()), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Open: No Window Picker', },
 
-    { 'c',             api.fs.create,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Create', },
-    -- { 'D',             api.fs.remove,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Delete', },
-    -- { 'C',             api.fs.copy.node,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Copy', },
-    -- { 'X',             api.fs.cut,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Cut', },
-    -- { 'p',             api.fs.paste,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Paste', },
+    { 'c',             api.fs.create,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Create', },
+    -- { 'D',             api.fs.remove,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Delete', },
+    -- { 'C',             api.fs.copy.node,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Copy', },
+    -- { 'X',             api.fs.cut,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Cut', },
+    -- { 'p',             api.fs.paste,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Paste', },
 
-    -- { 'gr',            api.fs.rename_sub,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Rename: Omit Filename', },
-    { 'R',             api.fs.rename,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Rename', },
-    { 'r',             api.fs.rename_basename,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Rename: Basename', },
+    -- { 'gr',            api.fs.rename_sub,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Rename: Omit Filename', },
+    { 'R',             api.fs.rename,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Rename', },
+    { 'r',             api.fs.rename_basename,                      mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Rename: Basename', },
 
-    { 'gy',            api.fs.copy.absolute_path,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Copy Absolute Path', },
-    { 'Y',             api.fs.copy.relative_path,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Copy Relative Path', },
-    { 'y',             api.fs.copy.filename,                        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Copy Name', },
-    { '<a-y>',         M._wrap_node(M._copy_dtarget),               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _copy_dtarget', },
+    { 'gy',            api.fs.copy.absolute_path,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Copy Absolute Path', },
+    { 'Y',             api.fs.copy.relative_path,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Copy Relative Path', },
+    { 'y',             api.fs.copy.filename,                        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Copy Name', },
+    { '<a-y>',         M._wrap_node(M._copy_dtarget),               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _copy_dtarget', },
 
-    { 'vo',            api.tree.change_root_to_node,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: CD', },
-    { 'u',             api.tree.change_root_to_parent,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Up', },
+    { 'vo',            api.tree.change_root_to_node,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: CD', },
+    { 'u',             api.tree.change_root_to_parent,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Up', },
 
-    -- { 'gb',            api.tree.toggle_no_buffer_filter,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Toggle No Buffer', },
-    { 'g.',            api.tree.toggle_git_clean_filter,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Toggle Git Clean', },
-    { '?',             api.tree.toggle_help,                        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Help', },
-    { '.',             api.tree.toggle_hidden_filter,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Toggle Dotfiles', },
-    { 'i',             api.tree.toggle_gitignore_filter,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Toggle Git Ignore', },
+    -- { 'gb',            api.tree.toggle_no_buffer_filter,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Toggle No Buffer', },
+    { 'g.',            api.tree.toggle_git_clean_filter,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Toggle Git Clean', },
+    { '?',             api.tree.toggle_help,                        mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Help', },
+    { '.',             api.tree.toggle_hidden_filter,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Toggle Dotfiles', },
+    { 'i',             api.tree.toggle_gitignore_filter,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Toggle Git Ignore', },
 
-    { '<F5>',          api.tree.reload,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Refresh', },
-    { 'E',             api.tree.expand_all,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Expand All', },
-    { 'W',             api.tree.collapse_all,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Collapse', },
-    { 'q',             M._close,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Close', },
-    { '<c-q>',         M._close,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Close', },
+    { '<F5>',          api.tree.reload,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Refresh', },
+    { 'E',             api.tree.expand_all,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Expand All', },
+    { 'W',             api.tree.collapse_all,                       mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Collapse', },
+    { 'q',             M._close,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Close', },
+    { '<c-q>',         M._close,                                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Close', },
 
-    { '<leader>k',     api.node.navigate.git.prev,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Prev Git', },
-    { '<leader>j',     api.node.navigate.git.next,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Next Git', },
-    { '<leader>m',     api.node.navigate.diagnostics.next,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Next Diagnostic', },
-    { '<leader>n',     api.node.navigate.diagnostics.prev,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Prev Diagnostic', },
-    { '<c-i>',         api.node.navigate.opened.prev,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Prev Opened', },
-    { '<c-o>',         api.node.navigate.opened.next,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Next Opened', },
+    { '<leader>k',     api.node.navigate.git.prev,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Prev Git', },
+    { '<leader>j',     api.node.navigate.git.next,                  mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Next Git', },
+    { '<leader>m',     api.node.navigate.diagnostics.next,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Next Diagnostic', },
+    { '<leader>n',     api.node.navigate.diagnostics.prev,          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Prev Diagnostic', },
+    { '<c-i>',         api.node.navigate.opened.prev,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Prev Opened', },
+    { '<c-o>',         api.node.navigate.opened.next,               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Next Opened', },
 
-    { '<c-b>',         api.node.navigate.sibling.next,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Next Sibling', },
-    { '<c-v>',         api.node.navigate.sibling.prev,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Previous Sibling', },
-    { '<c-m>',         api.node.navigate.sibling.last,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Last Sibling', },
-    { '<c-n>',         api.node.navigate.sibling.first,             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: First Sibling', },
+    { '<c-b>',         api.node.navigate.sibling.next,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Next Sibling', },
+    { '<c-v>',         api.node.navigate.sibling.prev,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Previous Sibling', },
+    { '<c-m>',         api.node.navigate.sibling.last,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Last Sibling', },
+    { '<c-n>',         api.node.navigate.sibling.first,             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: First Sibling', },
 
-    { '<c-h>',         api.node.navigate.parent,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Parent Directory', },
-    { '<c-u>',         api.node.navigate.parent_close,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Close Directory', },
+    { '<c-h>',         api.node.navigate.parent,                    mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Parent Directory', },
+    { '<c-u>',         api.node.navigate.parent_close,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Close Directory', },
 
-    { 'x',             api.node.run.system,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Run System', },
-    { 'gx',            M._wrap_node(M._explorer_dtarget),           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: explorer dtarget', },
-    -- { '<MiddleMouse>', api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Run System', },
-    { '<c-x>',         M._system_run_and_close,                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Run System', },
-    -- { 'gx',            api.node.run.cmd,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Run Command', },
+    { 'x',             api.node.run.system,                         mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Run System', },
+    { 'gx',            M._wrap_node(M._explorer_dtarget),           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: explorer dtarget', },
+    -- { '<MiddleMouse>', api.node.run.system,                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Run System', },
+    { '<c-x>',         M._system_run_and_close,                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Run System', },
+    -- { 'gx',            api.node.run.cmd,                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Run Command', },
 
-    -- { 'f',             api.live_filter.start,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Filter', },
-    -- { 'gf',            api.live_filter.clear,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: Clean Filter', },
+    -- { 'f',             api.live_filter.start,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Filter', },
+    -- { 'gf',            api.live_filter.clear,              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: Clean Filter', },
 
     ----------
 
-    { "'",             M._wrap_node(M._toggle_sel),                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: toggle and go next', },
-    { '"',             M._wrap_node(M._toggle_sel_up),              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: toggle and go prev', },
-    { 'de',            M._empty_sel,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: empty all selections', },
-    { 'dd',            M._delete_sel,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: delete all selections', },
-    { 'dm',            M._wrap_node(M._move_sel),                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: move all selections', },
-    { 'dc',            M._wrap_node(M._copy_sel),                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: copy all selections', },
+    { "'",             M._wrap_node(M._toggle_sel),                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: toggle and go next', },
+    { '"',             M._wrap_node(M._toggle_sel_up),              mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: toggle and go prev', },
+    { 'de',            M._empty_sel,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: empty all selections', },
+    { 'dd',            M._delete_sel,                               mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: delete all selections', },
+    { 'dm',            M._wrap_node(M._move_sel),                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: move all selections', },
+    { 'dc',            M._wrap_node(M._copy_sel),                   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: copy all selections', },
 
-    { 'dy',            M._wrap_node(M._copy_2_clip),                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _copy_2_clip', },
-    { 'dp',            M._wrap_node(M._paste_from_clip),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _paste_from_clip', },
+    { 'dy',            M._wrap_node(M._copy_2_clip),                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _copy_2_clip', },
+    { 'dp',            M._wrap_node(M._paste_from_clip),            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _paste_from_clip', },
 
-    { 'da',            M.ausize_toggle,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: ausize_toggle', },
+    { 'da',            M.ausize_toggle,                             mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: ausize_toggle', },
 
-    { 'd;',            M._wrap_node(M._delete),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: delete buf', },
+    { 'd;',            M._wrap_node(M._delete),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: delete buf', },
 
-    { 'dr',            M._wrap_node(M.cur_root_sel),                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: delete buf', },
+    { 'dr',            M._wrap_node(M.cur_root_sel),                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: delete buf', },
   }
 
   B.lazy_map {
-    { { 'pw', '<MiddleMouse>', }, M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _run_what', },
-    { { 'ps', '<RightMouse>', },  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _run_whats', },
-    { 'pp',                       function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: wmplayer', },
-    { 'pb',                       function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: bcomp', },
-    { 'pr',                       M._wrap_node(M.rg),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: rg', },
-    { 'pf',                       M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: fd', },
-    { 'p<c-w>',                   function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _run_what_add', },
-    { 'p<c-s>',                   function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'test.nvimtree: _run_whats_add', },
+    { { 'pw', '<MiddleMouse>', }, M._run_what,                                 mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_what', },
+    { { 'ps', '<RightMouse>', },  M._run_whats,                                mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_whats', },
+    { 'pp',                       function() M._run_what '"wmplayer.exe"' end, mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: wmplayer', },
+    { 'pb',                       function() M._run_whats '"bcomp.exe"' end,   mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: bcomp', },
+    { 'pr',                       M._wrap_node(M.rg),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: rg', },
+    { 'pf',                       M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: fd', },
+    { 'p<c-w>',                   function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_what_add', },
+    { 'p<c-s>',                   function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_whats_add', },
   }
   vim.cmd [[call feedkeys("d\<esc>")]]
 end
