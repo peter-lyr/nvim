@@ -81,12 +81,7 @@ function M.replace_do()
   end
   B.cmd('e %s', file)
   B.set_timeout(100, function()
-    M._replace_cnt = M._replace_cnt + 1
-    if M._replace_cnt <= #M._replace_files then
-      M.replace_do()
-    else
-      M.replace_end()
-    end
+    M.replace_do()
   end)
 end
 
