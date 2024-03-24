@@ -63,7 +63,7 @@ function M.replace_do()
     end
     file = M._replace_files[M._replace_cnt]
     local ext = string.match(file, '%.([^.]+)$')
-    if ext == 'md' then
+    if M.ext == '*' or ext == M.ext then
       local temp = nil
       for _, line in ipairs(vim.fn.readfile(file)) do
         if vim.fn.match(line, M.patt) > -1 then
@@ -90,7 +90,8 @@ function M.replace_do()
   end)
 end
 
-function Replace(patt, rep, root)
+function Replace(patt, rep, ext, root)
+  M.ext = ext
   M.patt = patt
   local substitute_string = string.format('%%s/%s/%s/g', patt, rep)
   if not root then
@@ -117,12 +118,12 @@ function Replace(patt, rep, root)
 end
 
 function M.test()
-  B.cmd([[call feedkeys(":\<c-u>lua Replace(%s, %s)")]], string.format('[[%s]]', vim.fn.getreg '/'), '[[]]')
+  B.cmd([[call feedkeys(":\<c-u>lua Replace(%s, %s, 'md')")]], string.format('[[%s]]', vim.fn.getreg '/'), '[[]]')
   vim.cmd [[call feedkeys("\<c-f>b5h")]]
 end
 
--- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], [[c:\Users\depei_liu\appdata\local\repos\2024s]])
--- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]])
+-- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], 'md', [[c:\Users\depei_liu\appdata\local\repos\2024s]])
+-- Replace([[20\(2[34]\d\{2}\)\(\d\{2}\)]], [[\=submatch(1)..submatch(2)]], 'md')
 
 function M.map()
   require 'which-key'.register {
