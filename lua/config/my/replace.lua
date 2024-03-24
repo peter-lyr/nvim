@@ -63,7 +63,7 @@ function M.replace_do()
     end
     file = M._replace_files[M._replace_cnt]
     local ext = string.match(file, '%.([^.]+)$')
-    if (M.ext == '*' or ext == M.ext) and not require 'config.my.drag'._is_detected_as_bin(file) then
+    if (not M.ext or M.ext == '*' or ext == M.ext) and not require 'config.my.drag'._is_detected_as_bin(file) then
       local temp = nil
       for _, line in ipairs(vim.fn.readfile(file)) do
         if vim.fn.match(line, M.patt) > -1 then
