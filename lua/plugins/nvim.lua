@@ -1,5 +1,30 @@
 return {
 
+  -- nvim-tree
+  {
+    'nvim-tree/nvim-tree.lua',
+    commit = '00741206',
+    event = { 'BufReadPre', 'BufNewFile', },
+    cmd = {
+      'NvimTree',
+      'NvimTreeOpen',
+      'NvimTreeFindFile',
+      'NvimTreeFindFileToggle',
+    },
+    keys = {
+      { '<c-f>',    desc = 'nvimtree: toggle', },
+      { '<c-s-cr>', desc = 'nvimtree: open tree in last dir', },
+      { '<c-`>',    desc = 'nvimtree: open tree in dirvers(sel)', },
+      { '<c-1>',    desc = 'nvimtree: open tree in parent dirs(sel)', },
+      { '<c-2>',    desc = 'nvimtree: open tree in my dirs(sel)', },
+      { '<c-3>',    desc = 'nvimtree: open tree in SHGetFolderPath(sel)', },
+      { '<c-4>',    desc = 'nvimtree: open tree in all git repos(sel)', },
+      { '<c-s-4>',  desc = 'nvimtree: open tree in all git repos(sel)(force)', },
+      { '<c-5>',    desc = 'nvimtree: open tree in dirs(sel)', },
+    },
+    config = function() Require 'config.test.nvimtree' end,
+  },
+
   -- treesitter
   {
     'nvim-treesitter/nvim-treesitter',

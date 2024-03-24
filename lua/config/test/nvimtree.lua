@@ -641,8 +641,8 @@ end
 
 function M.reset_nvimtree()
   package.loaded[M.lua] = nil
-  require 'config.test.nvimtree'
-  B.echo 'reset_nvimtree: config.test.nvimtree'
+  require 'config.nvim.nvimtree'
+  B.echo 'reset_nvimtree: config.nvim.nvimtree'
 end
 
 local opts = {

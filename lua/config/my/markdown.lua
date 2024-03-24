@@ -48,7 +48,7 @@ function M.buffer_open_cfile()
     M.file_stack[#M.file_stack + 1] = cfile
   else
     if B.is(cfile) and B.is_dir(cfile) then
-      require 'config.test.nvimtree'.open(cfile)
+      require 'config.nvim.nvimtree'.open(cfile)
     else
       B.echo('not a file: %s', cfile)
     end
@@ -122,7 +122,7 @@ function M.copy_cfile_clip()
       local ext = string.match(cfile, '%.([^.]+)$')
       local rename_file = name .. '.' .. ext
       local newfile = B.get_filepath(B.windows_temp, rename_file)
-      local copy2clip_exe = require 'config.test.nvimtree'.copy2clip_exe
+      local copy2clip_exe = require 'config.nvim.nvimtree'.copy2clip_exe
       B.system_run('start silent', 'copy /y "%s" "%s" && %s "%s"', B.rep_slash(cfile), newfile, copy2clip_exe, newfile)
       B.notify_info(newfile .. ' copied')
     else

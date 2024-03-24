@@ -568,7 +568,7 @@ function SwitchWindow(win_number, mouseclicks, mousebutton, modifiers)
   elseif mousebutton == 'l' then
     local click_winid = vim.fn.getmousepos()['winid']
     if B.is_buf_fts('NvimTree', vim.fn.winbufnr(click_winid)) then
-      require 'config.test.nvimtree'.ausize_toggle()
+      require 'config.nvim.nvimtree'.ausize_toggle()
       return
     end
     local cur_winid = vim.fn.win_getid()
