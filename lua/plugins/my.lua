@@ -78,7 +78,9 @@ return {
         vim.fn.timer_start(380, function()
           vim.g.startup_time = string.format('Startup: %.3f ms', vim.g.end_time * 1000)
           vim.cmd('echo "' .. vim.g.startup_time .. '"')
-          vim.fn.writefile({ vim.g.startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
+          if vim.g.end_time * 1000 <= 28 then
+            vim.fn.writefile({ vim.g.startup_time .. '\r', }, vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_startup_time.txt', 'a')
+          end
         end)
       end
       if vim.fn.filereadable(nvim_qt_start_flag_socket_txt) == 1 then
