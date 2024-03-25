@@ -141,7 +141,7 @@ function M.stack(mode, word)
 end
 
 function M.paste_from_stack_do(pool, mode)
-  B.ui_sel(pool, 'sel to "', function(_, idx)
+  B.ui_sel(pool, 'sel paste from pool', function(_, idx)
     local text = M.pool[idx]
     if B.is(text) then
       vim.fn.setreg('"', text)
@@ -175,6 +175,44 @@ function M.paste_from_stack(mode)
     end)
   else
     M.paste_from_stack_do(pool, mode)
+  end
+end
+
+function M.paste_from_clipboard_list_do(clipboard_list, mode)
+  B.ui_sel(clipboard_list, 'sel paste from clipboard list', function(_, idx)
+    local text = M.clipboard_list[idx]
+    if B.is(text) then
+      vim.fn.setreg('"', text)
+      if mode == 'i' then
+        vim.cmd [[call feedkeys("\<esc>p")]]
+      elseif mode == 't' then
+        if vim.fn.mode() == 't' then
+          vim.cmd [[call feedkeys("\<c-\>\<c-n>pi")]]
+        else
+          vim.cmd [[call feedkeys("pi")]]
+        end
+      elseif mode == 'c' then
+        vim.cmd [[call feedkeys(":\<up>")]]
+        B.notify_info('copied to ": ' .. string.gsub(M.get_short(text), '\n', '\\n'))
+      else
+        vim.cmd [[call feedkeys("p")]]
+      end
+    end
+  end)
+end
+
+function M.paste_from_clipboard_list(mode)
+  local clipboard_list = {}
+  for _, t in ipairs(M.clipboard_list) do
+    clipboard_list[#clipboard_list + 1] = string.gsub(M.get_short(t), '\n', '\\n')
+  end
+  if mode == 't' then
+    vim.cmd [[call feedkeys("\<c-\>\<c-n>")]]
+    B.set_timeout(100, function()
+      M.paste_from_clipboard_list_do(clipboard_list, mode)
+    end)
+  else
+    M.paste_from_clipboard_list_do(clipboard_list, mode)
   end
 end
 
@@ -588,6 +626,21 @@ function M.map()
   }
   require 'which-key'.register {
     ['<F9><c-F4>'] = { function() M.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
   }
 end
 
