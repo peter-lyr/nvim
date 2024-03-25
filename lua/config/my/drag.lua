@@ -142,16 +142,16 @@ function M._copy_image_2_markdown(image_file, markdown_file, lnr)
   local _image_fname_tail_ext = vim.fn.fnamemodify(_image_fname_tail, ':e')
   local _image_hash_name = _image_hash_8 .. '.' .. _image_fname_tail_ext
   local _image_target_file = B.getcreate_filepath(_image_root_dir, _image_hash_name).filename
-  -- TODO: [Done] copy image_file to _image_root_dir
+  -- copy image_file to _image_root_dir
   vim.fn.system(string.format('copy /y "%s" "%s"', image_file, _image_target_file))
-  -- TODO: [Done] create _image_root_dir_md_name image url
+  -- create _image_root_dir_md_name image url
   local _image_root_dir_md_url = string.format('![%s](%s)\n', _image_fname_tail_root, _image_hash_name)
-  -- TODO: [Done] write _image_root_dir_md_name image url
+  -- write _image_root_dir_md_name image url
   _image_root_dir_md_path:write(_image_root_dir_md_url, 'a')
-  -- TODO: [Done] create markdown_file image url
+  -- create markdown_file image url
   local relative = vim.fn['repeat']('../', B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\'))
   local _image_root_dir_md_url_relative = string.format('![%s](%s%s/%s)', _image_fname_tail_root, relative, M._image_root_dir_name, _image_hash_name)
-  -- TODO: [Done] append markdown_file image url
+  -- append markdown_file image url
   B.cmd('e %s', markdown_file)
   vim.fn.append(lnr, _image_root_dir_md_url_relative)
   vim.cmd 'norm j'
@@ -185,16 +185,16 @@ function M._copy_not_image_2_markdown(not_image_file, markdown_file, lnr)
   local _not_image_fname_tail_ext = vim.fn.fnamemodify(_not_image_fname_tail, ':e')
   local _not_image_hash_name = _not_image_hash_8 .. '.' .. _not_image_fname_tail_ext
   local _not_image_target_file = B.getcreate_filepath(_not_image_root_dir, _not_image_hash_name).filename
-  -- TODO: [Done] copy not_image_file to _not_image_root_dir
+  -- copy not_image_file to _not_image_root_dir
   vim.fn.system(string.format('copy /y "%s" "%s"', not_image_file, _not_image_target_file))
-  -- TODO: [Done] create _not_image_root_dir_md_name not_image url
+  -- create _not_image_root_dir_md_name not_image url
   local _not_image_root_dir_md_url = string.format('[%s](%s)\n', _not_image_fname_tail_root, _not_image_hash_name)
-  -- TODO: [Done] write _not_image_root_dir_md_name not_image url
+  -- write _not_image_root_dir_md_name not_image url
   _not_image_root_dir_md_path:write(_not_image_root_dir_md_url, 'a')
-  -- TODO: [Done] create markdown_file not_image url
+  -- create markdown_file not_image url
   local relative = vim.fn['repeat']('../', B.count_char(B.rep_slash_lower(string.sub(markdown_file, #_proj_root + 2, #markdown_file)), '\\'))
   local _not_image_root_dir_md_url_relative = string.format('[%s](%s%s/%s)', _not_image_fname_tail_root, relative, M._not_image_root_dir_name, _not_image_hash_name)
-  -- TODO: [Done] append markdown_file not_image url
+  -- append markdown_file not_image url
   B.cmd('e %s', markdown_file)
   vim.fn.append(lnr, _not_image_root_dir_md_url_relative)
   vim.cmd 'norm j'
@@ -410,7 +410,7 @@ function M._paste_image_2_markdown(image_type)
   if not vim.g.paste_image_allowed and not M._is_to_paste_image() then
     return
   end
-  -- TODO: [Done] paste to file
+  -- paste to file
   vim.g.temp_image_file_with_ext = B.getcreate_temp_dirpath 'nvim_paste_image':joinpath(M._image_paste_temp_name).filename
   vim.g.temp_image_file = image_type and vim.g.temp_image_file_with_ext .. '.' .. image_type or ''
   vim.g.temp_image_type = image_type and image_type or ''
