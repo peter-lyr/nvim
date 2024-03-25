@@ -11,6 +11,7 @@ M.lua = B.getlua(M.source)
 M.yank_reg_dir_path = B.getcreate_stddata_dirpath 'yank-reg'
 M.yank_reg_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg.txt'
 M.yank_reg_list_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg-list.txt'
+M.clipboard_txt_path = M.yank_reg_dir_path:joinpath 'clipboard.txt'
 
 if not M.yank_reg_txt_path:exists() then
   M.yank_reg_txt_path:write(vim.inspect {}, 'w')
@@ -20,13 +21,19 @@ if not M.yank_reg_list_txt_path:exists() then
   M.yank_reg_list_txt_path:write(vim.inspect {}, 'w')
 end
 
+if not M.clipboard_txt_path:exists() then
+  M.clipboard_txt_path:write(vim.inspect {}, 'w')
+end
+
 M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
 M.reg_list = B.read_table_from_file(M.yank_reg_list_txt_path.filename)
+M.clipboard_list = B.read_table_from_file(M.clipboard_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'my.yank.reg', {
   callback = function()
     M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
     M.yank_reg_list_txt_path:write(vim.inspect(vim.tbl_keys(M.reg)), 'w')
+    M.clipboard_txt_path:write(vim.inspect(M.clipboard_list), 'w')
   end,
 })
 
@@ -187,6 +194,54 @@ end
 function M.delete_pool()
   M.pool = {}
 end
+
+B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.yank.CursorMoved', {
+  callback = function()
+    if M.timer_cursorhold then
+      B.clear_interval(M.timer_cursorhold)
+      M.timer_cursorhold = nil
+    end
+  end,
+})
+
+function M.clipboard_check()
+  B.stack_item_uniq(M.clipboard_list, vim.fn.getreg '+')
+end
+
+B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'my.yank.CursorHold', {
+  callback = function()
+    if not M.timer_cursorhold then
+      M.timer_cursorhold = B.set_timeout(3000, function()
+        if M.timer_cursorhold then
+          M.timer_cursorhold = nil
+          M.clipboard_check()
+        end
+      end)
+    end
+  end,
+})
+
+B.aucmd({ 'FocusGained', }, 'my.yank.FocusGained', {
+  callback = function()
+    B.clear_interval(M.timer_focus)
+    M.timer_focus = nil
+  end,
+})
+
+B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
+  callback = function()
+    B.clear_interval(M.timer_cursorhold)
+    M.timer_cursorhold = nil
+    M.clipboard_check()
+    if not M.timer_focus then
+      M.timer_focus = B.set_interval(3000, function()
+        if M.timer_focus then
+          M.clipboard_check()
+        end
+      end)
+    end
+  end,
+})
 
 function M.map()
   require 'which-key'.register {
