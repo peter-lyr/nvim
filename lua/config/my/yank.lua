@@ -628,19 +628,19 @@ function M.map()
     ['<F9><c-F4>'] = { function() M.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'n' end, 'sel paste from clipboard list', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'v' end, 'sel paste from clipboard list', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'i' end, 'sel paste from clipboard list', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'c' end, 'sel paste from clipboard list', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 't' end, 'sel paste from clipboard list', mode = { 't', }, silent = true, },
   }
 end
 
