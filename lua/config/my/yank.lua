@@ -94,7 +94,9 @@ function M.delete(reg)
 end
 
 function M.clipboard(reg)
-  vim.fn.setreg('+', M.reg[reg])
+  if M.reg[reg] then
+    vim.fn.setreg('+', M.reg[reg])
+  end
 end
 
 -----------------------------------------------------------------------

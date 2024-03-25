@@ -433,7 +433,7 @@ return {
   {
     name = 'my.yank',
     dir = '',
-    event = { 'TextChanged', 'TextChangedI', },
+    event = { 'BufReadPost', 'TextChanged', 'TextChangedI', },
     config = function() require 'config.my.yank' end,
   },
 
