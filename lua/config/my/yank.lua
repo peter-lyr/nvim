@@ -95,11 +95,6 @@ function M.paste(reg, mode)
   end)
 end
 
-function M.delete(reg)
-  M.reg[reg] = nil
-  table.remove(M.reg_list, B.index_of(reg))
-end
-
 function M.clipboard(reg)
   if M.reg[reg] then
     vim.fn.setreg('+', M.reg[reg])
@@ -229,10 +224,6 @@ function M.clipboard_from_pool()
   end)
 end
 
-function M.delete_pool()
-  M.pool = {}
-end
-
 B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.yank.CursorMoved', {
   callback = function()
     if M.timer_cursorhold then
@@ -311,13 +302,6 @@ function M.map()
     ['<F9>x']     = { function() M.yank('x', 'n', 'w') end, '<cword> to x', mode = { 'n', }, silent = true, },
     ['<F9>y']     = { function() M.yank('y', 'n', 'w') end, '<cword> to y', mode = { 'n', }, silent = true, },
     ['<F9>z']     = { function() M.yank('z', 'n', 'w') end, '<cword> to z', mode = { 'n', }, silent = true, },
-    ['<F9>,']     = { function() M.yank(',', 'n', 'w') end, '<cword> to ,', mode = { 'n', }, silent = true, },
-    ['<F9>.']     = { function() M.yank('.', 'n', 'w') end, '<cword> to .', mode = { 'n', }, silent = true, },
-    ['<F9>/']     = { function() M.yank('/', 'n', 'w') end, '<cword> to /', mode = { 'n', }, silent = true, },
-    ['<F9>;']     = { function() M.yank(';', 'n', 'w') end, '<cword> to ;', mode = { 'n', }, silent = true, },
-    ["<F9>'"]     = { function() M.yank("'", 'n', 'w') end, "<cword> to '", mode = { 'n', }, silent = true, },
-    ['<F9>[']     = { function() M.yank('[', 'n', 'w') end, '<cword> to [', mode = { 'n', }, silent = true, },
-    ['<F9>]']     = { function() M.yank(']', 'n', 'w') end, '<cword> to ]', mode = { 'n', }, silent = true, },
     ['<F9><a-a>'] = { function() M.yank('a', 'n', 'W') end, '<cWORD> to a', mode = { 'n', }, silent = true, },
     ['<F9><a-b>'] = { function() M.yank('b', 'n', 'W') end, '<cWORD> to b', mode = { 'n', }, silent = true, },
     ['<F9><a-c>'] = { function() M.yank('c', 'n', 'W') end, '<cWORD> to c', mode = { 'n', }, silent = true, },
@@ -344,13 +328,6 @@ function M.map()
     ['<F9><a-x>'] = { function() M.yank('x', 'n', 'W') end, '<cWORD> to x', mode = { 'n', }, silent = true, },
     ['<F9><a-y>'] = { function() M.yank('y', 'n', 'W') end, '<cWORD> to y', mode = { 'n', }, silent = true, },
     ['<F9><a-z>'] = { function() M.yank('z', 'n', 'W') end, '<cWORD> to z', mode = { 'n', }, silent = true, },
-    ['<F9><a-,>'] = { function() M.yank(',', 'n', 'W') end, '<cWORD> to ,', mode = { 'n', }, silent = true, },
-    ['<F9><a-.>'] = { function() M.yank('.', 'n', 'W') end, '<cWORD> to .', mode = { 'n', }, silent = true, },
-    ['<F9><a-/>'] = { function() M.yank('/', 'n', 'W') end, '<cWORD> to /', mode = { 'n', }, silent = true, },
-    ['<F9><a-;>'] = { function() M.yank(';', 'n', 'W') end, '<cWORD> to ;', mode = { 'n', }, silent = true, },
-    ["<F9><a-'>"] = { function() M.yank("'", 'n', 'W') end, "<cWORD> to '", mode = { 'n', }, silent = true, },
-    ['<F9><a-[>'] = { function() M.yank('[', 'n', 'W') end, '<cWORD> to [', mode = { 'n', }, silent = true, },
-    ['<F9><a-]>'] = { function() M.yank(']', 'n', 'W') end, '<cWORD> to ]', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>a'] = { function() M.yank('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
@@ -379,13 +356,6 @@ function M.map()
     ['<F9>x'] = { function() M.yank('x', 'v') end, 'sel to x', mode = { 'v', }, silent = true, },
     ['<F9>y'] = { function() M.yank('y', 'v') end, 'sel to y', mode = { 'v', }, silent = true, },
     ['<F9>z'] = { function() M.yank('z', 'v') end, 'sel to z', mode = { 'v', }, silent = true, },
-    ['<F9>,'] = { function() M.yank(',', 'v') end, 'sel to ,', mode = { 'v', }, silent = true, },
-    ['<F9>.'] = { function() M.yank('.', 'v') end, 'sel to .', mode = { 'v', }, silent = true, },
-    ['<F9>/'] = { function() M.yank('/', 'v') end, 'sel to /', mode = { 'v', }, silent = true, },
-    ['<F9>;'] = { function() M.yank(';', 'v') end, 'sel to ;', mode = { 'v', }, silent = true, },
-    ["<F9>'"] = { function() M.yank("'", 'v') end, "sel to '", mode = { 'v', }, silent = true, },
-    ['<F9>['] = { function() M.yank('[', 'v') end, 'sel to [', mode = { 'v', }, silent = true, },
-    ['<F9>]'] = { function() M.yank(']', 'v') end, 'sel to ]', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste('a', 'i') end, 'paste from a', mode = { 'i', }, silent = true, },
@@ -414,13 +384,6 @@ function M.map()
     ['<F9>x'] = { function() M.paste('x', 'i') end, 'paste from x', mode = { 'i', }, silent = true, },
     ['<F9>y'] = { function() M.paste('y', 'i') end, 'paste from y', mode = { 'i', }, silent = true, },
     ['<F9>z'] = { function() M.paste('z', 'i') end, 'paste from z', mode = { 'i', }, silent = true, },
-    ['<F9>,'] = { function() M.paste(',', 'i') end, 'paste from ,', mode = { 'i', }, silent = true, },
-    ['<F9>.'] = { function() M.paste('.', 'i') end, 'paste from .', mode = { 'i', }, silent = true, },
-    ['<F9>/'] = { function() M.paste('/', 'i') end, 'paste from /', mode = { 'i', }, silent = true, },
-    ['<F9>;'] = { function() M.paste(';', 'i') end, 'paste from ;', mode = { 'i', }, silent = true, },
-    ["<F9>'"] = { function() M.paste("'", 'i') end, "paste from '", mode = { 'i', }, silent = true, },
-    ['<F9>['] = { function() M.paste('[', 'i') end, 'paste from [', mode = { 'i', }, silent = true, },
-    ['<F9>]'] = { function() M.paste(']', 'i') end, 'paste from ]', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste('a', 'c') end, 'paste from a', mode = { 'c', }, silent = true, },
@@ -449,13 +412,6 @@ function M.map()
     ['<F9>x'] = { function() M.paste('x', 'c') end, 'paste from x', mode = { 'c', }, silent = true, },
     ['<F9>y'] = { function() M.paste('y', 'c') end, 'paste from y', mode = { 'c', }, silent = true, },
     ['<F9>z'] = { function() M.paste('z', 'c') end, 'paste from z', mode = { 'c', }, silent = true, },
-    ['<F9>,'] = { function() M.paste(',', 'c') end, 'paste from ,', mode = { 'c', }, silent = true, },
-    ['<F9>.'] = { function() M.paste('.', 'c') end, 'paste from .', mode = { 'c', }, silent = true, },
-    ['<F9>/'] = { function() M.paste('/', 'c') end, 'paste from /', mode = { 'c', }, silent = true, },
-    ['<F9>;'] = { function() M.paste(';', 'c') end, 'paste from ;', mode = { 'c', }, silent = true, },
-    ["<F9>'"] = { function() M.paste("'", 'c') end, "paste from '", mode = { 'c', }, silent = true, },
-    ['<F9>['] = { function() M.paste('[', 'c') end, 'paste from [', mode = { 'c', }, silent = true, },
-    ['<F9>]'] = { function() M.paste(']', 'c') end, 'paste from ]', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste('a', 't') end, 'paste from a', mode = { 't', }, silent = true, },
@@ -484,13 +440,6 @@ function M.map()
     ['<F9>x'] = { function() M.paste('x', 't') end, 'paste from x', mode = { 't', }, silent = true, },
     ['<F9>y'] = { function() M.paste('y', 't') end, 'paste from y', mode = { 't', }, silent = true, },
     ['<F9>z'] = { function() M.paste('z', 't') end, 'paste from z', mode = { 't', }, silent = true, },
-    ['<F9>,'] = { function() M.paste(',', 't') end, 'paste from ,', mode = { 't', }, silent = true, },
-    ['<F9>.'] = { function() M.paste('.', 't') end, 'paste from .', mode = { 't', }, silent = true, },
-    ['<F9>/'] = { function() M.paste('/', 't') end, 'paste from /', mode = { 't', }, silent = true, },
-    ['<F9>;'] = { function() M.paste(';', 't') end, 'paste from ;', mode = { 't', }, silent = true, },
-    ["<F9>'"] = { function() M.paste("'", 't') end, "paste from '", mode = { 't', }, silent = true, },
-    ['<F9>['] = { function() M.paste('[', 't') end, 'paste from [', mode = { 't', }, silent = true, },
-    ['<F9>]'] = { function() M.paste(']', 't') end, 'paste from ]', mode = { 't', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>A'] = { function() M.paste('a', 'n') end, 'paste from a', mode = { 'n', 'v', }, silent = true, },
@@ -519,128 +468,77 @@ function M.map()
     ['<F9>X'] = { function() M.paste('x', 'n') end, 'paste from x', mode = { 'n', 'v', }, silent = true, },
     ['<F9>Y'] = { function() M.paste('y', 'n') end, 'paste from y', mode = { 'n', 'v', }, silent = true, },
     ['<F9>Z'] = { function() M.paste('z', 'n') end, 'paste from z', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><'] = { function() M.paste(',', 'n') end, 'paste from ,', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>>'] = { function() M.paste('.', 'n') end, 'paste from .', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>?'] = { function() M.paste('/', 'n') end, 'paste from /', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>:'] = { function() M.paste(';', 'n') end, 'paste from ;', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>"'] = { function() M.paste("'", 'n') end, "paste from '", mode = { 'n', 'v', }, silent = true, },
-    ['<F9>{'] = { function() M.paste('[', 'n') end, 'paste from [', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>}'] = { function() M.paste(']', 'n') end, 'paste from ]', mode = { 'n', 'v', }, silent = true, },
+  }
+  -- to clipboard
+  require 'which-key'.register {
+    ['<F9><leader>'] = { name = '"n to system clipboard', },
+    ['<F9><leader>a'] = { function() M.clipboard 'a' end, 'a to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>b'] = { function() M.clipboard 'b' end, 'b to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>c'] = { function() M.clipboard 'c' end, 'c to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>d'] = { function() M.clipboard 'd' end, 'd to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>e'] = { function() M.clipboard 'e' end, 'e to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>f'] = { function() M.clipboard 'f' end, 'f to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>g'] = { function() M.clipboard 'g' end, 'g to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>h'] = { function() M.clipboard 'h' end, 'h to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>i'] = { function() M.clipboard 'i' end, 'i to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>j'] = { function() M.clipboard 'j' end, 'j to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>k'] = { function() M.clipboard 'k' end, 'k to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>l'] = { function() M.clipboard 'l' end, 'l to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>m'] = { function() M.clipboard 'm' end, 'm to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>n'] = { function() M.clipboard 'n' end, 'n to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>o'] = { function() M.clipboard 'o' end, 'o to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>p'] = { function() M.clipboard 'p' end, 'p to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>q'] = { function() M.clipboard 'q' end, 'q to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>r'] = { function() M.clipboard 'r' end, 'r to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>s'] = { function() M.clipboard 's' end, 's to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>t'] = { function() M.clipboard 't' end, 't to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>u'] = { function() M.clipboard 'u' end, 'u to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>v'] = { function() M.clipboard 'v' end, 'v to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>w'] = { function() M.clipboard 'w' end, 'w to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>x'] = { function() M.clipboard 'x' end, 'x to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>y'] = { function() M.clipboard 'y' end, 'y to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>z'] = { function() M.clipboard 'z' end, 'z to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader><leader>'] = { function() M.clipboard_from_pool() end, 'sel from pool to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  }
+  -- pool
+  require 'which-key'.register {
+    ['<F9>,'] = { function() M.stack('n', 'w') end, '<cword> to pool', mode = { 'n', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('n', 'W') end, '<cWORD> to pool', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><c-s-a>'] = { function() M.delete 'a' end, 'delete from a', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-b>'] = { function() M.delete 'b' end, 'delete from b', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-c>'] = { function() M.delete 'c' end, 'delete from c', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-d>'] = { function() M.delete 'd' end, 'delete from d', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-e>'] = { function() M.delete 'e' end, 'delete from e', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-f>'] = { function() M.delete 'f' end, 'delete from f', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-g>'] = { function() M.delete 'g' end, 'delete from g', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-h>'] = { function() M.delete 'h' end, 'delete from h', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-i>'] = { function() M.delete 'i' end, 'delete from i', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-j>'] = { function() M.delete 'j' end, 'delete from j', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-k>'] = { function() M.delete 'k' end, 'delete from k', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-l>'] = { function() M.delete 'l' end, 'delete from l', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-m>'] = { function() M.delete 'm' end, 'delete from m', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-n>'] = { function() M.delete 'n' end, 'delete from n', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-o>'] = { function() M.delete 'o' end, 'delete from o', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-p>'] = { function() M.delete 'p' end, 'delete from p', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-q>'] = { function() M.delete 'q' end, 'delete from q', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-r>'] = { function() M.delete 'r' end, 'delete from r', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-s>'] = { function() M.delete 's' end, 'delete from s', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-t>'] = { function() M.delete 't' end, 'delete from t', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-u>'] = { function() M.delete 'u' end, 'delete from u', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-v>'] = { function() M.delete 'v' end, 'delete from v', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-w>'] = { function() M.delete 'w' end, 'delete from w', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-x>'] = { function() M.delete 'x' end, 'delete from x', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-y>'] = { function() M.delete 'y' end, 'delete from y', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-z>'] = { function() M.delete 'z' end, 'delete from z', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-,>'] = { function() M.delete ',' end, 'delete from ,', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-.>'] = { function() M.delete '.' end, 'delete from .', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-/>'] = { function() M.delete '/' end, 'delete from /', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-;>'] = { function() M.delete ';' end, 'delete from ;', mode = { 'n', 'v', }, silent = true, },
-    ["<F9><c-s-'>"] = { function() M.delete "'" end, "delete from '", mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-[>'] = { function() M.delete '[' end, 'delete from [', mode = { 'n', 'v', }, silent = true, },
-    ['<F9><c-s-]>'] = { function() M.delete ']' end, 'delete from ]', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>,'] = { function() M.stack('v', 'w') end, '<cword> to pool', mode = { 'v', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('v', 'W') end, '<cWORD> to pool', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F1>'] = { name = '+my.yank.clipboard', },
-    ['<F9><F1>a'] = { function() M.clipboard 'a' end, 'a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>b'] = { function() M.clipboard 'b' end, 'b to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>c'] = { function() M.clipboard 'c' end, 'c to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>d'] = { function() M.clipboard 'd' end, 'd to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>e'] = { function() M.clipboard 'e' end, 'e to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>f'] = { function() M.clipboard 'f' end, 'f to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>g'] = { function() M.clipboard 'g' end, 'g to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>h'] = { function() M.clipboard 'h' end, 'h to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>i'] = { function() M.clipboard 'i' end, 'i to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>j'] = { function() M.clipboard 'j' end, 'j to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>k'] = { function() M.clipboard 'k' end, 'k to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>l'] = { function() M.clipboard 'l' end, 'l to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>m'] = { function() M.clipboard 'm' end, 'm to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>n'] = { function() M.clipboard 'n' end, 'n to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>o'] = { function() M.clipboard 'o' end, 'o to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>p'] = { function() M.clipboard 'p' end, 'p to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>q'] = { function() M.clipboard 'q' end, 'q to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>r'] = { function() M.clipboard 'r' end, 'r to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>s'] = { function() M.clipboard 's' end, 's to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>t'] = { function() M.clipboard 't' end, 't to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>u'] = { function() M.clipboard 'u' end, 'u to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>v'] = { function() M.clipboard 'v' end, 'v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>w'] = { function() M.clipboard 'w' end, 'w to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>x'] = { function() M.clipboard 'x' end, 'x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>y'] = { function() M.clipboard 'y' end, 'y to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>z'] = { function() M.clipboard 'z' end, 'z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>,'] = { function() M.clipboard ',' end, ', to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>.'] = { function() M.clipboard '.' end, '. to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>/'] = { function() M.clipboard '/' end, '/ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>;'] = { function() M.clipboard ';' end, '; to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ["<F9><F1>'"] = { function() M.clipboard "'" end, "' to clipboard", mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>['] = { function() M.clipboard '[' end, '[ to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><F1>]'] = { function() M.clipboard ']' end, '] to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_stack 'n' end, 'paste from pool', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F2>'] = { function() M.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
-    ['<F9><F3>'] = { function() M.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_stack 'v' end, 'paste from pool', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F2>'] = { function() M.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
-    ['<F9><F3>'] = { function() M.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_stack 'i' end, 'paste from pool', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F4>'] = { function() M.paste_from_stack 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_stack 'c' end, 'paste from pool', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F4>'] = { function() M.paste_from_stack 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_stack 't' end, 'paste from pool', mode = { 't', }, silent = true, },
+  }
+  -- from clipboard
+  require 'which-key'.register {
+    ['<F9>;'] = { function() M.paste_from_clipboard_list 'n' end, 'paste from clipboard list', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F4>'] = { function() M.paste_from_stack 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
+    ['<F9>;'] = { function() M.paste_from_clipboard_list 'v' end, 'paste from clipboard list', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F4>'] = { function() M.paste_from_stack 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
+    ['<F9>;'] = { function() M.paste_from_clipboard_list 'i' end, 'paste from clipboard list', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F4>'] = { function() M.paste_from_stack 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
+    ['<F9>;'] = { function() M.paste_from_clipboard_list 'c' end, 'paste from clipboard list', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9><F1><F1>'] = { function() M.clipboard_from_pool() end, 'sel from pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><c-F4>'] = { function() M.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'n' end, 'sel paste from clipboard list', mode = { 'n', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'v' end, 'sel paste from clipboard list', mode = { 'v', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'i' end, 'sel paste from clipboard list', mode = { 'i', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'c' end, 'sel paste from clipboard list', mode = { 'c', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 't' end, 'sel paste from clipboard list', mode = { 't', }, silent = true, },
+    ['<F9>;'] = { function() M.paste_from_clipboard_list 't' end, 'paste from clipboard list', mode = { 't', }, silent = true, },
   }
 end
 
