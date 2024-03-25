@@ -115,7 +115,14 @@ end
 
 B.aucmd({ 'BufLeave', }, 'nvim.telescope.BufLeave', {
   callback = function(ev)
-    vim.g.last_buf = ev.buf
+    local file = vim.api.nvim_buf_get_name(ev.buf)
+    if B.is_file(file) then
+      vim.g.last_buf = ev.buf
+      vim.g.last_fname = vim.fn.fnamemodify(file, ':t')
+      if string.match(vim.g.last_fname, '(%d%d%d%d%d%d%-)') then
+        vim.g.last_fname = string.match(vim.g.last_fname, '%d%d%d%d%d%d%-(.+)')
+      end
+    end
   end,
 })
 
@@ -169,7 +176,7 @@ telescope.setup {
 
         ['<C-b>'] = M.paste('<c-r>=bufname(g:last_buf)<cr>', 'nvim.telescope.paste: bufname'),
         ['<C-h>'] = M.paste('<c-r>=fnamemodify(bufname(g:last_buf), ":h")<cr>', 'nvim.telescope.paste: bufname head'),
-        ['<C-n>'] = M.paste('<c-r>=fnamemodify(bufname(g:last_buf), ":t")<cr>', 'nvim.telescope.paste: bufname tail'),
+        ['<C-n>'] = M.paste('<c-r>=g:last_fname<cr>', 'nvim.telescope.paste: bufname tail'),
 
         ['<C-l>'] = M.paste('<c-r>=g:curline<cr>', 'nvim.telescope.paste: cur line'),
 

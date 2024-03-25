@@ -11,3 +11,5 @@
 9. [x] DONE: tabline bdelete unmodified buffers
 10. [x] DONE: no maps.lua
 11. [ ] TODO: 2024s/2024s_data url jump or create file
+12. [x] DONE: @+ pool
+13. [ ] TODO: yank map some key easy to remember

@@ -171,6 +171,7 @@ M.donot_change_fts = {
   'aerial',
   'qf',
   'fugitive',
+  'minimap',
 }
 
 function M.close_except_fts()

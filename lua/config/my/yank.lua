@@ -11,6 +11,7 @@ M.lua = B.getlua(M.source)
 M.yank_reg_dir_path = B.getcreate_stddata_dirpath 'yank-reg'
 M.yank_reg_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg.txt'
 M.yank_reg_list_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg-list.txt'
+M.clipboard_txt_path = M.yank_reg_dir_path:joinpath 'clipboard.txt'
 
 if not M.yank_reg_txt_path:exists() then
   M.yank_reg_txt_path:write(vim.inspect {}, 'w')
@@ -20,13 +21,19 @@ if not M.yank_reg_list_txt_path:exists() then
   M.yank_reg_list_txt_path:write(vim.inspect {}, 'w')
 end
 
+if not M.clipboard_txt_path:exists() then
+  M.clipboard_txt_path:write(vim.inspect {}, 'w')
+end
+
 M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
 M.reg_list = B.read_table_from_file(M.yank_reg_list_txt_path.filename)
+M.clipboard_list = B.read_table_from_file(M.clipboard_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'my.yank.reg', {
   callback = function()
     M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
     M.yank_reg_list_txt_path:write(vim.inspect(vim.tbl_keys(M.reg)), 'w')
+    M.clipboard_txt_path:write(vim.inspect(M.clipboard_list), 'w')
   end,
 })
 
@@ -94,7 +101,9 @@ function M.delete(reg)
 end
 
 function M.clipboard(reg)
-  vim.fn.setreg('+', M.reg[reg])
+  if M.reg[reg] then
+    vim.fn.setreg('+', M.reg[reg])
+  end
 end
 
 -----------------------------------------------------------------------
@@ -132,7 +141,7 @@ function M.stack(mode, word)
 end
 
 function M.paste_from_stack_do(pool, mode)
-  B.ui_sel(pool, 'sel to "', function(_, idx)
+  B.ui_sel(pool, 'sel paste from pool', function(_, idx)
     local text = M.pool[idx]
     if B.is(text) then
       vim.fn.setreg('"', text)
@@ -169,6 +178,44 @@ function M.paste_from_stack(mode)
   end
 end
 
+function M.paste_from_clipboard_list_do(clipboard_list, mode)
+  B.ui_sel(clipboard_list, 'sel paste from clipboard list', function(_, idx)
+    local text = M.clipboard_list[idx]
+    if B.is(text) then
+      vim.fn.setreg('"', text)
+      if mode == 'i' then
+        vim.cmd [[call feedkeys("\<esc>p")]]
+      elseif mode == 't' then
+        if vim.fn.mode() == 't' then
+          vim.cmd [[call feedkeys("\<c-\>\<c-n>pi")]]
+        else
+          vim.cmd [[call feedkeys("pi")]]
+        end
+      elseif mode == 'c' then
+        vim.cmd [[call feedkeys(":\<up>")]]
+        B.notify_info('copied to ": ' .. string.gsub(M.get_short(text), '\n', '\\n'))
+      else
+        vim.cmd [[call feedkeys("p")]]
+      end
+    end
+  end)
+end
+
+function M.paste_from_clipboard_list(mode)
+  local clipboard_list = {}
+  for _, t in ipairs(M.clipboard_list) do
+    clipboard_list[#clipboard_list + 1] = string.gsub(M.get_short(t), '\n', '\\n')
+  end
+  if mode == 't' then
+    vim.cmd [[call feedkeys("\<c-\>\<c-n>")]]
+    B.set_timeout(100, function()
+      M.paste_from_clipboard_list_do(clipboard_list, mode)
+    end)
+  else
+    M.paste_from_clipboard_list_do(clipboard_list, mode)
+  end
+end
+
 function M.clipboard_from_pool()
   local pool = {}
   for _, t in ipairs(M.pool) do
@@ -185,6 +232,54 @@ end
 function M.delete_pool()
   M.pool = {}
 end
+
+B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.yank.CursorMoved', {
+  callback = function()
+    if M.timer_cursorhold then
+      B.clear_interval(M.timer_cursorhold)
+      M.timer_cursorhold = nil
+    end
+  end,
+})
+
+function M.clipboard_check()
+  B.stack_item_uniq(M.clipboard_list, vim.fn.getreg '+')
+end
+
+B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'my.yank.CursorHold', {
+  callback = function()
+    if not M.timer_cursorhold then
+      M.timer_cursorhold = B.set_timeout(3000, function()
+        if M.timer_cursorhold then
+          M.timer_cursorhold = nil
+          M.clipboard_check()
+        end
+      end)
+    end
+  end,
+})
+
+B.aucmd({ 'FocusGained', }, 'my.yank.FocusGained', {
+  callback = function()
+    B.clear_interval(M.timer_focus)
+    M.timer_focus = nil
+  end,
+})
+
+B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
+  callback = function()
+    B.clear_interval(M.timer_cursorhold)
+    M.timer_cursorhold = nil
+    M.clipboard_check()
+    if not M.timer_focus then
+      M.timer_focus = B.set_interval(3000, function()
+        if M.timer_focus then
+          M.clipboard_check()
+        end
+      end)
+    end
+  end,
+})
 
 function M.map()
   require 'which-key'.register {
@@ -531,6 +626,21 @@ function M.map()
   }
   require 'which-key'.register {
     ['<F9><c-F4>'] = { function() M.delete_pool() end, 'delete pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'n' end, 'sel paste from pool', mode = { 'n', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'v' end, 'sel paste from pool', mode = { 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'i' end, 'sel paste from pool', mode = { 'i', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 'c' end, 'sel paste from pool', mode = { 'c', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9><F12>'] = { function() M.paste_from_clipboard_list 't' end, 'sel paste from pool', mode = { 't', }, silent = true, },
   }
 end
 
