@@ -3,7 +3,7 @@
 
 --[[
 ┌────────────┬────────┬─────────────────────┬─────────────┬─────╮
-│  reg       │  pool  │  clipboard history  │  clipboard  │  "  │
+│  reg       │  pool  │  clipboard_history  │  clipboard  │  "  │
 │  a,s,d,f,  │        │                     │             │     │
 │  z,x,c,v,  │        │                     │             │     │
 ├────────────┴────────┴─────────────────────┴─────────────┼─────┤
@@ -202,13 +202,26 @@ function M.paste_from_clipboard_history(mode)
   end
 end
 
-function M.clipboard_from_pool()
+function M.pool_to_clipboard()
   local pool = {}
   for _, t in ipairs(M.yank_pool) do
     pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
   end
   B.ui_sel(pool, 'sel to +', function(_, idx)
     local text = M.yank_pool[idx]
+    if B.is(text) then
+      vim.fn.setreg('+', text)
+    end
+  end)
+end
+
+function M.history_to_clipboard()
+  local pool = {}
+  for _, t in ipairs(M.clipboard_history) do
+    pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
+  end
+  B.ui_sel(pool, 'sel to +', function(_, idx)
+    local text = M.clipboard_history[idx]
     if B.is(text) then
       vim.fn.setreg('+', text)
     end
@@ -267,8 +280,9 @@ B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
 })
 
 function M.map()
+  -- yank to reg
   require 'which-key'.register {
-    ['<F9>']      = { name = 'my.yank', },
+    ['<F9>']      = { name = 'yank', },
     ['<F9><F9>']  = { function() M.show_yank_reg() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>a']     = { function() M.yank_to_reg('a', 'n', 'w') end, 'yank <cword> to reg a', mode = { 'n', }, silent = true, },
     ['<F9>c']     = { function() M.yank_to_reg('c', 'n', 'w') end, 'yank <cword> to reg c', mode = { 'n', }, silent = true, },
@@ -297,6 +311,30 @@ function M.map()
     ['<F9>x'] = { function() M.yank_to_reg('x', 'v') end, 'yank to reg x', mode = { 'v', }, silent = true, },
     ['<F9>z'] = { function() M.yank_to_reg('z', 'v') end, 'yank to reg z', mode = { 'v', }, silent = true, },
   }
+  -- yank to pool
+  require 'which-key'.register {
+    ['<F9>,'] = { function() M.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F9>,'] = { function() M.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
+  }
+  -- yank_reg/pool to clipboard
+  require 'which-key'.register {
+    ['<F9><leader>'] = { name = 'yank_reg/pool to clipboard', },
+    ['<F9><leader>a'] = { function() M.yank_reg_to_clipboard 'a' end, 'reg a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>c'] = { function() M.yank_reg_to_clipboard 'c' end, 'reg c to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>d'] = { function() M.yank_reg_to_clipboard 'd' end, 'reg d to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>f'] = { function() M.yank_reg_to_clipboard 'f' end, 'reg f to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>s'] = { function() M.yank_reg_to_clipboard 's' end, 'reg s to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>v'] = { function() M.yank_reg_to_clipboard 'v' end, 'reg v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>x'] = { function() M.yank_reg_to_clipboard 'x' end, 'reg x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>z'] = { function() M.yank_reg_to_clipboard 'z' end, 'reg z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader><leader>'] = { function() M.pool_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>;'] = { function() M.history_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+  }
+  -- paste from reg
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste_from_reg('a', 'i') end, 'paste from reg a', mode = { 'i', }, silent = true, },
     ['<F9>c'] = { function() M.paste_from_reg('c', 'i') end, 'paste from reg c', mode = { 'i', }, silent = true, },
@@ -337,28 +375,7 @@ function M.map()
     ['<F9>X'] = { function() M.paste_from_reg('x', 'n') end, 'paste from reg x', mode = { 'n', 'v', }, silent = true, },
     ['<F9>Z'] = { function() M.paste_from_reg('z', 'n') end, 'paste from reg z', mode = { 'n', 'v', }, silent = true, },
   }
-  -- yank_reg to clipboard
-  require 'which-key'.register {
-    ['<F9><leader>'] = { name = 'yank_reg to clipboard', },
-    ['<F9><leader>a'] = { function() M.yank_reg_to_clipboard 'a' end, 'reg a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>c'] = { function() M.yank_reg_to_clipboard 'c' end, 'reg c to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>d'] = { function() M.yank_reg_to_clipboard 'd' end, 'reg d to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>f'] = { function() M.yank_reg_to_clipboard 'f' end, 'reg f to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>s'] = { function() M.yank_reg_to_clipboard 's' end, 'reg s to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>v'] = { function() M.yank_reg_to_clipboard 'v' end, 'reg v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>x'] = { function() M.yank_reg_to_clipboard 'x' end, 'reg x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>z'] = { function() M.yank_reg_to_clipboard 'z' end, 'reg z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader><leader>'] = { function() M.clipboard_from_pool() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-  }
-  -- pool
-  require 'which-key'.register {
-    ['<F9>,'] = { function() M.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
-    ['<F9>.'] = { function() M.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
-  }
-  require 'which-key'.register {
-    ['<F9>,'] = { function() M.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
-    ['<F9>.'] = { function() M.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
-  }
+  -- paste from pool
   require 'which-key'.register {
     ['<F9>/'] = { function() M.paste_from_yank_pool 'n' end, 'paste from pool', mode = { 'n', }, silent = true, },
   }
@@ -374,7 +391,7 @@ function M.map()
   require 'which-key'.register {
     ['<F9>/'] = { function() M.paste_from_yank_pool 't' end, 'paste from pool', mode = { 't', }, silent = true, },
   }
-  -- from clipboard
+  -- paste from clipboard_history
   require 'which-key'.register {
     ['<F9>;'] = { function() M.paste_from_clipboard_history 'n' end, 'paste from clipboard_history', mode = { 'n', }, silent = true, },
   }
