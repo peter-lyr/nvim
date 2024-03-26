@@ -329,8 +329,8 @@ return {
       {
         '<esc>',
         function()
-          Require 'config.my.box'.show_info_allow()
-          Require 'notify'.dismiss()
+          require 'config.my.box'.show_info_allow()
+          require 'notify'.dismiss()
         end,
         mode = { 'n', },
         silent = true,
@@ -371,7 +371,7 @@ return {
     version = '*',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<RightMouse>', function() end,                                   mode = { 'n', 'v', }, silent = true, desc = 'nvimtree', },
+      { '<RightMouse>', },
       {
         '<c-bs>',
         function()
@@ -425,7 +425,7 @@ return {
       'AerialToggle',
     },
     keys = {
-      { '<RightMouse>', function() end,        mode = { 'n', 'v', }, silent = true, desc = 'test.aerial', },
+      { '<RightMouse>', },
       {
         '<c-]>',
         function()
