@@ -215,7 +215,7 @@ function M.pool_to_clipboard()
   for _, t in ipairs(M.yank_pool) do
     pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
   end
-  B.ui_sel(pool, 'sel to +', function(_, idx)
+  B.ui_sel(pool, 'sel from yank pool to clipboard', function(_, idx)
     local text = M.yank_pool[idx]
     if B.is(text) then
       vim.fn.setreg('+', text)
@@ -228,7 +228,7 @@ function M.history_to_clipboard()
   for _, t in ipairs(M.clipboard_history) do
     pool[#pool + 1] = string.gsub(M.get_short(t), '\n', '\\n')
   end
-  B.ui_sel(pool, 'sel to +', function(_, idx)
+  B.ui_sel(pool, 'sel from clipboard history to clipboard', function(_, idx)
     local text = M.clipboard_history[idx]
     if B.is(text) then
       vim.fn.setreg('+', text)
@@ -346,8 +346,8 @@ function M.map_yank_reg_pool_to_clipboard()
     ['<F9><leader>v'] = { function() M.yank_reg_to_clipboard 'v' end, 'reg v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><leader>x'] = { function() M.yank_reg_to_clipboard 'x' end, 'reg x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><leader>z'] = { function() M.yank_reg_to_clipboard 'z' end, 'reg z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader><leader>'] = { function() M.pool_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader>;'] = { function() M.history_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>p'] = { function() M.pool_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader>h'] = { function() M.history_to_clipboard() end, 'clipboard history to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
 end
 
