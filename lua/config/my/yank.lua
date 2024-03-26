@@ -226,7 +226,10 @@ B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.yank.CursorMoved', {
 })
 
 function M.clipboard_check()
-  B.stack_item_uniq(M.clipboard_list, vim.fn.getreg '+')
+  local text = vim.fn.getreg '+'
+  if B.is(text) then
+    B.stack_item_uniq(M.clipboard_list, text)
+  end
 end
 
 B.aucmd({ 'CursorHold', 'CursorHoldI', }, 'my.yank.CursorHold', {
