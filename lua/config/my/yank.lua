@@ -66,7 +66,7 @@ function M.get_short(content)
   return content
 end
 
-function M.reg_show()
+function M.show_yank_reg()
   local info = { tostring(#vim.tbl_keys(M.yank_reg)) .. ' reg(s)', }
   for key, _ in pairs(M.yank_reg) do
     local content = M.yank_reg[key]
@@ -81,7 +81,7 @@ function M.yank_to_reg(reg, mode, word)
   end
   vim.cmd 'norm y'
   M.yank_reg[reg] = vim.fn.getreg '"'
-  M.reg_show()
+  M.show_yank_reg()
 end
 
 function M.paste(reg, mode)
@@ -269,7 +269,7 @@ B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
 function M.map()
   require 'which-key'.register {
     ['<F9>']      = { name = 'my.yank', },
-    ['<F9><F9>']  = { function() M.reg_show() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><F9>']  = { function() M.show_yank_reg() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>a']     = { function() M.yank_to_reg('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
     ['<F9>c']     = { function() M.yank_to_reg('c', 'n', 'w') end, '<cword> to c', mode = { 'n', }, silent = true, },
     ['<F9>d']     = { function() M.yank_to_reg('d', 'n', 'w') end, '<cword> to d', mode = { 'n', }, silent = true, },
