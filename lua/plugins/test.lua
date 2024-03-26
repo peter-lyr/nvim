@@ -371,7 +371,7 @@ return {
     version = '*',
     event = { 'BufReadPost', 'BufNewFile', },
     keys = {
-      { '<RightMouse>', },
+      '<RightMouse>',
       {
         '<c-bs>',
         function()
@@ -383,7 +383,7 @@ return {
         silent = true,
         desc = 'test.minimap: toggle',
       },
-      { '<a-bs>',       function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
+      { '<a-bs>', function() require 'mini.map'.toggle_focus() end, mode = { 'n', 'v', }, silent = true, desc = 'test.minimap: toggle_focus', },
     },
     config = function()
       local minimap = require 'mini.map'
@@ -425,7 +425,7 @@ return {
       'AerialToggle',
     },
     keys = {
-      { '<RightMouse>', },
+      '<RightMouse>',
       {
         '<c-]>',
         function()
@@ -436,8 +436,8 @@ return {
         silent = true,
         desc = 'test.aerial: toggle',
       },
-      { ']a',           '<cmd>AerialNext<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialNext', },
-      { '[a',           '<cmd>AerialPrev<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialPrev', },
+      { ']a', '<cmd>AerialNext<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialNext', },
+      { '[a', '<cmd>AerialPrev<cr>', mode = { 'n', 'v', }, silent = true, desc = 'AerialPrev', },
     },
     config = function()
       require 'aerial'.setup {
