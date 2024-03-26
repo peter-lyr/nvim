@@ -287,7 +287,7 @@ B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
   end,
 })
 
-function M.map()
+function M.map_yank_to_reg()
   -- yank to reg
   require 'which-key'.register {
     ['<F9>']      = { name = 'yank', },
@@ -319,6 +319,9 @@ function M.map()
     ['<F9>x'] = { function() M.yank_to_reg('x', 'v') end, 'yank to reg x', mode = { 'v', }, silent = true, },
     ['<F9>z'] = { function() M.yank_to_reg('z', 'v') end, 'yank to reg z', mode = { 'v', }, silent = true, },
   }
+end
+
+function M.map_yank_to_pool()
   -- yank to pool
   require 'which-key'.register {
     ['<F9><F10>']  = { function() M.show_yank_pool() end, 'show_yank_pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -329,6 +332,9 @@ function M.map()
     ['<F9>,'] = { function() M.yank_to_pool('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
     ['<F9>.'] = { function() M.yank_to_pool('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
   }
+end
+
+function M.map_yank_reg_pool_to_clipboard()
   -- yank_reg/pool to clipboard
   require 'which-key'.register {
     ['<F9><leader>'] = { name = 'yank_reg/pool to clipboard', },
@@ -343,6 +349,9 @@ function M.map()
     ['<F9><leader><leader>'] = { function() M.pool_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><leader>;'] = { function() M.history_to_clipboard() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
+end
+
+function M.map_paste_from_reg()
   -- paste from reg
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste_from_reg('a', 'i') end, 'paste from reg a', mode = { 'i', }, silent = true, },
@@ -384,6 +393,9 @@ function M.map()
     ['<F9>X'] = { function() M.paste_from_reg('x', 'n') end, 'paste from reg x', mode = { 'n', 'v', }, silent = true, },
     ['<F9>Z'] = { function() M.paste_from_reg('z', 'n') end, 'paste from reg z', mode = { 'n', 'v', }, silent = true, },
   }
+end
+
+function M.map_paste_from_pool()
   -- paste from pool
   require 'which-key'.register {
     ['<F9>/'] = { function() M.paste_from_yank_pool 'n' end, 'paste from pool', mode = { 'n', }, silent = true, },
@@ -400,6 +412,9 @@ function M.map()
   require 'which-key'.register {
     ['<F9>/'] = { function() M.paste_from_yank_pool 't' end, 'paste from pool', mode = { 't', }, silent = true, },
   }
+end
+
+function M.map_paste_from_clipboard_history()
   -- paste from clipboard_history
   require 'which-key'.register {
     ['<F9><F11>']  = { function() M.show_clipboard_history() end, 'show_clipboard_history', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -417,6 +432,15 @@ function M.map()
   require 'which-key'.register {
     ['<F9>;'] = { function() M.paste_from_clipboard_history 't' end, 'paste from clipboard_history', mode = { 't', }, silent = true, },
   }
+end
+
+function M.map()
+  M.map_yank_to_reg()
+  M.map_yank_to_pool()
+  M.map_yank_reg_pool_to_clipboard()
+  M.map_paste_from_reg()
+  M.map_paste_from_pool()
+  M.map_paste_from_clipboard_history()
 end
 
 L(M, M.map)
