@@ -15,20 +15,17 @@ local M = {}
 
 local B = require 'base'
 
-M.source = B.getsource(debug.getinfo(1)['source'])
-M.lua = B.getlua(M.source)
-
 M.yank_dir_path = B.getcreate_stddata_dirpath 'yank'
 M.yank_reg_txt_path = M.yank_dir_path:joinpath 'yank-reg.txt'
-M.clipboard_txt_path = M.yank_dir_path:joinpath 'clipboard.txt'
+M.clipboard_history_txt_path = M.yank_dir_path:joinpath 'clipboard-history.txt'
 M.yank_pool_txt_path = M.yank_dir_path:joinpath 'yank-pool.txt'
 
 if not M.yank_reg_txt_path:exists() then
   M.yank_reg_txt_path:write(vim.inspect {}, 'w')
 end
 
-if not M.clipboard_txt_path:exists() then
-  M.clipboard_txt_path:write(vim.inspect {}, 'w')
+if not M.clipboard_history_txt_path:exists() then
+  M.clipboard_history_txt_path:write(vim.inspect {}, 'w')
 end
 
 if not M.yank_pool_txt_path:exists() then
@@ -36,14 +33,14 @@ if not M.yank_pool_txt_path:exists() then
 end
 
 M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
-M.clipboard_list = B.read_table_from_file(M.clipboard_txt_path.filename)
+M.clipboard_history = B.read_table_from_file(M.clipboard_history_txt_path.filename)
 M.pool = B.read_table_from_file(M.yank_pool_txt_path.filename)
 
 B.aucmd({ 'VimLeave', }, 'yank.vimleave', {
   callback = function()
     M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
     M.yank_pool_txt_path:write(vim.inspect(M.pool), 'w')
-    M.clipboard_txt_path:write(vim.inspect(M.clipboard_list), 'w')
+    M.clipboard_history_txt_path:write(vim.inspect(M.clipboard_history), 'w')
   end,
 })
 
@@ -169,7 +166,7 @@ end
 
 function M.paste_from_clipboard_list_do(clipboard_list, mode)
   B.ui_sel(clipboard_list, 'sel paste from clipboard list', function(_, idx)
-    local text = M.clipboard_list[idx]
+    local text = M.clipboard_history[idx]
     if B.is(text) then
       vim.fn.setreg('"', text)
       if mode == 'i' then
@@ -192,7 +189,7 @@ end
 
 function M.paste_from_clipboard_list(mode)
   local clipboard_list = {}
-  for _, t in ipairs(M.clipboard_list) do
+  for _, t in ipairs(M.clipboard_history) do
     clipboard_list[#clipboard_list + 1] = string.gsub(M.get_short(t), '\n', '\\n')
   end
   if mode == 't' then
@@ -230,7 +227,7 @@ B.aucmd({ 'CursorMoved', 'CursorMovedI', }, 'my.yank.CursorMoved', {
 function M.clipboard_check()
   local text = vim.fn.getreg '+'
   if B.is(text) then
-    B.stack_item_uniq(M.clipboard_list, text)
+    B.stack_item_uniq(M.clipboard_history, text)
   end
 end
 
