@@ -1,6 +1,14 @@
 -- Copyright (c) 2024 liudepei. All Rights Reserved.
 -- create at 2024/03/16 10:20:04 星期六
 
+--------------------------------------------------------+
+-- reg       |  pool  |  clipboard history  |  +  |  "  |
+-- a,s,d,f,  |  pool  |  clipboard history  |  +  |  "  |
+-- z,x,c,v,  |  pool  |  clipboard history  |  +  |  "  |
+--------------------------------------------------------+
+--                    paste                             |
+--------------------------------------------------------+
+
 local M = {}
 
 local B = require 'base'
@@ -8,10 +16,11 @@ local B = require 'base'
 M.source = B.getsource(debug.getinfo(1)['source'])
 M.lua = B.getlua(M.source)
 
-M.yank_reg_dir_path = B.getcreate_stddata_dirpath 'yank-reg'
-M.yank_reg_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg.txt'
-M.yank_reg_list_txt_path = M.yank_reg_dir_path:joinpath 'yank-reg-list.txt'
-M.clipboard_txt_path = M.yank_reg_dir_path:joinpath 'clipboard.txt'
+M.yank_dir_path = B.getcreate_stddata_dirpath 'yank'
+M.yank_reg_txt_path = M.yank_dir_path:joinpath 'yank-reg.txt'
+M.yank_reg_list_txt_path = M.yank_dir_path:joinpath 'yank-reg-list.txt'
+M.clipboard_txt_path = M.yank_dir_path:joinpath 'clipboard.txt'
+M.yank_pool_txt_path = M.yank_dir_path:joinpath 'yank-pool.txt'
 
 if not M.yank_reg_txt_path:exists() then
   M.yank_reg_txt_path:write(vim.inspect {}, 'w')
@@ -25,14 +34,20 @@ if not M.clipboard_txt_path:exists() then
   M.clipboard_txt_path:write(vim.inspect {}, 'w')
 end
 
+if not M.yank_pool_txt_path:exists() then
+  M.yank_pool_txt_path:write(vim.inspect {}, 'w')
+end
+
 M.reg = B.read_table_from_file(M.yank_reg_txt_path.filename)
 M.reg_list = B.read_table_from_file(M.yank_reg_list_txt_path.filename)
 M.clipboard_list = B.read_table_from_file(M.clipboard_txt_path.filename)
+M.pool = B.read_table_from_file(M.yank_pool_txt_path.filename)
 
-B.aucmd({ 'VimLeave', }, 'my.yank.reg', {
+B.aucmd({ 'VimLeave', }, 'yank.vimleave', {
   callback = function()
     M.yank_reg_txt_path:write(vim.inspect(M.reg), 'w')
     M.yank_reg_list_txt_path:write(vim.inspect(vim.tbl_keys(M.reg)), 'w')
+    M.yank_pool_txt_path:write(vim.inspect(M.pool), 'w')
     M.clipboard_txt_path:write(vim.inspect(M.clipboard_list), 'w')
   end,
 })
@@ -102,21 +117,6 @@ function M.clipboard(reg)
 end
 
 -----------------------------------------------------------------------
-
-M.yank_pool_dir_path = B.getcreate_stddata_dirpath 'yank-pool'
-M.yank_pool_txt_path = M.yank_pool_dir_path:joinpath 'yank-pool.txt'
-
-if not M.yank_pool_txt_path:exists() then
-  M.yank_pool_txt_path:write(vim.inspect {}, 'w')
-end
-
-M.pool = B.read_table_from_file(M.yank_pool_txt_path.filename)
-
-B.aucmd({ 'VimLeave', }, 'my.yank.pool', {
-  callback = function()
-    M.yank_pool_txt_path:write(vim.inspect(M.pool), 'w')
-  end,
-})
 
 function M.pool_show()
   local info = { tostring(#M.pool) .. ' item(s)', }
