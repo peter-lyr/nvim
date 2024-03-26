@@ -206,13 +206,14 @@ return {
       'preservim/nerdcommenter',
     },
     keys = {
-      { '<leader>c',  function() end,                                        mode = { 'n', 'v', }, desc = '---test.commenter---', },
-      { '<leader>co', "}kvip:call nerdcommenter#Comment('x', 'invert')<CR>", mode = { 'n', },      desc = 'Nerdcommenter invert a paragraph', },
-      { '<leader>cp', "}kvip:call nerdcommenter#Comment('x', 'toggle')<CR>", mode = { 'n', },      desc = 'Nerdcommenter toggle a paragraph', },
+      { '<leader>c', desc = 'commenter', },
     },
     config = function()
-      require 'base'.del_map({ 'n', 'v', }, '<leader>c')
-      require 'base'.whichkey_register({ 'n', 'v', }, '<leader>c', 'test.commenter')
+      require 'which-key'.register {
+        ['<leader>c'] = { name = 'commenter', },
+        ['<leader>co'] = { "}kvip:call nerdcommenter#Comment('x', 'invert')<CR>", 'Nerdcommenter invert a paragraph', mode = { 'n', }, },
+        ['<leader>cp'] = { "}kvip:call nerdcommenter#Comment('x', 'toggle')<CR>", 'Nerdcommenter toggle a paragraph', mode = { 'n', }, },
+      }
       -- nerdcommenter
       vim.g.NERDSpaceDelims = 1
       vim.g.NERDDefaultAlign = 'left'
