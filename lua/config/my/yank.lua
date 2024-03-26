@@ -292,7 +292,6 @@ B.aucmd({ 'FocusLost', }, 'my.yank.FocusLost', {
 })
 
 function M.map_yank_to_reg()
-  -- yank to reg
   require 'which-key'.register {
     ['<F9>']   = { name = 'yank', },
     ['<F9>q']  = { function() M.show_yank_reg() end, 'show_yank_reg', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -327,7 +326,6 @@ function M.map_yank_to_reg()
 end
 
 function M.map_yank_to_pool()
-  -- yank to pool
   require 'which-key'.register {
     ['<F9>w'] = { function() M.show_yank_pool() end, 'show_yank_pool', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>i'] = { function() M.yank_to_pool('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
@@ -340,7 +338,6 @@ function M.map_yank_to_pool()
 end
 
 function M.map_yank_reg_pool_to_clipboard()
-  -- yank_reg/pool to clipboard
   require 'which-key'.register {
     ['<F9><leader>'] = { name = 'yank_reg/pool to clipboard', },
     ['<F9><leader>a'] = { function() M.yank_reg_to_clipboard 'a' end, 'reg a to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
@@ -357,7 +354,6 @@ function M.map_yank_reg_pool_to_clipboard()
 end
 
 function M.map_paste_from_reg()
-  -- paste from reg
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste_from_reg('a', 'i') end, 'paste from reg a', mode = { 'i', }, silent = true, },
     ['<F9>c'] = { function() M.paste_from_reg('c', 'i') end, 'paste from reg c', mode = { 'i', }, silent = true, },
@@ -402,7 +398,6 @@ function M.map_paste_from_reg()
 end
 
 function M.map_paste_from_pool()
-  -- paste from pool
   require 'which-key'.register {
     ['<F9>p'] = { function() M.paste_from_yank_pool 'n' end, 'paste from pool', mode = { 'n', }, silent = true, },
   }
@@ -421,7 +416,6 @@ function M.map_paste_from_pool()
 end
 
 function M.map_paste_from_clipboard_history()
-  -- paste from clipboard_history
   require 'which-key'.register {
     ['<F9>e'] = { function() M.show_clipboard_history() end, 'show_clipboard_history', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9>h'] = { function() M.paste_from_clipboard_history 'n' end, 'paste from clipboard_history', mode = { 'n', }, silent = true, },
