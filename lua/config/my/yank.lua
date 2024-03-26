@@ -84,7 +84,7 @@ function M.yank_to_reg(reg, mode, word)
   M.show_yank_reg()
 end
 
-function M.paste(reg, mode)
+function M.paste_from_reg(reg, mode)
   local back = vim.fn.getreg '"'
   vim.fn.setreg('"', M.yank_reg[reg])
   if mode == 'i' then
@@ -270,72 +270,72 @@ function M.map()
   require 'which-key'.register {
     ['<F9>']      = { name = 'my.yank', },
     ['<F9><F9>']  = { function() M.show_yank_reg() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9>a']     = { function() M.yank_to_reg('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
-    ['<F9>c']     = { function() M.yank_to_reg('c', 'n', 'w') end, '<cword> to c', mode = { 'n', }, silent = true, },
-    ['<F9>d']     = { function() M.yank_to_reg('d', 'n', 'w') end, '<cword> to d', mode = { 'n', }, silent = true, },
-    ['<F9>f']     = { function() M.yank_to_reg('f', 'n', 'w') end, '<cword> to f', mode = { 'n', }, silent = true, },
-    ['<F9>s']     = { function() M.yank_to_reg('s', 'n', 'w') end, '<cword> to s', mode = { 'n', }, silent = true, },
-    ['<F9>v']     = { function() M.yank_to_reg('v', 'n', 'w') end, '<cword> to v', mode = { 'n', }, silent = true, },
-    ['<F9>x']     = { function() M.yank_to_reg('x', 'n', 'w') end, '<cword> to x', mode = { 'n', }, silent = true, },
-    ['<F9>z']     = { function() M.yank_to_reg('z', 'n', 'w') end, '<cword> to z', mode = { 'n', }, silent = true, },
-    ['<F9><a-a>'] = { function() M.yank_to_reg('a', 'n', 'W') end, '<cWORD> to a', mode = { 'n', }, silent = true, },
-    ['<F9><a-c>'] = { function() M.yank_to_reg('c', 'n', 'W') end, '<cWORD> to c', mode = { 'n', }, silent = true, },
-    ['<F9><a-d>'] = { function() M.yank_to_reg('d', 'n', 'W') end, '<cWORD> to d', mode = { 'n', }, silent = true, },
-    ['<F9><a-f>'] = { function() M.yank_to_reg('f', 'n', 'W') end, '<cWORD> to f', mode = { 'n', }, silent = true, },
-    ['<F9><a-s>'] = { function() M.yank_to_reg('s', 'n', 'W') end, '<cWORD> to s', mode = { 'n', }, silent = true, },
-    ['<F9><a-v>'] = { function() M.yank_to_reg('v', 'n', 'W') end, '<cWORD> to v', mode = { 'n', }, silent = true, },
-    ['<F9><a-x>'] = { function() M.yank_to_reg('x', 'n', 'W') end, '<cWORD> to x', mode = { 'n', }, silent = true, },
-    ['<F9><a-z>'] = { function() M.yank_to_reg('z', 'n', 'W') end, '<cWORD> to z', mode = { 'n', }, silent = true, },
+    ['<F9>a']     = { function() M.yank_to_reg('a', 'n', 'w') end, 'yank <cword> to reg a', mode = { 'n', }, silent = true, },
+    ['<F9>c']     = { function() M.yank_to_reg('c', 'n', 'w') end, 'yank <cword> to reg c', mode = { 'n', }, silent = true, },
+    ['<F9>d']     = { function() M.yank_to_reg('d', 'n', 'w') end, 'yank <cword> to reg d', mode = { 'n', }, silent = true, },
+    ['<F9>f']     = { function() M.yank_to_reg('f', 'n', 'w') end, 'yank <cword> to reg f', mode = { 'n', }, silent = true, },
+    ['<F9>s']     = { function() M.yank_to_reg('s', 'n', 'w') end, 'yank <cword> to reg s', mode = { 'n', }, silent = true, },
+    ['<F9>v']     = { function() M.yank_to_reg('v', 'n', 'w') end, 'yank <cword> to reg v', mode = { 'n', }, silent = true, },
+    ['<F9>x']     = { function() M.yank_to_reg('x', 'n', 'w') end, 'yank <cword> to reg x', mode = { 'n', }, silent = true, },
+    ['<F9>z']     = { function() M.yank_to_reg('z', 'n', 'w') end, 'yank <cword> to reg z', mode = { 'n', }, silent = true, },
+    ['<F9><a-a>'] = { function() M.yank_to_reg('a', 'n', 'W') end, 'yank <cWORD> to reg a', mode = { 'n', }, silent = true, },
+    ['<F9><a-c>'] = { function() M.yank_to_reg('c', 'n', 'W') end, 'yank <cWORD> to reg c', mode = { 'n', }, silent = true, },
+    ['<F9><a-d>'] = { function() M.yank_to_reg('d', 'n', 'W') end, 'yank <cWORD> to reg d', mode = { 'n', }, silent = true, },
+    ['<F9><a-f>'] = { function() M.yank_to_reg('f', 'n', 'W') end, 'yank <cWORD> to reg f', mode = { 'n', }, silent = true, },
+    ['<F9><a-s>'] = { function() M.yank_to_reg('s', 'n', 'W') end, 'yank <cWORD> to reg s', mode = { 'n', }, silent = true, },
+    ['<F9><a-v>'] = { function() M.yank_to_reg('v', 'n', 'W') end, 'yank <cWORD> to reg v', mode = { 'n', }, silent = true, },
+    ['<F9><a-x>'] = { function() M.yank_to_reg('x', 'n', 'W') end, 'yank <cWORD> to reg x', mode = { 'n', }, silent = true, },
+    ['<F9><a-z>'] = { function() M.yank_to_reg('z', 'n', 'W') end, 'yank <cWORD> to reg z', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>a'] = { function() M.yank_to_reg('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
-    ['<F9>c'] = { function() M.yank_to_reg('c', 'v') end, 'sel to c', mode = { 'v', }, silent = true, },
-    ['<F9>d'] = { function() M.yank_to_reg('d', 'v') end, 'sel to d', mode = { 'v', }, silent = true, },
-    ['<F9>f'] = { function() M.yank_to_reg('f', 'v') end, 'sel to f', mode = { 'v', }, silent = true, },
-    ['<F9>s'] = { function() M.yank_to_reg('s', 'v') end, 'sel to s', mode = { 'v', }, silent = true, },
-    ['<F9>v'] = { function() M.yank_to_reg('v', 'v') end, 'sel to v', mode = { 'v', }, silent = true, },
-    ['<F9>x'] = { function() M.yank_to_reg('x', 'v') end, 'sel to x', mode = { 'v', }, silent = true, },
-    ['<F9>z'] = { function() M.yank_to_reg('z', 'v') end, 'sel to z', mode = { 'v', }, silent = true, },
+    ['<F9>a'] = { function() M.yank_to_reg('a', 'v') end, 'yank to reg a', mode = { 'v', }, silent = true, },
+    ['<F9>c'] = { function() M.yank_to_reg('c', 'v') end, 'yank to reg c', mode = { 'v', }, silent = true, },
+    ['<F9>d'] = { function() M.yank_to_reg('d', 'v') end, 'yank to reg d', mode = { 'v', }, silent = true, },
+    ['<F9>f'] = { function() M.yank_to_reg('f', 'v') end, 'yank to reg f', mode = { 'v', }, silent = true, },
+    ['<F9>s'] = { function() M.yank_to_reg('s', 'v') end, 'yank to reg s', mode = { 'v', }, silent = true, },
+    ['<F9>v'] = { function() M.yank_to_reg('v', 'v') end, 'yank to reg v', mode = { 'v', }, silent = true, },
+    ['<F9>x'] = { function() M.yank_to_reg('x', 'v') end, 'yank to reg x', mode = { 'v', }, silent = true, },
+    ['<F9>z'] = { function() M.yank_to_reg('z', 'v') end, 'yank to reg z', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>a'] = { function() M.paste('a', 'i') end, 'paste from a', mode = { 'i', }, silent = true, },
-    ['<F9>c'] = { function() M.paste('c', 'i') end, 'paste from c', mode = { 'i', }, silent = true, },
-    ['<F9>d'] = { function() M.paste('d', 'i') end, 'paste from d', mode = { 'i', }, silent = true, },
-    ['<F9>f'] = { function() M.paste('f', 'i') end, 'paste from f', mode = { 'i', }, silent = true, },
-    ['<F9>s'] = { function() M.paste('s', 'i') end, 'paste from s', mode = { 'i', }, silent = true, },
-    ['<F9>v'] = { function() M.paste('v', 'i') end, 'paste from v', mode = { 'i', }, silent = true, },
-    ['<F9>x'] = { function() M.paste('x', 'i') end, 'paste from x', mode = { 'i', }, silent = true, },
-    ['<F9>z'] = { function() M.paste('z', 'i') end, 'paste from z', mode = { 'i', }, silent = true, },
+    ['<F9>a'] = { function() M.paste_from_reg('a', 'i') end, 'paste from reg a', mode = { 'i', }, silent = true, },
+    ['<F9>c'] = { function() M.paste_from_reg('c', 'i') end, 'paste from reg c', mode = { 'i', }, silent = true, },
+    ['<F9>d'] = { function() M.paste_from_reg('d', 'i') end, 'paste from reg d', mode = { 'i', }, silent = true, },
+    ['<F9>f'] = { function() M.paste_from_reg('f', 'i') end, 'paste from reg f', mode = { 'i', }, silent = true, },
+    ['<F9>s'] = { function() M.paste_from_reg('s', 'i') end, 'paste from reg s', mode = { 'i', }, silent = true, },
+    ['<F9>v'] = { function() M.paste_from_reg('v', 'i') end, 'paste from reg v', mode = { 'i', }, silent = true, },
+    ['<F9>x'] = { function() M.paste_from_reg('x', 'i') end, 'paste from reg x', mode = { 'i', }, silent = true, },
+    ['<F9>z'] = { function() M.paste_from_reg('z', 'i') end, 'paste from reg z', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>a'] = { function() M.paste('a', 'c') end, 'paste from a', mode = { 'c', }, silent = true, },
-    ['<F9>c'] = { function() M.paste('c', 'c') end, 'paste from c', mode = { 'c', }, silent = true, },
-    ['<F9>d'] = { function() M.paste('d', 'c') end, 'paste from d', mode = { 'c', }, silent = true, },
-    ['<F9>f'] = { function() M.paste('f', 'c') end, 'paste from f', mode = { 'c', }, silent = true, },
-    ['<F9>s'] = { function() M.paste('s', 'c') end, 'paste from s', mode = { 'c', }, silent = true, },
-    ['<F9>v'] = { function() M.paste('v', 'c') end, 'paste from v', mode = { 'c', }, silent = true, },
-    ['<F9>x'] = { function() M.paste('x', 'c') end, 'paste from x', mode = { 'c', }, silent = true, },
-    ['<F9>z'] = { function() M.paste('z', 'c') end, 'paste from z', mode = { 'c', }, silent = true, },
+    ['<F9>a'] = { function() M.paste_from_reg('a', 'c') end, 'paste from reg a', mode = { 'c', }, silent = true, },
+    ['<F9>c'] = { function() M.paste_from_reg('c', 'c') end, 'paste from reg c', mode = { 'c', }, silent = true, },
+    ['<F9>d'] = { function() M.paste_from_reg('d', 'c') end, 'paste from reg d', mode = { 'c', }, silent = true, },
+    ['<F9>f'] = { function() M.paste_from_reg('f', 'c') end, 'paste from reg f', mode = { 'c', }, silent = true, },
+    ['<F9>s'] = { function() M.paste_from_reg('s', 'c') end, 'paste from reg s', mode = { 'c', }, silent = true, },
+    ['<F9>v'] = { function() M.paste_from_reg('v', 'c') end, 'paste from reg v', mode = { 'c', }, silent = true, },
+    ['<F9>x'] = { function() M.paste_from_reg('x', 'c') end, 'paste from reg x', mode = { 'c', }, silent = true, },
+    ['<F9>z'] = { function() M.paste_from_reg('z', 'c') end, 'paste from reg z', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>a'] = { function() M.paste('a', 't') end, 'paste from a', mode = { 't', }, silent = true, },
-    ['<F9>c'] = { function() M.paste('c', 't') end, 'paste from c', mode = { 't', }, silent = true, },
-    ['<F9>d'] = { function() M.paste('d', 't') end, 'paste from d', mode = { 't', }, silent = true, },
-    ['<F9>f'] = { function() M.paste('f', 't') end, 'paste from f', mode = { 't', }, silent = true, },
-    ['<F9>s'] = { function() M.paste('s', 't') end, 'paste from s', mode = { 't', }, silent = true, },
-    ['<F9>v'] = { function() M.paste('v', 't') end, 'paste from v', mode = { 't', }, silent = true, },
-    ['<F9>x'] = { function() M.paste('x', 't') end, 'paste from x', mode = { 't', }, silent = true, },
-    ['<F9>z'] = { function() M.paste('z', 't') end, 'paste from z', mode = { 't', }, silent = true, },
+    ['<F9>a'] = { function() M.paste_from_reg('a', 't') end, 'paste from reg a', mode = { 't', }, silent = true, },
+    ['<F9>c'] = { function() M.paste_from_reg('c', 't') end, 'paste from reg c', mode = { 't', }, silent = true, },
+    ['<F9>d'] = { function() M.paste_from_reg('d', 't') end, 'paste from reg d', mode = { 't', }, silent = true, },
+    ['<F9>f'] = { function() M.paste_from_reg('f', 't') end, 'paste from reg f', mode = { 't', }, silent = true, },
+    ['<F9>s'] = { function() M.paste_from_reg('s', 't') end, 'paste from reg s', mode = { 't', }, silent = true, },
+    ['<F9>v'] = { function() M.paste_from_reg('v', 't') end, 'paste from reg v', mode = { 't', }, silent = true, },
+    ['<F9>x'] = { function() M.paste_from_reg('x', 't') end, 'paste from reg x', mode = { 't', }, silent = true, },
+    ['<F9>z'] = { function() M.paste_from_reg('z', 't') end, 'paste from reg z', mode = { 't', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>A'] = { function() M.paste('a', 'n') end, 'paste from a', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>C'] = { function() M.paste('c', 'n') end, 'paste from c', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>D'] = { function() M.paste('d', 'n') end, 'paste from d', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>F'] = { function() M.paste('f', 'n') end, 'paste from f', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>S'] = { function() M.paste('s', 'n') end, 'paste from s', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>V'] = { function() M.paste('v', 'n') end, 'paste from v', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>X'] = { function() M.paste('x', 'n') end, 'paste from x', mode = { 'n', 'v', }, silent = true, },
-    ['<F9>Z'] = { function() M.paste('z', 'n') end, 'paste from z', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>A'] = { function() M.paste_from_reg('a', 'n') end, 'paste from reg a', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>C'] = { function() M.paste_from_reg('c', 'n') end, 'paste from reg c', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>D'] = { function() M.paste_from_reg('d', 'n') end, 'paste from reg d', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>F'] = { function() M.paste_from_reg('f', 'n') end, 'paste from reg f', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>S'] = { function() M.paste_from_reg('s', 'n') end, 'paste from reg s', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>V'] = { function() M.paste_from_reg('v', 'n') end, 'paste from reg v', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>X'] = { function() M.paste_from_reg('x', 'n') end, 'paste from reg x', mode = { 'n', 'v', }, silent = true, },
+    ['<F9>Z'] = { function() M.paste_from_reg('z', 'n') end, 'paste from reg z', mode = { 'n', 'v', }, silent = true, },
   }
   -- yank_reg to clipboard
   require 'which-key'.register {
@@ -348,31 +348,31 @@ function M.map()
     ['<F9><leader>v'] = { function() M.yank_reg_to_clipboard 'v' end, 'reg v to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><leader>x'] = { function() M.yank_reg_to_clipboard 'x' end, 'reg x to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
     ['<F9><leader>z'] = { function() M.yank_reg_to_clipboard 'z' end, 'reg z to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9><leader><leader>'] = { function() M.clipboard_from_pool() end, 'sel from pool to system clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
+    ['<F9><leader><leader>'] = { function() M.clipboard_from_pool() end, 'pool to clipboard', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
   }
   -- pool
   require 'which-key'.register {
-    ['<F9>,'] = { function() M.stack('n', 'w') end, '<cword> to pool', mode = { 'n', }, silent = true, },
-    ['<F9>.'] = { function() M.stack('n', 'W') end, '<cWORD> to pool', mode = { 'n', }, silent = true, },
+    ['<F9>,'] = { function() M.stack('n', 'w') end, 'yank <cword> to pool', mode = { 'n', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('n', 'W') end, 'yank <cWORD> to pool', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>,'] = { function() M.stack('v', 'w') end, '<cword> to pool', mode = { 'v', }, silent = true, },
-    ['<F9>.'] = { function() M.stack('v', 'W') end, '<cWORD> to pool', mode = { 'v', }, silent = true, },
+    ['<F9>,'] = { function() M.stack('v', 'w') end, 'yank <cword> to pool', mode = { 'v', }, silent = true, },
+    ['<F9>.'] = { function() M.stack('v', 'W') end, 'yank <cWORD> to pool', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>/'] = { function() M.paste_from_yank_pool 'n' end, 'paste from yank_pool', mode = { 'n', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_yank_pool 'n' end, 'paste from pool', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>/'] = { function() M.paste_from_yank_pool 'v' end, 'paste from yank_pool', mode = { 'v', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_yank_pool 'v' end, 'paste from pool', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>/'] = { function() M.paste_from_yank_pool 'i' end, 'paste from yank_pool', mode = { 'i', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_yank_pool 'i' end, 'paste from pool', mode = { 'i', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>/'] = { function() M.paste_from_yank_pool 'c' end, 'paste from yank_pool', mode = { 'c', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_yank_pool 'c' end, 'paste from pool', mode = { 'c', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>/'] = { function() M.paste_from_yank_pool 't' end, 'paste from yank_pool', mode = { 't', }, silent = true, },
+    ['<F9>/'] = { function() M.paste_from_yank_pool 't' end, 'paste from pool', mode = { 't', }, silent = true, },
   }
   -- from clipboard
   require 'which-key'.register {
