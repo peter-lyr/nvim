@@ -75,7 +75,7 @@ function M.reg_show()
   B.notify_info(info)
 end
 
-function M.yank(reg, mode, word)
+function M.yank_to_reg(reg, mode, word)
   if mode == 'n' then
     B.cmd('norm vi%s', word)
   end
@@ -270,32 +270,32 @@ function M.map()
   require 'which-key'.register {
     ['<F9>']      = { name = 'my.yank', },
     ['<F9><F9>']  = { function() M.reg_show() end, 'show all', mode = { 'n', 'v', 'i', 'c', 't', }, silent = true, },
-    ['<F9>a']     = { function() M.yank('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
-    ['<F9>c']     = { function() M.yank('c', 'n', 'w') end, '<cword> to c', mode = { 'n', }, silent = true, },
-    ['<F9>d']     = { function() M.yank('d', 'n', 'w') end, '<cword> to d', mode = { 'n', }, silent = true, },
-    ['<F9>f']     = { function() M.yank('f', 'n', 'w') end, '<cword> to f', mode = { 'n', }, silent = true, },
-    ['<F9>s']     = { function() M.yank('s', 'n', 'w') end, '<cword> to s', mode = { 'n', }, silent = true, },
-    ['<F9>v']     = { function() M.yank('v', 'n', 'w') end, '<cword> to v', mode = { 'n', }, silent = true, },
-    ['<F9>x']     = { function() M.yank('x', 'n', 'w') end, '<cword> to x', mode = { 'n', }, silent = true, },
-    ['<F9>z']     = { function() M.yank('z', 'n', 'w') end, '<cword> to z', mode = { 'n', }, silent = true, },
-    ['<F9><a-a>'] = { function() M.yank('a', 'n', 'W') end, '<cWORD> to a', mode = { 'n', }, silent = true, },
-    ['<F9><a-c>'] = { function() M.yank('c', 'n', 'W') end, '<cWORD> to c', mode = { 'n', }, silent = true, },
-    ['<F9><a-d>'] = { function() M.yank('d', 'n', 'W') end, '<cWORD> to d', mode = { 'n', }, silent = true, },
-    ['<F9><a-f>'] = { function() M.yank('f', 'n', 'W') end, '<cWORD> to f', mode = { 'n', }, silent = true, },
-    ['<F9><a-s>'] = { function() M.yank('s', 'n', 'W') end, '<cWORD> to s', mode = { 'n', }, silent = true, },
-    ['<F9><a-v>'] = { function() M.yank('v', 'n', 'W') end, '<cWORD> to v', mode = { 'n', }, silent = true, },
-    ['<F9><a-x>'] = { function() M.yank('x', 'n', 'W') end, '<cWORD> to x', mode = { 'n', }, silent = true, },
-    ['<F9><a-z>'] = { function() M.yank('z', 'n', 'W') end, '<cWORD> to z', mode = { 'n', }, silent = true, },
+    ['<F9>a']     = { function() M.yank_to_reg('a', 'n', 'w') end, '<cword> to a', mode = { 'n', }, silent = true, },
+    ['<F9>c']     = { function() M.yank_to_reg('c', 'n', 'w') end, '<cword> to c', mode = { 'n', }, silent = true, },
+    ['<F9>d']     = { function() M.yank_to_reg('d', 'n', 'w') end, '<cword> to d', mode = { 'n', }, silent = true, },
+    ['<F9>f']     = { function() M.yank_to_reg('f', 'n', 'w') end, '<cword> to f', mode = { 'n', }, silent = true, },
+    ['<F9>s']     = { function() M.yank_to_reg('s', 'n', 'w') end, '<cword> to s', mode = { 'n', }, silent = true, },
+    ['<F9>v']     = { function() M.yank_to_reg('v', 'n', 'w') end, '<cword> to v', mode = { 'n', }, silent = true, },
+    ['<F9>x']     = { function() M.yank_to_reg('x', 'n', 'w') end, '<cword> to x', mode = { 'n', }, silent = true, },
+    ['<F9>z']     = { function() M.yank_to_reg('z', 'n', 'w') end, '<cword> to z', mode = { 'n', }, silent = true, },
+    ['<F9><a-a>'] = { function() M.yank_to_reg('a', 'n', 'W') end, '<cWORD> to a', mode = { 'n', }, silent = true, },
+    ['<F9><a-c>'] = { function() M.yank_to_reg('c', 'n', 'W') end, '<cWORD> to c', mode = { 'n', }, silent = true, },
+    ['<F9><a-d>'] = { function() M.yank_to_reg('d', 'n', 'W') end, '<cWORD> to d', mode = { 'n', }, silent = true, },
+    ['<F9><a-f>'] = { function() M.yank_to_reg('f', 'n', 'W') end, '<cWORD> to f', mode = { 'n', }, silent = true, },
+    ['<F9><a-s>'] = { function() M.yank_to_reg('s', 'n', 'W') end, '<cWORD> to s', mode = { 'n', }, silent = true, },
+    ['<F9><a-v>'] = { function() M.yank_to_reg('v', 'n', 'W') end, '<cWORD> to v', mode = { 'n', }, silent = true, },
+    ['<F9><a-x>'] = { function() M.yank_to_reg('x', 'n', 'W') end, '<cWORD> to x', mode = { 'n', }, silent = true, },
+    ['<F9><a-z>'] = { function() M.yank_to_reg('z', 'n', 'W') end, '<cWORD> to z', mode = { 'n', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F9>a'] = { function() M.yank('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
-    ['<F9>c'] = { function() M.yank('c', 'v') end, 'sel to c', mode = { 'v', }, silent = true, },
-    ['<F9>d'] = { function() M.yank('d', 'v') end, 'sel to d', mode = { 'v', }, silent = true, },
-    ['<F9>f'] = { function() M.yank('f', 'v') end, 'sel to f', mode = { 'v', }, silent = true, },
-    ['<F9>s'] = { function() M.yank('s', 'v') end, 'sel to s', mode = { 'v', }, silent = true, },
-    ['<F9>v'] = { function() M.yank('v', 'v') end, 'sel to v', mode = { 'v', }, silent = true, },
-    ['<F9>x'] = { function() M.yank('x', 'v') end, 'sel to x', mode = { 'v', }, silent = true, },
-    ['<F9>z'] = { function() M.yank('z', 'v') end, 'sel to z', mode = { 'v', }, silent = true, },
+    ['<F9>a'] = { function() M.yank_to_reg('a', 'v') end, 'sel to a', mode = { 'v', }, silent = true, },
+    ['<F9>c'] = { function() M.yank_to_reg('c', 'v') end, 'sel to c', mode = { 'v', }, silent = true, },
+    ['<F9>d'] = { function() M.yank_to_reg('d', 'v') end, 'sel to d', mode = { 'v', }, silent = true, },
+    ['<F9>f'] = { function() M.yank_to_reg('f', 'v') end, 'sel to f', mode = { 'v', }, silent = true, },
+    ['<F9>s'] = { function() M.yank_to_reg('s', 'v') end, 'sel to s', mode = { 'v', }, silent = true, },
+    ['<F9>v'] = { function() M.yank_to_reg('v', 'v') end, 'sel to v', mode = { 'v', }, silent = true, },
+    ['<F9>x'] = { function() M.yank_to_reg('x', 'v') end, 'sel to x', mode = { 'v', }, silent = true, },
+    ['<F9>z'] = { function() M.yank_to_reg('z', 'v') end, 'sel to z', mode = { 'v', }, silent = true, },
   }
   require 'which-key'.register {
     ['<F9>a'] = { function() M.paste('a', 'i') end, 'paste from a', mode = { 'i', }, silent = true, },
