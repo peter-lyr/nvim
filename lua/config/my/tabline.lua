@@ -437,14 +437,6 @@ function M.projectroot_titlestring(ev)
   vim.opt.titlestring = titlestring
 end
 
-vim.cmd [[
-  hi tblsel guifg=#f8dfcf guibg=#777777 gui=bold
-  hi tbltab guifg=#64e66e guibg=NONE gui=bold
-  hi tblfil guifg=gray
-  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
-  hi CursorColumn guibg=#243548
-]]
-
 M.tabhiname = 'tbltab'
 M.light = require 'nvim-web-devicons.icons-default'.icons_by_file_extension
 
@@ -476,6 +468,13 @@ function M.reverse_color(color)
 end
 
 function M.hi()
+  vim.cmd [[
+    hi tblsel guifg=#f8dfcf guibg=#777777 gui=bold
+    hi tbltab guifg=#64e66e guibg=NONE gui=bold
+    hi tblfil guifg=gray
+    set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175
+    hi CursorColumn guibg=#243548
+  ]]
   for _, v in pairs(M.light) do
     if '' ~= v['icon'] then
       B.cmd('hi tbl%s guifg=%s guibg=%s gui=bold', v['name'], M.reverse_color(vim.fn.tolower(v['color'])), v['color'])
@@ -485,6 +484,15 @@ function M.hi()
 end
 
 M.hi()
+
+B.aucmd('ColorScheme', 'tabline.colorscheme', {
+  callback = function()
+    B.set_timeout(10, function()
+      M.hi()
+      HL()
+    end)
+  end,
+})
 
 ---------------------
 
