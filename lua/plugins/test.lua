@@ -18,7 +18,7 @@ return {
     -- priority = 1000,
     config = function()
       vim.fn.timer_start(50, function()
-        vim.cmd.colorscheme 'catppuccin-frappe'
+        vim.cmd.colorscheme 'catppuccin' -- catppuccin-frappe
         vim.cmd [[call feedkeys("\<c-l>")]]
         vim.fn.timer_start(50, function()
           vim.cmd [[call feedkeys("\<c-l>")]]
