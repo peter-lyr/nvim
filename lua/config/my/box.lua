@@ -578,8 +578,6 @@ function M.map()
     ['<leader>aq9'] = { function() M.qfmakeconv2cp936() end, 'qf makeconv 2 cp936', mode = { 'n', 'v', }, silent = true, },
   }
   require 'which-key'.register {
-    ['<F1>'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
-    ['<leader>ash'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
     ['<leader>asr'] = { function() M.restart_nvim_qt(1) end, 'restart nvim-qt and sessionsload', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-r>'] = { function() M.restart_nvim_qt() end, 'restart nvim-qt', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<leader>'] = { function() M.start_new_nvim_qt() end, 'start new nvim-qt', mode = { 'n', 'v', }, silent = true, },
@@ -588,6 +586,15 @@ function M.map()
     ['<leader>ask'] = { function() M.sel_kill_programs_file() end, 'sel kill programs file', mode = { 'n', 'v', }, silent = true, },
     ['<leader>ae'] = { function() M.sel_open_temp() end, 'sel open temp file', mode = { 'n', 'v', }, silent = true, },
     ['<leader>aw'] = { function() M.sel_write_to_temp() end, 'sel write to temp file', mode = { 'n', 'v', }, silent = true, },
+  }
+  require 'which-key'.register {
+    ['<F1>'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ash'] = { function()
+      M.show_info()
+      require 'which-key'.register {
+        ['<F1>'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
+      }
+    end, 'show info', mode = { 'n', 'v', }, silent = true, },
   }
 end
 
