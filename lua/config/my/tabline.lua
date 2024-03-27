@@ -494,6 +494,32 @@ B.aucmd('ColorScheme', 'tabline.colorscheme', {
   end,
 })
 
+-- M.colors = {}
+-- M.no_colors = {
+--   'blue', 'darkblue', 'default', 'delek', 'desert',
+--   'elflord', 'evening', 'habamax', 'industry', 'koehler',
+--   'lunaperche', 'morning', 'murphy', 'pablo', 'peachpuff',
+--   'quiet', 'ron', 'shine', 'slate', 'torte', 'zellner',
+-- }
+--
+-- for _, color in ipairs(vim.fn.getcompletion('', 'color')) do
+--   if not B.is_in_tbl(color, M.no_colors) then
+--     M.colors[#M.colors + 1] = color
+--   end
+-- end
+--
+-- B.aucmd({ 'FocusLost', }, 'tabline.focuslost', {
+--   callback = function()
+--     local cmd = string.format('colorscheme %s', M.colors[vim.fn.rand() % #M.colors])
+--     vim.cmd(cmd)
+--     B.notify_info(cmd)
+--     vim.fn['GuiWindowFullScreen'](1)
+--     vim.fn['GuiWindowFullScreen'](0)
+--     M.hi()
+--     HL()
+--   end,
+-- })
+
 ---------------------
 
 vim.cmd [[
