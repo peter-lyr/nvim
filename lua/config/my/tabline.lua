@@ -530,12 +530,12 @@ B.aucmd({ 'FocusLost', }, 'tabline.focuslost', {
     end
     local color = M.get_rand_color()
     vim.cmd('colorscheme ' .. color)
-    vim.fn['GuiWindowFullScreen'](1)
-    vim.fn['GuiWindowFullScreen'](0)
     B.set_timeout(200, function()
       vim.cmd 'set background=dark'
       M.hi()
       HL()
+      vim.fn['GuiWindowFullScreen'](1)
+      vim.fn['GuiWindowFullScreen'](0)
       B.notify_info(color)
     end)
   end,
