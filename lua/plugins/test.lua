@@ -13,11 +13,13 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    -- dependencies = {
-    --   { 'rose-pine/neovim',          name = 'rose-pine', },
-    --   { 'challenger-deep-theme/vim', name = 'challenger-deep-theme', },
-    --   { 'whatyouhide/vim-gotham',    name = 'gotham', },
-    -- },
+    --[[
+       [ dependencies = {
+       [   { 'rose-pine/neovim',          name = 'rose-pine', },
+       [   { 'challenger-deep-theme/vim', name = 'challenger-deep-theme', },
+       [   { 'whatyouhide/vim-gotham',    name = 'gotham', },
+       [ },
+       ]]
     -- event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
     event = { 'VeryLazy', },
     config = function()
