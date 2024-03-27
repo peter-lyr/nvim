@@ -11,25 +11,43 @@ return {
 
   -- colorscheme
   {
-    'rose-pine/neovim', -- rose-pine
-    name = 'rose-pine',
-    dependencies = {
-      { 'catppuccin/nvim',           name = 'catppuccin', },            -- catppuccin
-      { 'challenger-deep-theme/vim', name = 'challenger-deep-theme', }, -- challenger_deep
-      { 'whatyouhide/vim-gotham',    name = 'gotham', },                -- gotham256
-    },
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    -- dependencies = {
+    --   { 'rose-pine/neovim',          name = 'rose-pine', },
+    --   { 'challenger-deep-theme/vim', name = 'challenger-deep-theme', },
+    --   { 'whatyouhide/vim-gotham',    name = 'gotham', },
+    -- },
     -- event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
     event = { 'VeryLazy', },
     config = function()
       vim.fn.timer_start(50, function()
-        require 'rose-pine'.setup {
-          dim_inactive_windows = true,
+        require 'catppuccin'.setup {
+          dim_inactive = {
+            enabled = true,
+            shade = 'dark',
+            percentage = 0,
+          },
+          no_italic = true,
           styles = {
-            italic = false,
-            transparency = true,
+            comments = {},
+            conditionals = {},
+          },
+          integrations = {
+            notify = true,
           },
         }
-        vim.cmd.colorscheme 'rose-pine'
+        vim.cmd.colorscheme 'catppuccin'
+        --[[
+           [ require 'rose-pine'.setup {
+           [   dim_inactive_windows = true,
+           [   styles = {
+           [     italic = false,
+           [     transparency = true,
+           [   },
+           [ }
+           [ vim.cmd.colorscheme 'rose-pine'
+           ]]
         vim.cmd [[call feedkeys("\<c-l>")]]
         vim.fn.timer_start(50, function()
           vim.cmd [[call feedkeys("\<c-l>")]]
