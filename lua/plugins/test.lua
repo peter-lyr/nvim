@@ -11,14 +11,17 @@ return {
 
   -- colorscheme
   {
-    'catppuccin/nvim',
-    name = 'catppuccin',
+    'whatyouhide/vim-gotham',
+    name = 'gotham',
+    dependencies = {
+      { 'catppuccin/nvim', name = 'catppuccin', },
+    },
     event = { 'FocusLost', 'BufReadPre', 'BufNewFile', },
     -- lazy = false,
     -- priority = 1000,
     config = function()
       vim.fn.timer_start(50, function()
-        vim.cmd.colorscheme 'catppuccin' -- catppuccin-frappe
+        vim.cmd.colorscheme 'gotham256' -- catppuccin-frappe
         vim.cmd [[call feedkeys("\<c-l>")]]
         vim.fn.timer_start(50, function()
           vim.cmd [[call feedkeys("\<c-l>")]]
