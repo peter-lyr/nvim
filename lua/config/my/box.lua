@@ -579,6 +579,7 @@ function M.map()
   }
   require 'which-key'.register {
     ['<F1>'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
+    ['<leader>ash'] = { function() M.show_info() end, 'show info', mode = { 'n', 'v', }, silent = true, },
     ['<leader>asr'] = { function() M.restart_nvim_qt(1) end, 'restart nvim-qt and sessionsload', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<c-r>'] = { function() M.restart_nvim_qt() end, 'restart nvim-qt', mode = { 'n', 'v', }, silent = true, },
     ['<leader>as<leader>'] = { function() M.start_new_nvim_qt() end, 'start new nvim-qt', mode = { 'n', 'v', }, silent = true, },
