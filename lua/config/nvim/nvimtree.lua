@@ -214,7 +214,7 @@ function M.ausize_do(winid)
     end
   end
   if max + 1 + 1 + #tostring(vim.fn.line 'w$') + 1 + 2 > require 'nvim-tree.view'.View.width then
-    vim.api.nvim_win_set_width(winid, max + 5 + #tostring(vim.fn.line '$'))
+    vim.api.nvim_win_set_width(winid, max + 2 + #tostring(vim.fn.line '$'))
   end
 end
 
