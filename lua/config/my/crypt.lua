@@ -23,9 +23,12 @@ M.decrypt_fts = {
 }
 
 function M.encrypt_do(ifile, ofile, pass)
-  B.system_run('start silent', '%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  vim.fn.system(string.format('%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile))
   B.cmd('Bdelete %s', ifile)
-  B.system_run('start silent', [[del /s /q %s]], ifile)
+  if B.file_exists(ofile) then
+    B.system_run('start silent', [[del /s /q %s]], ifile)
+    require 'nvim-tree.api'.tree.reload()
+  end
 end
 
 function M.encrypt(ifile, ofile, pass)
@@ -64,8 +67,11 @@ function M.encrypt_secret(ifile, ofile)
 end
 
 function M.decrypt_do(ifile, ofile, pass)
-  B.system_run('start silent', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
-  B.system_run('start silent', [[del /s /q %s]], ifile)
+  vim.fn.system(string.format('%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile))
+  if B.file_exists(ofile) then
+    B.system_run('start silent', [[del /s /q %s]], ifile)
+    require 'nvim-tree.api'.tree.reload()
+  end
 end
 
 function M.decrypt(ifile, ofile, pass)
