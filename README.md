@@ -14,3 +14,4 @@
 12. [x] DONE: @+ pool
 13. [x] DONE: yank map some key easy to remember
 14. [x] DONE: `inputsecret` for secret diary
+15. [ ] TODO: crypt.lua out.bin no aes header
