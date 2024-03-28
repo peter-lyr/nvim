@@ -35,6 +35,9 @@ function M.encrypt(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
   end
+  if not B.is_file(ifile) then
+    return
+  end
   local ext = vim.fn.tolower(string.match(ifile, '%.([^.]+)$'))
   if not B.is_in_tbl(ext, M.encrypt_fts) then
     return
@@ -59,7 +62,7 @@ function M.encrypt_secret(ifile, ofile)
   if not ofile then
     ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.bin'
   end
-  local pass = vim.fn.inputsecret('> ')
+  local pass = vim.fn.inputsecret '> '
   if not B.is(pass) then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end
@@ -77,6 +80,9 @@ end
 function M.decrypt(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
+  end
+  if not B.is_file(ifile) then
+    return
   end
   local ext = vim.fn.tolower(string.match(ifile, '%.([^.]+)$'))
   if not B.is_in_tbl(ext, M.decrypt_fts) then
@@ -102,7 +108,7 @@ function M.decrypt_secret(ifile, ofile)
   if not ofile then
     ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.md'
   end
-  local pass = vim.fn.inputsecret('> ')
+  local pass = vim.fn.inputsecret '> '
   if not B.is(pass) then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end

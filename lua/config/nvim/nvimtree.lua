@@ -719,6 +719,14 @@ function M.rg(node)
   B.cmd('Telescope live_grep cwd=%s previewer=true', dtarget .. '\\\\')
 end
 
+function M.decrypt(node)
+  B.cmd('CryptDe %s', node.absolute_path)
+end
+
+function M.encrypt(node)
+  B.cmd('CryptEn %s', node.absolute_path)
+end
+
 function M.cur_root_do()
   local cwd = B.rep_backslash_lower(vim.loop.cwd())
   if not M.cur_root_sta then
@@ -856,6 +864,9 @@ function M._on_attach(bufnr)
     { 'pf',                       M._wrap_node(M.fd),                          mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: fd', },
     { 'p<c-w>',                   function() M._run_what_add() end,            mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_what_add', },
     { 'p<c-s>',                   function() M._run_whats_add() end,           mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: _run_whats_add', },
+
+    { 'pc',                       M._wrap_node(M.decrypt),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: decrypt', },
+    { 'pd',                       M._wrap_node(M.encrypt),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: encrypt', },
   }
   vim.cmd [[call feedkeys("d\<esc>")]]
 end
