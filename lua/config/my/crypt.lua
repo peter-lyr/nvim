@@ -56,4 +56,12 @@ function M.decrypt(ifile, ofile, pass)
   B.system_run('start', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
 end
 
+vim.api.nvim_create_user_command('EncryptMd', function(params)
+  M.encrypt(unpack(params['fargs']))
+end, { nargs = '*', })
+
+vim.api.nvim_create_user_command('DecryptBin', function(params)
+  M.decrypt(unpack(params['fargs']))
+end, { nargs = '*', })
+
 return M

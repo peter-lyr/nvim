@@ -546,4 +546,14 @@ return {
     config = function() require 'config.my.command' end,
   },
 
+  -- my.crypt
+  {
+    name = 'my.crypt',
+    dir = '',
+    cmd = {
+      'EncryptMd', 'DecryptBin',
+    },
+    config = function() require 'config.my.crypt' end,
+  },
+
 }
