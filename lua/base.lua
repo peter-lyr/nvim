@@ -853,7 +853,7 @@ function M.get_dirs_equal(dname, root_dir, opt)
     root_dir = vim.fn['ProjectRootGet']()
   end
   local default_opt = { hidden = false, depth = 32, add_dirs = true, }
-  opt = vim.tbl_deep_extend('force', default_opt, opt)
+  opt = vim.tbl_deep_extend('force', default_opt, opt or {})
   local entries = require 'plenary.scandir'.scan_dir(root_dir, opt)
   local dirs = {}
   for _, entry in ipairs(entries) do
