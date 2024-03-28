@@ -277,7 +277,7 @@ end
 
 ----------------
 
-function M.notify_info(message)
+function M.notify_info(message, notify_on_open)
   local messages = type(message) == 'table' and message or { message, }
   local title = ''
   if #messages > 1 then
@@ -288,7 +288,7 @@ function M.notify_info(message)
   vim.notify(message, 'info', {
     title = title,
     animate = false,
-    on_open = M.notify_on_open,
+    on_open = notify_on_open or M.notify_on_open,
     timeout = 1000 * 8,
   })
 end

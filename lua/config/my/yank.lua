@@ -114,9 +114,9 @@ end
 function M.show_clipboard_history()
   local info = { tostring(#vim.tbl_keys(M.clipboard_history)) .. ' item(s) clipboard history', }
   for idx, content in ipairs(M.clipboard_history) do
-    info[#info + 1] = string.format('%d[[%d]]: %s', idx, #content, M.get_short(content))
+    info[#info + 1] = string.format('%d[%d]: %s', idx, #content, M.get_short(content))
   end
-  B.notify_info(info)
+  B.notify_info(info, function() end)
 end
 
 -----------------------------------------------------------------------
