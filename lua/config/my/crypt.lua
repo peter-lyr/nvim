@@ -15,11 +15,11 @@ M.crypt_exe_dir_path = B.getcreate_dirpath(M.source .. '.exe')
 M.aescrypt_exe = B.get_filepath(M.crypt_exe_dir_path.filename, 'aescrypt.exe').filename
 
 M.encrypt_fts = {
-  'md'
+  'md',
 }
 
 M.decrypt_fts = {
-  'bin'
+  'bin',
 }
 
 function M.encrypt(ifile, ofile, pass)
@@ -36,7 +36,9 @@ function M.encrypt(ifile, ofile, pass)
   if not pass then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end
-  B.system_run('start', '%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.system_run('start silent', '%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.cmd('Bdelete %s', ifile)
+  B.system_run('start silent', [[del /s /q %s]], ifile)
 end
 
 function M.decrypt(ifile, ofile, pass)
@@ -53,7 +55,8 @@ function M.decrypt(ifile, ofile, pass)
   if not pass then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end
-  B.system_run('start', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.system_run('start silent', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.system_run('start silent', [[del /s /q %s]], ifile)
 end
 
 vim.api.nvim_create_user_command('EncryptMd', function(params)
