@@ -312,12 +312,18 @@ end
 
 function M.reset_hard()
   if B.is_sure 'git reset --hard' then
+    B.asyncrun_prepare_add(function()
+      vim.cmd 'e!'
+    end)
     B.system_run('asyncrun', 'git reset --hard')
   end
 end
 
 function M.reset_hard_clean()
   if B.is_sure 'git reset --hard && git clean -fd' then
+    B.asyncrun_prepare_add(function()
+      vim.cmd 'e!'
+    end)
     B.system_run('asyncrun', 'git reset --hard && git clean -fd')
   end
 end
