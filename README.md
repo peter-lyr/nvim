@@ -13,3 +13,4 @@
 11. [ ] TODO: 2024s/2024s_data url jump or create file
 12. [x] DONE: @+ pool
 13. [x] DONE: yank map some key easy to remember
+14. [ ] TODO: `inputsecret` for secret diary
