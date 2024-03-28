@@ -84,6 +84,7 @@ end
 
 function M.restart_nvim_qt(sessionsload)
   vim.cmd 'SessionsSave'
+  vim.cmd 'wshada'
   M.restart_new_nvim_qt(sessionsload)
   vim.cmd 'qall!'
 end
