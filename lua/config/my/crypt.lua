@@ -12,4 +12,7 @@ M.crypt_exe_dir_path = B.getcreate_dirpath(M.source .. '.exe')
 M.aescrypt_exe = B.get_filepath(M.crypt_exe_dir_path.filename, 'aescrypt.exe').filename
 print("M.aescrypt_exe:", M.aescrypt_exe)
 
+-- aescrypt.exe -e -p 123456 -o a.txt.bin a.txt
+-- aescrypt.exe -d -p 123456 -o a.txt.dec.txt a.txt.bin
+
 return M
