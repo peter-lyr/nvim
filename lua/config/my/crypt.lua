@@ -23,6 +23,12 @@ M.decrypt_fts = {
 }
 
 function M.encrypt_do(ifile, ofile, pass)
+  B.system_run('start silent', '%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.cmd('Bdelete %s', ifile)
+  B.system_run('start silent', [[del /s /q %s]], ifile)
+end
+
+function M.encrypt(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
   end
@@ -33,24 +39,36 @@ function M.encrypt_do(ifile, ofile, pass)
   if not ofile then
     ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.bin'
   end
-  if not pass then
+  if not B.is(pass) then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end
-  B.system_run('start silent', '%s -e -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
-  B.cmd('Bdelete %s', ifile)
-  B.system_run('start silent', [[del /s /q %s]], ifile)
-end
-
-function M.encrypt(ifile, ofile, pass)
   M.encrypt_do(ifile, ofile, pass)
 end
 
 function M.encrypt_secret(ifile, ofile)
+  if not ifile then
+    ifile = B.buf_get_name_0()
+  end
+  local ext = vim.fn.tolower(string.match(ifile, '%.([^.]+)$'))
+  if not B.is_in_tbl(ext, M.encrypt_fts) then
+    return
+  end
+  if not ofile then
+    ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.bin'
+  end
   local pass = vim.fn.inputsecret('> ')
+  if not B.is(pass) then
+    pass = vim.fn.fnamemodify(ifile, ':p:t:r')
+  end
   M.encrypt_do(ifile, ofile, pass)
 end
 
 function M.decrypt_do(ifile, ofile, pass)
+  B.system_run('start silent', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
+  B.system_run('start silent', [[del /s /q %s]], ifile)
+end
+
+function M.decrypt(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
   end
@@ -61,19 +79,27 @@ function M.decrypt_do(ifile, ofile, pass)
   if not ofile then
     ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.md'
   end
-  if not pass then
+  if not B.is(pass) then
     pass = vim.fn.fnamemodify(ifile, ':p:t:r')
   end
-  B.system_run('start silent', '%s -d -p %s -o %s %s', M.aescrypt_exe, pass, ofile, ifile)
-  B.system_run('start silent', [[del /s /q %s]], ifile)
-end
-
-function M.decrypt(ifile, ofile, pass)
   M.decrypt_do(ifile, ofile, pass)
 end
 
 function M.decrypt_secret(ifile, ofile)
+  if not ifile then
+    ifile = B.buf_get_name_0()
+  end
+  local ext = vim.fn.tolower(string.match(ifile, '%.([^.]+)$'))
+  if not B.is_in_tbl(ext, M.decrypt_fts) then
+    return
+  end
+  if not ofile then
+    ofile = vim.fn.fnamemodify(ifile, ':p:r') .. '.md'
+  end
   local pass = vim.fn.inputsecret('> ')
+  if not B.is(pass) then
+    pass = vim.fn.fnamemodify(ifile, ':p:t:r')
+  end
   M.decrypt_do(ifile, ofile, pass)
 end
 
