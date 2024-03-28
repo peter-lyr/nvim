@@ -727,6 +727,20 @@ function M.encrypt(node)
   B.cmd('CryptEn %s', node.absolute_path)
 end
 
+function M.git_add_force(node)
+  B.system_run('start silent', 'git add -f %s', node.absolute_path)
+  B.set_timeout(100, function()
+    require 'nvim-tree.api'.tree.reload()
+  end)
+end
+
+function M.git_rm_cached(node)
+  B.system_run('start silent', 'git rm --cached %s', node.absolute_path)
+  B.set_timeout(100, function()
+    require 'nvim-tree.api'.tree.reload()
+  end)
+end
+
 function M.cur_root_do()
   local cwd = B.rep_backslash_lower(vim.loop.cwd())
   if not M.cur_root_sta then
@@ -867,6 +881,11 @@ function M._on_attach(bufnr)
 
     { 'pc',                       M._wrap_node(M.decrypt),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: decrypt', },
     { 'pd',                       M._wrap_node(M.encrypt),                     mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: encrypt', },
+  }
+
+  B.lazy_map {
+    { 'ga', M._wrap_node(M.git_add_force), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: git_add_force', },
+    { 'gd', M._wrap_node(M.git_rm_cached), mode = { 'n', }, buffer = bufnr, noremap = true, silent = true, nowait = true, desc = 'nvimtree: git_rm_cached', },
   }
   vim.cmd [[call feedkeys("d\<esc>")]]
 end
