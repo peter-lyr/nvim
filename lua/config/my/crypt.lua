@@ -22,7 +22,7 @@ M.decrypt_fts = {
   'bin',
 }
 
-function M.encrypt(ifile, ofile, pass)
+function M.encrypt_do(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
   end
@@ -41,7 +41,16 @@ function M.encrypt(ifile, ofile, pass)
   B.system_run('start silent', [[del /s /q %s]], ifile)
 end
 
-function M.decrypt(ifile, ofile, pass)
+function M.encrypt(ifile, ofile, pass)
+  M.encrypt_do(ifile, ofile, pass)
+end
+
+function M.encrypt_secret(ifile, ofile)
+  local pass = vim.fn.inputsecret('> ')
+  M.encrypt_do(ifile, ofile, pass)
+end
+
+function M.decrypt_do(ifile, ofile, pass)
   if not ifile then
     ifile = B.buf_get_name_0()
   end
@@ -59,12 +68,29 @@ function M.decrypt(ifile, ofile, pass)
   B.system_run('start silent', [[del /s /q %s]], ifile)
 end
 
-vim.api.nvim_create_user_command('EncryptMd', function(params)
+function M.decrypt(ifile, ofile, pass)
+  M.decrypt_do(ifile, ofile, pass)
+end
+
+function M.decrypt_secret(ifile, ofile)
+  local pass = vim.fn.inputsecret('> ')
+  M.decrypt_do(ifile, ofile, pass)
+end
+
+vim.api.nvim_create_user_command('CryptEn', function(params)
   M.encrypt(unpack(params['fargs']))
 end, { nargs = '*', })
 
-vim.api.nvim_create_user_command('DecryptBin', function(params)
+vim.api.nvim_create_user_command('CryptEnSecret', function(params)
+  M.encrypt_secret(unpack(params['fargs']))
+end, { nargs = '*', })
+
+vim.api.nvim_create_user_command('CryptDe', function(params)
   M.decrypt(unpack(params['fargs']))
+end, { nargs = '*', })
+
+vim.api.nvim_create_user_command('CryptDeSecret', function(params)
+  M.decrypt_secret(unpack(params['fargs']))
 end, { nargs = '*', })
 
 return M

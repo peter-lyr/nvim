@@ -551,7 +551,8 @@ return {
     name = 'my.crypt',
     dir = '',
     cmd = {
-      'EncryptMd', 'DecryptBin',
+      'CryptEn', 'CryptEnSecret',
+      'CryptDe', 'CryptDeSecret',
     },
     config = function() require 'config.my.crypt' end,
   },
