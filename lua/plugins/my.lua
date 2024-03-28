@@ -75,7 +75,7 @@ return {
       end
       local nvim_qt_start_flag_socket_txt = vim.fn.expand [[$HOME]] .. '\\DEPEI\\nvim_qt_start_flag_socket.txt'
       local function print_startup_time()
-        vim.fn.timer_start(380, function()
+        vim.fn.timer_start(1080, function()
           vim.g.startup_time = string.format('Startup: %.3f ms', vim.g.end_time * 1000)
           vim.cmd('echo "' .. vim.g.startup_time .. '"')
           if vim.g.end_time * 1000 <= 28 then
