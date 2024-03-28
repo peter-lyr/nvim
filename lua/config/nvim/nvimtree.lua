@@ -76,6 +76,7 @@ M._run_whats_dict = {}
 
 function M._wrap_run_whats(exe)
   return function(files)
+    B.histadd_en = 1
     B.system_run('start silent', '%s \"%s\"', exe, vim.fn.join(files, '\" \"'))
   end
 end
