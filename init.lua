@@ -1,3 +1,4 @@
+vim.g.pswd = 'anyPydF8UCoErXNu'
 vim.g.start_time = vim.fn.reltime()
 vim.g.mapleader = ' '
 vim.o.shada = nil
